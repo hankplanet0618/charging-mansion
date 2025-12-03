@@ -132,7 +132,7 @@
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-gray-700 mb-1"><i class="fas fa-clock mr-1 text-blue-500"></i> 入住天數</label>
-                            <input type="text" id="durationDisplay" value="1天1夜" readonly class="w-full bg-gray-200 border-gray-300 border rounded-lg p-3 text-center font-bold text-gray-600 cursor-not-allowed">
+                            <input type="text" id="durationDisplay" value="請選擇日期" readonly class="w-full bg-gray-200 border-gray-300 border rounded-lg p-3 text-center font-bold text-gray-600 cursor-not-allowed">
                         </div>
                     </div>
                 </div>
@@ -165,30 +165,15 @@
                         <li>請注意寧靜時間為每天晚上10點後，請放低音量</li>
                         <li>電動車車主請告知於表單，將安排優先充電位置（17台）</li>
                         <li>焚火、需自備木柴/防火布/焚火爐</li>
-                        <li>本團不禁菸、吸煙者請到接待處附近抽煙</li>
+                        <li>本營區不禁菸、吸煙者請到接待處附近抽煙</li>
                         <li>本營區不定期會舉辦活動，歡迎洽詢</li>
                         <li>如果要進行溪邊活動將分組，可自行帶補蝦籠，有機會抓到溪蝦。</li>
                         <li>夜衝自搭帳及車泊每帳$600；民宿、小木屋、露營車、及T 250 為5折優惠假，夜衝時間為下午五點至晚上10點，請盡量在10點前完成搭帳。</li>
                         <li>為維護品質， 10點過後請勿喧鬧，民宿KTV音量請放低，如有問題，歡迎聯繫。</li>
                         <li>營區有設備可出租，詳細項目及金額請洽團主。</li>
-                        <li>用電設備不特定限制，每座插座為15-20A</li>
+                        <li>用電設備不特定限制，每座插座為15-20A。</li>
                     </ol>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-about" class="modal hidden fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
-        <div class="bg-white w-11/12 max-w-lg rounded-xl shadow-2xl pointer-events-auto flex flex-col max-h-[90vh]">
-            <div class="p-4 border-b flex justify-between items-center bg-stone-100 rounded-t-xl"><h3 class="font-bold text-lg"><i class="fas fa-info-circle text-green-600"></i> 關於充電莊</h3><button onclick="closeAll()"><i class="fas fa-times"></i></button></div>
-            <div class="p-0 overflow-y-auto">
-                 <img src="https://i.ibb.co/p6KgV8n1/image.webp" alt="充電樁" class="w-full h-48 object-cover">
-                 <div class="p-6 space-y-4 text-gray-700 leading-relaxed">
-                    <p>從一個默默無名的營區走到的現在，充電莊做了非常多的努力，不只讓這裡變成了一個電動車超級友善的露營區，也是許多人淨化心靈的地方。</p>
-                    <p>我在2025年，一年之內，完成了77次的露營，吸取了無數的經驗，和無數個營主討論過想法，最後決定接手這個營區。</p>
-                    <p>為了我的孩子，我每個禮拜都帶她去露營，讓他多多結交認識朋友，非常社牛的他，每天都可以把電放完，這也讓身為父親的我輕鬆了許多，也淨化了心靈。</p>
-                    <p class="font-bold text-green-700 bg-green-50 p-2 rounded">希望來到充電莊的你們，也能跟我一樣，找到屬於自己的那座山。</p>
-                 </div>
             </div>
         </div>
     </div>
@@ -207,6 +192,21 @@
                     </p>
                 </div>
                 <p class="text-xs text-red-500 mt-2"><i class="fas fa-exclamation-triangle"></i> 匯款後請務必使用「匯款回報」功能通知營主。</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="modal-about" class="modal hidden fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
+        <div class="bg-white w-11/12 max-w-lg rounded-xl shadow-2xl pointer-events-auto flex flex-col max-h-[90vh]">
+            <div class="p-4 border-b flex justify-between items-center bg-stone-100 rounded-t-xl"><h3 class="font-bold text-lg"><i class="fas fa-info-circle text-green-600"></i> 關於充電莊</h3><button onclick="closeAll()"><i class="fas fa-times"></i></button></div>
+            <div class="p-0 overflow-y-auto">
+                 <img src="https://i.ibb.co/p6KgV8n1/image.webp" alt="充電樁" class="w-full h-48 object-cover">
+                 <div class="p-6 space-y-4 text-gray-700 leading-relaxed">
+                    <p>從一個默默無名的營區走到的現在，充電莊做了非常多的努力，不只讓這裡變成了一個電動車超級友善的露營區，也是許多人淨化心靈的地方。</p>
+                    <p>我在2025年，在一年之內，完成了77次的露營，吸取了無數的經驗，和無數個營主討論過想法，最後決定接手這個營區。</p>
+                    <p>為了我的孩子，我每個禮拜都帶她去露營，讓他多多結交認識朋友，非常社牛的他，每天都可以把電放完，這也讓身為父親的我輕鬆了許多，也淨化了心靈。</p>
+                    <p class="font-bold text-green-700 bg-green-50 p-2 rounded">希望來到充電莊的你們，也能跟我一樣，找到屬於自己的那座山。</p>
+                 </div>
             </div>
         </div>
     </div>
@@ -318,7 +318,7 @@
         const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=658452245#gid=658452245';
         // ============================================
 
-        // 營位資料 (已更新三人頂級露營車圖片路徑)
+        // 營位資料
         const zones = [
             { name: '棚架 A 區', count: 9, icon: 'fa-warehouse', desc: '共9帳', img: 'https://i.ibb.co/KjBcKGvt/A-DDcar.jpg' },
             { name: '棚架 B 區', count: 4, icon: 'fa-warehouse', desc: '共4帳', img: 'https://i.ibb.co/bMQ51htS/B.jpg' },
@@ -339,7 +339,7 @@
         const adminLink = document.getElementById('adminSheetLink');
         if(adminLink) adminLink.href = adminSheetURL;
 
-        // 渲染圖片卡片
+        // 渲染卡片
         zones.forEach(zone => {
             const div = document.createElement('div');
             div.className = 'zone-card bg-white border border-gray-100 rounded-lg shadow-sm cursor-pointer overflow-hidden flex flex-col group';
@@ -350,9 +350,7 @@
                         <i class="fas ${zone.icon} mr-1"></i> ${zone.desc}
                     </div>
                 </div>
-                <div class="p-3">
-                    <h4 class="font-bold text-gray-800 text-lg">${zone.name}</h4>
-                </div>
+                <div class="p-3"><h4 class="font-bold text-gray-800 text-lg">${zone.name}</h4></div>
             `;
             div.onclick = () => {
                 document.querySelectorAll('.zone-card').forEach(c => c.classList.remove('selected', 'ring-2', 'ring-green-500'));
@@ -362,7 +360,7 @@
             container.appendChild(div);
         });
 
-        // 日期自動跳轉與天數計算
+        // 日期計算
         function updateDuration() {
             const checkin = new Date(document.getElementById('checkinDate').value);
             const checkout = new Date(document.getElementById('checkoutDate').value);
@@ -391,7 +389,7 @@
 
         document.getElementById('checkoutDate').addEventListener('change', updateDuration);
 
-
+        // UI Controls
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('sidebar-open');
             document.getElementById('overlay').classList.toggle('hidden');
@@ -447,13 +445,6 @@
                 e.preventDefault();
                 if(formId === 'bookingForm' && !input.value) { alert('請選擇一個營位區域！'); return; }
                 
-                // 處理手動填寫的 Line ID
-                if(formId === 'bookingForm') {
-                    const manualLine = document.querySelector('input[name="LineID_Manual"]').value;
-                    const hiddenLine = document.querySelector('input[name="LineID"]');
-                    if(manualLine) hiddenLine.value = manualLine;
-                }
-
                 btn.disabled = true;
                 const originalText = btn.innerHTML;
                 btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> 處理中...';
@@ -462,10 +453,18 @@
                 fetch(scriptURL, { method: 'POST', body: new FormData(form)})
                     .then(res => res.json())
                     .then(data => {
-                        alert(data.msg);
-                        form.reset();
-                        if(formId === 'bookingForm') { document.querySelectorAll('.zone-card').forEach(c => c.classList.remove('selected', 'ring-2', 'ring-green-500')); input.value = ''; }
-                        if(formId === 'paymentForm') closeAll();
+                        if(data.result === 'success') {
+                            alert(data.msg || '預訂成功！');
+                            form.reset();
+                            if(formId === 'bookingForm') { 
+                                document.querySelectorAll('.zone-card').forEach(c => c.classList.remove('selected', 'ring-2', 'ring-green-500')); 
+                                input.value = ''; 
+                                document.getElementById('durationDisplay').value = "請選擇日期";
+                            }
+                            if(formId === 'paymentForm') closeAll();
+                        } else {
+                            alert('系統錯誤：' + data.error);
+                        }
                     })
                     .catch(error => { console.error('Error!', error); alert('發生錯誤，請稍後再試。'); })
                     .finally(() => { btn.disabled = false; btn.innerHTML = originalText; document.body.classList.remove('loading'); });
