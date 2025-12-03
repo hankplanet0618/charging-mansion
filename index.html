@@ -20,27 +20,13 @@
         .sidebar-open { transform: translateX(0) !important; }
         .modal { transition: opacity 0.3s ease; }
         
-        /* 封面大圖設定 (強制全幅) */
-        .hero-container {
-            width: 100%;
+        /* 將來銀行小卡樣式 */
+        .next-bank-card {
+            background-color: #FFF100;
+            color: #000000;
+            border-radius: 1rem;
             overflow: hidden;
-            position: relative;
-        }
-        .hero-section {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('https://i.ibb.co/6cx1xrVR/image.jpg');
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-            width: 100vw; 
-            height: 450px; 
-            position: relative;
-            left: 50%;
-            right: 50%;
-            margin-left: -50vw;
-            margin-right: -50vw;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-family: sans-serif;
         }
     </style>
 </head>
@@ -90,19 +76,22 @@
         <div class="p-4 text-xs text-gray-500 text-center border-t bg-stone-50">© 2025 宜蘭礁溪充電莊</div>
     </div>
 
-    <div class="hero-container mb-8">
-        <div class="hero-section text-center px-4">
-            <div class="text-white max-w-2xl animate-fade-in-up">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-shadow-lg shadow-black">歡迎來到充電莊</h2>
-                <p class="text-lg md:text-xl opacity-90 mb-6">特斯拉友善營地 | 親近自然 | 舒適住宿</p>
-                <div class="inline-flex items-center bg-yellow-400 text-yellow-900 px-5 py-2 rounded-full text-sm font-bold shadow-lg">
-                    <i class="fas fa-star mr-2"></i> 輸入手機號碼，自動累積會員等級
+    <div class="container mx-auto p-4 max-w-6xl mt-4 mb-4">
+        <div class="relative rounded-2xl overflow-hidden shadow-2xl bg-stone-900">
+            <img src="https://i.ibb.co/6cx1xrVR/image.jpg" alt="封面山景" class="w-full h-auto block opacity-80">
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
+                <div class="text-white max-w-2xl animate-fade-in-up">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-3 text-shadow-lg shadow-black drop-shadow-md">歡迎來到充電莊</h2>
+                    <p class="text-base md:text-xl opacity-100 mb-4 font-medium drop-shadow-md">特斯拉友善營地 | 親近自然 | 舒適住宿</p>
+                    <div class="inline-flex items-center bg-yellow-400 text-yellow-900 px-4 py-1.5 rounded-full text-xs md:text-sm font-bold shadow-lg">
+                        <i class="fas fa-star mr-2"></i> 輸入手機號碼，自動累積會員等級
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="container mx-auto p-4 max-w-6xl -mt-16 relative z-10">
+    <div class="container mx-auto p-4 max-w-6xl relative z-10">
         <form id="bookingForm" class="space-y-6">
             <input type="hidden" name="action" value="booking">
             
@@ -118,8 +107,8 @@
                         <input type="tel" name="聯絡電話" placeholder="09xxxxxxxx" required class="w-full border-gray-300 border rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">入住日期</label>
-                        <input type="date" name="入住日期" id="checkinDate" required class="w-full border-gray-300 border rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Line ID <span class="text-xs text-gray-400">(選填)</span></label>
+                        <input type="text" name="LineID" class="w-full border-gray-300 border rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">預訂數量</label>
@@ -131,10 +120,21 @@
                             <option value="5">5</option>
                         </select>
                     </div>
-                     <div class="hidden">
-                        <input type="date" name="退房日期" id="checkoutDate">
-                        <input type="text" name="LineID">
-                     </div>
+                    
+                    <div class="lg:col-span-4 grid grid-cols-1 md:grid-cols-3 gap-4 bg-stone-50 p-4 rounded-lg border border-stone-100 mt-2">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1"><i class="fas fa-calendar-check mr-1 text-green-600"></i> 入住日期</label>
+                            <input type="date" name="入住日期" id="checkinDate" required class="w-full border-gray-300 border rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1"><i class="fas fa-sign-out-alt mr-1 text-red-500"></i> 退房日期</label>
+                            <input type="date" name="退房日期" id="checkoutDate" required class="w-full border-gray-300 border rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1"><i class="fas fa-clock mr-1 text-blue-500"></i> 入住天數</label>
+                            <input type="text" id="durationDisplay" value="1天1夜" readonly class="w-full bg-gray-200 border-gray-300 border rounded-lg p-3 text-center font-bold text-gray-600 cursor-not-allowed">
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -146,15 +146,7 @@
 
             <div class="bg-white rounded-xl shadow-lg p-6">
                 <h3 class="text-lg font-bold mb-4 text-stone-700 border-l-4 border-green-600 pl-3">步驟 3: 特殊需求</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="md:col-span-2">
-                        <textarea name="備註需求" placeholder="例如：我是特斯拉車主需要充電、需要租借2張月亮椅、一份烤肉套餐..." class="w-full border-gray-300 border rounded-lg p-3 h-24 focus:ring-2 focus:ring-green-500 outline-none"></textarea>
-                    </div>
-                    <div class="bg-stone-50 p-4 rounded-lg text-sm text-gray-600 flex flex-col justify-center">
-                        <p><i class="fas fa-info-circle text-green-500 mr-1"></i> Line ID 可於此填寫</p>
-                        <input type="text" name="LineID_Manual" placeholder="Line ID (選填)" class="mt-2 w-full border-gray-300 border rounded-lg p-2 text-sm">
-                    </div>
-                </div>
+                <textarea name="備註需求" placeholder="例如：我是特斯拉車主需要充電、需要租借2張月亮椅、一份烤肉套餐..." class="w-full border-gray-300 border rounded-lg p-3 h-24 focus:ring-2 focus:ring-green-500 outline-none"></textarea>
             </div>
 
             <button type="submit" id="submitBtn" class="w-full bg-green-600 text-white font-bold py-4 rounded-xl text-lg shadow-lg hover:bg-green-700 transform hover:-translate-y-1 transition duration-200">
@@ -206,6 +198,14 @@
             <div class="p-4 border-b flex justify-between items-center bg-stone-100 rounded-t-xl"><h3 class="font-bold text-lg"><i class="fas fa-university text-yellow-600"></i> 匯款資訊</h3><button onclick="closeAll()"><i class="fas fa-times"></i></button></div>
             <div class="p-6 flex flex-col items-center">
                 <img src="https://i.ibb.co/bR6zQsFV/image-0-png.jpg" alt="將來銀行匯款資訊" class="w-full max-w-sm shadow-lg rounded-lg mb-4">
+                <div class="w-full bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm text-gray-700 space-y-1 mb-2">
+                    <p><span class="font-bold text-gray-500 w-12 inline-block">戶名：</span><span class="font-bold">林均鴻</span></p>
+                    <p><span class="font-bold text-gray-500 w-12 inline-block">銀行：</span>將來銀行 (823)</p>
+                    <p class="flex items-center">
+                        <span class="font-bold text-gray-500 w-12 inline-block">帳號：</span>
+                        <span class="font-mono font-bold text-blue-700 text-lg">88650975020425</span>
+                    </p>
+                </div>
                 <p class="text-xs text-red-500 mt-2"><i class="fas fa-exclamation-triangle"></i> 匯款後請務必使用「匯款回報」功能通知營主。</p>
             </div>
         </div>
@@ -315,17 +315,16 @@
         // 設定區
         // ============================================
         const scriptURL = 'https://script.google.com/macros/s/AKfycbw3oeSoCRCl2098Wqjl1CyTQ4fE3kz2Zw2aYdXMFmYei0B0q8VWu7V_MCmPbjkMDmXe/exec'; 
-        const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=0#gid=0';
+        const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=658452245#gid=658452245';
         // ============================================
 
-        // 營位資料 (已更新三人頂級露營車圖片)
+        // 營位資料 (已更新三人頂級露營車圖片路徑)
         const zones = [
             { name: '棚架 A 區', count: 9, icon: 'fa-warehouse', desc: '共9帳', img: 'https://i.ibb.co/KjBcKGvt/A-DDcar.jpg' },
             { name: '棚架 B 區', count: 4, icon: 'fa-warehouse', desc: '共4帳', img: 'https://i.ibb.co/bMQ51htS/B.jpg' },
             { name: '棚架 C 區', count: 3, icon: 'fa-warehouse', desc: '共3帳', img: 'https://i.ibb.co/c70KNkJ/C1.jpg' },
             { name: '棧板 A 區', count: 3, icon: 'fa-layer-group', desc: '共3帳', img: 'https://i.ibb.co/XrMggq46/1.jpg' },
             { name: '棧板 B 區', count: 2, icon: 'fa-layer-group', desc: '共2帳', img: 'https://i.ibb.co/JRmcf3bw/B.jpg' },
-            // ↓↓↓ 使用新剝殼的網路圖片連結 ↓↓↓
             { name: '三人頂級露營車', count: 2, icon: 'fa-caravan', desc: '絕美體驗，冷暖氣俱全', img: 'https://i.ibb.co/HDGLKgKV/image-1-png.jpg' },
             { name: '小木屋 (大)', count: 1, icon: 'fa-home', desc: '家庭首選', img: 'https://i.ibb.co/4n2CPt5X/image.jpg' },
             { name: '小木屋 (小)', count: 1, icon: 'fa-home', desc: '溫馨三人', img: 'https://i.ibb.co/CpNgsKHw/image.jpg' },
@@ -363,7 +362,20 @@
             container.appendChild(div);
         });
 
-        // 日期自動跳轉
+        // 日期自動跳轉與天數計算
+        function updateDuration() {
+            const checkin = new Date(document.getElementById('checkinDate').value);
+            const checkout = new Date(document.getElementById('checkoutDate').value);
+            
+            if(checkin && checkout && checkout > checkin) {
+                const diffTime = Math.abs(checkout - checkin);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+                document.getElementById('durationDisplay').value = `${diffDays+1}天${diffDays}夜`;
+            } else {
+                document.getElementById('durationDisplay').value = "請選擇日期";
+            }
+        }
+
         document.getElementById('checkinDate').addEventListener('change', function() {
             const checkin = new Date(this.value);
             if(checkin) {
@@ -373,8 +385,12 @@
                 const outEl = document.getElementById('checkoutDate');
                 outEl.value = nextDay;
                 outEl.min = nextDay;
+                updateDuration();
             }
         });
+
+        document.getElementById('checkoutDate').addEventListener('change', updateDuration);
+
 
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('sidebar-open');
