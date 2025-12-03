@@ -20,13 +20,27 @@
         .sidebar-open { transform: translateX(0) !important; }
         .modal { transition: opacity 0.3s ease; }
         
-        /* 將來銀行小卡樣式 */
-        .next-bank-card {
-            background-color: #FFF100;
-            color: #000000;
-            border-radius: 1rem;
+        /* 封面大圖設定 (強制全幅) */
+        .hero-container {
+            width: 100%;
             overflow: hidden;
-            font-family: sans-serif;
+            position: relative;
+        }
+        .hero-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('https://i.ibb.co/6cx1xrVR/image.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            width: 100vw; 
+            height: 450px; 
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
@@ -76,23 +90,19 @@
         <div class="p-4 text-xs text-gray-500 text-center border-t bg-stone-50">© 2025 宜蘭礁溪充電莊</div>
     </div>
 
-    <div class="container mx-auto p-4 max-w-6xl mt-4 mb-4">
-        <div class="relative rounded-2xl overflow-hidden shadow-2xl bg-stone-900">
-            <img src="https://i.ibb.co/6cx1xrVR/image.jpg" alt="封面山景" class="w-full h-auto block opacity-80">
-            
-            <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
-                <div class="text-white max-w-2xl animate-fade-in-up">
-                    <h2 class="text-3xl md:text-5xl font-bold mb-3 text-shadow-lg shadow-black drop-shadow-md">歡迎來到充電莊</h2>
-                    <p class="text-base md:text-xl opacity-100 mb-4 font-medium drop-shadow-md">特斯拉友善營地 | 親近自然 | 舒適住宿</p>
-                    <div class="inline-flex items-center bg-yellow-400 text-yellow-900 px-4 py-1.5 rounded-full text-xs md:text-sm font-bold shadow-lg">
-                        <i class="fas fa-star mr-2"></i> 輸入手機號碼，自動累積會員等級
-                    </div>
+    <div class="hero-container mb-8">
+        <div class="hero-section text-center px-4">
+            <div class="text-white max-w-2xl animate-fade-in-up">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-shadow-lg shadow-black">歡迎來到充電莊</h2>
+                <p class="text-lg md:text-xl opacity-90 mb-6">特斯拉友善營地 | 親近自然 | 舒適住宿</p>
+                <div class="inline-flex items-center bg-yellow-400 text-yellow-900 px-5 py-2 rounded-full text-sm font-bold shadow-lg">
+                    <i class="fas fa-star mr-2"></i> 輸入手機號碼，自動累積會員等級
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="container mx-auto p-4 max-w-6xl relative z-10">
+    <div class="container mx-auto p-4 max-w-6xl -mt-16 relative z-10">
         <form id="bookingForm" class="space-y-6">
             <input type="hidden" name="action" value="booking">
             
@@ -169,7 +179,7 @@
                         <li>夜衝自搭帳及車泊每帳$600；民宿、小木屋、露營車、及T 250 為5折優惠假，夜衝時間為下午五點至晚上10點，請盡量在10點前完成搭帳。</li>
                         <li>為維護品質， 10點過後請勿喧鬧，民宿KTV音量請放低，如有問題，歡迎聯繫。</li>
                         <li>營區有設備可出租，詳細項目及金額請洽團主。</li>
-                        <li>用電設備不特定限制，每座插座為15-20A。</li>
+                        <li>用電設備不特定限制，每座插座為15-20A</li>
                     </ol>
                 </div>
             </div>
@@ -183,8 +193,8 @@
                  <img src="https://i.ibb.co/p6KgV8n1/image.webp" alt="充電樁" class="w-full h-48 object-cover">
                  <div class="p-6 space-y-4 text-gray-700 leading-relaxed">
                     <p>從一個默默無名的營區走到的現在，充電莊做了非常多的努力，不只讓這裡變成了一個電動車超級友善的露營區，也是許多人淨化心靈的地方。</p>
-                    <p>我在2025年，在一年之內，完成了77次的露營，吸取了無數的經驗，和無數個營主討論過想法，最後決定接手這個營區。</p>
-                    <p>為了我的孩子，我每個禮拜都帶他去露營，讓他多多結交認識朋友，非常社牛的他，每天都可以把電放完，這也讓身為父親的我輕鬆了許多，也淨化了心靈。</p>
+                    <p>我在2025年，一年之內，完成了77次的露營，吸取了無數的經驗，和無數個營主討論過想法，最後決定接手這個營區。</p>
+                    <p>為了我的孩子，我每個禮拜都帶她去露營，讓他多多結交認識朋友，非常社牛的他，每天都可以把電放完，這也讓身為父親的我輕鬆了許多，也淨化了心靈。</p>
                     <p class="font-bold text-green-700 bg-green-50 p-2 rounded">希望來到充電莊的你們，也能跟我一樣，找到屬於自己的那座山。</p>
                  </div>
             </div>
@@ -196,16 +206,6 @@
             <div class="p-4 border-b flex justify-between items-center bg-stone-100 rounded-t-xl"><h3 class="font-bold text-lg"><i class="fas fa-university text-yellow-600"></i> 匯款資訊</h3><button onclick="closeAll()"><i class="fas fa-times"></i></button></div>
             <div class="p-6 flex flex-col items-center">
                 <img src="https://i.ibb.co/bR6zQsFV/image-0-png.jpg" alt="將來銀行匯款資訊" class="w-full max-w-sm shadow-lg rounded-lg mb-4">
-                
-                <div class="w-full bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm text-gray-700 space-y-1 mb-2">
-                    <p><span class="font-bold text-gray-500 w-12 inline-block">戶名：</span><span class="font-bold">林均鴻</span></p>
-                    <p><span class="font-bold text-gray-500 w-12 inline-block">銀行：</span>將來銀行 (823)</p>
-                    <p class="flex items-center">
-                        <span class="font-bold text-gray-500 w-12 inline-block">帳號：</span>
-                        <span class="font-mono font-bold text-blue-700 text-lg">88650975020425</span>
-                    </p>
-                </div>
-
                 <p class="text-xs text-red-500 mt-2"><i class="fas fa-exclamation-triangle"></i> 匯款後請務必使用「匯款回報」功能通知營主。</p>
             </div>
         </div>
@@ -315,16 +315,17 @@
         // 設定區
         // ============================================
         const scriptURL = 'https://script.google.com/macros/s/AKfycbw3oeSoCRCl2098Wqjl1CyTQ4fE3kz2Zw2aYdXMFmYei0B0q8VWu7V_MCmPbjkMDmXe/exec'; 
-        const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=658452245#gid=658452245';
+        const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=0#gid=0';
         // ============================================
 
-        // 營位資料
+        // 營位資料 (已更新三人頂級露營車圖片)
         const zones = [
             { name: '棚架 A 區', count: 9, icon: 'fa-warehouse', desc: '共9帳', img: 'https://i.ibb.co/KjBcKGvt/A-DDcar.jpg' },
             { name: '棚架 B 區', count: 4, icon: 'fa-warehouse', desc: '共4帳', img: 'https://i.ibb.co/bMQ51htS/B.jpg' },
             { name: '棚架 C 區', count: 3, icon: 'fa-warehouse', desc: '共3帳', img: 'https://i.ibb.co/c70KNkJ/C1.jpg' },
             { name: '棧板 A 區', count: 3, icon: 'fa-layer-group', desc: '共3帳', img: 'https://i.ibb.co/XrMggq46/1.jpg' },
             { name: '棧板 B 區', count: 2, icon: 'fa-layer-group', desc: '共2帳', img: 'https://i.ibb.co/JRmcf3bw/B.jpg' },
+            // ↓↓↓ 使用新剝殼的網路圖片連結 ↓↓↓
             { name: '三人頂級露營車', count: 2, icon: 'fa-caravan', desc: '絕美體驗，冷暖氣俱全', img: 'https://i.ibb.co/HDGLKgKV/image-1-png.jpg' },
             { name: '小木屋 (大)', count: 1, icon: 'fa-home', desc: '家庭首選', img: 'https://i.ibb.co/4n2CPt5X/image.jpg' },
             { name: '小木屋 (小)', count: 1, icon: 'fa-home', desc: '溫馨三人', img: 'https://i.ibb.co/CpNgsKHw/image.jpg' },
