@@ -179,8 +179,8 @@
 
                 <div class="bg-orange-50 border border-orange-200 rounded-xl p-4">
                     <div class="flex flex-col md:flex-row items-center gap-4">
-                        <div class="w-full md:w-32 h-24 flex-shrink-0 rounded-lg overflow-hidden">
-                            <img src="https://i.ibb.co/N623cTjr/1299.png" alt="3人份烤肉套餐" class="w-full h-full object-cover">
+                        <div class="w-full md:w-auto flex-shrink-0">
+                            <img src="https://i.ibb.co/N623cTjr/1299.png" alt="3人份烤肉套餐" class="w-full h-auto">
                         </div>
                         <div class="flex-1">
                             <h4 class="font-bold text-orange-800 text-lg flex items-center">
@@ -287,7 +287,20 @@
 風很輕，月正圓，兒子已睡。</p><div class="mt-4 p-3 bg-green-50 rounded text-green-800 font-bold border-l-4 border-green-600">希望來到充電莊的你們，也能跟我一樣，找到屬於自己的那座山。</div></div></div>
     <div id="modal-rules" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-red-600">營區須知</h3><ul class="list-disc pl-5 space-y-2 text-sm text-gray-700"><li>1.請注意寧靜時間為每天晚上10點後，請放低音量。<li>2.電動車車主請務必於表單備註，將優先安排充電位置（全區共 17 台）。<li>3.焚火請務必自備木柴、防火布及焚火爐，禁止直接在地面生火。<li>4.本營區不禁菸，但吸煙者請移步至接待處附近指定區域抽煙。<li>5.若進行溪邊活動將分組，可自行帶補蝦籠，有機會抓到溪蝦 (請注意安全)。<li>6.夜衝自搭帳及車泊每帳 $600；民宿、小木屋、露營車及 T 250 為 5 折優惠。夜衝時間為 17:00-22:00。<li>7.營區有各項設備可出租，詳細項目及金額請查看裝備表。
 <li>8.用電設備不特定限制，每座插座規格為 15-20A。</li></ul></div></div>
-    <div id="modal-bbq" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-orange-600">烤肉預定</h3><div class="bg-orange-50 p-4 rounded border border-orange-200 text-center"><h4 class="font-bold text-lg">基本 3 人套餐</h4><p class="text-3xl font-bold text-red-600 my-2">$1,299</p></div></div></div>
+    
+    <div id="modal-bbq" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative">
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button>
+            <h3 class="text-xl font-bold mb-4 text-orange-600">烤肉預定</h3>
+            <div class="bg-orange-50 p-4 rounded border border-orange-200 text-center">
+                <img src="https://i.ibb.co/N623cTjr/1299.png" alt="烤肉套餐" class="w-full h-48 object-cover rounded-lg mb-4">
+                <h4 class="font-bold text-lg">基本 3 人套餐</h4>
+                <p class="text-3xl font-bold text-red-600 my-2">$1,299</p>
+            </div>
+        </div>
+    </div>
+    
     <div id="modal-gear" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-blue-600">裝備出租</h3><table class="w-full text-sm text-left"><tbody id="gearTableBody" class="divide-y"></tbody></table></div></div>
     <div id="modal-tent" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-purple-600">免搭帳服務</h3><div class="bg-purple-50 p-4 rounded text-center mb-4"><span class="block font-bold text-purple-900">代搭 + 收服務費</span><span class="text-2xl font-bold text-purple-600">$500</span></div><ul class="space-y-2 text-sm text-gray-700"><li class="flex justify-between"><span>迪卡儂 4.2 充氣帳</span><span class="font-bold">$800</span></li><li class="flex justify-between"><span>挪客屋脊 6</span><span class="font-bold">$600</span></li><li class="flex justify-between"><span>IF 充氣帳篷 6.0</span><span class="font-bold">$800</span></li><li class="flex justify-between"><span>杜邦鯤9車尾帳</span><span class="font-bold">$1,000</span></li><li class="flex justify-between text-purple-700 font-bold"><span>KZM-T250</span><span>$2,000</span></li></ul></div></div>
 
@@ -362,6 +375,21 @@
             const totalDisplay = document.getElementById('totalPriceDisplay');
             const subtotalDisplay = document.getElementById('subtotalDisplay');
             const stayDaysSpan = document.getElementById('stayDays');
+
+            // ★★★ 日期封鎖邏輯 (2/7 & 3/7) ★★★
+            inDate.addEventListener('input', function() {
+                const val = this.value;
+                if (!val) return;
+                const [year, month, day] = val.split('-');
+                
+                // 檢查是否為 2/7 或 3/7
+                if ((month === '02' && day === '07') || (month === '03' && day === '07')) {
+                    alert(`抱歉！ ${month}/${day} 已保留或不開放預訂，請選擇其他日期。`);
+                    this.value = ''; // 清空欄位
+                    // 觸發重新計算以清除價格
+                    calculate(); 
+                }
+            });
 
             function calculate() {
                 const zoneName = zoneInput.value;
@@ -543,7 +571,6 @@
                 
                 formData.append('入住天數', days);
                 formData.append('總金額', total);
-                // 折扣碼 input 已在 form 中 (name="折扣碼")
             }
 
             fetch(scriptURL, { 
