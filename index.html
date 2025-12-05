@@ -12,12 +12,17 @@
         .zone-card { transition: all 0.3s ease; border: 1px solid #e5e7eb; }
         .zone-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); border-color: var(--forest-green); }
         .selected { border: 2px solid var(--forest-green); background-color: #f0fdf4; transform: scale(1.02); }
+        .sold-out { opacity: 0.6; pointer-events: none; filter: grayscale(100%); background-color: #f3f4f6; border-color: #d1d5db; }
+        .sold-out:hover { transform: none; box-shadow: none; }
         .cursor-change-image { cursor: pointer; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in { animation: fadeIn 0.6s ease-out forwards; }
         .filter-btn.active { background-color: var(--forest-green); color: white; }
+        .rating-star { color: #d1d5db; cursor: pointer; font-size: 1.5rem; transition: color 0.2s; }
+        .rating-star.active { color: #fbbf24; }
+        .rating-star:hover { color: #f59e0b; }
     </style>
 </head>
 <body class="bg-stone-50 text-stone-800 font-sans">
@@ -46,6 +51,8 @@
         </div>
         <div class="flex-1 overflow-y-auto py-2">
             <a href="#" onclick="showModal('modal-report')" class="flex items-center px-6 py-4 bg-yellow-50 text-stone-800 font-bold border-b border-yellow-200"><i class="fas fa-file-invoice-dollar w-8 text-yellow-600"></i> 匯款回報</a>
+            <a href="#" onclick="showModal('modal-feedback')" class="flex items-center px-6 py-4 bg-yellow-100 text-stone-800 font-bold border-b border-yellow-200"><i class="fas fa-comment-dots w-8 text-yellow-700"></i> 住客回饋</a>
+            <a href="#" onclick="showModal('modal-map')" class="flex items-center px-6 py-4 hover:bg-green-50 text-stone-600 border-b border-gray-100"><i class="fas fa-map w-8 text-green-700"></i> 營位地圖</a>
             <a href="#" onclick="showModal('modal-about')" class="flex items-center px-6 py-4 hover:bg-green-50 text-stone-600 border-b border-gray-100"><i class="fas fa-seedling w-8 text-green-600"></i> 關於充電莊</a>
             <a href="#" onclick="showModal('modal-rules')" class="flex items-center px-6 py-4 hover:bg-green-50 text-stone-600 border-b border-gray-100"><i class="fas fa-clipboard-check w-8 text-red-600"></i> 營區須知</a>
             <a href="#" onclick="showModal('modal-bank')" class="flex items-center px-6 py-4 hover:bg-green-50 text-stone-600 border-b border-gray-100"><i class="fas fa-university w-8 text-blue-600"></i> 匯款資訊</a>
@@ -93,7 +100,7 @@
                     </div>
                     <div>
                         <h3 class="text-lg md:text-xl font-bold">加入 LINE@ 好友，領取優惠！記得回來用優惠券名稱結帳唷!</h3>
-                        <p class="text-green-50 text-sm">輸入代碼 <span class="font-bold text-yellow-200">LINE100</span> 或優惠券名稱，立即折抵 $100</p>
+                        <p class="text-green-50 text-sm">輸入代碼 <span class="font-bold text-yellow-200"></span> 或優惠券名稱，立即折抵 $100</p>
                     </div>
                 </div>
                 <a href="https://lin.ee/t1Ds7Hq" target="_blank" class="z-10 bg-white text-[#06C755] px-6 py-2 rounded-full font-bold hover:bg-yellow-50 transition shadow-md text-sm border border-transparent hover:border-[#06C755]">
@@ -121,10 +128,16 @@
                             <label class="block text-xs font-bold text-gray-500 mb-1">聯絡電話</label>
                             <input type="tel" name="聯絡電話" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none">
                         </div>
-                        <div class="md:col-span-2">
+                        
+                        <div>
                             <label class="block text-xs font-bold text-gray-500 mb-1">Line ID</label>
                             <input type="text" name="Line ID" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none" placeholder="方便我們聯繫您">
                         </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 mb-1">Email (接收訂位通知)</label>
+                            <input type="email" name="Email" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none" placeholder="請輸入 Email">
+                        </div>
+
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                         <div>
@@ -156,6 +169,7 @@
                     
                     <input type="hidden" name="預訂區域" id="selectedZoneInput" required>
                     <input type="hidden" id="selectedZonePrice" value="0"> 
+                    <input type="hidden" id="selectedZoneRemaining" value="99"> 
                     
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" id="zoneContainer">
                         </div>
@@ -164,13 +178,6 @@
                         <label class="block text-xs font-bold text-gray-500 mb-1">預訂數量 (帳/間)</label>
                         <select name="預訂數量" id="quantitySelect" class="w-full md:w-1/3 bg-stone-50 border border-gray-300 rounded-lg p-3 outline-none">
                             <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
                         </select>
                     </div>
                 </div>
@@ -260,6 +267,78 @@
         <p>© 2025 Charging Manor.</p>
     </footer>
 
+    <div id="modal-feedback" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative">
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button>
+            <h3 class="text-xl font-bold mb-4 text-yellow-700 text-center">住客回饋</h3>
+            
+            <div id="feedback-form-container">
+                <form id="feedbackForm" class="space-y-4">
+                    <input type="hidden" name="sheetName" value="住客回饋">
+                    
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">入住日期</label>
+                        <input type="date" name="入住日期" required class="w-full border rounded p-2">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">住客姓名</label>
+                        <input type="text" name="住客姓名" required class="w-full border rounded p-2" placeholder="請輸入訂位大名">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">滿意度</label>
+                        <div class="flex gap-2 text-2xl text-gray-300" id="star-container">
+                            <i class="fas fa-star rating-star" data-val="1"></i>
+                            <i class="fas fa-star rating-star" data-val="2"></i>
+                            <i class="fas fa-star rating-star" data-val="3"></i>
+                            <i class="fas fa-star rating-star" data-val="4"></i>
+                            <i class="fas fa-star rating-star" data-val="5"></i>
+                        </div>
+                        <input type="hidden" name="滿意度" id="ratingInput" value="">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">想對我們說的話 (回饋)</label>
+                        <textarea name="回饋內容" rows="3" class="w-full border rounded p-2" placeholder="歡迎分享您的體驗心得..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">分享照片 (選填)</label>
+                        <input type="file" multiple accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-yellow-50 file:text-yellow-700 hover:file:bg-yellow-100">
+                    </div>
+
+                    <button type="submit" id="feedbackBtn" class="w-full bg-yellow-600 text-white font-bold py-3 rounded-lg hover:bg-yellow-500 transition">送出回饋</button>
+                </form>
+            </div>
+
+            <div id="feedback-success" class="hidden text-center py-6">
+                <div class="mb-4 text-green-500 text-5xl animate-bounce"><i class="fas fa-check-circle"></i></div>
+                <h4 class="text-2xl font-bold text-gray-800 mb-2">感謝您的回饋！</h4>
+                <p class="text-gray-600 mb-6">您的意見是我們進步的動力。</p>
+                
+                <div class="bg-yellow-50 border-2 border-dashed border-yellow-400 p-4 rounded-xl inline-block w-full">
+                    <p class="text-sm text-yellow-800 font-bold mb-1">下次訂位專屬優惠碼</p>
+                    <div class="text-3xl font-mono font-bold text-yellow-600 tracking-wider">CM100</div>
+                    <p class="text-xs text-yellow-600 mt-1">立折 $100 元</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="modal-map" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
+        <div class="bg-white w-full max-w-5xl rounded-2xl shadow-xl z-10 relative overflow-hidden flex flex-col max-h-[90vh]">
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-600 bg-white/90 rounded-full w-10 h-10 flex items-center justify-center hover:bg-white hover:text-black z-20 shadow-lg font-bold text-xl transition">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="overflow-auto p-0 flex-1">
+                <img src="https://i.ibb.co/DHK9NKfP/image.png" alt="營位地圖" class="w-full h-auto block">
+            </div>
+        </div>
+    </div>
+
     <div id="modal-report" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-center text-yellow-600">匯款回報</h3><form id="paymentForm" class="space-y-4"><input type="hidden" name="sheetName" value="匯款紀錄"><div><label class="block text-xs font-bold text-gray-500 mb-1">匯款姓名</label><input type="text" name="匯款姓名" required class="w-full border rounded p-2"></div><div><label class="block text-xs font-bold text-gray-500 mb-1">帳號末五碼</label><input type="text" name="末五碼" required class="w-full border rounded p-2"></div><div><label class="block text-xs font-bold text-gray-500 mb-1">匯款金額</label><input type="number" name="匯款金額" required class="w-full border rounded p-2"></div><div><label class="block text-xs font-bold text-gray-500 mb-1">匯款日期</label><input type="date" name="匯款日期" required class="w-full border rounded p-2"></div><button type="submit" id="payBtn" class="w-full bg-yellow-500 text-stone-900 font-bold py-3 rounded-lg hover:bg-yellow-400">送出回報</button></form></div></div>
     <div id="modal-bank" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-center">匯款資訊</h3><div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200"><p class="text-sm text-gray-600">銀行：<span class="font-bold text-black">823 將來銀行</span></p><p class="text-sm text-gray-600 mt-2">戶名：<span class="font-bold text-black">林均鴻</span></p><p class="text-sm text-gray-600 mt-2">帳號：</p><p class="text-xl font-mono font-bold text-blue-800 bg-white p-2 rounded border mt-1 text-center">8865-0975-0204-25</p></div><p class="text-xs text-center text-gray-400 mt-4">匯款後請點選選單「匯款回報」</p></div></div>
     <div id="modal-about" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-green-700">關於充電莊</h3><p class="mb-4 text-gray-700 leading-relaxed">充電莊，隱在宜蘭礁溪深溝的山腰，像一首還未被唱起的祕密詩。
@@ -302,21 +381,116 @@
     </div>
     
     <div id="modal-gear" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-blue-600">裝備出租</h3><table class="w-full text-sm text-left"><tbody id="gearTableBody" class="divide-y"></tbody></table></div></div>
-    <div id="modal-tent" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-purple-600">免搭帳服務</h3><div class="bg-purple-50 p-4 rounded text-center mb-4"><span class="block font-bold text-purple-900">代搭 + 收服務費</span><span class="text-2xl font-bold text-purple-600">$500</span></div><ul class="space-y-2 text-sm text-gray-700"><li class="flex justify-between"><span>迪卡儂 4.2 充氣帳</span><span class="font-bold">$800</span></li><li class="flex justify-between"><span>挪客屋脊 6</span><span class="font-bold">$600</span></li><li class="flex justify-between"><span>IF 充氣帳篷 6.0</span><span class="font-bold">$800</span></li><li class="flex justify-between"><span>杜邦鯤9車尾帳</span><span class="font-bold">$1,000</span></li><li class="flex justify-between text-purple-700 font-bold"><span>KZM-T250</span><span>$2,000</span></li></ul></div></div>
+    
+    <div id="modal-tent" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
+        <div class="bg-white w-full max-w-3xl rounded-2xl shadow-xl z-10 p-6 relative max-h-[85vh] overflow-y-auto">
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button>
+            <h3 class="text-xl font-bold mb-4 text-purple-600">免搭帳服務</h3>
+            
+            <div class="bg-purple-50 p-3 rounded text-center mb-6 border-l-4 border-purple-600">
+                <span class="block font-bold text-purple-900 text-sm">代搭服務費 (不含裝備租金)</span>
+                <span class="text-2xl font-bold text-purple-600">$500</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+                <div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+                    <img src="https://i.ibb.co/sp3sd0WW/4-2.jpg" class="w-full h-40 object-cover cursor-pointer hover:opacity-90" onclick="window.open(this.src)">
+                    <div class="p-3">
+                        <h4 class="font-bold text-gray-800">迪卡儂 4.2 充氣帳</h4>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">2房1廳</span>
+                            <span class="font-bold text-purple-600">$800</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+                    <img src="https://i.ibb.co/K391LwV/6.jpg" class="w-full h-40 object-cover cursor-pointer hover:opacity-90" onclick="window.open(this.src)">
+                    <div class="p-3">
+                        <h4 class="font-bold text-gray-800">挪客屋脊 6</h4>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">自動帳</span>
+                            <span class="font-bold text-purple-600">$600</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+                    <img src="https://i.ibb.co/1gJZmLv/IF-6-0.jpg" class="w-full h-40 object-cover cursor-pointer hover:opacity-90" onclick="window.open(this.src)">
+                    <div class="p-3">
+                        <h4 class="font-bold text-gray-800">IF 充氣帳篷 6.0</h4>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">高顏值</span>
+                            <span class="font-bold text-purple-600">$800</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+                    <img src="https://i.ibb.co/NnNrFZR2/9.jpg" class="w-full h-40 object-cover cursor-pointer hover:opacity-90" onclick="window.open(this.src)">
+                    <div class="p-3">
+                        <h4 class="font-bold text-gray-800">杜邦鯤9車尾帳</h4>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Model Y 99%密合</span>
+                            <span class="font-bold text-purple-600">$1,000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition md:col-span-2">
+                    <img src="https://i.ibb.co/39GMJ3Bp/tw-11134208-81ztg-meterwxf57gmfa.jpg" class="w-full h-48 object-cover cursor-pointer hover:opacity-90" onclick="window.open(this.src)">
+                    <div class="p-3">
+                        <h4 class="font-bold text-gray-800">KZM T-250 (科技棉)</h4>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">一房一廳</span>
+                            <span class="font-bold text-purple-600 text-lg">$2,000</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwo6cDMssq7rnjn6-7LvdCFcJGgqKduOEiiSTXUUIS_O2wD4A09a-E8b4-AzfCc2rSf/exec'; 
+        // ★★★ 請務必確認這裡的網址是您「重新部署」後的最新網址 ★★★
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzO5wE20JHtZyHjx2KimHssFfvQk1ZFVZq77lhxSdcKR8oPUlT9h4_RQLFiiXEhK3Xy/exec'; 
         const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=0#gid=0';
         
-        // ★★★ 擴充的優惠代碼 (名稱即代碼) ★★★
         const discountCodes = {
             'LINE100': 100,
+            'CM100': 100, // ★★★ 已加入住客回饋折扣碼 ★★★
             '首次加入好友': 100,
             '首次加入好友優惠券': 100,
             '首次加入好友禮': 100,
             'TESLA2026': 100,
             'Chunhunglinonly': 9999999
-        };
+        }; 
+
+        let bookedData = {}; 
+
+        function init() { 
+            console.log("正在載入即時庫存...");
+            
+            fetch(scriptURL)
+                .then(response => response.json())
+                .then(data => {
+                    console.log("庫存載入成功:", data);
+                    bookedData = data; 
+                    
+                    renderZones('all'); 
+                    renderGears(); 
+                    setupCalculator(); 
+                    updateQuantityOptions(8);
+                })
+                .catch(error => {
+                    console.error("庫存載入失敗:", error);
+                    alert("⚠️ 無法讀取即時庫存，請稍後再試或聯繫營主。");
+                    renderZones('all'); 
+                });
+        }
 
         const zones = [
             { id: 'ZA1', name: '棚架 A 區', count: 9, cat: 'shelter', desc: '寬敞遮雨棚車停帳邊 (9帳)', price: 1200, badge: '熱門', images: ['https://i.ibb.co/KjBcKGvt/A-DDcar.jpg', 'https://i.ibb.co/RTypZTzW/A1.jpg', 'https://i.ibb.co/hRNQ84SY/A.jpg'], idx: 0 },
@@ -336,11 +510,10 @@
         const gears = [{n:'月亮椅/休閒椅',p:'100'},{n:'平躺椅',p:'150'},{n:'卡式爐/蜘蛛爐(含瓦斯)',p:'200'},{n:'五星爐(含瓦斯)',p:'300'},{n:'IGT桌全套',p:'600'},{n:'天幕 3*3+桿',p:'250'},{n:'天幕 3*5+桿',p:'350'},{n:'超聲波地墊 3*3',p:'150'},{n:'野餐地墊 2*2/燈具',p:'100'},{n:'落地頂級四葉燈',p:'350'},{n:'杜邦鯤9車尾帳',p:'1000'},{n:'代搭帳服務',p:'500'},{n:'投影機',p:'300'},{n:'投影布幕',p:'100'},{n:'電暖器/焚火台(鐵)',p:'200'},{n:'焚火台(純鈦)',p:'350'},{n:'木柴',p:'100'}];
 
         let currentDiscount = 0;
-
-        function init() { renderZones('all'); renderGears(); setupCalculator(); }
+        let currentFilter = 'all'; 
 
         window.applyDiscount = () => {
-            const code = document.getElementById('discountCodeInput').value.trim(); // 移除 toUpperCase 以支援中文
+            const code = document.getElementById('discountCodeInput').value.trim(); 
             const msg = document.getElementById('discountMsg');
             const discountRow = document.getElementById('discountRow');
             const discountDisplay = document.getElementById('discountDisplay');
@@ -358,9 +531,39 @@
                 discountRow.style.display = 'none';
                 discountInput.value = 0;
             }
-            // 觸發重新計算
             const event = new Event('change');
             document.getElementById('quantitySelect').dispatchEvent(event);
+        }
+
+        function updateQuantityOptions(max) {
+            const select = document.getElementById('quantitySelect');
+            select.innerHTML = ''; 
+            if (max <= 0) {
+                const opt = document.createElement('option');
+                opt.text = "已額滿";
+                opt.value = 0;
+                select.appendChild(opt);
+                select.disabled = true;
+            } else {
+                select.disabled = false;
+                for (let i = 1; i <= max; i++) {
+                    const opt = document.createElement('option');
+                    opt.value = i;
+                    opt.text = i;
+                    select.appendChild(opt);
+                }
+            }
+            const event = new Event('change');
+            select.dispatchEvent(event);
+        }
+
+        function getRemainingCount(zoneId, dateStr) {
+            const defaultCount = zones.find(z => z.id === zoneId).count;
+            if (dateStr && bookedData[dateStr] && bookedData[dateStr][zoneId]) {
+                const booked = bookedData[dateStr][zoneId];
+                return Math.max(0, defaultCount - booked);
+            }
+            return defaultCount;
         }
 
         function setupCalculator() {
@@ -376,25 +579,42 @@
             const subtotalDisplay = document.getElementById('subtotalDisplay');
             const stayDaysSpan = document.getElementById('stayDays');
 
-            // ★★★ 日期封鎖邏輯 (2/7 & 3/7) ★★★
             inDate.addEventListener('input', function() {
                 const val = this.value;
-                if (!val) return;
+                if (!val) {
+                    renderZones(currentFilter);
+                    return;
+                }
                 const [year, month, day] = val.split('-');
                 
-                // 檢查是否為 2/7 或 3/7
                 if ((month === '02' && day === '07') || (month === '03' && day === '07')) {
                     alert(`抱歉！ ${month}/${day} 已保留或不開放預訂，請選擇其他日期。`);
-                    this.value = ''; // 清空欄位
-                    // 觸發重新計算以清除價格
+                    this.value = ''; 
                     calculate(); 
+                    return;
+                }
+
+                renderZones(currentFilter, val);
+                
+                const selectedZone = zones.find(z => z.name === zoneInput.value);
+                if (selectedZone) {
+                    const remaining = getRemainingCount(selectedZone.id, val);
+                    document.getElementById('selectedZoneRemaining').value = remaining;
+                    updateQuantityOptions(remaining);
+                    
+                    if (remaining === 0) {
+                        alert(`您原本選擇的「${selectedZone.name}」在所選日期已額滿，請重新選擇。`);
+                        zoneInput.value = '';
+                        document.querySelectorAll('.zone-card').forEach(c => c.classList.remove('selected'));
+                        document.getElementById('selectedZonePrice').value = 0;
+                    }
                 }
             });
 
             function calculate() {
                 const zoneName = zoneInput.value;
                 const price = parseInt(zonePriceInput.value) || 0;
-                const qty = parseInt(qtySelect.value) || 1;
+                const qty = parseInt(qtySelect.value) || 0;
                 const bbqQty = parseInt(bbqSelect.value) || 0;
                 const bbqPrice = 1299;
                 let days = 0;
@@ -413,7 +633,7 @@
                     }
                 }
 
-                if (zoneName && days > 0) {
+                if (zoneName && days > 0 && qty > 0) {
                     const roomTotal = price * qty * days;
                     const bbqTotal = bbqPrice * bbqQty;
                     const subtotal = roomTotal + bbqTotal;
@@ -439,15 +659,28 @@
             bbqSelect.addEventListener('change', calculate);
         }
 
-        function renderZones(filter) {
+        function renderZones(filter, dateStr = null) {
+            currentFilter = filter;
+            if (!dateStr) dateStr = document.getElementById('checkinDate').value;
+
             const container = document.getElementById('zoneContainer');
             container.innerHTML = '';
             
+            const currentSelectedName = document.getElementById('selectedZoneInput').value;
+            
             zones.forEach(zone => {
                 if(filter !== 'all' && zone.cat !== filter) return;
+
+                const remaining = getRemainingCount(zone.id, dateStr);
+                const isSoldOut = remaining === 0;
+
                 const div = document.createElement('div');
-                div.className = `zone-card bg-white rounded-xl p-3 cursor-pointer relative overflow-hidden flex items-center h-32 md:h-36`;
+                div.className = `zone-card bg-white rounded-xl p-3 cursor-pointer relative overflow-hidden flex items-center h-32 md:h-36 ${isSoldOut ? 'sold-out' : ''}`;
                 
+                if (zone.name === currentSelectedName && !isSoldOut) {
+                    div.classList.add('selected');
+                }
+
                 const badge = zone.badge ? `<span class="absolute top-0 right-0 bg-yellow-400 text-stone-900 text-xs font-bold px-2 py-1 rounded-bl-lg z-20 shadow-sm">${zone.badge}</span>` : '';
                 
                 const imgWrap = document.createElement('div');
@@ -457,7 +690,7 @@
                 img.src = zone.images[zone.idx];
                 img.className = "w-full h-full object-cover transition duration-500 hover:scale-110";
                 
-                if (zone.images.length > 1) {
+                if (zone.images.length > 1 && !isSoldOut) {
                     imgWrap.classList.add('cursor-change-image');
                     imgWrap.title = "點擊切換圖片";
                     const tip = document.createElement('div');
@@ -472,24 +705,34 @@
                 }
                 imgWrap.prepend(img);
 
+                const remainingText = isSoldOut 
+                    ? `<span class="text-red-600 font-bold text-sm bg-red-100 px-2 py-0.5 rounded">已滿帳</span>` 
+                    : `<span class="text-blue-600 text-sm font-bold bg-blue-50 px-2 py-0.5 rounded"><i class="fas fa-campground mr-1"></i>剩餘 ${remaining} 帳</span>`;
+
                 const info = document.createElement('div');
                 info.className = "flex-1";
                 info.innerHTML = `
                     <h3 class="font-bold text-stone-800 text-lg leading-tight mb-1">${zone.name}</h3>
-                    <p class="text-xs text-gray-500 font-medium mb-2">${zone.desc}</p>
+                    <p class="text-xs text-gray-500 font-medium mb-1">${zone.desc}</p>
+                    <div class="mb-1">${remainingText}</div>
                     <p class="text-green-600 font-bold text-lg">$${zone.price.toLocaleString()} <span class="text-xs text-gray-400 font-normal">/ 晚</span></p>
                 `;
                 div.innerHTML = badge;
                 div.appendChild(imgWrap);
                 div.appendChild(info);
-                div.onclick = () => {
-                    document.querySelectorAll('.zone-card').forEach(c => c.classList.remove('selected'));
-                    div.classList.add('selected');
-                    document.getElementById('selectedZoneInput').value = zone.name;
-                    document.getElementById('selectedZonePrice').value = zone.price;
-                    const event = new Event('change');
-                    document.getElementById('checkinDate').dispatchEvent(event);
-                };
+
+                if (!isSoldOut) {
+                    div.onclick = () => {
+                        document.querySelectorAll('.zone-card').forEach(c => c.classList.remove('selected'));
+                        div.classList.add('selected');
+                        document.getElementById('selectedZoneInput').value = zone.name;
+                        document.getElementById('selectedZonePrice').value = zone.price;
+                        document.getElementById('selectedZoneRemaining').value = remaining;
+                        updateQuantityOptions(remaining);
+                        const event = new Event('change');
+                        document.getElementById('checkinDate').dispatchEvent(event);
+                    };
+                }
                 container.appendChild(div);
             });
             document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -533,6 +776,7 @@
             document.getElementById('sidebar').classList.add('-translate-x-full');
             document.getElementById('overlay').classList.add('hidden');
             document.querySelectorAll('[id^="modal-"]').forEach(el => el.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
         };
         window.adminLogin = () => {
             const pwd = prompt("請輸入營主密碼：");
@@ -541,11 +785,58 @@
             } else if (pwd !== null) alert("密碼錯誤");
         };
 
-        // 訂位表單送出 (含折扣碼)
+        // 星星評分邏輯
+        document.querySelectorAll('.rating-star').forEach(star => {
+            star.addEventListener('click', function() {
+                const val = this.dataset.val;
+                document.getElementById('ratingInput').value = val;
+                document.querySelectorAll('.rating-star').forEach(s => {
+                    if (s.dataset.val <= val) s.classList.add('active');
+                    else s.classList.remove('active');
+                });
+            });
+        });
+
+        // 回饋表單送出邏輯
+        document.getElementById('feedbackForm').addEventListener('submit', e => {
+            e.preventDefault();
+            const btn = document.getElementById('feedbackBtn');
+            const originalText = btn.innerText;
+            btn.disabled = true;
+            btn.innerText = '處理中...';
+
+            fetch(scriptURL, { 
+                method: 'POST', 
+                body: new FormData(e.target),
+                mode: 'no-cors'
+            })
+            .then(() => {
+                // 隱藏表單，顯示成功訊息
+                document.getElementById('feedback-form-container').classList.add('hidden');
+                document.getElementById('feedback-success').classList.remove('hidden');
+            })
+            .catch(err => {
+                alert('❌ 發生錯誤，請截圖聯繫營主！\n錯誤訊息: ' + err.message);
+                btn.disabled = false;
+                btn.innerText = originalText;
+            });
+        });
+
+        // 訂位表單送出 (含折扣碼與超賣檢查)
         document.getElementById('bookingForm').addEventListener('submit', e => {
             e.preventDefault();
             const input = document.getElementById('selectedZoneInput');
             if(!input.value) { alert('請先選擇一個營位區域！'); return; }
+
+            const requestQty = parseInt(document.getElementById('quantitySelect').value) || 0;
+            const remainingQty = parseInt(document.getElementById('selectedZoneRemaining').value) || 0;
+            const zoneName = input.value;
+
+            if (requestQty > remainingQty) {
+                alert(`⚠️ 預訂失敗！\n\n「${zoneName}」該區域不能預定，僅剩 ${remainingQty} 帳。\n請調整數量或選擇其他區域。`);
+                updateQuantityOptions(remainingQty);
+                return; 
+            }
 
             const btn = document.getElementById('submitBtn');
             const originalText = btn.innerText;
@@ -557,7 +848,7 @@
             const inDateStr = document.getElementById('checkinDate').value;
             const outDateStr = document.getElementById('checkoutDate').value;
             const price = parseInt(document.getElementById('selectedZonePrice').value) || 0;
-            const qty = parseInt(document.getElementById('quantitySelect').value) || 1;
+            const qty = requestQty;
             const bbqQty = parseInt(document.getElementById('bbqSelect').value) || 0;
             
             if(inDateStr && outDateStr) {
@@ -586,13 +877,14 @@
                 document.getElementById('selectedZonePrice').value = '0';
                 document.getElementById('priceCalcResult').classList.add('hidden');
                 document.getElementById('stayDays').classList.add('hidden');
-                // 重置折扣
+                
                 currentDiscount = 0;
                 document.getElementById('discountMsg').innerHTML = '';
                 document.getElementById('discountRow').style.display = 'none';
                 
                 zones.forEach(z => z.idx = 0);
                 renderZones('all');
+                updateQuantityOptions(8);
             })
             .catch(err => {
                 alert('❌ 發生錯誤，請截圖聯繫營主！\n錯誤訊息: ' + err.message);
