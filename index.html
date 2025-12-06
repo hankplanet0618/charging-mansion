@@ -416,7 +416,7 @@
     </div>
 
     <script>
-        // ★★★ 請務必確認這裡的網址是您「重新部署」後的最新網址 ★★★
+        // ★★★ 務必確認這是您最新的 Script 網址 ★★★
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwOqn7a4nYTC7hqY-KYUgK4NANieZK-JPJhAgkKNoTh6HDdOYnlvpaj1780ZmTrcDvG/exec'; 
         const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=0#gid=0';
         
@@ -549,9 +549,10 @@
                     return;
                 }
                 
-                // ★★★ 修改：先不彈出警告，直接清空不合法的日期 ★★★
-                if (val && val < "2026-02-01") {
-                     this.value = ''; // 默默清空，不干擾操作
+                // ★★★ 強制檢查：如果選了早於 2026-02-01 的日期，直接清空 ★★★
+                if (val < "2026-02-01") {
+                     alert("抱歉！目前僅開放 2026年2月1日 之後的預訂。");
+                     this.value = ''; // 強制清空，防止送出
                      cart = {};
                      calculate();
                      renderZones(currentFilter);
