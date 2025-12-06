@@ -343,10 +343,80 @@
 <li>用電設備不特定限制，每座插座規格為 15-20A。</li></ul></div></div>
     <div id="modal-bbq" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-orange-600">烤肉預定</h3><div class="bg-orange-50 p-4 rounded border border-orange-200 text-center"><img src="https://i.ibb.co/N623cTjr/1299.png" alt="烤肉套餐" class="w-full h-48 object-cover rounded-lg mb-4"><h4 class="font-bold text-lg">基本 3 人套餐</h4><p class="text-3xl font-bold text-red-600 my-2">$1,299</p></div></div></div>
     <div id="modal-gear" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-blue-600">裝備出租</h3><table class="w-full text-sm text-left"><tbody id="gearTableBody" class="divide-y"></tbody></table></div></div>
-    <div id="modal-tent" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-3xl rounded-2xl shadow-xl z-10 p-6 relative max-h-[85vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-purple-600">免搭帳服務</h3><div class="bg-purple-50 p-3 rounded text-center mb-6 border-l-4 border-purple-600"><span class="block font-bold text-purple-900 text-sm">代搭服務費 (不含裝備租金)</span><span class="text-2xl font-bold text-purple-600">$500</span></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition"><img src="https://i.ibb.co/sp3sd0WW/4-2.jpg" class="w-full h-40 object-cover cursor-pointer hover:opacity-90" onclick="window.open(this.src)"><div class="p-3"><h4 class="font-bold text-gray-800">迪卡儂 4.2 充氣帳</h4><div class="flex justify-between items-center mt-2"><span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">2房1廳</span><span class="font-bold text-purple-600">$800</span></div></div></div><div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition"><img src="https://i.ibb.co/K391LwV/6.jpg" class="w-full h-40 object-cover cursor-pointer hover:opacity-90" onclick="window.open(this.src)"><div class="p-3"><h4 class="font-bold text-gray-800">挪客屋脊 6</h4><div class="flex justify-between items-center mt-2"><span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">自動帳</span><span class="font-bold text-purple-600">$600</span></div></div></div><div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition"><img src="https://i.ibb.co/1gJZmLv/IF-6-0.jpg" class="w-full h-40 object-cover cursor-pointer hover:opacity-90" onclick="window.open(this.src)"><div class="p-3"><h4 class="font-bold text-gray-800">IF 充氣帳篷 6.0</h4><div class="flex justify-between items-center mt-2"><span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">高顏值</span><span class="font-bold text-purple-600">$800</span></div></div></div><div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition"><img src="https://i.ibb.co/NnNrFZR2/9.jpg" class="w-full h-40 object-cover cursor-pointer hover:opacity-90" onclick="window.open(this.src)"><div class="p-3"><h4 class="font-bold text-gray-800">杜邦鯤9車尾帳</h4><div class="flex justify-between items-center mt-2"><span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Model Y 99%密合</span><span class="font-bold text-purple-600">$1,000</span></div></div></div><div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition md:col-span-2"><img src="https://i.ibb.co/39GMJ3Bp/tw-11134208-81ztg-meterwxf57gmfa.jpg" class="w-full h-48 object-cover cursor-pointer hover:opacity-90" onclick="window.open(this.src)"><div class="p-3"><h4 class="font-bold text-gray-800">KZM T-250 (科技棉)</h4><div class="flex justify-between items-center mt-2"><span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">一房一廳</span><span class="font-bold text-purple-600 text-lg">$2,000</span></div></div></div></div></div></div>
+    
+    <div id="modal-tent" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
+        <div class="bg-white w-full max-w-3xl rounded-2xl shadow-xl z-10 p-6 relative max-h-[85vh] overflow-y-auto">
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button>
+            <h3 class="text-xl font-bold mb-4 text-purple-600">免搭帳服務</h3>
+            
+            <div class="bg-purple-50 p-3 rounded text-center mb-6 border-l-4 border-purple-600">
+                <span class="block font-bold text-purple-900 text-sm">代搭服務費 (不含裝備租金)</span>
+                <span class="text-2xl font-bold text-purple-600">$500</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+                    <img src="https://i.ibb.co/sp3sd0WW/4-2.jpg" class="w-full h-56 object-contain bg-gray-50 cursor-pointer hover:opacity-90" onclick="window.open(this.src)">
+                    <div class="p-3">
+                        <h4 class="font-bold text-gray-800">迪卡儂 4.2 充氣帳</h4>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">2房1廳</span>
+                            <span class="font-bold text-purple-600">$800</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+                    <img src="https://i.ibb.co/K391LwV/6.jpg" class="w-full h-56 object-contain bg-gray-50 cursor-pointer hover:opacity-90" onclick="window.open(this.src)">
+                    <div class="p-3">
+                        <h4 class="font-bold text-gray-800">挪客屋脊 6</h4>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">自動帳</span>
+                            <span class="font-bold text-purple-600">$600</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+                    <img src="https://i.ibb.co/1gJZmLv/IF-6-0.jpg" class="w-full h-56 object-contain bg-gray-50 cursor-pointer hover:opacity-90" onclick="window.open(this.src)">
+                    <div class="p-3">
+                        <h4 class="font-bold text-gray-800">IF 充氣帳篷 6.0</h4>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">高顏值</span>
+                            <span class="font-bold text-purple-600">$800</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+                    <img src="https://i.ibb.co/NnNrFZR2/9.jpg" class="w-full h-56 object-contain bg-gray-50 cursor-pointer hover:opacity-90" onclick="window.open(this.src)">
+                    <div class="p-3">
+                        <h4 class="font-bold text-gray-800">杜邦鯤9車尾帳</h4>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Model Y 99%密合</span>
+                            <span class="font-bold text-purple-600">$1,000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition md:col-span-2">
+                    <img src="https://i.ibb.co/39GMJ3Bp/tw-11134208-81ztg-meterwxf57gmfa.jpg" class="w-full h-64 object-contain bg-gray-50 cursor-pointer hover:opacity-90" onclick="window.open(this.src)">
+                    <div class="p-3">
+                        <h4 class="font-bold text-gray-800">KZM T-250 (科技棉)</h4>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">一房一廳</span>
+                            <span class="font-bold text-purple-600 text-lg">$2,000</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <script>
-        // ★★★ 務必填入「新部署」的 GAS 網址 ★★★
+        // ★★★ 請務必確認這裡的網址是您「重新部署」後的最新網址 ★★★
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwOqn7a4nYTC7hqY-KYUgK4NANieZK-JPJhAgkKNoTh6HDdOYnlvpaj1780ZmTrcDvG/exec'; 
         const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=0#gid=0';
         
@@ -467,7 +537,7 @@
             const subtotalDisplay = document.getElementById('subtotalDisplay');
             const stayDaysSpan = document.getElementById('stayDays');
 
-            // 初始化：強制設定最小日期 (解決手機版漏洞)
+            // 初始化：強制設定最小日期
             inDate.min = "2026-02-01";
 
             // 入住日期輸入監聽
@@ -479,10 +549,9 @@
                     return;
                 }
                 
-                // ★★★ 強制檢查：如果選了早於 2026-02-01 的日期，直接清空 ★★★
-                if (val < "2026-02-01") {
-                     alert("抱歉！目前僅開放 2026年2月1日 之後的預訂。");
-                     this.value = ''; // 強制清空，防止送出
+                // ★★★ 修改：先不彈出警告，直接清空不合法的日期 ★★★
+                if (val && val < "2026-02-01") {
+                     this.value = ''; // 默默清空，不干擾操作
                      cart = {};
                      calculate();
                      renderZones(currentFilter);
@@ -515,9 +584,10 @@
                 const minOutDate = `${yyyy}-${mm}-${dd}`;
                 outDate.min = minOutDate;
 
+                // ★★★ 修改：只有當使用者「已經」選了退房日期，且該日期不合法時，才清空 ★★★
                 if(outDate.value && outDate.value < minOutDate) {
                     outDate.value = '';
-                    alert("退房日期必須大於入住日期，請重新選擇。");
+                    // 這裡不彈警告，讓使用者自己發現並重選即可，體驗較好
                 }
 
                 renderZones(currentFilter, val);
@@ -528,7 +598,7 @@
             outDate.addEventListener('change', function() {
                 if (inDate.value && this.value) {
                     if (this.value <= inDate.value) {
-                        alert("退房日期必須大於入住日期！");
+                        alert("退房日期必須晚於入住日期！"); // 修改提示文字
                         this.value = '';
                     }
                 }
