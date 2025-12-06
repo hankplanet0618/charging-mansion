@@ -549,34 +549,8 @@
                     return;
                 }
                 
-                // ★★★ 強制檢查：如果選了早於 2026-02-01 的日期，直接清空 ★★★
-                if (val < "2026-02-01") {
-                     alert("抱歉！目前僅開放 2026年2月1日 之後的預訂。");
-                     this.value = ''; // 強制清空，防止送出
-                     cart = {};
-                     calculate();
-                     renderZones(currentFilter);
-                     return;
-                }
-
-                const [year, month, day] = val.split('-');
-                if ((month === '02' && day === '07') || (month === '03' && day === '07')) {
-                    alert(`抱歉！ ${month}/${day} 已保留或不開放預訂。`);
-                    this.value = ''; 
-                    cart = {};
-                    calculate(); 
-                    renderZones(currentFilter);
-                    return;
-                }
-
-                // 日期變動，檢查購物車庫存
-                for(let id in cart) {
-                    if (getRemainingCount(id, val) < cart[id]) {
-                        cart[id] = 0; 
-                    }
-                }
-                
-                // 設定退房日期最小值
+                // ★★★ 移除這裡的強制清空邏輯，改在 Submit 時檢查 ★★★
+                // 僅設定退房日期的最小值
                 const startDate = new Date(val);
                 startDate.setDate(startDate.getDate() + 1);
                 const yyyy = startDate.getFullYear();
@@ -585,24 +559,19 @@
                 const minOutDate = `${yyyy}-${mm}-${dd}`;
                 outDate.min = minOutDate;
 
-                // ★★★ 修改：只有當使用者「已經」選了退房日期，且該日期不合法時，才清空 ★★★
-                if(outDate.value && outDate.value < minOutDate) {
-                    outDate.value = '';
-                    // 這裡不彈警告，讓使用者自己發現並重選即可，體驗較好
+                // 日期變動，檢查購物車庫存
+                for(let id in cart) {
+                    if (getRemainingCount(id, val) < cart[id]) {
+                        cart[id] = 0; 
+                    }
                 }
 
                 renderZones(currentFilter, val);
                 calculate();
             });
 
-            // 退房日期防呆
+            // ★★★ 移除退房日期的 change 事件警告，改在 Submit 時檢查 ★★★
             outDate.addEventListener('change', function() {
-                if (inDate.value && this.value) {
-                    if (this.value <= inDate.value) {
-                        alert("退房日期必須晚於入住日期！"); // 修改提示文字
-                        this.value = '';
-                    }
-                }
                 calculate();
             });
 
@@ -703,7 +672,8 @@
                 const currentQty = cart[zone.id] || 0;
 
                 const div = document.createElement('div');
-                div.className = `zone-card bg-white rounded-xl p-3 relative overflow-hidden flex items-center h-32 md:h-36 ${isSoldOut ? 'sold-out' : ''}`;
+                // ★★★ 修正：增加高度以防止文字被遮住 ★★★
+                div.className = `zone-card bg-white rounded-xl p-3 relative overflow-hidden flex items-center min-h-[9rem] h-auto ${isSoldOut ? 'sold-out' : ''}`;
                 if (currentQty > 0) div.classList.add('selected');
 
                 const badge = zone.badge ? `<span class="absolute top-0 right-0 bg-yellow-400 text-stone-900 text-xs font-bold px-2 py-1 rounded-bl-lg z-20 shadow-sm">${zone.badge}</span>` : '';
@@ -842,6 +812,19 @@
         // 訂位表單送出 (多選版 + 送出前二次檢查庫存)
         document.getElementById('bookingForm').addEventListener('submit', e => {
             e.preventDefault();
+
+            // ★★★ 新增：送出前最後檢查日期 ★★★
+            const inDateStr = document.getElementById('checkinDate').value;
+            const outDateStr = document.getElementById('checkoutDate').value;
+            
+            if (inDateStr < "2026-02-01") {
+                alert("入住日期必須在 2026年2月1日 之後！");
+                return;
+            }
+            if (outDateStr <= inDateStr) {
+                alert("退房日期必須晚於入住日期！");
+                return;
+            }
             
             // 1. 檢查是否有選購商品
             let totalQty = 0;
@@ -861,8 +844,6 @@
             btn.disabled = true;
             btn.innerText = '正在檢查庫存...';
 
-            const inDateStr = document.getElementById('checkinDate').value;
-            
             // ★★★ 關鍵修改：送出前先 "再抓一次" 最新庫存 ★★★
             fetch(scriptURL)
                 .then(response => response.json())
@@ -908,7 +889,6 @@
                     formData.set('預訂區域', orderSummary.join(', '));
                     formData.set('預訂數量', totalQty); 
 
-                    const outDateStr = document.getElementById('checkoutDate').value;
                     const bbqQty = parseInt(document.getElementById('bbqSelect').value) || 0;
                     
                     if(inDateStr && outDateStr) {
