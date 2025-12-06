@@ -129,7 +129,7 @@
                         2026年的特殊車聚日已經開放預訂囉，期待在山上見到大家！⚡️🏕️
                     </p>
                     <div class="rounded-xl overflow-hidden shadow-sm">
-                        <img src="https://i.ibb.co/6cx1xrVR/image.jpg" class="w-full h-48 object-cover hover:scale-105 transition duration-700">
+                        <img src="https://i.ibb.co/6cx1xrVR/image.jpg" class="w-full h-auto rounded-lg">
                     </div>
                     <div class="flex gap-4 mt-3 text-gray-400 text-xs font-bold">
                         <span><i class="fas fa-heart text-red-400 mr-1"></i> 520</span>
@@ -620,7 +620,7 @@
                                         </div>
                                     </div>
                                     <p class="text-gray-700 text-sm leading-relaxed mb-3 whitespace-pre-wrap">${post.content}</p>
-                                    ${post.image ? `<div class="rounded-xl overflow-hidden shadow-sm mb-3"><img src="${post.image}" class="w-full max-h-64 object-cover" onerror="this.style.display='none'"></div>` : ''}
+                                    ${post.image ? `<div class="rounded-xl overflow-hidden shadow-sm mb-3"><img src="${post.image}" class="w-full h-auto rounded-lg" onerror="this.style.display='none'"></div>` : ''}
                                     ${post.video ? `<div class="rounded-xl overflow-hidden shadow-sm aspect-video mb-3"><iframe class="w-full h-full" src="${post.video.replace('watch?v=', 'embed/')}" frameborder="0" allowfullscreen></iframe></div>` : ''}
                                     <div class="flex gap-4 mt-2 text-gray-400 text-xs font-bold">
                                         <span class="hover:text-red-500 cursor-pointer transition"><i class="fas fa-heart mr-1"></i> ❤️</span>
@@ -639,7 +639,7 @@
                                     <div><div class="font-bold text-stone-800 text-sm">營主 Hank <i class="fas fa-check-circle text-blue-500 ml-1"></i></div><div class="text-xs text-gray-400">剛剛 • 宜蘭礁溪</div></div>
                                 </div>
                                 <p class="text-gray-700 text-sm leading-relaxed mb-3">歡迎來到充電莊！目前還沒有新動態，期待在山上見到大家！⚡️🏕️</p>
-                                <div class="rounded-xl overflow-hidden shadow-sm"><img src="https://i.ibb.co/vCPbyL8x/image.jpg" class="w-full h-48 object-cover"></div>
+                                <div class="rounded-xl overflow-hidden shadow-sm"><img src="https://i.ibb.co/vCPbyL8x/image.jpg" class="w-full h-auto rounded-lg"></div>
                             </div>`;
                     }
                 })
