@@ -311,25 +311,195 @@
 
     <div id="modal-report" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-center text-yellow-600">匯款回報</h3><form id="paymentForm" class="space-y-4"><input type="hidden" name="sheetName" value="匯款紀錄"><div><label class="block text-xs font-bold text-gray-500 mb-1">匯款姓名</label><input type="text" name="匯款姓名" required class="w-full border rounded p-2"></div><div><label class="block text-xs font-bold text-gray-500 mb-1">帳號末五碼</label><input type="text" name="末五碼" required class="w-full border rounded p-2"></div><div><label class="block text-xs font-bold text-gray-500 mb-1">匯款金額</label><input type="number" name="匯款金額" required class="w-full border rounded p-2"></div><div><label class="block text-xs font-bold text-gray-500 mb-1">匯款日期</label><input type="date" name="匯款日期" required class="w-full border rounded p-2"></div><button type="submit" id="payBtn" class="w-full bg-yellow-500 text-stone-900 font-bold py-3 rounded-lg hover:bg-yellow-400">送出回報</button></form></div></div>
     <div id="modal-bank" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-center">匯款資訊</h3><div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200"><p class="text-sm text-gray-600">銀行：<span class="font-bold text-black">823 將來銀行</span></p><p class="text-sm text-gray-600 mt-2">戶名：<span class="font-bold text-black">林均鴻</span></p><p class="text-sm text-gray-600 mt-2">帳號：</p><p class="text-xl font-mono font-bold text-blue-800 bg-white p-2 rounded border mt-1 text-center">8865-0975-0204-25</p></div><p class="text-xs text-center text-gray-400 mt-4">匯款後請點選選單「匯款回報」</p></div></div>
-    <div id="modal-about" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-green-700">關於充電莊</h3><p class="mb-4 text-gray-700 leading-relaxed">充電莊，隱在宜蘭礁溪深溝的山腰，像一首還未被唱起的祕密詩。
-這裡沒有繁複造景，卻能遠眺四季龜山島的日出日落；感受秋日落羽松鋪出的一地紅毯；聆聽夏日蟲鳴、潮聲。
+    <div id="modal-about" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-green-700">關於充電莊</h3><p class="mb-4 text-gray-700 leading-relaxed"><!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>充電莊 - 宜蘭礁溪</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* 全局設定 */
+        :root {
+            --primary-color: #2F4F4F; /* 深岩灰/墨綠色 */
+            --accent-color: #D2691E;  /* 暖橘/落羽松色 */
+            --bg-color: #Fdfbf7;      /* 米白紙張色 */
+            --text-color: #333333;
+            --light-text: #666666;
+        }
 
-這裡有 95% 雨棚營位，讓喜愛露營的人下雨不淋、烈日不曬；懶人能躺平，孩子能放電。
-在這裡插上充電槍，泡一壺茶，坐進彩色木椅，看電量悠悠回滿；看光線擁吻山海；看孩子追螢火蟲，追著夏日的童年。
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            font-family: 'Noto Serif TC', serif; /* 使用襯線體 */
+            color: var(--text-color);
+            line-height: 1.8;
+        }
 
-2025 年，我露營了七十七次。
-我知道露營的幸福，是有風有雨也不狼狽，有星有月也不孤單。
-於是我接下了「充電莊」——這裡不是我的營地，是我兒子的王國，也是為每一個電量歸零的人，準備的一個溫暖避風港。
+        /* 容器設定 */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
 
-如果有一天，你開上山路，電量亮紅，請再往前一點點。
-你會看見落羽松在搖、燈在亮，茶香飄來，孩子笑著奔跑。
-那一刻，你就到了。
+        /* 段落區塊樣式 */
+        .section {
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s forwards;
+        }
 
-這裡允許你把電放完，也把心充滿；允許你懶，也允許你盡情奔跑。
+        /* 標題與強調 */
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
 
-「山中若有眠，夢裡總是青。」
-歡迎愛露營的你，來這裡充電。
-</p><div class="mt-4 p-3 bg-green-50 rounded text-green-800 font-bold border-l-4 border-green-600">希望來到充電莊的你們，也能跟我一樣，找到屬於自己的那座山。</div></div></div>
+        .highlight {
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        /* 特殊排版：第一段 (詩意開場) */
+        .intro {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--light-text);
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 40px;
+        }
+
+        /* 特殊排版：功能介紹 (圖標感) */
+        .features {
+            background: #fff;
+            padding: 30px;
+            border-left: 4px solid var(--primary-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-radius: 4px;
+        }
+
+        /* 特殊排版：個人故事 (引言感) */
+        .story {
+            font-style: italic;
+            position: relative;
+            padding: 20px 40px;
+            background-color: #f0f4f4; /* 極淡的綠 */
+            border-radius: 8px;
+        }
+        .story::before {
+            content: "“";
+            font-size: 80px;
+            color: rgba(47, 79, 79, 0.1);
+            position: absolute;
+            top: -20px;
+            left: 10px;
+            font-family: sans-serif;
+        }
+
+        /* 特殊排版：情境描寫 */
+        .scenario {
+            text-align: justify;
+        }
+
+        /* 結尾 */
+        .closing {
+            text-align: center;
+            margin-top: 80px;
+        }
+        .closing h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        .cta-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: background 0.3s;
+        }
+        .cta-btn:hover {
+            background-color: var(--accent-color);
+        }
+
+        /* 動畫效果 */
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 每個區塊的延遲動畫 */
+        .section:nth-child(1) { animation-delay: 0.2s; }
+        .section:nth-child(2) { animation-delay: 0.4s; }
+        .section:nth-child(3) { animation-delay: 0.6s; }
+        .section:nth-child(4) { animation-delay: 0.8s; }
+        .section:nth-child(5) { animation-delay: 1.0s; }
+        .section:nth-child(6) { animation-delay: 1.2s; }
+
+        /* 手機版調整 */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+            .container { padding: 20px; }
+            .section { margin-bottom: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>充電莊</h1>
+
+        <div class="section intro">
+            <p>隱在宜蘭礁溪深溝的山腰，像一首還未被唱起的祕密詩。</p>
+            <p>這裡沒有繁複造景，卻能遠眺四季<span class="highlight">龜山島</span>的日出日落；<br>
+            感受秋日<span class="highlight">落羽松</span>鋪出的一地紅毯；<br>
+            聆聽夏日蟲鳴、潮聲。</p>
+        </div>
+
+        <div class="section features">
+            <p>這裡有 <strong>95% 雨棚營位</strong>，讓喜愛露營的人下雨不淋、烈日不曬；懶人能躺平，孩子能放電。</p>
+            <p>在這裡插上<span class="highlight">充電槍</span>，泡一壺茶，坐進彩色木椅，看電量悠悠回滿；<br>
+            看光線擁吻山海；看孩子追螢火蟲，追著夏日的童年。</p>
+        </div>
+
+        <div class="section story">
+            <p>2025 年，我露營了七十七次。</p>
+            <p>我知道露營的幸福，是有風有雨也不狼狽，有星有月也不孤單。</p>
+            <p>於是我接下了「<strong>充電莊</strong>」——這裡不是我的營地，是我兒子的王國，也是為每一個電量歸零的人，準備的一個溫暖避風港。</p>
+        </div>
+
+        <div class="section scenario">
+            <p>如果有一天，你開上山路，電量亮紅，請再往前一點點。</p>
+            <p>你會看見落羽松在搖、燈在亮，茶香飄來，孩子笑著奔跑。</p>
+            <p>那一刻，你就到了。</p>
+        </div>
+
+        <div class="section text-center" style="text-align: center; font-size: 1.1rem;">
+            <p>這裡允許你把電放完，也把心充滿；<br>
+            允許你懶，也允許你盡情奔跑。</p>
+        </div>
+
+        <div class="section closing">
+            <h3>「山中若有眠，夢裡總是青。」</h3>
+            <p>歡迎愛露營的你，來這裡充電。</p>
+            <a href="#" class="cta-btn">預約充電 / 營位</a>
+        </div>
+    </div>
+
+</body>
+</html></p><div class="mt-4 p-3 bg-green-50 rounded text-green-800 font-bold border-l-4 border-green-600">希望來到充電莊的你們，也能跟我一樣，找到屬於自己的那座山。</div></div></div>
     <div id="modal-rules" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-red-600">營區須知</h3><ul class="list-disc pl-5 space-y-2 text-sm text-gray-700"><li>請注意寧靜時間為每天晚上10點後，請放低音量。<li>電動車車主請務必於表單備註，將優先安排充電位置（全區共 17 台）。<li>焚火請務必自備木柴、防火布及焚火爐，禁止直接在地面生火。<li>本營區不禁菸，但吸煙者請移步至接待處附近指定區域抽煙。<li>若進行溪邊活動將分組，可自行帶補蝦籠，有機會抓到溪蝦 (請注意安全)。<li>夜衝自搭帳及車泊每帳 $600；民宿、小木屋、露營車及 T 250 為 5 折優惠。夜衝時間為 17:00-22:00。<li>營區有各項設備可出租，詳細項目及金額請查看裝備表。
 <li>用電設備不特定限制，每座插座規格為 15-20A。</li></ul></div></div>
     <div id="modal-bbq" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-orange-600">烤肉預定</h3><div class="bg-orange-50 p-4 rounded border border-orange-200 text-center"><img src="https://i.ibb.co/N623cTjr/1299.png" alt="烤肉套餐" class="w-full h-48 object-cover rounded-lg mb-4"><h4 class="font-bold text-lg">基本 3 人套餐</h4><p class="text-3xl font-bold text-red-600 my-2">$1,299</p></div></div></div>
