@@ -132,6 +132,7 @@
                             <label class="block text-xs font-bold text-gray-500 mb-1">聯絡電話</label>
                             <input type="tel" name="聯絡電話" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none">
                         </div>
+                        
                         <div>
                             <label class="block text-xs font-bold text-gray-500 mb-1">Line ID</label>
                             <input type="text" name="Line ID" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none" placeholder="方便我們聯繫您">
@@ -170,8 +171,17 @@
                     </div>
                     
                     <input type="hidden" name="預訂區域" id="zoneStringOutput">
+                    <input type="hidden" id="selectedZoneRemaining" value="99"> 
+                    
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" id="zoneContainer">
                         </div>
+
+                    <div class="mt-6">
+                        <label class="block text-xs font-bold text-gray-500 mb-1">預訂數量 (帳/間)</label>
+                        <select name="預訂數量" id="quantitySelect" class="w-full md:w-1/3 bg-stone-50 border border-gray-300 rounded-lg p-3 outline-none">
+                            <option value="1">1</option>
+                        </select>
+                    </div>
                 </div>
 
                 <hr class="border-gray-200">
@@ -288,13 +298,9 @@
     <div id="modal-map" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
         <div class="bg-white w-full max-w-6xl rounded-2xl shadow-xl z-10 relative overflow-hidden flex flex-col h-[90vh]">
-            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-600 bg-white/90 rounded-full w-10 h-10 flex items-center justify-center hover:bg-white hover:text-black z-20 shadow-lg font-bold text-xl transition">
-                <i class="fas fa-times"></i>
-            </button>
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-600 bg-white/90 rounded-full w-10 h-10 flex items-center justify-center hover:bg-white hover:text-black z-20 shadow-lg font-bold text-xl transition"><i class="fas fa-times"></i></button>
             <div class="flex-1 w-full h-full bg-gray-100">
-                <iframe src="充電莊地圖.pdf" class="w-full h-full" style="border:none;">
-                    您的瀏覽器不支援 PDF 預覽，請下載查看。
-                </iframe>
+                <iframe src="充電莊地圖.pdf" class="w-full h-full" style="border:none;">您的瀏覽器不支援 PDF 預覽，請下載查看。</iframe>
             </div>
         </div>
     </div>
@@ -331,13 +337,12 @@
 風很輕，月正圓，兒子已睡。</p><div class="mt-4 p-3 bg-green-50 rounded text-green-800 font-bold border-l-4 border-green-600">希望來到充電莊的你們，也能跟我一樣，找到屬於自己的那座山。</div></div></div>
     <div id="modal-rules" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-red-600">營區須知</h3><ul class="list-disc pl-5 space-y-2 text-sm text-gray-700"><li>請注意寧靜時間為每天晚上10點後，請放低音量。<li>電動車車主請務必於表單備註，將優先安排充電位置（全區共 17 台）。<li>焚火請務必自備木柴、防火布及焚火爐，禁止直接在地面生火。<li>本營區不禁菸，但吸煙者請移步至接待處附近指定區域抽煙。<li>若進行溪邊活動將分組，可自行帶補蝦籠，有機會抓到溪蝦 (請注意安全)。<li>夜衝自搭帳及車泊每帳 $600；民宿、小木屋、露營車及 T 250 為 5 折優惠。夜衝時間為 17:00-22:00。<li>營區有各項設備可出租，詳細項目及金額請查看裝備表。
 <li>用電設備不特定限制，每座插座規格為 15-20A。</li></ul></div></div>
-
     <div id="modal-bbq" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-orange-600">烤肉預定</h3><div class="bg-orange-50 p-4 rounded border border-orange-200 text-center"><img src="https://i.ibb.co/N623cTjr/1299.png" alt="烤肉套餐" class="w-full h-48 object-cover rounded-lg mb-4"><h4 class="font-bold text-lg">基本 3 人套餐</h4><p class="text-3xl font-bold text-red-600 my-2">$1,299</p></div></div></div>
     <div id="modal-gear" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-blue-600">裝備出租</h3><table class="w-full text-sm text-left"><tbody id="gearTableBody" class="divide-y"></tbody></table></div></div>
     <div id="modal-tent" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-3xl rounded-2xl shadow-xl z-10 p-6 relative max-h-[85vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-purple-600">免搭帳服務</h3><div class="bg-purple-50 p-3 rounded text-center mb-6 border-l-4 border-purple-600"><span class="block font-bold text-purple-900 text-sm">代搭服務費 (不含裝備租金)</span><span class="text-2xl font-bold text-purple-600">$500</span></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition"><img src="https://i.ibb.co/sp3sd0WW/4-2.jpg" class="w-full h-40 object-cover cursor-pointer hover:opacity-90" onclick="window.open(this.src)"><div class="p-3"><h4 class="font-bold text-gray-800">迪卡儂 4.2 充氣帳</h4><div class="flex justify-between items-center mt-2"><span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">2房1廳</span><span class="font-bold text-purple-600">$800</span></div></div></div><div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition"><img src="https://i.ibb.co/K391LwV/6.jpg" class="w-full h-40 object-cover cursor-pointer hover:opacity-90" onclick="window.open(this.src)"><div class="p-3"><h4 class="font-bold text-gray-800">挪客屋脊 6</h4><div class="flex justify-between items-center mt-2"><span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">自動帳</span><span class="font-bold text-purple-600">$600</span></div></div></div><div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition"><img src="https://i.ibb.co/1gJZmLv/IF-6-0.jpg" class="w-full h-40 object-cover cursor-pointer hover:opacity-90" onclick="window.open(this.src)"><div class="p-3"><h4 class="font-bold text-gray-800">IF 充氣帳篷 6.0</h4><div class="flex justify-between items-center mt-2"><span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">高顏值</span><span class="font-bold text-purple-600">$800</span></div></div></div><div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition"><img src="https://i.ibb.co/NnNrFZR2/9.jpg" class="w-full h-40 object-cover cursor-pointer hover:opacity-90" onclick="window.open(this.src)"><div class="p-3"><h4 class="font-bold text-gray-800">杜邦鯤9車尾帳</h4><div class="flex justify-between items-center mt-2"><span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Model Y 99%密合</span><span class="font-bold text-purple-600">$1,000</span></div></div></div><div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition md:col-span-2"><img src="https://i.ibb.co/39GMJ3Bp/tw-11134208-81ztg-meterwxf57gmfa.jpg" class="w-full h-48 object-cover cursor-pointer hover:opacity-90" onclick="window.open(this.src)"><div class="p-3"><h4 class="font-bold text-gray-800">KZM T-250 (科技棉)</h4><div class="flex justify-between items-center mt-2"><span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">一房一廳</span><span class="font-bold text-purple-600 text-lg">$2,000</span></div></div></div></div></div></div>
 
     <script>
-        // ★★★ 務必填入「新部署」的 GAS 網址 ★★★
+        // ★★★ 請務必確認這裡的網址是您「重新部署」後的最新網址 ★★★
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwOqn7a4nYTC7hqY-KYUgK4NANieZK-JPJhAgkKNoTh6HDdOYnlvpaj1780ZmTrcDvG/exec'; 
         const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=0#gid=0';
         
@@ -362,9 +367,11 @@
                 .then(data => {
                     console.log("庫存載入成功:", data);
                     bookedData = data; 
+                    
                     renderZones('all'); 
                     renderGears(); 
                     setupCalculator(); 
+                    updateQuantityOptions(8);
                 })
                 .catch(error => {
                     console.error("庫存載入失敗:", error);
@@ -382,7 +389,7 @@
             { id: 'ZC1', name: '三人頂級露營車', count: 2, cat: 'room', desc: '最有溫度的一晚 (2台)', price: 6980, badge: '送烤肉', images: ['https://i.ibb.co/jvXBxJWw/4.jpg'], idx: 0 },
             { id: 'ZC2', name: '小木屋 (大)', count: 1, cat: 'room', desc: '家庭首選 (1間)', price: 2500, badge: '最夯首選', images: ['https://i.ibb.co/4n2CPt5X/image.jpg', 'https://i.ibb.co/VYpvt7NF/image.jpg'], idx: 0 },
             { id: 'ZC3', name: '小木屋 (小)', count: 1, cat: 'room', desc: '溫馨三人 (1間)', price: 2200, badge: '', images: ['https://i.ibb.co/CpNgsKHw/image.jpg', 'https://i.ibb.co/VW4t8GH4/image.jpg'], idx: 0 },
-            { id: 'ZD1', name: '草地區', count: 5, cat: 'grass', desc: '親近自然的美好車停帳邊 (5帳)', price: 1200, badge: '自然紮營', images: ['https://i.ibb.co/7xsg5nfv/1.jpg', 'https://i.ibb.co/DDLBdhNk/3.jpg', 'https://i.ibb.co/S73TLHJR/2.jpg'], idx: 0 },
+            { id: 'ZD1', name: '草地區', count: 6, cat: 'grass', desc: '親近自然的美好車停帳邊 (6帳)', price: 1200, badge: '自然紮營', images: ['https://i.ibb.co/7xsg5nfv/1.jpg', 'https://i.ibb.co/DDLBdhNk/3.jpg', 'https://i.ibb.co/S73TLHJR/2.jpg'], idx: 0 },
             { id: 'ZD2', name: '碎石地區', count: 2, cat: 'grass', desc: '充電紮營首選車停帳邊 (2帳)', price: 1200, badge: '碎石美好', images: ['https://i.ibb.co/k6D740Ht/image.jpg'], idx: 0 },
             { id: 'ZE1', name: '包棟民宿 (16人)', count: 1, cat: 'room', desc: '4房/多人K歌最開心 (1棟)', price: 18000, badge: '獨享群樂', images: ['https://i.ibb.co/6RyZYPVy/7-KW.jpg'], idx: 0 },
             { id: 'ZF1', name: '泰式免搭', count: 8, cat: 'room', desc: '懶人新福音 (8帳)', price: 1200, badge: '最新', images: ['https://i.ibb.co/60bXNB57/image.jpg', 'https://i.ibb.co/DHhm1sWR/2.jpg'], idx: 0 }
@@ -412,8 +419,29 @@
                 discountRow.style.display = 'none';
                 discountInput.value = 0;
             }
-            // 觸發重新計算
             window.calculate();
+        }
+
+        function updateQuantityOptions(max) {
+            const select = document.getElementById('quantitySelect');
+            select.innerHTML = ''; 
+            if (max <= 0) {
+                const opt = document.createElement('option');
+                opt.text = "已額滿";
+                opt.value = 0;
+                select.appendChild(opt);
+                select.disabled = true;
+            } else {
+                select.disabled = false;
+                for (let i = 1; i <= max; i++) {
+                    const opt = document.createElement('option');
+                    opt.value = i;
+                    opt.text = i;
+                    select.appendChild(opt);
+                }
+            }
+            const event = new Event('change');
+            select.dispatchEvent(event);
         }
 
         function getRemainingCount(zoneId, dateStr) {
@@ -566,7 +594,7 @@
             if(display) display.textContent = newQty;
             
             // 更新卡片選中狀態
-            renderZones(currentFilter, dateStr); // 重新渲染以更新樣式 (較簡單暴力，但有效)
+            renderZones(currentFilter, dateStr); 
             window.calculate();
         }
 
@@ -575,9 +603,7 @@
             if (!dateStr) dateStr = document.getElementById('checkinDate').value;
 
             const container = document.getElementById('zoneContainer');
-            // 這裡不清空 container，而是採用「智慧更新」或直接重繪
-            // 為求簡單穩健，這裡採用重繪，但要小心圖片閃爍。
-            // 更好的做法是只更新數字和樣式，不過這裡先全重繪確保邏輯正確。
+            // 為了不閃爍，這裡可以優化，但為求簡單先重繪
             container.innerHTML = '';
             
             zones.forEach(zone => {
@@ -724,11 +750,11 @@
             });
         });
 
-        // 訂位表單送出 (多選版)
+        // 訂位表單送出 (多選版 + 送出前二次檢查庫存)
         document.getElementById('bookingForm').addEventListener('submit', e => {
             e.preventDefault();
             
-            // 檢查是否有選購商品
+            // 1. 檢查是否有選購商品
             let totalQty = 0;
             let orderSummary = [];
             for(let id in cart) {
@@ -744,63 +770,108 @@
             const btn = document.getElementById('submitBtn');
             const originalText = btn.innerText;
             btn.disabled = true;
-            btn.innerText = '處理中...';
-
-            const formData = new FormData(e.target);
-            
-            formData.set('預訂區域', orderSummary.join(', '));
-            formData.set('預訂數量', totalQty); 
+            btn.innerText = '正在檢查庫存...';
 
             const inDateStr = document.getElementById('checkinDate').value;
-            const outDateStr = document.getElementById('checkoutDate').value;
-            const bbqQty = parseInt(document.getElementById('bbqSelect').value) || 0;
             
-            if(inDateStr && outDateStr) {
-                const start = new Date(inDateStr);
-                const end = new Date(outDateStr);
-                const diffTime = end - start;
-                const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                
-                let roomTotal = 0;
-                for(let id in cart) {
-                    if(cart[id] > 0) {
-                        const zone = zones.find(z => z.id === id);
-                        roomTotal += zone.price * cart[id] * days;
-                    }
-                }
-                const subtotal = roomTotal + (1299 * bbqQty);
-                const total = Math.max(0, subtotal - currentDiscount);
-                
-                formData.append('入住天數', days);
-                formData.append('總金額', total);
-            }
+            // ★★★ 關鍵修改：送出前先 "再抓一次" 最新庫存 ★★★
+            fetch(scriptURL)
+                .then(response => response.json())
+                .then(latestData => {
+                    // 更新本地庫存數據
+                    bookedData = latestData;
+                    
+                    // 檢查購物車內的每一項，是否還有足夠庫存
+                    let isStockEnough = true;
+                    let errorMsg = "";
 
-            fetch(scriptURL, { 
-                method: 'POST', 
-                body: formData,
-                mode: 'no-cors' 
-            })
-            .then(() => {
-                alert('✅ 預訂送出成功！\n我們已收到您的資料，將盡快安排並聯繫您。');
-                e.target.reset();
-                cart = {}; 
-                document.getElementById('priceCalcResult').classList.add('hidden');
-                document.getElementById('stayDays').classList.add('hidden');
-                currentDiscount = 0;
-                document.getElementById('discountMsg').innerHTML = '';
-                document.getElementById('discountRow').style.display = 'none';
-                renderZones('all'); 
-            })
-            .catch(err => {
-                alert('❌ 發生錯誤，請截圖聯繫營主！\n錯誤訊息: ' + err.message);
-                console.error(err);
-            })
-            .finally(() => {
-                btn.disabled = false;
-                btn.innerText = originalText;
-            });
+                    for(let id in cart) {
+                        if(cart[id] > 0) {
+                            const zone = zones.find(z => z.id === id);
+                            const defaultCount = zone.count;
+                            let booked = 0;
+                            if (inDateStr && bookedData[inDateStr] && bookedData[inDateStr][id]) {
+                                booked = bookedData[inDateStr][id];
+                            }
+                            const remaining = Math.max(0, defaultCount - booked);
+
+                            if (cart[id] > remaining) {
+                                isStockEnough = false;
+                                errorMsg += `❌ ${zone.name} 只剩 ${remaining} 帳 (您預訂 ${cart[id]} 帳)\n`;
+                                cart[id] = remaining; // 自動修正
+                            }
+                        }
+                    }
+
+                    if (!isStockEnough) {
+                        alert(`⚠️ 很抱歉，剛剛有其他客人搶先預訂了！\n\n${errorMsg}\n系統已自動為您調整數量，請確認後再送出。`);
+                        renderZones(currentFilter, inDateStr);
+                        window.calculate(); 
+                        btn.disabled = false;
+                        btn.innerText = originalText;
+                        return; // 中斷送出
+                    }
+
+                    // --- 庫存檢查通過，正式送出 ---
+                    btn.innerText = '處理中...';
+                    
+                    const formData = new FormData(e.target);
+                    formData.set('預訂區域', orderSummary.join(', '));
+                    formData.set('預訂數量', totalQty); 
+
+                    const outDateStr = document.getElementById('checkoutDate').value;
+                    const bbqQty = parseInt(document.getElementById('bbqSelect').value) || 0;
+                    
+                    if(inDateStr && outDateStr) {
+                        const start = new Date(inDateStr);
+                        const end = new Date(outDateStr);
+                        const diffTime = end - start;
+                        const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                        
+                        let roomTotal = 0;
+                        for(let id in cart) {
+                            if(cart[id] > 0) {
+                                const zone = zones.find(z => z.id === id);
+                                roomTotal += zone.price * cart[id] * days;
+                            }
+                        }
+                        const subtotal = roomTotal + (1299 * bbqQty);
+                        const total = Math.max(0, subtotal - currentDiscount);
+                        
+                        formData.append('入住天數', days);
+                        formData.append('總金額', total);
+                    }
+
+                    return fetch(scriptURL, { 
+                        method: 'POST', 
+                        body: formData,
+                        mode: 'no-cors' 
+                    });
+                })
+                .then(response => {
+                    if(!response) return; 
+                    
+                    alert('✅ 預訂送出成功！\n我們已收到您的資料，將盡快安排並聯繫您。');
+                    e.target.reset();
+                    cart = {}; 
+                    document.getElementById('priceCalcResult').classList.add('hidden');
+                    document.getElementById('stayDays').classList.add('hidden');
+                    currentDiscount = 0;
+                    document.getElementById('discountMsg').innerHTML = '';
+                    document.getElementById('discountRow').style.display = 'none';
+                    init(); 
+                })
+                .catch(err => {
+                    alert('❌ 發生錯誤，請截圖聯繫營主！\n錯誤訊息: ' + err.message);
+                    console.error(err);
+                })
+                .finally(() => {
+                    btn.disabled = false;
+                    btn.innerText = originalText;
+                });
         });
 
+        // 匯款回報表單送出
         document.getElementById('paymentForm').addEventListener('submit', e => {
             e.preventDefault();
             const btn = document.getElementById('payBtn');
