@@ -299,8 +299,12 @@
         <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
         <div class="bg-white w-full max-w-6xl rounded-2xl shadow-xl z-10 relative overflow-hidden flex flex-col h-[90vh]">
             <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-600 bg-white/90 rounded-full w-10 h-10 flex items-center justify-center hover:bg-white hover:text-black z-20 shadow-lg font-bold text-xl transition"><i class="fas fa-times"></i></button>
-            <div class="flex-1 w-full h-full bg-gray-100">
-                <iframe src="充電莊地圖.pdf" class="w-full h-full" style="border:none;">您的瀏覽器不支援 PDF 預覽，請下載查看。</iframe>
+            <div class="flex-1 w-full h-full bg-gray-100 overflow-auto p-4 flex flex-col items-center">
+                <img src="https://i.ibb.co/DHK9NKfP/image.png" alt="營位地圖" class="w-full h-auto object-contain shadow-md mb-6">
+                <a href="充電莊地圖.pdf" target="_blank" class="bg-green-600 text-white px-6 py-3 rounded-full font-bold hover:bg-green-700 transition shadow-lg flex items-center text-lg">
+                    <i class="fas fa-file-pdf mr-2"></i> 下載高清 PDF 地圖
+                </a>
+                <p class="text-gray-500 text-sm mt-2">如需放大檢視細節，建議下載 PDF</p>
             </div>
         </div>
     </div>
@@ -342,7 +346,7 @@
     <div id="modal-tent" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-3xl rounded-2xl shadow-xl z-10 p-6 relative max-h-[85vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-purple-600">免搭帳服務</h3><div class="bg-purple-50 p-3 rounded text-center mb-6 border-l-4 border-purple-600"><span class="block font-bold text-purple-900 text-sm">代搭服務費 (不含裝備租金)</span><span class="text-2xl font-bold text-purple-600">$500</span></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition"><img src="https://i.ibb.co/sp3sd0WW/4-2.jpg" class="w-full h-40 object-cover cursor-pointer hover:opacity-90" onclick="window.open(this.src)"><div class="p-3"><h4 class="font-bold text-gray-800">迪卡儂 4.2 充氣帳</h4><div class="flex justify-between items-center mt-2"><span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">2房1廳</span><span class="font-bold text-purple-600">$800</span></div></div></div><div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition"><img src="https://i.ibb.co/K391LwV/6.jpg" class="w-full h-40 object-cover cursor-pointer hover:opacity-90" onclick="window.open(this.src)"><div class="p-3"><h4 class="font-bold text-gray-800">挪客屋脊 6</h4><div class="flex justify-between items-center mt-2"><span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">自動帳</span><span class="font-bold text-purple-600">$600</span></div></div></div><div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition"><img src="https://i.ibb.co/1gJZmLv/IF-6-0.jpg" class="w-full h-40 object-cover cursor-pointer hover:opacity-90" onclick="window.open(this.src)"><div class="p-3"><h4 class="font-bold text-gray-800">IF 充氣帳篷 6.0</h4><div class="flex justify-between items-center mt-2"><span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">高顏值</span><span class="font-bold text-purple-600">$800</span></div></div></div><div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition"><img src="https://i.ibb.co/NnNrFZR2/9.jpg" class="w-full h-40 object-cover cursor-pointer hover:opacity-90" onclick="window.open(this.src)"><div class="p-3"><h4 class="font-bold text-gray-800">杜邦鯤9車尾帳</h4><div class="flex justify-between items-center mt-2"><span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Model Y 99%密合</span><span class="font-bold text-purple-600">$1,000</span></div></div></div><div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition md:col-span-2"><img src="https://i.ibb.co/39GMJ3Bp/tw-11134208-81ztg-meterwxf57gmfa.jpg" class="w-full h-48 object-cover cursor-pointer hover:opacity-90" onclick="window.open(this.src)"><div class="p-3"><h4 class="font-bold text-gray-800">KZM T-250 (科技棉)</h4><div class="flex justify-between items-center mt-2"><span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">一房一廳</span><span class="font-bold text-purple-600 text-lg">$2,000</span></div></div></div></div></div></div>
 
     <script>
-        // ★★★ 請務必確認這裡的網址是您「重新部署」後的最新網址 ★★★
+        // ★★★ 務必填入「新部署」的 GAS 網址 ★★★
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwOqn7a4nYTC7hqY-KYUgK4NANieZK-JPJhAgkKNoTh6HDdOYnlvpaj1780ZmTrcDvG/exec'; 
         const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=0#gid=0';
         
@@ -367,7 +371,6 @@
                 .then(data => {
                     console.log("庫存載入成功:", data);
                     bookedData = data; 
-                    
                     renderZones('all'); 
                     renderGears(); 
                     setupCalculator(); 
@@ -389,7 +392,7 @@
             { id: 'ZC1', name: '三人頂級露營車', count: 2, cat: 'room', desc: '最有溫度的一晚 (2台)', price: 6980, badge: '送烤肉', images: ['https://i.ibb.co/jvXBxJWw/4.jpg'], idx: 0 },
             { id: 'ZC2', name: '小木屋 (大)', count: 1, cat: 'room', desc: '家庭首選 (1間)', price: 2500, badge: '最夯首選', images: ['https://i.ibb.co/4n2CPt5X/image.jpg', 'https://i.ibb.co/VYpvt7NF/image.jpg'], idx: 0 },
             { id: 'ZC3', name: '小木屋 (小)', count: 1, cat: 'room', desc: '溫馨三人 (1間)', price: 2200, badge: '', images: ['https://i.ibb.co/CpNgsKHw/image.jpg', 'https://i.ibb.co/VW4t8GH4/image.jpg'], idx: 0 },
-            { id: 'ZD1', name: '草地區', count: 6, cat: 'grass', desc: '親近自然的美好車停帳邊 (6帳)', price: 1200, badge: '自然紮營', images: ['https://i.ibb.co/7xsg5nfv/1.jpg', 'https://i.ibb.co/DDLBdhNk/3.jpg', 'https://i.ibb.co/S73TLHJR/2.jpg'], idx: 0 },
+            { id: 'ZD1', name: '草地區', count: 5, cat: 'grass', desc: '親近自然的美好車停帳邊 (5帳)', price: 1200, badge: '自然紮營', images: ['https://i.ibb.co/7xsg5nfv/1.jpg', 'https://i.ibb.co/DDLBdhNk/3.jpg', 'https://i.ibb.co/S73TLHJR/2.jpg'], idx: 0 },
             { id: 'ZD2', name: '碎石地區', count: 2, cat: 'grass', desc: '充電紮營首選車停帳邊 (2帳)', price: 1200, badge: '碎石美好', images: ['https://i.ibb.co/k6D740Ht/image.jpg'], idx: 0 },
             { id: 'ZE1', name: '包棟民宿 (16人)', count: 1, cat: 'room', desc: '4房/多人K歌最開心 (1棟)', price: 18000, badge: '獨享群樂', images: ['https://i.ibb.co/6RyZYPVy/7-KW.jpg'], idx: 0 },
             { id: 'ZF1', name: '泰式免搭', count: 8, cat: 'room', desc: '懶人新福音 (8帳)', price: 1200, badge: '最新', images: ['https://i.ibb.co/60bXNB57/image.jpg', 'https://i.ibb.co/DHhm1sWR/2.jpg'], idx: 0 }
@@ -471,6 +474,17 @@
                     renderZones(currentFilter);
                     return;
                 }
+                
+                // ★★★ 修正：檢查日期是否早於 2026-02-01 ★★★
+                if (val < "2026-02-01") {
+                     alert("抱歉！目前僅開放 2026年2月1日 之後的預訂。");
+                     this.value = '';
+                     cart = {};
+                     calculate();
+                     renderZones(currentFilter);
+                     return;
+                }
+
                 const [year, month, day] = val.split('-');
                 if ((month === '02' && day === '07') || (month === '03' && day === '07')) {
                     alert(`抱歉！ ${month}/${day} 已保留或不開放預訂。`);
