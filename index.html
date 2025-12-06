@@ -311,195 +311,54 @@
 
     <div id="modal-report" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-center text-yellow-600">匯款回報</h3><form id="paymentForm" class="space-y-4"><input type="hidden" name="sheetName" value="匯款紀錄"><div><label class="block text-xs font-bold text-gray-500 mb-1">匯款姓名</label><input type="text" name="匯款姓名" required class="w-full border rounded p-2"></div><div><label class="block text-xs font-bold text-gray-500 mb-1">帳號末五碼</label><input type="text" name="末五碼" required class="w-full border rounded p-2"></div><div><label class="block text-xs font-bold text-gray-500 mb-1">匯款金額</label><input type="number" name="匯款金額" required class="w-full border rounded p-2"></div><div><label class="block text-xs font-bold text-gray-500 mb-1">匯款日期</label><input type="date" name="匯款日期" required class="w-full border rounded p-2"></div><button type="submit" id="payBtn" class="w-full bg-yellow-500 text-stone-900 font-bold py-3 rounded-lg hover:bg-yellow-400">送出回報</button></form></div></div>
     <div id="modal-bank" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-center">匯款資訊</h3><div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200"><p class="text-sm text-gray-600">銀行：<span class="font-bold text-black">823 將來銀行</span></p><p class="text-sm text-gray-600 mt-2">戶名：<span class="font-bold text-black">林均鴻</span></p><p class="text-sm text-gray-600 mt-2">帳號：</p><p class="text-xl font-mono font-bold text-blue-800 bg-white p-2 rounded border mt-1 text-center">8865-0975-0204-25</p></div><p class="text-xs text-center text-gray-400 mt-4">匯款後請點選選單「匯款回報」</p></div></div>
-    <div id="modal-about" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-green-700">關於充電莊</h3><p class="mb-4 text-gray-700 leading-relaxed"><!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>充電莊 - 宜蘭礁溪</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;500;700&display=swap" rel="stylesheet">
-    <style>
-        /* 全局設定 */
-        :root {
-            --primary-color: #2F4F4F; /* 深岩灰/墨綠色 */
-            --accent-color: #D2691E;  /* 暖橘/落羽松色 */
-            --bg-color: #Fdfbf7;      /* 米白紙張色 */
-            --text-color: #333333;
-            --light-text: #666666;
-        }
+    
+    <div id="modal-about" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto">
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button>
+            <h3 class="text-xl font-bold mb-4 text-green-700">關於充電莊</h3>
+            
+            <div class="prose prose-stone text-sm text-gray-700 leading-relaxed">
+                <div class="mb-6 text-center border-b pb-4">
+                    <p class="text-gray-500 italic mb-2">隱在宜蘭礁溪深溝的山腰，像一首還未被唱起的祕密詩。</p>
+                    <p>這裡沒有繁複造景，卻能遠眺四季<span class="text-yellow-600 font-bold">龜山島</span>的日出日落；<br>
+                    感受秋日<span class="text-yellow-600 font-bold">落羽松</span>鋪出的一地紅毯；<br>
+                    聆聽夏日蟲鳴、潮聲。</p>
+                </div>
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-color);
-            font-family: 'Noto Serif TC', serif; /* 使用襯線體 */
-            color: var(--text-color);
-            line-height: 1.8;
-        }
+                <div class="mb-6 bg-stone-50 p-4 border-l-4 border-green-700 rounded">
+                    <p class="mb-2">這裡有 <strong>95% 雨棚營位</strong>，讓喜愛露營的人下雨不淋、烈日不曬；懶人能躺平，孩子能放電。</p>
+                    <p>在這裡插上<span class="text-yellow-600 font-bold">充電槍</span>，泡一壺茶，坐進彩色木椅，看電量悠悠回滿；<br>
+                    看光線擁吻山海；看孩子追螢火蟲，追著夏日的童年。</p>
+                </div>
 
-        /* 容器設定 */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
+                <div class="mb-6 relative p-4 bg-green-50 rounded-lg italic">
+                    <span class="absolute top-0 left-2 text-6xl text-green-200 opacity-50 font-serif">“</span>
+                    <p>2025 年，我露營了七十七次。</p>
+                    <p>我知道露營的幸福，是有風有雨也不狼狽，有星有月也不孤單。</p>
+                    <p>於是我接下了「<strong>充電莊</strong>」——這裡不是我的營地，是我兒子的王國，也是為每一個電量歸零的人，準備的一個溫暖避風港。</p>
+                </div>
 
-        /* 段落區塊樣式 */
-        .section {
-            margin-bottom: 60px;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeUp 1s forwards;
-        }
+                <div class="mb-6 text-justify">
+                    <p>如果有一天，你開上山路，電量亮紅，請再往前一點點。</p>
+                    <p>你會看見落羽松在搖、燈在亮，茶香飄來，孩子笑著奔跑。</p>
+                    <p>那一刻，你就到了。</p>
+                </div>
 
-        /* 標題與強調 */
-        h1 {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            text-align: center;
-            margin-bottom: 40px;
-            font-weight: 700;
-            letter-spacing: 2px;
-        }
+                <div class="mb-6 text-center font-medium">
+                    <p>這裡允許你把電放完，也把心充滿；<br>
+                    允許你懶，也允許你盡情奔跑。</p>
+                </div>
 
-        .highlight {
-            color: var(--accent-color);
-            font-weight: 700;
-        }
-
-        /* 特殊排版：第一段 (詩意開場) */
-        .intro {
-            text-align: center;
-            font-size: 1.1rem;
-            color: var(--light-text);
-            border-bottom: 1px solid #e0e0e0;
-            padding-bottom: 40px;
-        }
-
-        /* 特殊排版：功能介紹 (圖標感) */
-        .features {
-            background: #fff;
-            padding: 30px;
-            border-left: 4px solid var(--primary-color);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border-radius: 4px;
-        }
-
-        /* 特殊排版：個人故事 (引言感) */
-        .story {
-            font-style: italic;
-            position: relative;
-            padding: 20px 40px;
-            background-color: #f0f4f4; /* 極淡的綠 */
-            border-radius: 8px;
-        }
-        .story::before {
-            content: "“";
-            font-size: 80px;
-            color: rgba(47, 79, 79, 0.1);
-            position: absolute;
-            top: -20px;
-            left: 10px;
-            font-family: sans-serif;
-        }
-
-        /* 特殊排版：情境描寫 */
-        .scenario {
-            text-align: justify;
-        }
-
-        /* 結尾 */
-        .closing {
-            text-align: center;
-            margin-top: 80px;
-        }
-        .closing h3 {
-            color: var(--primary-color);
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-        .cta-btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 30px;
-            background-color: var(--primary-color);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 50px;
-            transition: background 0.3s;
-        }
-        .cta-btn:hover {
-            background-color: var(--accent-color);
-        }
-
-        /* 動畫效果 */
-        @keyframes fadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* 每個區塊的延遲動畫 */
-        .section:nth-child(1) { animation-delay: 0.2s; }
-        .section:nth-child(2) { animation-delay: 0.4s; }
-        .section:nth-child(3) { animation-delay: 0.6s; }
-        .section:nth-child(4) { animation-delay: 0.8s; }
-        .section:nth-child(5) { animation-delay: 1.0s; }
-        .section:nth-child(6) { animation-delay: 1.2s; }
-
-        /* 手機版調整 */
-        @media (max-width: 600px) {
-            h1 { font-size: 1.8rem; }
-            .container { padding: 20px; }
-            .section { margin-bottom: 40px; }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <h1>充電莊</h1>
-
-        <div class="section intro">
-            <p>隱在宜蘭礁溪深溝的山腰，像一首還未被唱起的祕密詩。</p>
-            <p>這裡沒有繁複造景，卻能遠眺四季<span class="highlight">龜山島</span>的日出日落；<br>
-            感受秋日<span class="highlight">落羽松</span>鋪出的一地紅毯；<br>
-            聆聽夏日蟲鳴、潮聲。</p>
-        </div>
-
-        <div class="section features">
-            <p>這裡有 <strong>95% 雨棚營位</strong>，讓喜愛露營的人下雨不淋、烈日不曬；懶人能躺平，孩子能放電。</p>
-            <p>在這裡插上<span class="highlight">充電槍</span>，泡一壺茶，坐進彩色木椅，看電量悠悠回滿；<br>
-            看光線擁吻山海；看孩子追螢火蟲，追著夏日的童年。</p>
-        </div>
-
-        <div class="section story">
-            <p>2025 年，我露營了七十七次。</p>
-            <p>我知道露營的幸福，是有風有雨也不狼狽，有星有月也不孤單。</p>
-            <p>於是我接下了「<strong>充電莊</strong>」——這裡不是我的營地，是我兒子的王國，也是為每一個電量歸零的人，準備的一個溫暖避風港。</p>
-        </div>
-
-        <div class="section scenario">
-            <p>如果有一天，你開上山路，電量亮紅，請再往前一點點。</p>
-            <p>你會看見落羽松在搖、燈在亮，茶香飄來，孩子笑著奔跑。</p>
-            <p>那一刻，你就到了。</p>
-        </div>
-
-        <div class="section text-center" style="text-align: center; font-size: 1.1rem;">
-            <p>這裡允許你把電放完，也把心充滿；<br>
-            允許你懶，也允許你盡情奔跑。</p>
-        </div>
-
-        <div class="section closing">
-            <h3>「山中若有眠，夢裡總是青。」</h3>
-            <p>歡迎愛露營的你，來這裡充電。</p>
-            <a href="#" class="cta-btn">預約充電 / 營位</a>
-        </div>
+                <div class="text-center mt-8">
+                    <h3 class="text-green-800 font-bold text-lg mb-2">「山中若有眠，夢裡總是青。」</h3>
+                    <p>歡迎愛露營的你，來這裡充電。</p>
+                    <div class="mt-4 p-3 bg-green-50 rounded text-green-800 font-bold border-l-4 border-green-600">希望來到充電莊的你們，也能跟我一樣，找到屬於自己的那座山。</div>
+                </div>
+            </div>
+            </div>
     </div>
 
-</body>
-</html></p><div class="mt-4 p-3 bg-green-50 rounded text-green-800 font-bold border-l-4 border-green-600">希望來到充電莊的你們，也能跟我一樣，找到屬於自己的那座山。</div></div></div>
     <div id="modal-rules" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-red-600">營區須知</h3><ul class="list-disc pl-5 space-y-2 text-sm text-gray-700"><li>請注意寧靜時間為每天晚上10點後，請放低音量。<li>電動車車主請務必於表單備註，將優先安排充電位置（全區共 17 台）。<li>焚火請務必自備木柴、防火布及焚火爐，禁止直接在地面生火。<li>本營區不禁菸，但吸煙者請移步至接待處附近指定區域抽煙。<li>若進行溪邊活動將分組，可自行帶補蝦籠，有機會抓到溪蝦 (請注意安全)。<li>夜衝自搭帳及車泊每帳 $600；民宿、小木屋、露營車及 T 250 為 5 折優惠。夜衝時間為 17:00-22:00。<li>營區有各項設備可出租，詳細項目及金額請查看裝備表。
 <li>用電設備不特定限制，每座插座規格為 15-20A。</li></ul></div></div>
     <div id="modal-bbq" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-orange-600">烤肉預定</h3><div class="bg-orange-50 p-4 rounded border border-orange-200 text-center"><img src="https://i.ibb.co/N623cTjr/1299.png" alt="烤肉套餐" class="w-full h-48 object-cover rounded-lg mb-4"><h4 class="font-bold text-lg">基本 3 人套餐</h4><p class="text-3xl font-bold text-red-600 my-2">$1,299</p></div></div></div>
@@ -581,6 +440,63 @@
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwOqn7a4nYTC7hqY-KYUgK4NANieZK-JPJhAgkKNoTh6HDdOYnlvpaj1780ZmTrcDvG/exec'; 
         const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=0#gid=0';
         
+        // ★★★ 2026-2031 特別價格日期區間設定 (嚴格遵照您的清單，不含其他週末) ★★★
+        const specialRanges = [
+            // 2026
+            {s:'2026-02-14', e:'2026-02-22'}, {s:'2026-02-27', e:'2026-03-01'}, {s:'2026-04-03', e:'2026-04-06'},
+            {s:'2026-05-01', e:'2026-05-03'}, {s:'2026-06-19', e:'2026-06-21'}, {s:'2026-09-25', e:'2026-09-28'},
+            {s:'2026-10-09', e:'2026-10-11'}, {s:'2026-10-24', e:'2026-10-26'}, {s:'2026-12-25', e:'2026-12-27'},
+            // 2027
+            {s:'2027-01-01', e:'2027-01-03'}, {s:'2027-02-04', e:'2027-02-10'}, {s:'2027-02-27', e:'2027-03-01'},
+            {s:'2027-04-03', e:'2027-04-06'}, {s:'2027-04-30', e:'2027-05-02'}, {s:'2027-10-09', e:'2027-10-11'},
+            {s:'2027-10-23', e:'2027-10-25'}, {s:'2027-12-24', e:'2027-12-26'}, {s:'2027-06-09', e:'2027-06-09'},
+            {s:'2027-09-15', e:'2027-09-15'}, {s:'2027-09-25', e:'2027-09-28'},
+            // 2028 (注意跨年日期)
+            {s:'2027-12-31', e:'2028-01-02'}, {s:'2028-01-22', e:'2028-01-30'}, {s:'2028-02-26', e:'2028-02-28'},
+            {s:'2028-04-29', e:'2028-05-01'}, {s:'2028-05-27', e:'2028-05-29'}, {s:'2028-12-23', e:'2028-12-25'},
+            {s:'2028-10-25', e:'2028-10-25'}, {s:'2028-04-01', e:'2028-04-04'}, {s:'2028-09-28', e:'2028-10-01'},
+            {s:'2028-09-30', e:'2028-10-03'}, {s:'2028-10-07', e:'2028-10-10'},
+            // 2029
+            {s:'2028-12-30', e:'2029-01-01'}, {s:'2029-02-10', e:'2029-02-18'}, {s:'2029-06-15', e:'2029-06-17'},
+            {s:'2029-09-21', e:'2029-09-23'}, {s:'2029-09-28', e:'2029-09-30'}, {s:'2029-02-28', e:'2029-02-28'},
+            {s:'2029-04-04', e:'2029-04-04'}, {s:'2029-10-10', e:'2029-10-10'}, {s:'2029-04-28', e:'2029-05-01'},
+            {s:'2029-10-25', e:'2029-10-28'}, {s:'2029-12-22', e:'2029-12-25'},
+            // 2030
+            {s:'2030-02-01', e:'2030-02-07'}, {s:'2030-04-04', e:'2030-04-07'}, {s:'2030-09-27', e:'2030-09-29'},
+            {s:'2030-10-25', e:'2030-10-27'}, {s:'2030-05-01', e:'2030-05-01'}, {s:'2030-06-05', e:'2030-06-05'},
+            {s:'2030-12-25', e:'2030-12-25'}, {s:'2029-12-29', e:'2030-01-01'}, {s:'2030-02-28', e:'2030-03-03'},
+            {s:'2030-09-12', e:'2030-09-15'}, {s:'2030-10-10', e:'2030-10-13'},
+            // 2031
+            {s:'2031-01-18', e:'2031-01-26'}, {s:'2031-02-28', e:'2031-03-02'}, {s:'2031-04-03', e:'2031-04-06'},
+            {s:'2031-09-27', e:'2031-09-29'}, {s:'2031-10-10', e:'2031-10-12'}, {s:'2031-10-24', e:'2031-10-26'},
+            {s:'2031-01-01', e:'2031-01-01'}, {s:'2031-10-01', e:'2031-10-01'}, {s:'2031-05-01', e:'2031-05-04'},
+            {s:'2031-06-21', e:'2031-06-24'}, {s:'2031-12-25', e:'2031-12-28'}
+        ];
+
+        // 判斷日期是否為加價/特殊日 (只比對上面的清單，不自動判斷週六日)
+        function isSpecialDate(dateStr) {
+            return specialRanges.some(r => dateStr >= r.s && dateStr <= r.e);
+        }
+
+        // 根據日期獲取該區域的價格
+        function getDynamicPrice(zoneId, dateStr) {
+            const isSpecial = isSpecialDate(dateStr);
+            if (!isSpecial) {
+                // 非名單內的日期，一律視為平日價格 (不管是不是週六)
+                const z = zones.find(x => x.id === zoneId);
+                return z ? z.price : 0;
+            }
+            
+            // 名單內的特殊日期，使用加價價格
+            switch(zoneId) {
+                case 'ZC2': return 3000;  // 小木屋大
+                case 'ZC3': return 2600;  // 小木屋小
+                case 'ZE1': return 20000; // 包棟民宿
+                case 'ZC1': return -1;    // 露營車 (封鎖)
+                default: return 1500;     // 其餘營位 (原價 1200 -> 特殊日 1500)
+            }
+        }
+
         const discountCodes = {
             'LINE100': 100,
             'CM100': 100, 
@@ -680,6 +596,10 @@
         }
 
         function getRemainingCount(zoneId, dateStr) {
+            // ★★★ 特殊邏輯：若是露營車且在加價日，剩餘數量為 0 (封鎖) ★★★
+            const dynamicPrice = getDynamicPrice(zoneId, dateStr);
+            if (dynamicPrice === -1) return 0;
+
             const defaultCount = zones.find(z => z.id === zoneId).count;
             let booked = 0;
             if (dateStr && bookedData[dateStr] && bookedData[dateStr][zoneId]) {
@@ -710,7 +630,6 @@
                     return;
                 }
                 
-                // ★★★ 移除這裡的強制清空邏輯，改在 Submit 時檢查 ★★★
                 // 僅設定退房日期的最小值
                 const startDate = new Date(val);
                 startDate.setDate(startDate.getDate() + 1);
@@ -731,7 +650,6 @@
                 calculate();
             });
 
-            // ★★★ 移除退房日期的 change 事件警告，改在 Submit 時檢查 ★★★
             outDate.addEventListener('change', function() {
                 calculate();
             });
@@ -741,6 +659,7 @@
                 const bbqQty = parseInt(bbqSelect.value) || 0;
                 const bbqPrice = 1299;
                 let days = 0;
+                let stayPriceSum = {}; // 儲存每個區域的總房價
 
                 if (inDate.value && outDate.value) {
                     const start = new Date(inDate.value);
@@ -753,6 +672,30 @@
                     } else {
                         stayDaysSpan.textContent = `共 ${days} 晚`;
                         stayDaysSpan.classList.remove('hidden');
+
+                        // ★★★ 逐日計算價格邏輯 ★★★
+                        // 初始化各區總價
+                        for (let id in cart) stayPriceSum[id] = 0;
+
+                        let tempDate = new Date(start);
+                        let hasBlockedItem = false;
+
+                        // 迴圈每一天
+                        while(tempDate < end) {
+                            const dStr = tempDate.toISOString().split('T')[0];
+                            
+                            for(let id in cart) {
+                                if(cart[id] > 0) {
+                                    const p = getDynamicPrice(id, dStr);
+                                    if (p === -1) {
+                                        hasBlockedItem = true; // 發現預訂了封鎖項目
+                                    } else {
+                                        stayPriceSum[id] += p;
+                                    }
+                                }
+                            }
+                            tempDate.setDate(tempDate.getDate() + 1);
+                        }
                     }
                 } else {
                     stayDaysSpan.classList.add('hidden');
@@ -762,11 +705,8 @@
                 let totalTents = 0;
                 for(let id in cart) {
                     if(cart[id] > 0) {
-                        const zone = zones.find(z => z.id === id);
-                        if(zone) {
-                            roomTotal += zone.price * cart[id] * days;
-                            totalTents += cart[id];
-                        }
+                        roomTotal += stayPriceSum[id] * cart[id];
+                        totalTents += cart[id];
                     }
                 }
 
@@ -778,7 +718,7 @@
                     resultDiv.classList.remove('hidden');
                     subtotalDisplay.innerText = `$${subtotal.toLocaleString()}`;
                     
-                    let formulaText = `${totalTents}帳 × ${days}晚`;
+                    let formulaText = `${totalTents}帳 × ${days}晚 (自動計算平假日)`;
                     if (bbqQty > 0) formulaText += ` + 烤肉${bbqQty}份`;
                     if (currentDiscount > 0) formulaText += ` - 折扣$${currentDiscount}`;
                     
@@ -822,7 +762,6 @@
             if (!dateStr) dateStr = document.getElementById('checkinDate').value;
 
             const container = document.getElementById('zoneContainer');
-            // 為了不閃爍，這裡可以優化，但為求簡單先重繪
             container.innerHTML = '';
             
             zones.forEach(zone => {
@@ -832,8 +771,11 @@
                 const isSoldOut = remaining === 0;
                 const currentQty = cart[zone.id] || 0;
 
+                // ★★★ 取得當前日期的價格顯示 ★★★
+                const displayPrice = (dateStr) ? getDynamicPrice(zone.id, dateStr) : zone.price;
+                const priceText = (displayPrice === -1) ? '不開放' : `$${displayPrice.toLocaleString()}`;
+
                 const div = document.createElement('div');
-                // ★★★ 修正：增加高度以防止文字被遮住 ★★★
                 div.className = `zone-card bg-white rounded-xl p-3 relative overflow-hidden flex items-center min-h-[9rem] h-auto ${isSoldOut ? 'sold-out' : ''}`;
                 if (currentQty > 0) div.classList.add('selected');
 
@@ -856,7 +798,7 @@
                 imgWrap.prepend(img);
 
                 const remainingText = isSoldOut 
-                    ? `<span class="text-red-600 font-bold text-sm bg-red-100 px-2 py-0.5 rounded">已滿帳</span>` 
+                    ? `<span class="text-red-600 font-bold text-sm bg-red-100 px-2 py-0.5 rounded">已滿帳/不開放</span>` 
                     : `<span class="text-blue-600 text-sm font-bold bg-blue-50 px-2 py-0.5 rounded"><i class="fas fa-campground mr-1"></i>剩餘 ${remaining} 帳</span>`;
 
                 const qtyControl = isSoldOut ? '' : `
@@ -874,7 +816,7 @@
                     <p class="text-xs text-gray-500 font-medium mb-1">${zone.desc}</p>
                     <div class="mb-1">${remainingText}</div>
                     <div class="flex justify-between items-end">
-                        <p class="text-green-600 font-bold text-lg">$${zone.price.toLocaleString()} <span class="text-xs text-gray-400 font-normal">/ 晚</span></p>
+                        <p class="text-green-600 font-bold text-lg">${priceText} <span class="text-xs text-gray-400 font-normal">/ 晚</span></p>
                         ${qtyControl}
                     </div>
                 `;
@@ -974,7 +916,7 @@
         document.getElementById('bookingForm').addEventListener('submit', e => {
             e.preventDefault();
 
-            // ★★★ 新增：送出前最後檢查日期 ★★★
+            // 新增：送出前最後檢查日期
             const inDateStr = document.getElementById('checkinDate').value;
             const outDateStr = document.getElementById('checkoutDate').value;
             
@@ -1005,7 +947,7 @@
             btn.disabled = true;
             btn.innerText = '正在檢查庫存...';
 
-            // ★★★ 關鍵修改：送出前先 "再抓一次" 最新庫存 ★★★
+            // 送出前先 "再抓一次" 最新庫存
             fetch(scriptURL)
                 .then(response => response.json())
                 .then(latestData => {
@@ -1019,12 +961,7 @@
                     for(let id in cart) {
                         if(cart[id] > 0) {
                             const zone = zones.find(z => z.id === id);
-                            const defaultCount = zone.count;
-                            let booked = 0;
-                            if (inDateStr && bookedData[inDateStr] && bookedData[inDateStr][id]) {
-                                booked = bookedData[inDateStr][id];
-                            }
-                            const remaining = Math.max(0, defaultCount - booked);
+                            const remaining = getRemainingCount(id, inDateStr);
 
                             if (cart[id] > remaining) {
                                 isStockEnough = false;
@@ -1035,7 +972,7 @@
                     }
 
                     if (!isStockEnough) {
-                        alert(`⚠️ 很抱歉，剛剛有其他客人搶先預訂了！\n\n${errorMsg}\n系統已自動為您調整數量，請確認後再送出。`);
+                        alert(`⚠️ 很抱歉，剛剛有其他客人搶先預訂了，或者您選擇的日期不開放該營位！\n\n${errorMsg}\n系統已自動為您調整數量，請確認後再送出。`);
                         renderZones(currentFilter, inDateStr);
                         window.calculate(); 
                         btn.disabled = false;
@@ -1058,13 +995,20 @@
                         const diffTime = end - start;
                         const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
                         
+                        // ★★★ 使用逐日計算的總金額 ★★★
                         let roomTotal = 0;
-                        for(let id in cart) {
-                            if(cart[id] > 0) {
-                                const zone = zones.find(z => z.id === id);
-                                roomTotal += zone.price * cart[id] * days;
+                        let tempDate = new Date(start);
+                        while(tempDate < end) {
+                            const dStr = tempDate.toISOString().split('T')[0];
+                            for(let id in cart) {
+                                if(cart[id] > 0) {
+                                    const p = getDynamicPrice(id, dStr);
+                                    if(p > 0) roomTotal += p * cart[id];
+                                }
                             }
+                            tempDate.setDate(tempDate.getDate() + 1);
                         }
+
                         const subtotal = roomTotal + (1299 * bbqQty);
                         const total = Math.max(0, subtotal - currentDiscount);
                         
