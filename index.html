@@ -116,27 +116,7 @@
             </div>
             
             <div id="blog-container" class="blog-scroll h-96 overflow-y-auto bg-stone-50 p-4 space-y-6">
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
-                    <div class="flex items-center mb-3">
-                        <img src="https://i.ibb.co/6cx1xrVR/image.jpg" class="w-10 h-10 rounded-full object-cover border-2 border-yellow-400 mr-3">
-                        <div>
-                            <div class="font-bold text-stone-800 text-sm">營主 Hank <i class="fas fa-check-circle text-blue-500 ml-1"></i></div>
-                            <div class="text-xs text-gray-400">剛剛 • 宜蘭礁溪</div>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 text-sm leading-relaxed mb-3">
-                        歡迎來到充電莊！這裡是為電動車與露營愛好者打造的充電秘境。
-                        2026年的特殊車聚日已經開放預訂囉，期待在山上見到大家！⚡️🏕️
-                    </p>
-                    <div class="rounded-xl overflow-hidden shadow-sm">
-                        <img src="https://i.ibb.co/6cx1xrVR/image.jpg" class="w-full h-auto rounded-lg">
-                    </div>
-                    <div class="flex gap-4 mt-3 text-gray-400 text-xs font-bold">
-                        <span><i class="fas fa-heart text-red-400 mr-1"></i> 520</span>
-                        <span><i class="fas fa-comment-dots text-blue-400 mr-1"></i> 66</span>
-                    </div>
                 </div>
-            </div>
         </div>
         <div class="mb-8 fade-in" style="animation-delay: 0.1s;">
             <div class="bg-[#06C755] rounded-2xl shadow-lg p-6 text-white flex flex-col md:flex-row items-center justify-between gap-4 relative overflow-hidden">
@@ -314,6 +294,34 @@
         </div>
         <p>© 2025 Charging Manor.</p>
     </footer>
+
+    <div id="modal-booking-success" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative text-center">
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button>
+            
+            <div class="mb-4 text-green-500 text-6xl animate-bounce mt-4">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">預訂送出成功！</h3>
+            <p class="text-gray-600 text-sm mb-6">我們已收到您的訂單，將盡快與您聯繫確認。</p>
+            
+            <div class="bg-[#06C755]/10 border border-[#06C755]/30 rounded-xl p-4 mb-6">
+                <p class="text-[#06C755] font-bold text-sm mb-3">
+                    <i class="fab fa-line mr-1"></i> 感謝您的預訂，贈送 LINE 點數！
+                </p>
+                <a id="lineRewardBtn" href="#" target="_blank" class="block w-full bg-[#06C755] text-white font-bold py-3 rounded-lg hover:bg-[#05b64d] transition shadow-md animate-pulse">
+                    <i class="fas fa-star mr-2"></i> 點擊領取集點卡點數
+                </a>
+                <p class="text-xs text-gray-400 mt-2">*每個 LINE 帳號每日限領一次</p>
+            </div>
+            
+            <button onclick="closeAll()" class="w-full bg-gray-100 text-gray-600 font-bold py-3 rounded-lg hover:bg-gray-200 transition">
+                關閉視窗
+            </button>
+        </div>
+    </div>
 
     <div id="modal-post" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
@@ -566,10 +574,14 @@
     </div>
 
     <script>
-        // ★★★ 務必確認這是您最新的 Script 網址 (與 Google Apps Script 部署網址一致) ★★★
+        // ★★★ 請務必確認這是您最新的 Script 網址 ★★★
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwTJgjpDrgdoJezv940KBKjw9gmKFl73czqa2ZS4ig6urbuVcnFaUH_PoyA0e1tLv65/exec'; 
         const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=0#gid=0';
         
+        // ★★★ 在這裡填入您從 LINE 官方帳號後台取得的「集點卡加點連結」 (通常是 QR Code 掃出來的網址) ★★★
+        // 已經更新為您提供的網址
+        const lineRewardUrl = 'https://liff.line.me/1654883656-XqwKRkd4/accounts/387ctkzh/shopcards/01KBT4J8ZCAD4SG5V1A8X4T1C7?utm_source=snsshare&utm_medium=referral&utm_campaign=url_copy'; 
+
         // ★★★ 全區封鎖日期 (不開放預訂) ★★★
         const closedDates = ['2026-02-07', '2026-03-07'];
 
@@ -699,6 +711,9 @@
 
             // 2. 載入貼文 (這樣重新整理才看得到)
             loadPosts();
+
+            // 3. 設定領取點數按鈕的連結
+            document.getElementById('lineRewardBtn').href = lineRewardUrl;
         }
 
         // --- 以下為營位與裝備資料 (保持不變) ---
@@ -908,6 +923,7 @@
             .catch(err => { alert('❌ 發生錯誤，請截圖聯繫營主！\n錯誤訊息: ' + err.message); btn.disabled = false; btn.innerText = originalText; });
         });
 
+        // ★★★ 修改處：送出預訂後的行為 ★★★
         document.getElementById('bookingForm').addEventListener('submit', e => {
             e.preventDefault();
             const inDateStr = document.getElementById('checkinDate').value; const outDateStr = document.getElementById('checkoutDate').value;
@@ -947,9 +963,17 @@
                 }
                 return fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' });
             }).then(response => {
-                if(!response) return; alert('✅ 預訂送出成功！\n我們已收到您的資料，將盡快安排並聯繫您。'); e.target.reset(); cart = {};
-                document.getElementById('priceCalcResult').classList.add('hidden'); document.getElementById('stayDays').classList.add('hidden');
+                if(!response) return; 
+                
+                // ★★★ 成功後：重置表單、清空購物車、顯示成功視窗 ★★★
+                e.target.reset(); cart = {};
+                document.getElementById('priceCalcResult').classList.add('hidden'); 
+                document.getElementById('stayDays').classList.add('hidden');
                 currentDiscount = 0; document.getElementById('discountMsg').innerHTML = ''; document.getElementById('discountRow').style.display = 'none';
+                
+                // 顯示成功視窗
+                showModal('modal-booking-success');
+                
                 init();
             }).catch(err => { alert('❌ 發生錯誤，請截圖聯繫營主！\n錯誤訊息: ' + err.message); console.error(err); })
             .finally(() => { btn.disabled = false; btn.innerText = originalText; });
