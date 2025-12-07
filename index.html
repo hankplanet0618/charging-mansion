@@ -156,7 +156,7 @@
                         
                         <div>
                             <label class="block text-xs font-bold text-gray-500 mb-1">Line ID</label>
-                            <input type="text" name="Line ID" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none" placeholder="方便我們聯繫您">
+                            <input type="text" name="LineID" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none" placeholder="方便我們聯繫您">
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-gray-500 mb-1">Email (接收訂位通知)</label>
@@ -329,19 +329,19 @@
             <form id="postForm" class="space-y-4">
                 <div>
                     <label class="block text-xs font-bold text-gray-500 mb-1">貼文內容 (必填)</label>
-                    <textarea name="postContent" id="postContent" rows="4" class="w-full border rounded-lg p-3 bg-gray-50 focus:bg-white transition" placeholder="分享今天營區發生什麼趣事吧..."></textarea>
+                    <textarea name="content" id="postContent" rows="4" class="w-full border rounded-lg p-3 bg-gray-50 focus:bg-white transition" placeholder="分享今天營區發生什麼趣事吧..."></textarea>
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-gray-500 mb-1">圖片網址 (選填)</label>
-                    <input type="text" name="postImage" id="postImage" class="w-full border rounded-lg p-2" placeholder="https://...">
+                    <input type="text" name="image" id="postImage" class="w-full border rounded-lg p-2" placeholder="https://...">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-gray-500 mb-1">Youtube 影片網址 (選填)</label>
-                    <input type="text" name="postVideo" id="postVideo" class="w-full border rounded-lg p-2" placeholder="https://youtube.com/...">
+                    <input type="text" name="video" id="postVideo" class="w-full border rounded-lg p-2" placeholder="https://youtube.com/...">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-gray-500 mb-1">打卡地點 (選填)</label>
-                    <input type="text" name="postLocation" id="postLocation" class="w-full border rounded-lg p-2" value="宜蘭礁溪充電莊" placeholder="例如：充電莊 A 區">
+                    <input type="text" name="location" id="postLocation" class="w-full border rounded-lg p-2" value="宜蘭礁溪充電莊" placeholder="例如：充電莊 A 區">
                 </div>
                 <button type="button" onclick="submitPost()" class="w-full bg-stone-800 text-white font-bold py-3 rounded-lg hover:bg-stone-700 transition">立即發布</button>
             </form>
@@ -702,7 +702,9 @@
 
             const formData = new FormData(document.getElementById('postForm'));
             formData.append('sheetName', '營主動態'); 
-            formData.append('postDate', new Date().toLocaleString('zh-TW'));
+            // 修正：發文表單的 HTML name 已經改為 content, image 等，這裡不需要額外 append，除非有特定邏輯
+            // 但為了確保日期被寫入 (通常標題是 date 或 日期)，我們保留 postDate 但確認標題是 date
+            formData.append('date', new Date().toLocaleString('zh-TW'));
 
             fetch(scriptURL, {
                 method: 'POST',
@@ -765,7 +767,6 @@
             if (dynamicPrice === -1) return 0;
             const defaultCount = zones.find(z => z.id === zoneId).count;
             
-            // ★★★ 優化：如果資料還沒載入，先假裝是滿的，但回傳特殊標記讓 UI 知道 ★★★
             if (Object.keys(bookedData).length === 0) {
                 return -999; // 特殊代碼：資料讀取中
             }
@@ -963,7 +964,7 @@
             .catch(err => { alert('❌ 發生錯誤，請截圖聯繫營主！\n錯誤訊息: ' + err.message); btn.disabled = false; btn.innerText = originalText; });
         });
 
-        // 送出預訂後的行為
+        // 送出預訂後的行為 (已優化速度：移除送出前的重複抓取資料動作)
         document.getElementById('bookingForm').addEventListener('submit', e => {
             e.preventDefault();
             const inDateStr = document.getElementById('checkinDate').value; const outDateStr = document.getElementById('checkoutDate').value;
@@ -979,46 +980,47 @@
                 return;
             }
 
-            const btn = document.getElementById('submitBtn'); const originalText = btn.innerText; btn.disabled = true; btn.innerText = '正在檢查庫存...';
+            const btn = document.getElementById('submitBtn'); const originalText = btn.innerText; btn.disabled = true; btn.innerText = '訂單處理中...';
 
-            fetch(scriptURL).then(r => r.json()).then(latestData => {
-                bookedData = latestData; let isStockEnough = true; let errorMsg = "";
-                for(let id in cart) {
-                    if(cart[id] > 0) {
-                        const zone = zones.find(z => z.id === id); const remaining = getRemainingCount(id, inDateStr);
-                        if (remaining !== -999 && cart[id] > remaining) { isStockEnough = false; errorMsg += `❌ ${zone.name} 只剩 ${remaining} 帳 (您預訂 ${cart[id]} 帳)\n`; cart[id] = remaining; }
-                    }
+            // ★★★ 優化修改點：直接使用本地暫存的 bookedData 進行檢查，不進行 fetch ★★★
+            let isStockEnough = true; let errorMsg = "";
+            for(let id in cart) {
+                if(cart[id] > 0) {
+                    const zone = zones.find(z => z.id === id); 
+                    // 這裡使用記憶體中已經載入的 bookedData，速度極快
+                    const remaining = getRemainingCount(id, inDateStr);
+                    if (remaining !== -999 && cart[id] > remaining) { isStockEnough = false; errorMsg += `❌ ${zone.name} 只剩 ${remaining} 帳 (您預訂 ${cart[id]} 帳)\n`; cart[id] = remaining; }
                 }
-                if (!isStockEnough) {
-                    alert(`⚠️ 很抱歉，剛剛有其他客人搶先預訂了，或者您選擇的日期不開放該營位！\n\n${errorMsg}\n系統已自動為您調整數量，請確認後再送出。`);
-                    renderZones(currentFilter, inDateStr); window.calculate(); btn.disabled = false; btn.innerText = originalText; return;
+            }
+            if (!isStockEnough) {
+                alert(`⚠️ 很抱歉，剛剛有其他客人搶先預訂了！\n\n${errorMsg}\n系統已自動為您調整數量，請確認後再送出。`);
+                renderZones(currentFilter, inDateStr); window.calculate(); btn.disabled = false; btn.innerText = originalText; return;
+            }
+            
+            // 直接送出 POST
+            const formData = new FormData(e.target); formData.set('預訂區域', orderSummary.join(', ')); formData.set('預訂數量', totalQty); 
+            const bbqQty = parseInt(document.getElementById('bbqSelect').value) || 0;
+            if(inDateStr && outDateStr) {
+                const start = new Date(inDateStr); const end = new Date(outDateStr); const diffTime = end - start; const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                let roomTotal = 0; let tempDate = new Date(start);
+                while(tempDate < end) {
+                    const y = tempDate.getFullYear(); const m = String(tempDate.getMonth() + 1).padStart(2, '0'); const d = String(tempDate.getDate()).padStart(2, '0'); const dStr = `${y}-${m}-${d}`;
+                    for(let id in cart) { if(cart[id] > 0) { const p = getDynamicPrice(id, dStr); if(p > 0) roomTotal += p * cart[id]; } }
+                    tempDate.setDate(tempDate.getDate() + 1);
                 }
-                btn.innerText = '處理中...';
-                const formData = new FormData(e.target); formData.set('預訂區域', orderSummary.join(', ')); formData.set('預訂數量', totalQty); 
-                const bbqQty = parseInt(document.getElementById('bbqSelect').value) || 0;
-                if(inDateStr && outDateStr) {
-                    const start = new Date(inDateStr); const end = new Date(outDateStr); const diffTime = end - start; const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                    let roomTotal = 0; let tempDate = new Date(start);
-                    while(tempDate < end) {
-                        const y = tempDate.getFullYear();
-                        const m = String(tempDate.getMonth() + 1).padStart(2, '0');
-                        const d = String(tempDate.getDate()).padStart(2, '0');
-                        const dStr = `${y}-${m}-${d}`;
-                        for(let id in cart) { if(cart[id] > 0) { const p = getDynamicPrice(id, dStr); if(p > 0) roomTotal += p * cart[id]; } }
-                        tempDate.setDate(tempDate.getDate() + 1);
-                    }
-                    const subtotal = roomTotal + (1299 * bbqQty); const total = Math.max(0, subtotal - currentDiscount);
-                    formData.append('入住天數', days); formData.append('總金額', total);
-                }
-                return fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' });
-            }).then(response => {
-                if(!response) return; 
+                const subtotal = roomTotal + (1299 * bbqQty); const total = Math.max(0, subtotal - currentDiscount);
+                formData.append('入住天數', days); formData.append('總金額', total);
+            }
+
+            fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
+            .then(response => {
+                // 因 mode: no-cors，無法讀取 response，直接視為成功
                 e.target.reset(); cart = {};
                 document.getElementById('priceCalcResult').classList.add('hidden'); 
                 document.getElementById('stayDays').classList.add('hidden');
                 currentDiscount = 0; document.getElementById('discountMsg').innerHTML = ''; document.getElementById('discountRow').style.display = 'none';
                 showModal('modal-booking-success');
-                // 重新同步庫存
+                // 送出後在背景偷偷更新一次庫存，確保下一筆資料正確
                 fetch(scriptURL).then(r => r.json()).then(data => { bookedData = data; renderZones('all'); });
             }).catch(err => { alert('❌ 發生錯誤，請截圖聯繫營主！\n錯誤訊息: ' + err.message); console.error(err); })
             .finally(() => { btn.disabled = false; btn.innerText = originalText; });
@@ -1032,6 +1034,15 @@
             .finally(() => { btn.disabled = false; btn.innerText = originalText; });
         });
 
+        function refreshData() {
+            fetch(scriptURL).then(r => r.json()).then(data => {
+                bookedData = data; 
+                const currentDate = document.getElementById('checkinDate').value;
+                if(currentDate) { renderZones(currentFilter, currentDate); }
+                else { renderZones(currentFilter); }
+            }).catch(e => console.error("庫存背景更新失敗", e));
+        }
+
         function init() {
             console.log("初始化開始...");
             initializeLiff();
@@ -1042,13 +1053,11 @@
             loadPosts();
             document.getElementById('lineRewardBtn').href = lineRewardUrl;
 
-            // 背景更新庫存
-            fetch(scriptURL).then(r => r.json()).then(data => {
-                bookedData = data; 
-                const currentDate = document.getElementById('checkinDate').value;
-                if(currentDate) { renderZones(currentFilter, currentDate); }
-                else { renderZones(currentFilter); }
-            }).catch(e => console.error("庫存載入失敗", e));
+            // 首次載入庫存
+            refreshData();
+
+            // ★★★ 優化：每 10 秒在背景自動更新一次庫存，保持資料新鮮，這樣送出時就不需要再下載了 ★★★
+            setInterval(refreshData, 10000);
         }
 
         // 執行初始化
