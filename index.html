@@ -101,20 +101,6 @@
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-xl overflow-hidden mb-8 fade-in relative group border border-gray-100">
-            <div class="bg-stone-800 p-4 flex justify-between items-center relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-r from-stone-800 to-stone-700"></div>
-                <h3 class="text-white font-bold text-lg relative z-10 flex items-center">
-                    <i class="fas fa-bullhorn text-yellow-400 mr-3 animate-pulse"></i> 營主的分享
-                </h3>
-                <button onclick="openPostModal()" class="text-stone-500 hover:text-white transition relative z-10 p-2 rounded-full hover:bg-white/10" title="營主發文">
-                    <i class="fas fa-pen-square text-xl"></i>
-                </button>
-            </div>
-            
-            <div id="blog-container" class="blog-scroll h-96 overflow-y-auto bg-stone-50 p-4 space-y-6">
-            </div>
-        </div>
         <div class="mb-8 fade-in" style="animation-delay: 0.1s;">
             <div class="bg-[#06C755] rounded-2xl shadow-lg p-6 text-white flex flex-col md:flex-row items-center justify-between gap-4 relative overflow-hidden">
                 <i class="fab fa-line absolute -right-6 -bottom-6 text-8xl opacity-10 rotate-12"></i>
@@ -334,33 +320,6 @@
             <button onclick="closeAll()" class="w-full bg-gray-100 text-gray-600 font-bold py-3 rounded-lg hover:bg-gray-200 transition">
                 關閉視窗
             </button>
-        </div>
-    </div>
-
-   <div id="modal-post" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
-        <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative">
-            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button>
-            <h3 class="text-xl font-bold mb-4 text-stone-800 text-center"><i class="fas fa-pen-fancy mr-2"></i> 發布新動態</h3>
-            <form id="postForm" class="space-y-4" onsubmit="return false;">
-    <div>
-        <label class="block text-xs font-bold text-gray-500 mb-1">貼文內容 (必填)</label>
-        <textarea name="postContent" id="postContent" rows="4" class="w-full border rounded-lg p-3 bg-gray-50 focus:bg-white transition" placeholder="分享今天營區發生什麼趣事吧..."></textarea>
-    </div>
-    <div>
-        <label class="block text-xs font-bold text-gray-500 mb-1">圖片網址 (選填)</label>
-        <input type="text" name="postImage" id="postImage" class="w-full border rounded-lg p-2" placeholder="https://...">
-    </div>
-    <div>
-        <label class="block text-xs font-bold text-gray-500 mb-1">Youtube 影片網址 (選填)</label>
-        <input type="text" name="postVideo" id="postVideo" class="w-full border rounded-lg p-2" placeholder="https://youtube.com/...">
-    </div>
-    <div>
-        <label class="block text-xs font-bold text-gray-500 mb-1">打卡地點 (選填)</label>
-        <input type="text" name="postLocation" id="postLocation" class="w-full border rounded-lg p-2" value="宜蘭礁溪充電莊" placeholder="例如：充電莊 A 區">
-    </div>
-    <button type="button" onclick="submitPost()" class="w-full bg-stone-800 text-white font-bold py-3 rounded-lg hover:bg-stone-700 transition">立即發布</button>
-</form>
         </div>
     </div>
 
@@ -654,102 +613,6 @@
                 }
             }
         } catch (err) { console.error('LIFF 初始化失敗', err); }
-    }
-
-    function loadPosts() {
-        const container = document.getElementById('blog-container');
-        container.innerHTML = '<div class="text-center text-gray-500 py-10"><i class="fas fa-spinner fa-spin mr-2"></i> 正在載入營主動態...</div>';
-        
-        fetch(scriptURL + '?action=getPosts')
-            .then(res => res.json())
-            .then(data => {
-                container.innerHTML = '';
-                if (data.posts && data.posts.length > 0) {
-                    data.posts.reverse().forEach(post => {
-                        const postHTML = `
-                            <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 fade-in mb-6">
-                                <div class="flex items-center mb-3">
-                                    <img src="https://i.ibb.co/6cx1xrVR/image.jpg" class="w-10 h-10 rounded-full object-cover border-2 border-yellow-400 mr-3">
-                                    <div>
-                                        <div class="font-bold text-stone-800 text-sm">營主 Hank <i class="fas fa-check-circle text-blue-500 ml-1"></i></div>
-                                        <div class="text-xs text-gray-400">${post.date} • ${post.location || '宜蘭礁溪充電莊'}</div>
-                                    </div>
-                                </div>
-                                <p class="text-gray-700 text-sm leading-relaxed mb-3 whitespace-pre-wrap">${post.content}</p>
-                                ${post.image ? `<div class="rounded-xl overflow-hidden shadow-sm mb-3"><img src="${post.image}" class="w-full h-auto rounded-lg" onerror="this.style.display='none'"></div>` : ''}
-                                ${post.video ? `<div class="rounded-xl overflow-hidden shadow-sm aspect-video mb-3"><iframe class="w-full h-full" src="${post.video.replace('watch?v=', 'embed/')}" frameborder="0" allowfullscreen></iframe></div>` : ''}
-                            </div>
-                        `;
-                        container.insertAdjacentHTML('beforeend', postHTML);
-                    });
-                } else {
-                    container.innerHTML = '<div class="text-center p-5">目前沒有動態</div>';
-                }
-            })
-            .catch(err => {
-                console.error("讀取貼文失敗", err);
-                container.innerHTML = '<div class="text-center text-red-400 py-10">無法載入動態，請稍後再試。</div>';
-            });
-    }
-
-    // ★★★ 修正後的 submitPost 函式 ★★★
-   // ★★★ 強力修正版 submitPost (確保資料一定寫入) ★★★
-    function submitPost() {
-        // 1. 直接用 ID 抓取輸入框的值 (比 FormData 更保險)
-        const contentInput = document.getElementById('postContent');
-        const imageInput = document.getElementById('postImage');
-        const videoInput = document.getElementById('postVideo');
-        const locationInput = document.getElementById('postLocation');
-
-        const content = contentInput ? contentInput.value : '';
-        const image = imageInput ? imageInput.value : '';
-        const video = videoInput ? videoInput.value : '';
-        const loc = locationInput ? locationInput.value : '宜蘭礁溪充電莊';
-        
-        // 檢查必填
-        if (!content) { alert('請輸入貼文內容！'); return; }
-
-        // 按鈕鎖定
-        const btn = document.querySelector('#postForm button');
-        const originalText = btn.innerText;
-        btn.disabled = true;
-        btn.innerText = '發布中...';
-
-        // 2. 手動建立 FormData，確保欄位名稱跟 Google Sheet 標題 100% 一樣
-        const formData = new FormData();
-        formData.append('sheetName', '營主動態'); 
-        
-        // ★ 這裡很重要：名稱必須跟試算表第一列完全一樣 ★
-        formData.append('postDate', new Date().toLocaleString('zh-TW')); 
-        formData.append('postContent', content);   
-        formData.append('postImage', image);
-        formData.append('postVideo', video);
-        formData.append('postLocation', loc);
-
-        // 3. 送出
-        fetch(scriptURL, {
-            method: 'POST',
-            body: formData,
-            mode: 'no-cors'
-        })
-        .then(() => {
-            alert('✅ 發布成功！');
-            document.getElementById('postForm').reset();
-            closeAll();
-            loadPosts(); 
-        })
-        .catch(err => {
-            alert('發布失敗，請稍後再試');
-            console.error(err);
-        })
-        .finally(() => {
-            btn.disabled = false;
-            btn.innerText = originalText;
-        });
-    }
-    function openPostModal() {
-        const pwd = prompt("請輸入營主密碼以發文：");
-        if (pwd === "Hank0219") { showModal('modal-post'); } else if (pwd !== null) { alert("密碼錯誤"); }
     }
 
     // --- 輔助函式區 ---
@@ -1080,20 +943,11 @@
     function init() {
         console.log("初始化開始...");
         
-        const postForm = document.getElementById('postForm');
-        if (postForm) {
-            postForm.addEventListener('submit', function(e) {
-                e.preventDefault(); 
-                return false;
-            });
-        }
-
         initializeLiff();
         renderZones('all'); 
         renderGears(); 
         setupCalculator(); 
         updateQuantityOptions(8);
-        loadPosts();
         document.getElementById('lineRewardBtn').href = lineRewardUrl;
 
         refreshData();
@@ -1102,3 +956,5 @@
 
     init();
 </script>
+</body>
+</html>
