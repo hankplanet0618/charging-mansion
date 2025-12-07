@@ -327,7 +327,7 @@
                 <p class="text-xs text-gray-400 mt-2">*每個 LINE 帳號每日限領一次</p>
             </div>
             
-            <button onclick="closeAll(); showModal('modal-report')" class="w-full bg-yellow-500 text-stone-900 font-bold py-3 rounded-lg hover:bg-yellow-400 transition shadow-md mb-3">
+            <button onclick="openPaymentReport()" class="w-full bg-yellow-500 text-stone-900 font-bold py-3 rounded-lg hover:bg-yellow-400 transition shadow-md mb-3">
                 <i class="fas fa-file-invoice-dollar mr-2"></i> 前往填寫匯款回報
             </button>
             
@@ -593,6 +593,10 @@
         const scriptURL = 'https://script.google.com/macros/s/AKfycbznFvVDmmZT7cg3D14dVhuNy5gh1kjZGrY0-6IWm8GLAad8Qb2xPUL2lp1Mmzlmh5nz/exec'; 
         const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=0#gid=0';
         const lineRewardUrl = 'https://liff.line.me/1654883656-XqwKRkd4/accounts/387ctkzh/shopcards/01KBT4J8ZCAD4SG5V1A8X4T1C7?utm_source=snsshare&utm_medium=referral&utm_campaign=url_copy'; 
+
+        // 宣告全域變數，用來暫存訂單資料，供自動填入匯款回報使用
+        let lastOrderName = "";
+        let lastOrderTotal = "";
 
         const closedDates = ['2026-02-07', '2026-03-07'];
 
@@ -1026,6 +1030,10 @@
                 }
                 const subtotal = roomTotal + (1299 * bbqQty); const total = Math.max(0, subtotal - currentDiscount);
                 formData.append('入住天數', days); formData.append('總金額', total);
+
+                // ★★★ 新增：記錄訂單資訊，供匯款回報自動帶入使用 ★★★
+                lastOrderName = formData.get('訂位大名');
+                lastOrderTotal = total;
             }
 
             fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
@@ -1041,6 +1049,15 @@
             }).catch(err => { alert('❌ 發生錯誤，請截圖聯繫營主！\n錯誤訊息: ' + err.message); console.error(err); })
             .finally(() => { btn.disabled = false; btn.innerText = originalText; });
         });
+
+        // ★★★ 新增：自動帶入資料並開啟匯款回報視窗 ★★★
+        window.openPaymentReport = () => {
+            closeAll();
+            // 自動填入姓名與金額
+            if(lastOrderName) document.querySelector('#paymentForm input[name="匯款姓名"]').value = lastOrderName;
+            if(lastOrderTotal) document.querySelector('#paymentForm input[name="匯款金額"]').value = lastOrderTotal;
+            showModal('modal-report');
+        }
 
         document.getElementById('paymentForm').addEventListener('submit', e => {
             e.preventDefault(); const btn = document.getElementById('payBtn'); const originalText = btn.innerText; btn.innerText = '傳送中...';
