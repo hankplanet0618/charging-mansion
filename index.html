@@ -707,7 +707,7 @@
                 });
         }
 
-        function submitPost() {
+       function submitPost() {
             const content = document.getElementById('postContent').value;
             if (!content) { alert('請輸入貼文內容！'); return; }
 
@@ -718,9 +718,11 @@
 
             const formData = new FormData(document.getElementById('postForm'));
             formData.append('sheetName', '營主動態'); 
-            // 修正：發文表單的 HTML name 已經改為 content, image 等，這裡不需要額外 append，除非有特定邏輯
-            // 但為了確保日期被寫入 (通常標題是 date 或 日期)，我們保留 postDate 但確認標題是 date
             formData.append('date', new Date().toLocaleString('zh-TW'));
+
+            // ★★★ 修正重點：強制寫入對應的欄位名稱，確保 Google Script 能抓到 ★★★
+            formData.append('postContent', content); 
+            formData.append('內容', content); 
 
             fetch(scriptURL, {
                 method: 'POST',
@@ -1051,7 +1053,20 @@
             .catch(err => { alert('❌ 發生錯誤，請直接聯繫營主！\n錯誤訊息: ' + err.message); })
             .finally(() => { btn.disabled = false; btn.innerText = originalText; });
         });
-
+// ★★★ 補上遺失的匯款回報跳轉功能 ★★★
+        window.openPaymentReport = () => {
+            closeAll();
+            // 自動填入姓名與金額 (如果有上一筆訂單資料)
+            if(lastOrderName) {
+                const nameInput = document.querySelector('#paymentForm input[name="匯款姓名"]');
+                if(nameInput) nameInput.value = lastOrderName;
+            }
+            if(lastOrderTotal) {
+                const priceInput = document.querySelector('#paymentForm input[name="匯款金額"]');
+                if(priceInput) priceInput.value = lastOrderTotal;
+            }
+            showModal('modal-report');
+        }
         function refreshData() {
             fetch(scriptURL).then(r => r.json()).then(data => {
                 bookedData = data; 
