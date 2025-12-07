@@ -693,23 +693,40 @@
     }
 
     // ★★★ 修正後的 submitPost 函式 ★★★
+   // ★★★ 強力修正版 submitPost (確保資料一定寫入) ★★★
     function submitPost() {
-        // 因為表單的 input name 已經修改為 postContent 等，這裡直接取值做檢查
-        const contentField = document.querySelector('[name="postContent"]');
-        const content = contentField ? contentField.value : '';
+        // 1. 直接用 ID 抓取輸入框的值 (比 FormData 更保險)
+        const contentInput = document.getElementById('postContent');
+        const imageInput = document.getElementById('postImage');
+        const videoInput = document.getElementById('postVideo');
+        const locationInput = document.getElementById('postLocation');
+
+        const content = contentInput ? contentInput.value : '';
+        const image = imageInput ? imageInput.value : '';
+        const video = videoInput ? videoInput.value : '';
+        const loc = locationInput ? locationInput.value : '宜蘭礁溪充電莊';
         
+        // 檢查必填
         if (!content) { alert('請輸入貼文內容！'); return; }
 
+        // 按鈕鎖定
         const btn = document.querySelector('#postForm button');
         const originalText = btn.innerText;
         btn.disabled = true;
         btn.innerText = '發布中...';
 
-        const formData = new FormData(document.getElementById('postForm'));
+        // 2. 手動建立 FormData，確保欄位名稱跟 Google Sheet 標題 100% 一樣
+        const formData = new FormData();
         formData.append('sheetName', '營主動態'); 
-        // 修正重點：使用正確的 postDate
+        
+        // ★ 這裡很重要：名稱必須跟試算表第一列完全一樣 ★
         formData.append('postDate', new Date().toLocaleString('zh-TW')); 
+        formData.append('postContent', content);   
+        formData.append('postImage', image);
+        formData.append('postVideo', video);
+        formData.append('postLocation', loc);
 
+        // 3. 送出
         fetch(scriptURL, {
             method: 'POST',
             body: formData,
@@ -730,7 +747,6 @@
             btn.innerText = originalText;
         });
     }
-
     function openPostModal() {
         const pwd = prompt("請輸入營主密碼以發文：");
         if (pwd === "Hank0219") { showModal('modal-post'); } else if (pwd !== null) { alert("密碼錯誤"); }
