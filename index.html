@@ -622,7 +622,11 @@
         const gears = [{n:'月亮椅/休閒椅',p:'100'},{n:'平躺椅',p:'150'},{n:'卡式爐/蜘蛛爐(含瓦斯)',p:'200'},{n:'五星爐(含瓦斯)',p:'300'},{n:'IGT桌全套',p:'600'},{n:'天幕 3*3+桿',p:'250'},{n:'天幕 3*5+桿',p:'350'},{n:'超聲波地墊 3*3',p:'150'},{n:'野餐地墊 2*2/燈具',p:'100'},{n:'落地頂級四葉燈',p:'350'},{n:'杜邦鯤9車尾帳',p:'1000'},{n:'代搭帳服務',p:'500'},{n:'投影機',p:'300'},{n:'投影布幕',p:'100'},{n:'電暖器/焚火台(鐵)',p:'200'},{n:'焚火台(純鈦)',p:'350'},{n:'木柴',p:'100'}];
 
         const discountCodes = { 'LINE100': 100, 'CM100': 100, '首次加入好友': 100, '首次加入好友優惠券': 100, '首次加入好友禮': 100, 'TESLA2026': 100, 'Chunhunglinonly': 9999999 }; 
-        let bookedData = {}; let cart = {}; let currentDiscount = 0; let currentFilter = 'all'; 
+       let bookedData = {}; let cart = {}; let currentDiscount = 0; let currentFilter = 'all'; 
+       
+       // ★★★ 補上這兩行，匯款回報功能才不會壞掉 ★★★
+       let lastOrderName = ""; 
+       let lastOrderTotal = "";
 
         // ★★★ 2. 函式與邏輯區 ★★★
         
@@ -1077,21 +1081,32 @@
         }
 
         function init() {
-            console.log("初始化開始...");
-            initializeLiff();
-            renderZones('all'); 
-            renderGears(); 
-            setupCalculator(); 
-            updateQuantityOptions(8);
-            loadPosts();
-            document.getElementById('lineRewardBtn').href = lineRewardUrl;
+           console.log("初始化開始...");
+           
+           // ★★★ 新增這段：強制禁止發文表單因按 Enter 而送出/重整 ★★★
+           const postForm = document.getElementById('postForm');
+           if (postForm) {
+               postForm.addEventListener('submit', function(e) {
+                   e.preventDefault(); // 殺死預設行為
+                   return false;
+               });
+           }
+           // ★★★ 結束新增 ★★★
 
-            // 首次載入庫存
-            refreshData();
+           initializeLiff();
+           renderZones('all'); 
+           renderGears(); 
+           setupCalculator(); 
+           updateQuantityOptions(8);
+           loadPosts();
+           document.getElementById('lineRewardBtn').href = lineRewardUrl;
 
-            // ★★★ 優化：每 10 秒在背景自動更新一次庫存，保持資料新鮮，這樣送出時就不需要再下載了 ★★★
-            setInterval(refreshData, 10000);
-        }
+           // 首次載入庫存
+           refreshData();
+
+           // ★★★ 優化：每 10 秒在背景自動更新一次庫存，保持資料新鮮，這樣送出時就不需要再下載了 ★★★
+           setInterval(refreshData, 10000);
+       }
 
         // 執行初始化
         init();
