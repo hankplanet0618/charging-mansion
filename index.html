@@ -588,522 +588,501 @@
     </div>
 
     <script>
-        // ★★★ 1. 資料變數區 (必須放在最上方！) ★★★
-        const myLiffId = '2008643307-nbPNvd20'; 
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbznFvVDmmZT7cg3D14dVhuNy5gh1kjZGrY0-6IWm8GLAad8Qb2xPUL2lp1Mmzlmh5nz/exec'; 
-        const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=0#gid=0';
-        const lineRewardUrl = 'https://liff.line.me/1654883656-XqwKRkd4/accounts/387ctkzh/shopcards/01KBT4J8ZCAD4SG5V1A8X4T1C7?utm_source=snsshare&utm_medium=referral&utm_campaign=url_copy'; 
+    // ★★★ 1. 資料變數區 ★★★
+    const myLiffId = '2008643307-nbPNvd20'; 
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbznFvVDmmZT7cg3D14dVhuNy5gh1kjZGrY0-6IWm8GLAad8Qb2xPUL2lp1Mmzlmh5nz/exec'; 
+    const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=0#gid=0';
+    const lineRewardUrl = 'https://liff.line.me/1654883656-XqwKRkd4/accounts/387ctkzh/shopcards/01KBT4J8ZCAD4SG5V1A8X4T1C7?utm_source=snsshare&utm_medium=referral&utm_campaign=url_copy'; 
 
-        const closedDates = ['2026-02-07', '2026-03-07'];
+    const closedDates = ['2026-02-07', '2026-03-07'];
 
-        const specialRanges = [
-            {s:'2026-02-14', e:'2026-02-22'}, {s:'2026-02-27', e:'2026-03-01'}, {s:'2026-04-03', e:'2026-04-06'},
-            {s:'2026-05-01', e:'2026-05-03'}, {s:'2026-06-19', e:'2026-06-21'}, {s:'2026-09-25', e:'2026-09-28'},
-            {s:'2026-10-09', e:'2026-10-11'}, {s:'2026-10-24', e:'2026-10-26'}, {s:'2026-12-25', e:'2026-12-27'},
-            {s:'2031-01-01', e:'2031-01-01'}, {s:'2031-10-01', e:'2031-10-01'}, {s:'2031-05-01', e:'2031-05-04'},
-            {s:'2031-06-21', e:'2031-06-24'}, {s:'2031-12-25', e:'2031-12-28'}
-        ];
+    const specialRanges = [
+        {s:'2026-02-14', e:'2026-02-22'}, {s:'2026-02-27', e:'2026-03-01'}, {s:'2026-04-03', e:'2026-04-06'},
+        {s:'2026-05-01', e:'2026-05-03'}, {s:'2026-06-19', e:'2026-06-21'}, {s:'2026-09-25', e:'2026-09-28'},
+        {s:'2026-10-09', e:'2026-10-11'}, {s:'2026-10-24', e:'2026-10-26'}, {s:'2026-12-25', e:'2026-12-27'},
+        {s:'2031-01-01', e:'2031-01-01'}, {s:'2031-10-01', e:'2031-10-01'}, {s:'2031-05-01', e:'2031-05-04'},
+        {s:'2031-06-21', e:'2031-06-24'}, {s:'2031-12-25', e:'2031-12-28'}
+    ];
 
-        const zones = [
-            { id: 'ZA1', name: '棚架 A 區', count: 9, cat: 'shelter', desc: '寬敞遮雨棚車停帳邊 (9帳)', price: 1200, badge: '熱門', images: ['https://i.ibb.co/KjBcKGvt/A-DDcar.jpg', 'https://i.ibb.co/RTypZTzW/A1.jpg', 'https://i.ibb.co/hRNQ84SY/A.jpg'], idx: 0 },
-            { id: 'ZA2', name: '棚架 B 區', count: 4, cat: 'shelter', desc: '適合包區車停帳邊 (4帳)', price: 1200, badge: '包區熱門', images: ['https://i.ibb.co/bMQ51htS/B.jpg', 'https://i.ibb.co/7JY7xRYp/B.jpg'], idx: 0 },
-            { id: 'ZA3', name: '棚架 C 區', count: 3, cat: 'shelter', desc: '安靜舒適獨立區車停帳邊 (3帳)', price: 1200, badge: '清靜悠閒', images: ['https://i.ibb.co/c70KNkJ/C1.jpg', 'https://i.ibb.co/zTRCxcwq/2.jpg'], idx: 0 },
-            { id: 'ZB1', name: '棧板 A 區', count: 3, cat: 'grass', desc: '架高防潮+遊戲區 (3帳)', price: 1200, badge: '', images: ['https://i.ibb.co/XrMggq46/1.jpg'], idx: 0 },
-            { id: 'ZB2', name: '棧板 B 區', count: 2, cat: 'grass', desc: '棚架下的慵懶 (2帳)', price: 1200, badge: '超大空間', images: ['https://i.ibb.co/JRmcf3bw/B.jpg'], idx: 0 },
-            { id: 'ZC1', name: '三人頂級露營車', count: 2, cat: 'room', desc: '最有溫度的一晚 (2台)', price: 6980, badge: '送烤肉', images: ['https://i.ibb.co/jvXBxJWw/4.jpg'], idx: 0 },
-            { id: 'ZC2', name: '小木屋 (大)', count: 1, cat: 'room', desc: '家庭首選 (1間)', price: 2500, badge: '最夯首選', images: ['https://i.ibb.co/4n2CPt5X/image.jpg', 'https://i.ibb.co/VYpvt7NF/image.jpg'], idx: 0 },
-            { id: 'ZC3', name: '小木屋 (小)', count: 1, cat: 'room', desc: '溫馨三人 (1間)', price: 2200, badge: '', images: ['https://i.ibb.co/CpNgsKHw/image.jpg', 'https://i.ibb.co/VW4t8GH4/image.jpg'], idx: 0 },
-            { id: 'ZD1', name: '草地區', count: 6, cat: 'grass', desc: '親近自然的美好車停帳邊 (6帳)', price: 1200, badge: '自然紮營', images: ['https://i.ibb.co/7xsg5nfv/1.jpg', 'https://i.ibb.co/DDLBdhNk/3.jpg', 'https://i.ibb.co/S73TLHJR/2.jpg'], idx: 0 },
-            { id: 'ZD2', name: '碎石地區', count: 2, cat: 'grass', desc: '充電紮營首選車停帳邊 (2帳)', price: 1200, badge: '碎石美好', images: ['https://i.ibb.co/k6D740Ht/image.jpg'], idx: 0 },
-            { id: 'ZE1', name: '包棟民宿 (16人)', count: 1, cat: 'room', desc: '4房/多人K歌最開心 (1棟)', price: 18000, badge: '獨享群樂', images: ['https://i.ibb.co/6RyZYPVy/7-KW.jpg'], idx: 0 },
-            { id: 'ZF1', name: '泰式免搭', count: 8, cat: 'room', desc: '懶人新福音 (8帳)', price: 1200, badge: '最新', images: ['https://i.ibb.co/60bXNB57/image.jpg', 'https://i.ibb.co/DHhm1sWR/2.jpg'], idx: 0 }
-        ];
+    const zones = [
+        { id: 'ZA1', name: '棚架 A 區', count: 9, cat: 'shelter', desc: '寬敞遮雨棚車停帳邊 (9帳)', price: 1200, badge: '熱門', images: ['https://i.ibb.co/KjBcKGvt/A-DDcar.jpg', 'https://i.ibb.co/RTypZTzW/A1.jpg', 'https://i.ibb.co/hRNQ84SY/A.jpg'], idx: 0 },
+        { id: 'ZA2', name: '棚架 B 區', count: 4, cat: 'shelter', desc: '適合包區車停帳邊 (4帳)', price: 1200, badge: '包區熱門', images: ['https://i.ibb.co/bMQ51htS/B.jpg', 'https://i.ibb.co/7JY7xRYp/B.jpg'], idx: 0 },
+        { id: 'ZA3', name: '棚架 C 區', count: 3, cat: 'shelter', desc: '安靜舒適獨立區車停帳邊 (3帳)', price: 1200, badge: '清靜悠閒', images: ['https://i.ibb.co/c70KNkJ/C1.jpg', 'https://i.ibb.co/zTRCxcwq/2.jpg'], idx: 0 },
+        { id: 'ZB1', name: '棧板 A 區', count: 3, cat: 'grass', desc: '架高防潮+遊戲區 (3帳)', price: 1200, badge: '', images: ['https://i.ibb.co/XrMggq46/1.jpg'], idx: 0 },
+        { id: 'ZB2', name: '棧板 B 區', count: 2, cat: 'grass', desc: '棚架下的慵懶 (2帳)', price: 1200, badge: '超大空間', images: ['https://i.ibb.co/JRmcf3bw/B.jpg'], idx: 0 },
+        { id: 'ZC1', name: '三人頂級露營車', count: 2, cat: 'room', desc: '最有溫度的一晚 (2台)', price: 6980, badge: '送烤肉', images: ['https://i.ibb.co/jvXBxJWw/4.jpg'], idx: 0 },
+        { id: 'ZC2', name: '小木屋 (大)', count: 1, cat: 'room', desc: '家庭首選 (1間)', price: 2500, badge: '最夯首選', images: ['https://i.ibb.co/4n2CPt5X/image.jpg', 'https://i.ibb.co/VYpvt7NF/image.jpg'], idx: 0 },
+        { id: 'ZC3', name: '小木屋 (小)', count: 1, cat: 'room', desc: '溫馨三人 (1間)', price: 2200, badge: '', images: ['https://i.ibb.co/CpNgsKHw/image.jpg', 'https://i.ibb.co/VW4t8GH4/image.jpg'], idx: 0 },
+        { id: 'ZD1', name: '草地區', count: 6, cat: 'grass', desc: '親近自然的美好車停帳邊 (6帳)', price: 1200, badge: '自然紮營', images: ['https://i.ibb.co/7xsg5nfv/1.jpg', 'https://i.ibb.co/DDLBdhNk/3.jpg', 'https://i.ibb.co/S73TLHJR/2.jpg'], idx: 0 },
+        { id: 'ZD2', name: '碎石地區', count: 2, cat: 'grass', desc: '充電紮營首選車停帳邊 (2帳)', price: 1200, badge: '碎石美好', images: ['https://i.ibb.co/k6D740Ht/image.jpg'], idx: 0 },
+        { id: 'ZE1', name: '包棟民宿 (16人)', count: 1, cat: 'room', desc: '4房/多人K歌最開心 (1棟)', price: 18000, badge: '獨享群樂', images: ['https://i.ibb.co/6RyZYPVy/7-KW.jpg'], idx: 0 },
+        { id: 'ZF1', name: '泰式免搭', count: 8, cat: 'room', desc: '懶人新福音 (8帳)', price: 1200, badge: '最新', images: ['https://i.ibb.co/60bXNB57/image.jpg', 'https://i.ibb.co/DHhm1sWR/2.jpg'], idx: 0 }
+    ];
 
-        const gears = [{n:'月亮椅/休閒椅',p:'100'},{n:'平躺椅',p:'150'},{n:'卡式爐/蜘蛛爐(含瓦斯)',p:'200'},{n:'五星爐(含瓦斯)',p:'300'},{n:'IGT桌全套',p:'600'},{n:'天幕 3*3+桿',p:'250'},{n:'天幕 3*5+桿',p:'350'},{n:'超聲波地墊 3*3',p:'150'},{n:'野餐地墊 2*2/燈具',p:'100'},{n:'落地頂級四葉燈',p:'350'},{n:'杜邦鯤9車尾帳',p:'1000'},{n:'代搭帳服務',p:'500'},{n:'投影機',p:'300'},{n:'投影布幕',p:'100'},{n:'電暖器/焚火台(鐵)',p:'200'},{n:'焚火台(純鈦)',p:'350'},{n:'木柴',p:'100'}];
+    const gears = [{n:'月亮椅/休閒椅',p:'100'},{n:'平躺椅',p:'150'},{n:'卡式爐/蜘蛛爐(含瓦斯)',p:'200'},{n:'五星爐(含瓦斯)',p:'300'},{n:'IGT桌全套',p:'600'},{n:'天幕 3*3+桿',p:'250'},{n:'天幕 3*5+桿',p:'350'},{n:'超聲波地墊 3*3',p:'150'},{n:'野餐地墊 2*2/燈具',p:'100'},{n:'落地頂級四葉燈',p:'350'},{n:'杜邦鯤9車尾帳',p:'1000'},{n:'代搭帳服務',p:'500'},{n:'投影機',p:'300'},{n:'投影布幕',p:'100'},{n:'電暖器/焚火台(鐵)',p:'200'},{n:'焚火台(純鈦)',p:'350'},{n:'木柴',p:'100'}];
 
-        const discountCodes = { 'LINE100': 100, 'CM100': 100, '首次加入好友': 100, '首次加入好友優惠券': 100, '首次加入好友禮': 100, 'TESLA2026': 100, 'Chunhunglinonly': 9999999 }; 
-       let bookedData = {}; let cart = {}; let currentDiscount = 0; let currentFilter = 'all'; 
-       
-       // ★★★ 補上這兩行，匯款回報功能才不會壞掉 ★★★
-       let lastOrderName = ""; 
-       let lastOrderTotal = "";
+    const discountCodes = { 'LINE100': 100, 'CM100': 100, '首次加入好友': 100, '首次加入好友優惠券': 100, '首次加入好友禮': 100, 'TESLA2026': 100, 'Chunhunglinonly': 9999999 }; 
+    let bookedData = {}; let cart = {}; let currentDiscount = 0; let currentFilter = 'all'; 
+    let lastOrderName = ""; 
+    let lastOrderTotal = "";
 
-        // ★★★ 2. 函式與邏輯區 ★★★
-        
-        function isSpecialDate(dateStr) { return specialRanges.some(r => dateStr >= r.s && dateStr <= r.e); }
+    // ★★★ 2. 函式與邏輯區 ★★★
+    function isSpecialDate(dateStr) { return specialRanges.some(r => dateStr >= r.s && dateStr <= r.e); }
 
-        function getDynamicPrice(zoneId, dateStr) {
-            if (closedDates.includes(dateStr)) return -1;
-            const isSpecial = isSpecialDate(dateStr);
-            if (!isSpecial) { const z = zones.find(x => x.id === zoneId); return z ? z.price : 0; }
-            switch(zoneId) {
-                case 'ZC2': return 3000; case 'ZC3': return 2600; case 'ZE1': return 20000; case 'ZC1': return -1; default: return 1500;
-            }
+    function getDynamicPrice(zoneId, dateStr) {
+        if (closedDates.includes(dateStr)) return -1;
+        const isSpecial = isSpecialDate(dateStr);
+        if (!isSpecial) { const z = zones.find(x => x.id === zoneId); return z ? z.price : 0; }
+        switch(zoneId) {
+            case 'ZC2': return 3000; case 'ZC3': return 2600; case 'ZE1': return 20000; case 'ZC1': return -1; default: return 1500;
         }
+    }
 
-        async function initializeLiff() {
-            try {
-                await liff.init({ liffId: myLiffId });
-                if (liff.isLoggedIn()) {
-                    const profile = await liff.getProfile();
-                    const nameField = document.getElementById('bookingNameField');
-                    if(nameField) {
-                        nameField.value = profile.displayName;
-                        nameField.placeholder = "已自動讀取 LINE 暱稱";
-                    }
-                    const idField = document.getElementById('lineUserIdField');
-                    if(idField) {
-                        idField.value = profile.userId;
-                    }
-                } else {
-                    console.log("使用者未登入 LINE");
+    async function initializeLiff() {
+        try {
+            await liff.init({ liffId: myLiffId });
+            if (liff.isLoggedIn()) {
+                const profile = await liff.getProfile();
+                const nameField = document.getElementById('bookingNameField');
+                if(nameField) {
+                    nameField.value = profile.displayName;
+                    nameField.placeholder = "已自動讀取 LINE 暱稱";
                 }
-            } catch (err) {
-                console.error('LIFF 初始化失敗', err);
+                const idField = document.getElementById('lineUserIdField');
+                if(idField) {
+                    idField.value = profile.userId;
+                }
             }
-        }
+        } catch (err) { console.error('LIFF 初始化失敗', err); }
+    }
 
-        function loadPosts() {
-            const container = document.getElementById('blog-container');
-            container.innerHTML = '<div class="text-center text-gray-500 py-10"><i class="fas fa-spinner fa-spin mr-2"></i> 正在載入營主動態...</div>';
-            
-            fetch(scriptURL + '?action=getPosts')
-                .then(res => res.json())
-                .then(data => {
-                    container.innerHTML = '';
-                    if (data.posts && data.posts.length > 0) {
-                        data.posts.reverse().forEach(post => {
-                            const postHTML = `
-                                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 fade-in mb-6">
-                                    <div class="flex items-center mb-3">
-                                        <img src="https://i.ibb.co/6cx1xrVR/image.jpg" class="w-10 h-10 rounded-full object-cover border-2 border-yellow-400 mr-3">
-                                        <div>
-                                            <div class="font-bold text-stone-800 text-sm">營主 Hank <i class="fas fa-check-circle text-blue-500 ml-1"></i></div>
-                                            <div class="text-xs text-gray-400">${post.date} • ${post.location || '宜蘭礁溪充電莊'}</div>
-                                        </div>
-                                    </div>
-                                    <p class="text-gray-700 text-sm leading-relaxed mb-3 whitespace-pre-wrap">${post.content}</p>
-                                    ${post.image ? `<div class="rounded-xl overflow-hidden shadow-sm mb-3"><img src="${post.image}" class="w-full h-auto rounded-lg" onerror="this.style.display='none'"></div>` : ''}
-                                    ${post.video ? `<div class="rounded-xl overflow-hidden shadow-sm aspect-video mb-3"><iframe class="w-full h-full" src="${post.video.replace('watch?v=', 'embed/')}" frameborder="0" allowfullscreen></iframe></div>` : ''}
-                                    <div class="flex gap-4 mt-2 text-gray-400 text-xs font-bold">
-                                        <span class="hover:text-red-500 cursor-pointer transition"><i class="fas fa-heart mr-1"></i> ❤️</span>
-                                        <span class="hover:text-blue-500 cursor-pointer transition"><i class="fas fa-comment-dots mr-1"></i> 💬</span>
-                                    </div>
-                                </div>
-                            `;
-                            container.insertAdjacentHTML('beforeend', postHTML);
-                        });
-                    } else {
-                        container.innerHTML = `
-                            <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+    function loadPosts() {
+        const container = document.getElementById('blog-container');
+        container.innerHTML = '<div class="text-center text-gray-500 py-10"><i class="fas fa-spinner fa-spin mr-2"></i> 正在載入營主動態...</div>';
+        
+        fetch(scriptURL + '?action=getPosts')
+            .then(res => res.json())
+            .then(data => {
+                container.innerHTML = '';
+                if (data.posts && data.posts.length > 0) {
+                    data.posts.reverse().forEach(post => {
+                        const postHTML = `
+                            <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 fade-in mb-6">
                                 <div class="flex items-center mb-3">
                                     <img src="https://i.ibb.co/6cx1xrVR/image.jpg" class="w-10 h-10 rounded-full object-cover border-2 border-yellow-400 mr-3">
-                                    <div><div class="font-bold text-stone-800 text-sm">營主 Hank <i class="fas fa-check-circle text-blue-500 ml-1"></i></div><div class="text-xs text-gray-400">剛剛 • 宜蘭礁溪</div></div>
+                                    <div>
+                                        <div class="font-bold text-stone-800 text-sm">營主 Hank <i class="fas fa-check-circle text-blue-500 ml-1"></i></div>
+                                        <div class="text-xs text-gray-400">${post.date} • ${post.location || '宜蘭礁溪充電莊'}</div>
+                                    </div>
                                 </div>
-                                <p class="text-gray-700 text-sm leading-relaxed mb-3">歡迎來到充電莊！目前還沒有新動態，期待在山上見到大家！⚡️🏕️</p>
-                                <div class="rounded-xl overflow-hidden shadow-sm"><img src="https://i.ibb.co/vCPbyL8x/image.jpg" class="w-full h-auto rounded-lg"></div>
-                            </div>`;
-                    }
-                })
-                .catch(err => {
-                    console.error("讀取貼文失敗", err);
-                    container.innerHTML = '<div class="text-center text-red-400 py-10">無法載入動態，請稍後再試。</div>';
-                });
-        }
-
-      function submitPost() {
-    const content = document.getElementById('postContent').value;
-    if (!content) { alert('請輸入貼文內容！'); return; }
-
-    const btn = document.querySelector('#postForm button');
-    const originalText = btn.innerText;
-    btn.disabled = true;
-    btn.innerText = '發布中...';
-
-    const formData = new FormData(document.getElementById('postForm'));
-    formData.append('sheetName', '營主動態'); 
-    
-    // ★★★ 修正這裡：原本寫 'date'，試算表標題是 'postDate' ★★★
-    formData.append('postDate', new Date().toLocaleString('zh-TW')); 
-
-    // 因為上面 HTML 的 name 已經改成 postContent 了，這裡不需要再手動 append 重複的內容
-    // 移除 formData.append('postContent', content); 
-    // 移除 formData.append('內容', content); 
-
-    fetch(scriptURL, {
-        method: 'POST',
-        body: formData,
-        mode: 'no-cors'
-    })
-    .then(() => {
-        alert('✅ 發布成功！');
-        document.getElementById('postForm').reset();
-        closeAll();
-        loadPosts(); 
-    })
-    // ... 後面保持不變
-
-        function openPostModal() {
-            const pwd = prompt("請輸入營主密碼以發文：");
-            if (pwd === "Hank0219") { showModal('modal-post'); } else if (pwd !== null) { alert("密碼錯誤"); }
-        }
-
-        // --- 輔助函式區 ---
-        window.applyDiscount = () => {
-            const code = document.getElementById('discountCodeInput').value.trim(); 
-            const msg = document.getElementById('discountMsg');
-            const discountRow = document.getElementById('discountRow');
-            const discountDisplay = document.getElementById('discountDisplay');
-            const discountInput = document.getElementById('discountValue');
-            if (discountCodes.hasOwnProperty(code)) {
-                currentDiscount = discountCodes[code];
-                msg.innerHTML = `<span class="text-green-600"><i class="fas fa-check-circle"></i> 優惠代碼有效！折抵 $${currentDiscount}</span>`;
-                discountRow.style.display = 'flex'; discountDisplay.innerText = `-$${currentDiscount}`; discountInput.value = currentDiscount;
-            } else {
-                currentDiscount = 0;
-                msg.innerHTML = `<span class="text-red-500"><i class="fas fa-times-circle"></i> 無效的代碼</span>`;
-                discountRow.style.display = 'none'; discountInput.value = 0;
-            }
-            window.calculate();
-        }
-
-        function updateQuantityOptions(max) {
-            const select = document.getElementById('quantitySelect'); select.innerHTML = ''; 
-            if (max <= 0) {
-                const opt = document.createElement('option'); opt.text = "已額滿"; opt.value = 0; select.appendChild(opt); select.disabled = true;
-            } else {
-                select.disabled = false;
-                for (let i = 1; i <= max; i++) { const opt = document.createElement('option'); opt.value = i; opt.text = i; select.appendChild(opt); }
-            }
-            const event = new Event('change'); select.dispatchEvent(event);
-        }
-
-        function getRemainingCount(zoneId, dateStr) {
-            const dynamicPrice = getDynamicPrice(zoneId, dateStr);
-            if (dynamicPrice === -1) return 0;
-            const defaultCount = zones.find(z => z.id === zoneId).count;
-            
-            if (Object.keys(bookedData).length === 0) {
-                return -999; // 特殊代碼：資料讀取中
-            }
-
-            let booked = 0;
-            if (dateStr && bookedData[dateStr] && bookedData[dateStr][zoneId]) { booked = bookedData[dateStr][zoneId]; }
-            return Math.max(0, defaultCount - booked);
-        }
-
-        function setupCalculator() {
-            const inDate = document.getElementById('checkinDate');
-            const outDate = document.getElementById('checkoutDate');
-            const bbqSelect = document.getElementById('bbqSelect');
-            const resultDiv = document.getElementById('priceCalcResult');
-            const validPriceResult = document.getElementById('validPriceResult');
-            const blockedDateMsg = document.getElementById('blockedDateMsg');
-            const formulaSpan = document.getElementById('priceFormula');
-            const totalDisplay = document.getElementById('totalPriceDisplay');
-            const subtotalDisplay = document.getElementById('subtotalDisplay');
-            const stayDaysSpan = document.getElementById('stayDays');
-            const submitBtn = document.getElementById('submitBtn');
-
-            inDate.min = "2026-02-01";
-
-            inDate.addEventListener('input', function() {
-                const val = this.value;
-                if (!val) { cart = {}; renderZones(currentFilter); return; }
-                const startDate = new Date(val); startDate.setDate(startDate.getDate() + 1);
-                const yyyy = startDate.getFullYear(); const mm = String(startDate.getMonth() + 1).padStart(2, '0'); const dd = String(startDate.getDate()).padStart(2, '0');
-                outDate.min = `${yyyy}-${mm}-${dd}`;
-                
-                // 檢查購物車內是否有超賣
-                for(let id in cart) { 
-                    const rem = getRemainingCount(id, val);
-                    if (rem !== -999 && rem < cart[id]) { cart[id] = 0; } 
-                }
-                renderZones(currentFilter, val); calculate();
-            });
-
-            outDate.addEventListener('change', function() { calculate(); });
-
-            function calculate() {
-                const bbqQty = parseInt(bbqSelect.value) || 0; const bbqPrice = 1299; let days = 0; let stayPriceSum = {}; 
-                blockedDateMsg.classList.add('hidden'); validPriceResult.classList.remove('hidden'); submitBtn.disabled = false; submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-
-                if (inDate.value && outDate.value) {
-                    const start = new Date(inDate.value); const end = new Date(outDate.value); const diffTime = end - start; days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                    if (days <= 0) { stayDaysSpan.classList.add('hidden'); days = 0; } else {
-                        stayDaysSpan.textContent = `共 ${days} 晚`; stayDaysSpan.classList.remove('hidden');
-                        for (let id in cart) stayPriceSum[id] = 0;
-                        let tempDate = new Date(start); let foundClosedDate = null;
-                        while(tempDate < end) {
-                            const y = tempDate.getFullYear();
-                            const m = String(tempDate.getMonth() + 1).padStart(2, '0');
-                            const d = String(tempDate.getDate()).padStart(2, '0');
-                            const dStr = `${y}-${m}-${d}`;
-
-                            if(closedDates.includes(dStr)) { foundClosedDate = dStr; break; }
-                            for(let id in cart) { if(cart[id] > 0) { const p = getDynamicPrice(id, dStr); if (p !== -1) stayPriceSum[id] += p; } }
-                            tempDate.setDate(tempDate.getDate() + 1);
-                        }
-                        if (foundClosedDate) {
-                            resultDiv.classList.remove('hidden'); validPriceResult.classList.add('hidden'); blockedDateMsg.classList.remove('hidden');
-                            blockedDateMsg.innerHTML = `<div class="text-red-600 font-bold text-lg mb-2"><i class="fas fa-ban mr-2"></i>無法預訂</div><p class="text-gray-700">包含不開放預定日期：<br><span class="font-mono font-bold text-red-500">${foundClosedDate}</span></p><p class="text-xs text-gray-500 mt-2">請重新確認預定日期</p>`;
-                            submitBtn.disabled = true; submitBtn.classList.add('opacity-50', 'cursor-not-allowed'); return;
-                        }
-                    }
-                } else { stayDaysSpan.classList.add('hidden'); }
-
-                let roomTotal = 0; let totalTents = 0;
-                for(let id in cart) { if(cart[id] > 0) { roomTotal += stayPriceSum[id] * cart[id]; totalTents += cart[id]; } }
-
-                if (totalTents > 0 && days > 0) {
-                    const bbqTotal = bbqPrice * bbqQty; const subtotal = roomTotal + bbqTotal; const finalTotal = Math.max(0, subtotal - currentDiscount);
-                    resultDiv.classList.remove('hidden'); subtotalDisplay.innerText = `$${subtotal.toLocaleString()}`;
-                    let formulaText = `${totalTents}帳 × ${days}晚 (自動計算平假日)`;
-                    if (bbqQty > 0) formulaText += ` + 烤肉${bbqQty}份`; if (currentDiscount > 0) formulaText += ` - 折扣$${currentDiscount}`;
-                    formulaSpan.textContent = formulaText; totalDisplay.textContent = `$${finalTotal.toLocaleString()}`;
-                } else { resultDiv.classList.add('hidden'); }
-            }
-            window.calculate = calculate; bbqSelect.addEventListener('change', calculate);
-        }
-
-        window.updateCart = (zoneId, delta) => {
-            const dateStr = document.getElementById('checkinDate').value;
-            if(!dateStr) { alert("請先選擇入住日期！"); return; }
-            
-            const remaining = getRemainingCount(zoneId, dateStr);
-            const limit = (remaining === -999) ? 99 : remaining;
-
-            if (!cart[zoneId]) cart[zoneId] = 0;
-            const newQty = cart[zoneId] + delta;
-            if (newQty < 0) return; 
-            
-            if (newQty > limit) { alert("已達該區剩餘上限！"); return; }
-            
-            cart[zoneId] = newQty;
-            const display = document.getElementById(`qty-display-${zoneId}`); if(display) display.textContent = newQty;
-            renderZones(currentFilter, dateStr); window.calculate();
-        }
-
-        function renderZones(filter, dateStr = null) {
-            currentFilter = filter;
-            if (!dateStr) dateStr = document.getElementById('checkinDate').value;
-            const container = document.getElementById('zoneContainer'); container.innerHTML = '';
-            
-            zones.forEach(zone => {
-                if(filter !== 'all' && zone.cat !== filter) return;
-                
-                let remaining = 0;
-                let isLoading = false;
-
-                if (dateStr) {
-                    const res = getRemainingCount(zone.id, dateStr);
-                    if (res === -999) { isLoading = true; remaining = zone.count; }
-                    else { remaining = res; }
+                                <p class="text-gray-700 text-sm leading-relaxed mb-3 whitespace-pre-wrap">${post.content}</p>
+                                ${post.image ? `<div class="rounded-xl overflow-hidden shadow-sm mb-3"><img src="${post.image}" class="w-full h-auto rounded-lg" onerror="this.style.display='none'"></div>` : ''}
+                                ${post.video ? `<div class="rounded-xl overflow-hidden shadow-sm aspect-video mb-3"><iframe class="w-full h-full" src="${post.video.replace('watch?v=', 'embed/')}" frameborder="0" allowfullscreen></iframe></div>` : ''}
+                            </div>
+                        `;
+                        container.insertAdjacentHTML('beforeend', postHTML);
+                    });
                 } else {
-                    remaining = zone.count; 
+                    container.innerHTML = '<div class="text-center p-5">目前沒有動態</div>';
                 }
-
-                const isSoldOut = !isLoading && remaining === 0; 
-                const currentQty = cart[zone.id] || 0;
-                const displayPrice = (dateStr) ? getDynamicPrice(zone.id, dateStr) : zone.price;
-                const priceText = (displayPrice === -1) ? '不開放' : `$${displayPrice.toLocaleString()}`;
-
-                const div = document.createElement('div');
-                div.className = `zone-card bg-white rounded-xl p-3 relative overflow-hidden flex items-center min-h-[9rem] h-auto ${isSoldOut ? 'sold-out' : ''}`;
-                if (currentQty > 0) div.classList.add('selected');
-
-                const badge = zone.badge ? `<span class="absolute top-0 right-0 bg-yellow-400 text-stone-900 text-xs font-bold px-2 py-1 rounded-bl-lg z-20 shadow-sm">${zone.badge}</span>` : '';
-                const imgWrap = document.createElement('div'); imgWrap.className = "w-32 h-full md:w-40 flex-shrink-0 rounded-lg overflow-hidden relative mr-4";
-                const img = document.createElement('img'); img.src = zone.images[zone.idx]; img.className = "w-full h-full object-cover transition duration-500 hover:scale-110";
-                
-                if (zone.images.length > 1 && !isSoldOut) {
-                    imgWrap.classList.add('cursor-change-image');
-                    imgWrap.onclick = (e) => { e.stopPropagation(); zone.idx = (zone.idx + 1) % zone.images.length; img.src = zone.images[zone.idx]; }
-                }
-                imgWrap.prepend(img);
-
-                let remainingText = '';
-                if (isLoading) {
-                    remainingText = `<span class="text-gray-400 text-sm font-bold bg-gray-100 px-2 py-0.5 rounded"><i class="fas fa-spinner fa-spin mr-1"></i>讀取中...</span>`;
-                } else if (isSoldOut) {
-                    remainingText = `<span class="text-red-600 font-bold text-sm bg-red-100 px-2 py-0.5 rounded">已滿帳/不開放</span>`;
-                } else {
-                    remainingText = `<span class="text-blue-600 text-sm font-bold bg-blue-50 px-2 py-0.5 rounded"><i class="fas fa-campground mr-1"></i>剩餘 ${remaining} 帳</span>`;
-                }
-
-                const qtyControl = isSoldOut ? '' : `<div class="flex items-center gap-3 mt-2"><button type="button" class="qty-btn" onclick="updateCart('${zone.id}', -1)">-</button><span class="font-bold text-lg w-4 text-center" id="qty-display-${zone.id}">${currentQty}</span><button type="button" class="qty-btn" onclick="updateCart('${zone.id}', 1)">+</button></div>`;
-
-                const info = document.createElement('div'); info.className = "flex-1 flex flex-col justify-center";
-                info.innerHTML = `<h3 class="font-bold text-stone-800 text-lg leading-tight mb-1">${zone.name}</h3><p class="text-xs text-gray-500 font-medium mb-1">${zone.desc}</p><div class="mb-1">${remainingText}</div><div class="flex justify-between items-end"><p class="text-green-600 font-bold text-lg">${priceText} <span class="text-xs text-gray-400 font-normal">/ 晚</span></p>${qtyControl}</div>`;
-                div.innerHTML = badge; div.appendChild(imgWrap); div.appendChild(info); container.appendChild(div);
+            })
+            .catch(err => {
+                console.error("讀取貼文失敗", err);
+                container.innerHTML = '<div class="text-center text-red-400 py-10">無法載入動態，請稍後再試。</div>';
             });
-            
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                if(btn.onclick.toString().includes(`'${filter}'`)) { btn.classList.add('active', 'text-white', 'bg-green-700'); btn.classList.remove('text-gray-500'); } 
-                else { btn.classList.remove('active', 'text-white', 'bg-green-700'); btn.classList.add('text-gray-500'); }
-            });
-        }
+    }
+
+    // ★★★ 修正後的 submitPost 函式 ★★★
+    function submitPost() {
+        // 因為表單的 input name 已經修改為 postContent 等，這裡直接取值做檢查
+        const contentField = document.querySelector('[name="postContent"]');
+        const content = contentField ? contentField.value : '';
         
-        window.filterZones = (cat) => renderZones(cat);
-        
-        function renderGears() {
-            const tbody = document.getElementById('gearTableBody'); let html = '';
-            gears.forEach(g => { html += `<tr class="border-b"><td class="px-4 py-2 text-stone-700">${g.n}</td><td class="px-4 py-2 text-right font-bold text-blue-600">$${g.p}</td></tr>`; });
-            tbody.innerHTML = html;
-        }
-        
-        window.toggleSidebar = () => {
-            const sb = document.getElementById('sidebar'); const ov = document.getElementById('overlay');
-            if(sb.classList.contains('-translate-x-full')) { sb.classList.remove('-translate-x-full'); ov.classList.remove('hidden'); } else { sb.classList.add('-translate-x-full'); ov.classList.add('hidden'); }
-        };
-        window.showModal = (id) => {
-            document.getElementById('sidebar').classList.add('-translate-x-full'); document.getElementById('overlay').classList.remove('hidden');
-            document.querySelectorAll('[id^="modal-"]').forEach(el => el.classList.add('hidden')); document.getElementById(id).classList.remove('hidden');
-        };
-        window.closeAll = () => {
-            document.getElementById('sidebar').classList.add('-translate-x-full'); document.getElementById('overlay').classList.add('hidden');
-            document.querySelectorAll('[id^="modal-"]').forEach(el => el.classList.add('hidden')); document.getElementById(id).classList.remove('hidden');
-        };
-        window.adminLogin = () => { const pwd = prompt("請輸入營主密碼："); if (pwd === "Hank0219") { window.open(adminSheetURL, '_blank'); } else if (pwd !== null) alert("密碼錯誤"); };
+        if (!content) { alert('請輸入貼文內容！'); return; }
 
-        document.querySelectorAll('.rating-star').forEach(star => {
-            star.addEventListener('click', function() {
-                const val = this.dataset.val; document.getElementById('ratingInput').value = val;
-                document.querySelectorAll('.rating-star').forEach(s => { if (s.dataset.val <= val) s.classList.add('active'); else s.classList.remove('active'); });
-            });
-        });
+        const btn = document.querySelector('#postForm button');
+        const originalText = btn.innerText;
+        btn.disabled = true;
+        btn.innerText = '發布中...';
 
-        document.getElementById('feedbackForm').addEventListener('submit', e => {
-            e.preventDefault(); const btn = document.getElementById('feedbackBtn'); const originalText = btn.innerText; btn.disabled = true; btn.innerText = '處理中...';
-            fetch(scriptURL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
-            .then(() => { document.getElementById('feedback-form-container').classList.add('hidden'); document.getElementById('feedback-success').classList.remove('hidden'); })
-            .catch(err => { alert('❌ 發生錯誤，請截圖聯繫營主！\n錯誤訊息: ' + err.message); btn.disabled = false; btn.innerText = originalText; });
-        });
+        const formData = new FormData(document.getElementById('postForm'));
+        formData.append('sheetName', '營主動態'); 
+        // 修正重點：使用正確的 postDate
+        formData.append('postDate', new Date().toLocaleString('zh-TW')); 
 
-        // 送出預訂後的行為 (已優化速度：移除送出前的重複抓取資料動作)
-        document.getElementById('bookingForm').addEventListener('submit', e => {
-            e.preventDefault();
-            const inDateStr = document.getElementById('checkinDate').value; const outDateStr = document.getElementById('checkoutDate').value;
-            if (inDateStr < "2026-02-01") { alert("入住日期必須在 2026年2月1日 之後！"); return; }
-            if (outDateStr <= inDateStr) { alert("退房日期必須晚於入住日期！"); return; }
-            let totalQty = 0; let orderSummary = [];
-            for(let id in cart) { if(cart[id] > 0) { const zone = zones.find(z => z.id === id); orderSummary.push(`${zone.name} x ${cart[id]}`); totalQty += cart[id]; } }
-            if(totalQty === 0) { alert('請至少選擇一個營位！'); return; }
-
-            // 確認金額視窗
-            const totalAmount = document.getElementById('totalPriceDisplay').innerText;
-            if(!confirm(`確認預訂資訊：\n\n${orderSummary.join('\n')}\n\n預估總金額：${totalAmount}\n\n是否確認送出？`)) {
-                return;
-            }
-
-            const btn = document.getElementById('submitBtn'); const originalText = btn.innerText; btn.disabled = true; btn.innerText = '訂單處理中...';
-
-            // ★★★ 優化修改點：直接使用本地暫存的 bookedData 進行檢查，不進行 fetch ★★★
-            let isStockEnough = true; let errorMsg = "";
-            for(let id in cart) {
-                if(cart[id] > 0) {
-                    const zone = zones.find(z => z.id === id); 
-                    // 這裡使用記憶體中已經載入的 bookedData，速度極快
-                    const remaining = getRemainingCount(id, inDateStr);
-                    if (remaining !== -999 && cart[id] > remaining) { isStockEnough = false; errorMsg += `❌ ${zone.name} 只剩 ${remaining} 帳 (您預訂 ${cart[id]} 帳)\n`; cart[id] = remaining; }
-                }
-            }
-            if (!isStockEnough) {
-                alert(`⚠️ 很抱歉，剛剛有其他客人搶先預訂了！\n\n${errorMsg}\n系統已自動為您調整數量，請確認後再送出。`);
-                renderZones(currentFilter, inDateStr); window.calculate(); btn.disabled = false; btn.innerText = originalText; return;
-            }
-            
-            // 直接送出 POST
-            const formData = new FormData(e.target); formData.set('預訂區域', orderSummary.join(', ')); formData.set('預訂數量', totalQty); 
-            const bbqQty = parseInt(document.getElementById('bbqSelect').value) || 0;
-            if(inDateStr && outDateStr) {
-                const start = new Date(inDateStr); const end = new Date(outDateStr); const diffTime = end - start; const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                let roomTotal = 0; let tempDate = new Date(start);
-                while(tempDate < end) {
-                    const y = tempDate.getFullYear(); const m = String(tempDate.getMonth() + 1).padStart(2, '0'); const d = String(tempDate.getDate()).padStart(2, '0'); const dStr = `${y}-${m}-${d}`;
-                    for(let id in cart) { if(cart[id] > 0) { const p = getDynamicPrice(id, dStr); if(p > 0) roomTotal += p * cart[id]; } }
-                    tempDate.setDate(tempDate.getDate() + 1);
-                }
-                const subtotal = roomTotal + (1299 * bbqQty); const total = Math.max(0, subtotal - currentDiscount);
-                formData.append('入住天數', days); formData.append('總金額', total);
-            }
-
-            fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
-            .then(response => {
-                // 因 mode: no-cors，無法讀取 response，直接視為成功
-                e.target.reset(); cart = {};
-                document.getElementById('priceCalcResult').classList.add('hidden'); 
-                document.getElementById('stayDays').classList.add('hidden');
-                currentDiscount = 0; document.getElementById('discountMsg').innerHTML = ''; document.getElementById('discountRow').style.display = 'none';
-                showModal('modal-booking-success');
-                // 送出後在背景偷偷更新一次庫存，確保下一筆資料正確
-                fetch(scriptURL).then(r => r.json()).then(data => { bookedData = data; renderZones('all'); });
-            }).catch(err => { alert('❌ 發生錯誤，請截圖聯繫營主！\n錯誤訊息: ' + err.message); console.error(err); })
-            .finally(() => { btn.disabled = false; btn.innerText = originalText; });
-        });
-
-        document.getElementById('paymentForm').addEventListener('submit', e => {
-            e.preventDefault(); const btn = document.getElementById('payBtn'); const originalText = btn.innerText; btn.innerText = '傳送中...';
-            // 加一個簡易的防止重複點擊
-            btn.disabled = true;
-            fetch(scriptURL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
-            .then(() => { alert('✅ 匯款回報成功！\n我們將盡快為您對帳。'); e.target.reset(); closeAll(); })
-            .catch(err => { alert('❌ 發生錯誤，請直接聯繫營主！\n錯誤訊息: ' + err.message); })
-            .finally(() => { btn.disabled = false; btn.innerText = originalText; });
-        });
-// ★★★ 補上遺失的匯款回報跳轉功能 ★★★
-        window.openPaymentReport = () => {
+        fetch(scriptURL, {
+            method: 'POST',
+            body: formData,
+            mode: 'no-cors'
+        })
+        .then(() => {
+            alert('✅ 發布成功！');
+            document.getElementById('postForm').reset();
             closeAll();
-            // 自動填入姓名與金額 (如果有上一筆訂單資料)
-            if(lastOrderName) {
-                const nameInput = document.querySelector('#paymentForm input[name="匯款姓名"]');
-                if(nameInput) nameInput.value = lastOrderName;
-            }
-            if(lastOrderTotal) {
-                const priceInput = document.querySelector('#paymentForm input[name="匯款金額"]');
-                if(priceInput) priceInput.value = lastOrderTotal;
-            }
-            showModal('modal-report');
+            loadPosts(); 
+        })
+        .catch(err => {
+            alert('發布失敗，請稍後再試');
+            console.error(err);
+        })
+        .finally(() => {
+            btn.disabled = false;
+            btn.innerText = originalText;
+        });
+    }
+
+    function openPostModal() {
+        const pwd = prompt("請輸入營主密碼以發文：");
+        if (pwd === "Hank0219") { showModal('modal-post'); } else if (pwd !== null) { alert("密碼錯誤"); }
+    }
+
+    // --- 輔助函式區 ---
+    window.applyDiscount = () => {
+        const code = document.getElementById('discountCodeInput').value.trim(); 
+        const msg = document.getElementById('discountMsg');
+        const discountRow = document.getElementById('discountRow');
+        const discountDisplay = document.getElementById('discountDisplay');
+        const discountInput = document.getElementById('discountValue');
+        if (discountCodes.hasOwnProperty(code)) {
+            currentDiscount = discountCodes[code];
+            msg.innerHTML = `<span class="text-green-600"><i class="fas fa-check-circle"></i> 優惠代碼有效！折抵 $${currentDiscount}</span>`;
+            discountRow.style.display = 'flex'; discountDisplay.innerText = `-$${currentDiscount}`; discountInput.value = currentDiscount;
+        } else {
+            currentDiscount = 0;
+            msg.innerHTML = `<span class="text-red-500"><i class="fas fa-times-circle"></i> 無效的代碼</span>`;
+            discountRow.style.display = 'none'; discountInput.value = 0;
         }
-        function refreshData() {
-            fetch(scriptURL).then(r => r.json()).then(data => {
-                bookedData = data; 
-                const currentDate = document.getElementById('checkinDate').value;
-                if(currentDate) { renderZones(currentFilter, currentDate); }
-                else { renderZones(currentFilter); }
-            }).catch(e => console.error("庫存背景更新失敗", e));
+        window.calculate();
+    }
+
+    function updateQuantityOptions(max) {
+        const select = document.getElementById('quantitySelect'); 
+        if(!select) return;
+        select.innerHTML = ''; 
+        if (max <= 0) {
+            const opt = document.createElement('option'); opt.text = "已額滿"; opt.value = 0; select.appendChild(opt); select.disabled = true;
+        } else {
+            select.disabled = false;
+            for (let i = 1; i <= max; i++) { const opt = document.createElement('option'); opt.value = i; opt.text = i; select.appendChild(opt); }
+        }
+        const event = new Event('change'); select.dispatchEvent(event);
+    }
+
+    function getRemainingCount(zoneId, dateStr) {
+        const dynamicPrice = getDynamicPrice(zoneId, dateStr);
+        if (dynamicPrice === -1) return 0;
+        const defaultCount = zones.find(z => z.id === zoneId).count;
+        
+        if (Object.keys(bookedData).length === 0) {
+            return -999; 
         }
 
-        function init() {
-           console.log("初始化開始...");
-           
-           // ★★★ 新增這段：強制禁止發文表單因按 Enter 而送出/重整 ★★★
-           const postForm = document.getElementById('postForm');
-           if (postForm) {
-               postForm.addEventListener('submit', function(e) {
-                   e.preventDefault(); // 殺死預設行為
-                   return false;
-               });
-           }
-           // ★★★ 結束新增 ★★★
+        let booked = 0;
+        if (dateStr && bookedData[dateStr] && bookedData[dateStr][zoneId]) { booked = bookedData[dateStr][zoneId]; }
+        return Math.max(0, defaultCount - booked);
+    }
 
-           initializeLiff();
-           renderZones('all'); 
-           renderGears(); 
-           setupCalculator(); 
-           updateQuantityOptions(8);
-           loadPosts();
-           document.getElementById('lineRewardBtn').href = lineRewardUrl;
+    function setupCalculator() {
+        const inDate = document.getElementById('checkinDate');
+        const outDate = document.getElementById('checkoutDate');
+        const bbqSelect = document.getElementById('bbqSelect');
+        const resultDiv = document.getElementById('priceCalcResult');
+        const validPriceResult = document.getElementById('validPriceResult');
+        const blockedDateMsg = document.getElementById('blockedDateMsg');
+        const formulaSpan = document.getElementById('priceFormula');
+        const totalDisplay = document.getElementById('totalPriceDisplay');
+        const subtotalDisplay = document.getElementById('subtotalDisplay');
+        const stayDaysSpan = document.getElementById('stayDays');
+        const submitBtn = document.getElementById('submitBtn');
 
-           // 首次載入庫存
-           refreshData();
+        if(!inDate) return; 
+        inDate.min = "2026-02-01";
 
-           // ★★★ 優化：每 10 秒在背景自動更新一次庫存，保持資料新鮮，這樣送出時就不需要再下載了 ★★★
-           setInterval(refreshData, 10000);
-       }
+        inDate.addEventListener('input', function() {
+            const val = this.value;
+            if (!val) { cart = {}; renderZones(currentFilter); return; }
+            const startDate = new Date(val); startDate.setDate(startDate.getDate() + 1);
+            const yyyy = startDate.getFullYear(); const mm = String(startDate.getMonth() + 1).padStart(2, '0'); const dd = String(startDate.getDate()).padStart(2, '0');
+            outDate.min = `${yyyy}-${mm}-${dd}`;
+            
+            for(let id in cart) { 
+                const rem = getRemainingCount(id, val);
+                if (rem !== -999 && rem < cart[id]) { cart[id] = 0; } 
+            }
+            renderZones(currentFilter, val); calculate();
+        });
 
-        // 執行初始化
-        init();
-    </script>
-</body>
-</html>
+        outDate.addEventListener('change', function() { calculate(); });
+
+        function calculate() {
+            const bbqQty = parseInt(bbqSelect.value) || 0; const bbqPrice = 1299; let days = 0; let stayPriceSum = {}; 
+            blockedDateMsg.classList.add('hidden'); validPriceResult.classList.remove('hidden'); submitBtn.disabled = false; submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+
+            if (inDate.value && outDate.value) {
+                const start = new Date(inDate.value); const end = new Date(outDate.value); const diffTime = end - start; days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                if (days <= 0) { stayDaysSpan.classList.add('hidden'); days = 0; } else {
+                    stayDaysSpan.textContent = `共 ${days} 晚`; stayDaysSpan.classList.remove('hidden');
+                    for (let id in cart) stayPriceSum[id] = 0;
+                    let tempDate = new Date(start); let foundClosedDate = null;
+                    while(tempDate < end) {
+                        const y = tempDate.getFullYear();
+                        const m = String(tempDate.getMonth() + 1).padStart(2, '0');
+                        const d = String(tempDate.getDate()).padStart(2, '0');
+                        const dStr = `${y}-${m}-${d}`;
+
+                        if(closedDates.includes(dStr)) { foundClosedDate = dStr; break; }
+                        for(let id in cart) { if(cart[id] > 0) { const p = getDynamicPrice(id, dStr); if (p !== -1) stayPriceSum[id] += p; } }
+                        tempDate.setDate(tempDate.getDate() + 1);
+                    }
+                    if (foundClosedDate) {
+                        resultDiv.classList.remove('hidden'); validPriceResult.classList.add('hidden'); blockedDateMsg.classList.remove('hidden');
+                        blockedDateMsg.innerHTML = `<div class="text-red-600 font-bold text-lg mb-2"><i class="fas fa-ban mr-2"></i>無法預訂</div><p class="text-gray-700">包含不開放預定日期：<br><span class="font-mono font-bold text-red-500">${foundClosedDate}</span></p><p class="text-xs text-gray-500 mt-2">請重新確認預定日期</p>`;
+                        submitBtn.disabled = true; submitBtn.classList.add('opacity-50', 'cursor-not-allowed'); return;
+                    }
+                }
+            } else { stayDaysSpan.classList.add('hidden'); }
+
+            let roomTotal = 0; let totalTents = 0;
+            for(let id in cart) { if(cart[id] > 0) { roomTotal += stayPriceSum[id] * cart[id]; totalTents += cart[id]; } }
+
+            if (totalTents > 0 && days > 0) {
+                const bbqTotal = bbqPrice * bbqQty; const subtotal = roomTotal + bbqTotal; const finalTotal = Math.max(0, subtotal - currentDiscount);
+                resultDiv.classList.remove('hidden'); subtotalDisplay.innerText = `$${subtotal.toLocaleString()}`;
+                let formulaText = `${totalTents}帳 × ${days}晚 (自動計算平假日)`;
+                if (bbqQty > 0) formulaText += ` + 烤肉${bbqQty}份`; if (currentDiscount > 0) formulaText += ` - 折扣$${currentDiscount}`;
+                formulaSpan.textContent = formulaText; totalDisplay.textContent = `$${finalTotal.toLocaleString()}`;
+            } else { resultDiv.classList.add('hidden'); }
+        }
+        window.calculate = calculate; bbqSelect.addEventListener('change', calculate);
+    }
+
+    window.updateCart = (zoneId, delta) => {
+        const dateStr = document.getElementById('checkinDate').value;
+        if(!dateStr) { alert("請先選擇入住日期！"); return; }
+        
+        const remaining = getRemainingCount(zoneId, dateStr);
+        const limit = (remaining === -999) ? 99 : remaining;
+
+        if (!cart[zoneId]) cart[zoneId] = 0;
+        const newQty = cart[zoneId] + delta;
+        if (newQty < 0) return; 
+        
+        if (newQty > limit) { alert("已達該區剩餘上限！"); return; }
+        
+        cart[zoneId] = newQty;
+        const display = document.getElementById(`qty-display-${zoneId}`); if(display) display.textContent = newQty;
+        renderZones(currentFilter, dateStr); window.calculate();
+    }
+
+    function renderZones(filter, dateStr = null) {
+        currentFilter = filter;
+        if (!dateStr) dateStr = document.getElementById('checkinDate').value;
+        const container = document.getElementById('zoneContainer'); container.innerHTML = '';
+        
+        zones.forEach(zone => {
+            if(filter !== 'all' && zone.cat !== filter) return;
+            
+            let remaining = 0;
+            let isLoading = false;
+
+            if (dateStr) {
+                const res = getRemainingCount(zone.id, dateStr);
+                if (res === -999) { isLoading = true; remaining = zone.count; }
+                else { remaining = res; }
+            } else {
+                remaining = zone.count; 
+            }
+
+            const isSoldOut = !isLoading && remaining === 0; 
+            const currentQty = cart[zone.id] || 0;
+            const displayPrice = (dateStr) ? getDynamicPrice(zone.id, dateStr) : zone.price;
+            const priceText = (displayPrice === -1) ? '不開放' : `$${displayPrice.toLocaleString()}`;
+
+            const div = document.createElement('div');
+            div.className = `zone-card bg-white rounded-xl p-3 relative overflow-hidden flex items-center min-h-[9rem] h-auto ${isSoldOut ? 'sold-out' : ''}`;
+            if (currentQty > 0) div.classList.add('selected');
+
+            const badge = zone.badge ? `<span class="absolute top-0 right-0 bg-yellow-400 text-stone-900 text-xs font-bold px-2 py-1 rounded-bl-lg z-20 shadow-sm">${zone.badge}</span>` : '';
+            const imgWrap = document.createElement('div'); imgWrap.className = "w-32 h-full md:w-40 flex-shrink-0 rounded-lg overflow-hidden relative mr-4";
+            const img = document.createElement('img'); img.src = zone.images[zone.idx]; img.className = "w-full h-full object-cover transition duration-500 hover:scale-110";
+            
+            if (zone.images.length > 1 && !isSoldOut) {
+                imgWrap.classList.add('cursor-change-image');
+                imgWrap.onclick = (e) => { e.stopPropagation(); zone.idx = (zone.idx + 1) % zone.images.length; img.src = zone.images[zone.idx]; }
+            }
+            imgWrap.prepend(img);
+
+            let remainingText = '';
+            if (isLoading) {
+                remainingText = `<span class="text-gray-400 text-sm font-bold bg-gray-100 px-2 py-0.5 rounded"><i class="fas fa-spinner fa-spin mr-1"></i>讀取中...</span>`;
+            } else if (isSoldOut) {
+                remainingText = `<span class="text-red-600 font-bold text-sm bg-red-100 px-2 py-0.5 rounded">已滿帳/不開放</span>`;
+            } else {
+                remainingText = `<span class="text-blue-600 text-sm font-bold bg-blue-50 px-2 py-0.5 rounded"><i class="fas fa-campground mr-1"></i>剩餘 ${remaining} 帳</span>`;
+            }
+
+            const qtyControl = isSoldOut ? '' : `<div class="flex items-center gap-3 mt-2"><button type="button" class="qty-btn" onclick="updateCart('${zone.id}', -1)">-</button><span class="font-bold text-lg w-4 text-center" id="qty-display-${zone.id}">${currentQty}</span><button type="button" class="qty-btn" onclick="updateCart('${zone.id}', 1)">+</button></div>`;
+
+            const info = document.createElement('div'); info.className = "flex-1 flex flex-col justify-center";
+            info.innerHTML = `<h3 class="font-bold text-stone-800 text-lg leading-tight mb-1">${zone.name}</h3><p class="text-xs text-gray-500 font-medium mb-1">${zone.desc}</p><div class="mb-1">${remainingText}</div><div class="flex justify-between items-end"><p class="text-green-600 font-bold text-lg">${priceText} <span class="text-xs text-gray-400 font-normal">/ 晚</span></p>${qtyControl}</div>`;
+            div.innerHTML = badge; div.appendChild(imgWrap); div.appendChild(info); container.appendChild(div);
+        });
+        
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            if(btn.onclick.toString().includes(`'${filter}'`)) { btn.classList.add('active', 'text-white', 'bg-green-700'); btn.classList.remove('text-gray-500'); } 
+            else { btn.classList.remove('active', 'text-white', 'bg-green-700'); btn.classList.add('text-gray-500'); }
+        });
+    }
+    
+    window.filterZones = (cat) => renderZones(cat);
+    
+    function renderGears() {
+        const tbody = document.getElementById('gearTableBody'); let html = '';
+        gears.forEach(g => { html += `<tr class="border-b"><td class="px-4 py-2 text-stone-700">${g.n}</td><td class="px-4 py-2 text-right font-bold text-blue-600">$${g.p}</td></tr>`; });
+        tbody.innerHTML = html;
+    }
+    
+    window.toggleSidebar = () => {
+        const sb = document.getElementById('sidebar'); const ov = document.getElementById('overlay');
+        if(sb.classList.contains('-translate-x-full')) { sb.classList.remove('-translate-x-full'); ov.classList.remove('hidden'); } else { sb.classList.add('-translate-x-full'); ov.classList.add('hidden'); }
+    };
+    window.showModal = (id) => {
+        document.getElementById('sidebar').classList.add('-translate-x-full'); document.getElementById('overlay').classList.remove('hidden');
+        document.querySelectorAll('[id^="modal-"]').forEach(el => el.classList.add('hidden')); document.getElementById(id).classList.remove('hidden');
+    };
+    window.closeAll = () => {
+        document.getElementById('sidebar').classList.add('-translate-x-full'); document.getElementById('overlay').classList.add('hidden');
+        document.querySelectorAll('[id^="modal-"]').forEach(el => el.classList.add('hidden')); 
+    };
+    window.adminLogin = () => { const pwd = prompt("請輸入營主密碼："); if (pwd === "Hank0219") { window.open(adminSheetURL, '_blank'); } else if (pwd !== null) alert("密碼錯誤"); };
+
+    document.querySelectorAll('.rating-star').forEach(star => {
+        star.addEventListener('click', function() {
+            const val = this.dataset.val; document.getElementById('ratingInput').value = val;
+            document.querySelectorAll('.rating-star').forEach(s => { if (s.dataset.val <= val) s.classList.add('active'); else s.classList.remove('active'); });
+        });
+    });
+
+    document.getElementById('feedbackForm').addEventListener('submit', e => {
+        e.preventDefault(); const btn = document.getElementById('feedbackBtn'); const originalText = btn.innerText; btn.disabled = true; btn.innerText = '處理中...';
+        fetch(scriptURL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
+        .then(() => { document.getElementById('feedback-form-container').classList.add('hidden'); document.getElementById('feedback-success').classList.remove('hidden'); })
+        .catch(err => { alert('❌ 發生錯誤，請截圖聯繫營主！\n錯誤訊息: ' + err.message); btn.disabled = false; btn.innerText = originalText; });
+    });
+
+    document.getElementById('bookingForm').addEventListener('submit', e => {
+        e.preventDefault();
+        const inDateStr = document.getElementById('checkinDate').value; const outDateStr = document.getElementById('checkoutDate').value;
+        if (inDateStr < "2026-02-01") { alert("入住日期必須在 2026年2月1日 之後！"); return; }
+        if (outDateStr <= inDateStr) { alert("退房日期必須晚於入住日期！"); return; }
+        let totalQty = 0; let orderSummary = [];
+        for(let id in cart) { if(cart[id] > 0) { const zone = zones.find(z => z.id === id); orderSummary.push(`${zone.name} x ${cart[id]}`); totalQty += cart[id]; } }
+        if(totalQty === 0) { alert('請至少選擇一個營位！'); return; }
+
+        const totalAmount = document.getElementById('totalPriceDisplay').innerText;
+        if(!confirm(`確認預訂資訊：\n\n${orderSummary.join('\n')}\n\n預估總金額：${totalAmount}\n\n是否確認送出？`)) {
+            return;
+        }
+
+        const btn = document.getElementById('submitBtn'); const originalText = btn.innerText; btn.disabled = true; btn.innerText = '訂單處理中...';
+
+        let isStockEnough = true; let errorMsg = "";
+        for(let id in cart) {
+            if(cart[id] > 0) {
+                const zone = zones.find(z => z.id === id); 
+                const remaining = getRemainingCount(id, inDateStr);
+                if (remaining !== -999 && cart[id] > remaining) { isStockEnough = false; errorMsg += `❌ ${zone.name} 只剩 ${remaining} 帳 (您預訂 ${cart[id]} 帳)\n`; cart[id] = remaining; }
+            }
+        }
+        if (!isStockEnough) {
+            alert(`⚠️ 很抱歉，剛剛有其他客人搶先預訂了！\n\n${errorMsg}\n系統已自動為您調整數量，請確認後再送出。`);
+            renderZones(currentFilter, inDateStr); window.calculate(); btn.disabled = false; btn.innerText = originalText; return;
+        }
+        
+        const formData = new FormData(e.target); formData.set('預訂區域', orderSummary.join(', ')); formData.set('預訂數量', totalQty); 
+        const bbqQty = parseInt(document.getElementById('bbqSelect').value) || 0;
+        if(inDateStr && outDateStr) {
+            const start = new Date(inDateStr); const end = new Date(outDateStr); const diffTime = end - start; const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            let roomTotal = 0; let tempDate = new Date(start);
+            while(tempDate < end) {
+                const y = tempDate.getFullYear(); const m = String(tempDate.getMonth() + 1).padStart(2, '0'); const d = String(tempDate.getDate()).padStart(2, '0'); const dStr = `${y}-${m}-${d}`;
+                for(let id in cart) { if(cart[id] > 0) { const p = getDynamicPrice(id, dStr); if(p > 0) roomTotal += p * cart[id]; } }
+                tempDate.setDate(tempDate.getDate() + 1);
+            }
+            const subtotal = roomTotal + (1299 * bbqQty); const total = Math.max(0, subtotal - currentDiscount);
+            formData.append('入住天數', days); formData.append('總金額', total);
+            
+            // 記錄本次訂購資訊，供匯款回報使用
+            const nameInput = document.getElementById('bookingNameField');
+            if(nameInput) lastOrderName = nameInput.value;
+            lastOrderTotal = total;
+        }
+
+        fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
+        .then(response => {
+            e.target.reset(); cart = {};
+            document.getElementById('priceCalcResult').classList.add('hidden'); 
+            document.getElementById('stayDays').classList.add('hidden');
+            currentDiscount = 0; document.getElementById('discountMsg').innerHTML = ''; document.getElementById('discountRow').style.display = 'none';
+            showModal('modal-booking-success');
+            fetch(scriptURL).then(r => r.json()).then(data => { bookedData = data; renderZones('all'); });
+        }).catch(err => { alert('❌ 發生錯誤，請截圖聯繫營主！\n錯誤訊息: ' + err.message); console.error(err); })
+        .finally(() => { btn.disabled = false; btn.innerText = originalText; });
+    });
+
+    document.getElementById('paymentForm').addEventListener('submit', e => {
+        e.preventDefault(); const btn = document.getElementById('payBtn'); const originalText = btn.innerText; btn.innerText = '傳送中...';
+        btn.disabled = true;
+        fetch(scriptURL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
+        .then(() => { alert('✅ 匯款回報成功！\n我們將盡快為您對帳。'); e.target.reset(); closeAll(); })
+        .catch(err => { alert('❌ 發生錯誤，請直接聯繫營主！\n錯誤訊息: ' + err.message); })
+        .finally(() => { btn.disabled = false; btn.innerText = originalText; });
+    });
+
+    window.openPaymentReport = () => {
+        closeAll();
+        if(lastOrderName) {
+            const nameInput = document.querySelector('#paymentForm input[name="匯款姓名"]');
+            if(nameInput) nameInput.value = lastOrderName;
+        }
+        if(lastOrderTotal) {
+            const priceInput = document.querySelector('#paymentForm input[name="匯款金額"]');
+            if(priceInput) priceInput.value = lastOrderTotal;
+        }
+        showModal('modal-report');
+    }
+
+    function refreshData() {
+        fetch(scriptURL).then(r => r.json()).then(data => {
+            bookedData = data; 
+            const currentDate = document.getElementById('checkinDate').value;
+            if(currentDate) { renderZones(currentFilter, currentDate); }
+            else { renderZones(currentFilter); }
+        }).catch(e => console.error("庫存背景更新失敗", e));
+    }
+
+    function init() {
+        console.log("初始化開始...");
+        
+        const postForm = document.getElementById('postForm');
+        if (postForm) {
+            postForm.addEventListener('submit', function(e) {
+                e.preventDefault(); 
+                return false;
+            });
+        }
+
+        initializeLiff();
+        renderZones('all'); 
+        renderGears(); 
+        setupCalculator(); 
+        updateQuantityOptions(8);
+        loadPosts();
+        document.getElementById('lineRewardBtn').href = lineRewardUrl;
+
+        refreshData();
+        setInterval(refreshData, 10000);
+    }
+
+    init();
+</script>
