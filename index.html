@@ -3,11 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>宜蘭礁溪充電莊 - 頂級露營體驗</title>
+    
+    <title>宜蘭礁溪充電莊 - 電動車露營首選 | 雨棚營位 & 免搭帳體驗</title>
+    <meta name="description" content="宜蘭礁溪露營秘境「充電莊」，專為特斯拉與電動車主打造的友善營區。提供95%雨棚營位、冷氣小木屋、免搭帳服務及專屬充電樁。坐擁百萬夜景，是親子放電、懶人露營的最佳選擇。立即線上預訂！">
+    <meta name="keywords" content="宜蘭露營, 礁溪露營, 充電莊, 電動車露營, 特斯拉露營, 宜蘭親子露營, 免搭帳露營, 懶人露營, 宜蘭夜景, 車宿">
+    <meta name="author" content="充電莊 Charging Mansion">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.charging-mansion.tw">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="宜蘭礁溪充電莊 - 車充飽，人也充飽的頂級露營">
+    <meta property="og:description" content="電動車友善營區，提供寬敞雨棚、充電樁與五星衛浴。輸入電話即可集點，立即預約你的下一趟充電之旅！">
+    <meta property="og:url" content="https://www.charging-mansion.tw">
+    <meta property="og:image" content="https://i.ibb.co/6cx1xrVR/image.jpg"> <meta property="og:site_name" content="宜蘭礁溪充電莊">
     <script src="https://cdn.tailwindcss.com"></script>
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Campground",
+      "name": "宜蘭礁溪充電莊",
+      "image": "https://i.ibb.co/6cx1xrVR/image.jpg",
+      "description": "宜蘭礁溪電動車友善露營區，提供雨棚營位、小木屋及充電設備。",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "匏杓崙路150之8號",
+        "addressLocality": "礁溪鄉",
+        "addressRegion": "宜蘭縣",
+        "postalCode": "262",
+        "addressCountry": "TW"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 24.809653, 
+        "longitude": 121.745672 
+      },
+      "url": "https://www.charging-mansion.tw",
+      "telephone": "", 
+      "priceRange": "$$"
+    }
+    </script>
     <style>
+        /* 原有的 style 保持不變 */
         :root { --forest-green: #15803d; --sunny-yellow: #eab308; }
         .glass-effect { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
         .zone-card { transition: all 0.3s ease; border: 1px solid #e5e7eb; }
@@ -44,8 +83,12 @@
             <div class="flex items-center gap-4">
                 <button onclick="toggleSidebar()" class="text-white hover:text-yellow-400 text-xl focus:outline-none"><i class="fas fa-bars"></i></button>
                 <h1 class="text-xl font-bold tracking-wider flex items-center">
-                    <i class="fas fa-bolt text-yellow-400 mr-2"></i> 充電莊
-                </h1>
+    <i class="fas fa-bolt text-yellow-400 mr-2"></i> 充電莊
+</h1>
+
+<h1 class="text-xl font-bold tracking-wider flex items-center">
+    <i class="fas fa-bolt text-yellow-400 mr-2"></i> 宜蘭礁溪充電莊
+</h1>
             </div>
             <button onclick="adminLogin()" class="text-xs border border-yellow-500 text-yellow-400 px-3 py-1 rounded hover:bg-yellow-500 hover:text-black transition focus:outline-none">
                 營主後台
@@ -77,7 +120,7 @@
         <div class="relative w-full max-w-7xl mx-auto px-4">
             <div class="relative aspect-video w-full overflow-hidden rounded-2xl shadow-2xl p-2 bg-gradient-to-br from-yellow-400 via-orange-500 to-red-600">
                 <div class="w-full h-full overflow-hidden rounded-xl relative bg-stone-100">
-                    <img src="https://i.ibb.co/6cx1xrVR/image.jpg" alt="山景" class="w-full h-full object-cover mx-auto opacity-100 hover:scale-105 transition duration-1000">
+                    <img src="https://i.ibb.co/6cx1xrVR/image.jpg" alt="宜蘭礁溪充電莊露營區全景，落羽松與山景" class="w-full h-full object-cover mx-auto opacity-100 hover:scale-105 transition duration-1000">
                     <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4 bg-black/40">
                         <h2 class="text-3xl md:text-5xl font-bold mb-2 text-white text-shadow-lg tracking-tight">露營，是心靈充電的最佳選擇</h2>
                         <p class="text-yellow-400 font-bold tracking-widest text-sm md:text-lg">宜蘭礁溪秘境 ｜ 電動車露營首選｜ 訂位輸入電話號碼自動累積會員點數</p>
@@ -219,7 +262,7 @@
                 <div class="bg-orange-50 border border-orange-200 rounded-xl p-4">
                     <div class="flex flex-col md:flex-row items-center gap-4">
                         <div class="w-full md:w-auto flex-shrink-0">
-                            <img src="https://i.ibb.co/N623cTjr/1299.png" alt="3人份烤肉套餐" class="w-full h-auto">
+                            <img src="https://i.ibb.co/N623cTjr/1299.png" alt="3人份露營烤肉套餐食材" class="w-full h-auto">
                         </div>
                         <div class="flex-1">
                             <h4 class="font-bold text-orange-800 text-lg flex items-center">
