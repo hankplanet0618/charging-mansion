@@ -555,7 +555,7 @@
         
         const discountCodes = { 'LINE100': 100, '首次加入好友優惠券': 100, '首次加入好友禮': 100, 'TESLA400': 400, 'CM100': 100 };
 
-        // 營位資料 (基礎價格 $1400, $2200, $2600, $20000)
+        // 營位資料
         const zones = [
             { id: 'ZA1', name: '棚架 A 區', count: 9, cat: 'shelter', desc: '寬敞遮雨棚車停帳邊 (9帳)', price: 1400, badge: '熱門', images: ['https://i.ibb.co/KjBcKGvt/A-DDcar.jpg', 'https://i.ibb.co/RTypZTzW/A1.jpg', 'https://i.ibb.co/hRNQ84SY/A.jpg'], idx: 0 },
             { id: 'ZA2', name: '棚架 B 區', count: 4, cat: 'shelter', desc: '適合包區車停帳邊 (4帳)', price: 1400, badge: '', images: ['https://i.ibb.co/bMQ51htS/B.jpg', 'https://i.ibb.co/7JY7xRYp/B.jpg'], idx: 0 },
@@ -1006,6 +1006,17 @@
                 formData.append('總金額', finalTotal);
                 const dCode = document.getElementById('discountCodeInput').value.trim();
                 const discountMsg = document.getElementById('discountMessage');
+                
+                // ★★★ 關鍵修正：自動帶入折扣金額 ★★★
+                const dCodeInput = document.getElementById('discountCodeInput');
+                const code = dCodeInput.value.trim().toUpperCase();
+                const originalCode = dCodeInput.value.trim();
+                let discountAmount = 0;
+                if (discountCodes.hasOwnProperty(code)) discountAmount = discountCodes[code];
+                else if (discountCodes.hasOwnProperty(originalCode)) discountAmount = discountCodes[originalCode];
+                
+                formData.append('折扣金額', discountAmount);
+
                 if(!discountMsg.classList.contains('hidden') && discountMsg.innerText.includes('✅')) {
                       formData.append('備註需求', formData.get('備註需求') + ` [使用折扣碼: ${dCode}]`);
                 }
