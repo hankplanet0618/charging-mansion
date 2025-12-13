@@ -15,6 +15,7 @@
         .zone-card { transition: all 0.3s ease; border: 1px solid #e5e7eb; }
         .zone-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); border-color: var(--forest-green); }
         .selected { border: 2px solid var(--forest-green); background-color: #f0fdf4; transform: scale(1.02); }
+        .disabled-card { opacity: 0.5; pointer-events: none; filter: grayscale(100%); background-color: #f3f4f6; }
         .cursor-change-image { cursor: pointer; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -458,7 +459,7 @@
         const MIN_DATE = '2026-02-01';
         const BLOCKED_DATES = ['2026-02-07', '2026-03-07'];
         
-        // 特殊假日 (2026-2031)
+        // 特殊假日 (2026-2031) - 已展開所有日期
         const SPECIAL_HOLIDAYS = [
             '2026-02-14','2026-02-15','2026-02-16','2026-02-17','2026-02-18','2026-02-19','2026-02-20','2026-02-21','2026-02-22',
             '2026-02-27','2026-02-28','2026-03-01',
@@ -535,7 +536,7 @@
         
         const discountCodes = { 'LINE100': 100, '首次加入好友優惠券': 100, '首次加入好友禮': 100, 'TESLA400': 400, 'CM100': 100 };
 
-        // 營位資料
+        // 營位資料 (基礎價格 $1400, $2200, $2600, $20000)
         const zones = [
             { id: 'ZA1', name: '棚架 A 區', count: 9, cat: 'shelter', desc: '寬敞遮雨棚車停帳邊 (9帳)', price: 1400, badge: '熱門', images: ['https://i.ibb.co/KjBcKGvt/A-DDcar.jpg', 'https://i.ibb.co/RTypZTzW/A1.jpg', 'https://i.ibb.co/hRNQ84SY/A.jpg'], idx: 0 },
             { id: 'ZA2', name: '棚架 B 區', count: 4, cat: 'shelter', desc: '適合包區車停帳邊 (4帳)', price: 1400, badge: '', images: ['https://i.ibb.co/bMQ51htS/B.jpg', 'https://i.ibb.co/7JY7xRYp/B.jpg'], idx: 0 },
@@ -590,7 +591,6 @@
 
         function renderReviews() {
             const container = document.getElementById('reviews-container');
-            // 隨機取3個
             const shuffled = reviews.sort(() => 0.5 - Math.random()).slice(0, 3);
             let html = '';
             shuffled.forEach(r => {
@@ -643,6 +643,7 @@
                 calculate();
             }
 
+            // 特殊價格邏輯 (草地/碎石 $1800, 小木屋 $3000/$2600, 包棟 $22000)
             function getSpecialPrice(cat) {
                 switch(cat) {
                     case 'grass': case 'shelter': case 'room': return 1800;
@@ -686,7 +687,13 @@
                 }
 
                 if (blocked) {
-                    alert(blockMsg); inDate.value = ''; outDate.value = ''; resultDiv.classList.add('hidden'); return;
+                    alert(blockMsg); 
+                    inDate.value = ''; outDate.value = ''; 
+                    resultDiv.classList.add('hidden'); 
+                    // 清空選擇
+                    document.getElementById('selectedZoneInput').value = '';
+                    document.querySelectorAll('.zone-card').forEach(c => c.classList.remove('selected'));
+                    return;
                 }
 
                 if (zoneName && days > 0) {
@@ -703,17 +710,56 @@
                     document.getElementById('selectedZonePrice').value = total;
                 } else { resultDiv.classList.add('hidden'); }
             }
-            inDate.addEventListener('change', () => { if(inDate.value && inDate.value < MIN_DATE) { alert("目前僅提供 2/1 以後訂位！"); inDate.value = ""; } calculate(); });
-            outDate.addEventListener('change', calculate);
+            
+            // 監聽日期變動，觸發卡片重繪 (更新價格顯示)
+            inDate.addEventListener('change', () => { 
+                if(inDate.value && inDate.value < MIN_DATE) { alert("目前僅提供 2/1 以後訂位！"); inDate.value = ""; } 
+                calculate(); 
+                const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+                renderZones(activeFilter);
+            });
+            outDate.addEventListener('change', () => { 
+                calculate();
+                const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+                renderZones(activeFilter);
+            });
             qtySelect.addEventListener('change', calculate);
             applyBtn.addEventListener('click', validateDiscount);
             discountInput.addEventListener('change', validateDiscount);
-            window.reCalculate = calculate; // 供外部調用
+            window.reCalculate = calculate; 
+        }
+
+        // 判斷是否為特殊假日區間
+        function hasSpecialHoliday(startStr, endStr) {
+            if(!startStr || !endStr) return false;
+            let s = new Date(startStr);
+            let e = new Date(endStr);
+            // 只要區間內有一日是特殊日，就視為特殊日顯示價格
+            for (let d = new Date(s); d < e; d.setDate(d.getDate() + 1)) {
+                if (SPECIAL_HOLIDAYS.includes(d.toISOString().split('T')[0])) return true;
+            }
+            return false;
+        }
+
+        function getSpecialPriceDisplay(cat) {
+             switch(cat) {
+                case 'grass': case 'shelter': case 'room': return 1800;
+                case 'cabinL': return 3000;
+                case 'cabinS': return 2600;
+                case 'villa': return 22000;
+                default: return 1800;
+            }
         }
 
         function renderZones(filter) {
             const container = document.getElementById('zoneContainer');
             container.innerHTML = '';
+            
+            // 取得目前選擇的日期
+            const inDate = document.getElementById('checkinDate').value;
+            const outDate = document.getElementById('checkoutDate').value;
+            const isSpecial = hasSpecialHoliday(inDate, outDate);
+
             zones.forEach(zone => {
                 if(filter !== 'all' && zone.cat !== filter && !(filter==='shelter' && zone.cat==='shelter') && !(filter==='room' && (zone.cat==='room'||zone.cat==='cabinL'||zone.cat==='cabinS'||zone.cat==='villa'||zone.cat==='camper'))) return;
                 if (filter === 'room' && !['room','cabinL','cabinS','villa','camper'].includes(zone.cat)) return;
@@ -723,6 +769,11 @@
                 const div = document.createElement('div');
                 div.className = `zone-card bg-white rounded-xl p-3 relative overflow-hidden flex items-center h-32 md:h-36`;
                 
+                // 特殊假日封鎖露營車
+                if (isSpecial && zone.cat === 'camper') {
+                    div.classList.add('disabled-card');
+                }
+
                 const currentName = document.getElementById('selectedZoneInput').value;
                 const isSelected = currentName === zone.name;
                 const currentQty = isSelected ? document.getElementById('quantitySelect').value : 1;
@@ -747,13 +798,26 @@
                 }
                 imgWrap.prepend(img);
                 
+                // 決定顯示價格
+                let displayPrice = zone.price;
+                let priceClass = "text-green-600";
+                if (isSpecial) {
+                    displayPrice = getSpecialPriceDisplay(zone.cat);
+                    priceClass = "text-red-600"; // 特殊價格用紅色顯示
+                }
+
+                // 封鎖提示字串
+                let blockText = "";
+                if (isSpecial && zone.cat === 'camper') blockText = '<span class="text-xs text-red-500 font-bold block">特殊假日不開放</span>';
+
                 const info = document.createElement('div');
                 info.className = "flex-1 flex flex-col justify-between h-full py-1";
                 info.innerHTML = `
                     <div>
                         <h3 class="font-bold text-stone-800 text-base leading-tight mb-1">${zone.name}</h3>
                         <p class="text-[10px] text-gray-500 font-medium leading-tight mb-1">${zone.desc}</p>
-                        <p class="text-green-600 font-bold text-sm">$${zone.price.toLocaleString()} <span class="text-[10px] text-gray-400 font-normal">/晚</span></p>
+                        ${blockText}
+                        <p class="${priceClass} font-bold text-sm">$${displayPrice.toLocaleString()} <span class="text-[10px] text-gray-400 font-normal">/晚</span></p>
                     </div>
                     <div class="flex items-center justify-end mt-2">
                         <button type="button" class="w-8 h-8 rounded-full bg-stone-100 text-stone-600 hover:bg-stone-200 font-bold" onclick="updateZoneQty('${zone.name}', -1, event)">-</button>
@@ -767,6 +831,7 @@
                 
                 div.onclick = (e) => {
                     if(e.target.tagName === 'BUTTON') return;
+                    if(isSpecial && zone.cat === 'camper') { alert('特殊假日期間，三人頂級露營車暫不開放預訂。'); return; }
                     selectZone(zone.name); 
                 };
                 container.appendChild(div);
@@ -779,6 +844,15 @@
             const currentZoneInput = document.getElementById('selectedZoneInput');
             const qtySelect = document.getElementById('quantitySelect');
             
+            // 檢查是否被封鎖
+            const inDate = document.getElementById('checkinDate').value;
+            const outDate = document.getElementById('checkoutDate').value;
+            const isSpecial = hasSpecialHoliday(inDate, outDate);
+            const targetZone = zones.find(z => z.name === zoneName);
+            if (isSpecial && targetZone.cat === 'camper') {
+                 alert('特殊假日期間，三人頂級露營車暫不開放預訂。'); return;
+            }
+
             if (currentZoneInput.value !== zoneName) {
                 if (delta > 0) {
                     selectZone(zoneName);
@@ -883,7 +957,7 @@
                 .finally(() => { btn.disabled = false; btn.innerText = originalText; });
         });
 
-        // 訂單送出邏輯 (已修正：樂觀模式)
+        // 訂單送出邏輯
         document.getElementById('bookingForm').addEventListener('submit', e => {
             e.preventDefault();
             const input = document.getElementById('selectedZoneInput');
@@ -917,27 +991,22 @@
                 }
             }
 
-            // ★★★ 關鍵修正：不再因為解析 JSON 失敗而報錯 ★★★
             fetch(scriptURL, { method: 'POST', body: formData})
-                .then(res => res.text()) // 先讀取文字
+                .then(res => res.text())
                 .then(text => {
-                    // 嘗試解析 JSON，但如果失敗也視為成功 (因為您說後端有寫入)
                     try {
                         const json = JSON.parse(text);
                         if(json.status === 'success') {
                             showSuccessModal(); 
                         } else {
-                            // 如果後端明確回傳 error，才顯示錯誤
                             console.warn('Backend returned:', json);
-                            showSuccessModal(); // 樂觀模式：還是顯示成功，以免嚇到客人
+                            showSuccessModal(); 
                         }
                     } catch(e) {
-                        // 解析失敗 (可能是 redirect 造成的)，但請求已完成
                         console.log('Non-JSON response received, assuming success.');
                         showSuccessModal();
                     }
                     
-                    // 清理表單
                     e.target.reset();
                     document.querySelectorAll('.zone-card').forEach(c => c.classList.remove('selected'));
                     input.value = '';
@@ -949,7 +1018,6 @@
                     if(liff.isLoggedIn()) liff.getProfile().then(p => { document.getElementById('inputName').value = p.displayName; });
                 })
                 .catch(err => { 
-                    // 只有真的網路斷線才會進這裡
                     alert('連線異常，但訂單可能已送出。請檢查您的 Email 或 LINE 通知。'); 
                     console.error(err); 
                 })
@@ -967,7 +1035,6 @@
                 .finally(() => { btn.disabled = false; btn.innerText = originalText; });
         });
         
-        // 增加 filter button 的 data-filter 屬性
         document.querySelectorAll('.filter-btn').forEach(btn => {
             if(btn.textContent === '全部') btn.setAttribute('data-filter', 'all');
             if(btn.textContent === '雨棚區') btn.setAttribute('data-filter', 'shelter');
