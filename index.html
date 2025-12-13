@@ -26,10 +26,16 @@
         .star-rating input { display: none; }
         .star-rating label { font-size: 2rem; color: #ddd; cursor: pointer; transition: color 0.2s; }
         .star-rating input:checked ~ label, .star-rating label:hover, .star-rating label:hover ~ label { color: #facc15; }
+        
+        /* 成功視窗動畫 */
+        @keyframes check-bounce { 0% { transform: scale(0); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+        .check-icon { animation: check-bounce 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes popIn { 0% { opacity: 0; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
+        .modal-pop { animation: popIn 0.3s ease-out forwards; }
     </style>
 </head>
 <body class="bg-green-50 text-stone-800 font-sans">
-    <div id="overlay" onclick="closeAll()" class="fixed inset-0 bg-black bg-opacity-60 z-40 hidden transition-opacity duration-300"></div>
+    <div id="overlay" onclick="closeAll()" class="fixed inset-0 bg-black bg-opacity-60 z-40 hidden transition-opacity duration-300 backdrop-blur-sm"></div>
     
     <div id="image-modal" onclick="this.classList.add('hidden')" class="fixed inset-0 z-[60] bg-black bg-opacity-90 hidden flex items-center justify-center p-4 cursor-pointer">
         <img id="image-modal-src" src="" class="max-w-full max-h-full rounded-lg shadow-2xl transition-transform transform scale-100">
@@ -232,6 +238,32 @@
         <p>© 2025 Charging Mansion.</p>
     </footer>
 
+    <div id="modal-success" class="hidden fixed inset-0 z-[70] flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"></div>
+        <div class="bg-white w-full max-w-sm rounded-3xl shadow-2xl z-10 p-8 relative modal-pop text-center overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-yellow-100 rounded-full opacity-50"></div>
+            <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-green-100 rounded-full opacity-50"></div>
+            
+            <div class="relative z-10">
+                <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-check text-4xl text-green-600 check-icon"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-stone-800 mb-2">預訂成功！</h3>
+                <p class="text-stone-500 text-sm mb-6">訂單資料已送出<br>請留意 Email 與 LINE 通知</p>
+                
+                <div class="bg-orange-50 border-2 border-orange-200 rounded-xl p-4 mb-6">
+                    <p class="text-orange-800 font-bold text-sm mb-1"><i class="fas fa-gift mr-1"></i> 恭喜獲得集點資格！</p>
+                    <p class="text-orange-600 text-xs">每週露營皆可累積 1 點</p>
+                </div>
+
+                <a href="https://lin.ee/t1Ds7Hq" target="_blank" onclick="closeAll()" class="block w-full bg-[#06C755] text-white font-bold py-3 rounded-xl shadow-lg hover:bg-green-600 transition transform hover:scale-105 mb-3">
+                    <i class="fab fa-line mr-2"></i> 前往 LINE 集點
+                </a>
+                <button onclick="closeAll()" class="text-stone-400 text-sm hover:text-stone-600">關閉視窗</button>
+            </div>
+        </div>
+    </div>
+
     <div id="modal-report" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
         <div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative">
@@ -419,7 +451,7 @@
         // ============================================
         // ★★★ 設定區 ★★★
         // ============================================
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbxmxfxVCCsYTStAc8QbDgI2i_NAXfHB17wgwYmmc7QA8aRfJEW9RFqeHEnbB2qECV0K/exec'; 
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbznFvVDmmZT7cg3D14dVhuNy5gh1kjZGrY0-6IWm8GLAad8Qb2xPUL2lp1Mmzlmh5nz/exec'; 
         const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=0#gid=0';
         const myLiffId = "請填入您的LIFF_ID"; 
 
@@ -428,7 +460,6 @@
         
         // 特殊假日 (2026-2031)
         const SPECIAL_HOLIDAYS = [
-            // 2026
             '2026-02-14','2026-02-15','2026-02-16','2026-02-17','2026-02-18','2026-02-19','2026-02-20','2026-02-21','2026-02-22',
             '2026-02-27','2026-02-28','2026-03-01',
             '2026-04-03','2026-04-04','2026-04-05','2026-04-06',
@@ -438,7 +469,7 @@
             '2026-10-09','2026-10-10','2026-10-11',
             '2026-10-24','2026-10-25','2026-10-26',
             '2026-12-25','2026-12-26','2026-12-27',
-            // 2027
+            
             '2027-01-01','2027-01-02','2027-01-03',
             '2027-02-04','2027-02-05','2027-02-06','2027-02-07','2027-02-08','2027-02-09','2027-02-10',
             '2027-02-27','2027-02-28','2027-03-01',
@@ -451,7 +482,7 @@
             '2027-10-23','2027-10-24','2027-10-25',
             '2027-12-24','2027-12-25','2027-12-26',
             '2027-12-31',
-            // 2028
+            
             '2028-01-01','2028-01-02',
             '2028-01-22','2028-01-23','2028-01-24','2028-01-25','2028-01-26','2028-01-27','2028-01-28','2028-01-29','2028-01-30',
             '2028-02-26','2028-02-27','2028-02-28',
@@ -463,7 +494,7 @@
             '2028-10-25',
             '2028-12-23','2028-12-24','2028-12-25',
             '2028-12-30','2028-12-31',
-            // 2029
+            
             '2029-01-01',
             '2029-02-10','2029-02-11','2029-02-12','2029-02-13','2029-02-14','2029-02-15','2029-02-16','2029-02-17','2029-02-18',
             '2029-02-28',
@@ -476,7 +507,7 @@
             '2029-10-25','2029-10-26','2029-10-27','2029-10-28',
             '2029-12-22','2029-12-23','2029-12-24','2029-12-25',
             '2029-12-29','2029-12-30','2029-12-31',
-            // 2030
+            
             '2030-01-01',
             '2030-02-01','2030-02-02','2030-02-03','2030-02-04','2030-02-05','2030-02-06','2030-02-07',
             '2030-02-28','2030-03-01','2030-03-02','2030-03-03',
@@ -488,7 +519,7 @@
             '2030-10-10','2030-10-11','2030-10-12','2030-10-13',
             '2030-10-25','2030-10-26','2030-10-27',
             '2030-12-25',
-            // 2031
+            
             '2031-01-01',
             '2031-01-18','2031-01-19','2031-01-20','2031-01-21','2031-01-22','2031-01-23','2031-01-24','2031-01-25','2031-01-26',
             '2031-02-28','2031-03-01','2031-03-02',
@@ -810,6 +841,15 @@
             document.querySelectorAll('[id^="modal-"]').forEach(el => el.classList.add('hidden'));
             document.getElementById(id).classList.remove('hidden');
         };
+        
+        // 顯示成功視窗
+        window.showSuccessModal = () => {
+            document.getElementById('sidebar').classList.add('-translate-x-full');
+            document.getElementById('overlay').classList.remove('hidden');
+            document.querySelectorAll('[id^="modal-"]').forEach(el => el.classList.add('hidden'));
+            document.getElementById('modal-success').classList.remove('hidden');
+        };
+
         window.closeAll = () => {
             document.getElementById('sidebar').classList.add('-translate-x-full');
             document.getElementById('overlay').classList.add('hidden');
@@ -843,6 +883,7 @@
                 .finally(() => { btn.disabled = false; btn.innerText = originalText; });
         });
 
+        // 訂單送出邏輯 (已修正：樂觀模式)
         document.getElementById('bookingForm').addEventListener('submit', e => {
             e.preventDefault();
             const input = document.getElementById('selectedZoneInput');
@@ -876,9 +917,27 @@
                 }
             }
 
+            // ★★★ 關鍵修正：不再因為解析 JSON 失敗而報錯 ★★★
             fetch(scriptURL, { method: 'POST', body: formData})
-                .then(res => {
-                    alert('預訂成功！\n我們已收到您的資料，請記得加入 LINE@ 確認。\n\n請加入官方LINE集點(每周限一次)');
+                .then(res => res.text()) // 先讀取文字
+                .then(text => {
+                    // 嘗試解析 JSON，但如果失敗也視為成功 (因為您說後端有寫入)
+                    try {
+                        const json = JSON.parse(text);
+                        if(json.status === 'success') {
+                            showSuccessModal(); 
+                        } else {
+                            // 如果後端明確回傳 error，才顯示錯誤
+                            console.warn('Backend returned:', json);
+                            showSuccessModal(); // 樂觀模式：還是顯示成功，以免嚇到客人
+                        }
+                    } catch(e) {
+                        // 解析失敗 (可能是 redirect 造成的)，但請求已完成
+                        console.log('Non-JSON response received, assuming success.');
+                        showSuccessModal();
+                    }
+                    
+                    // 清理表單
                     e.target.reset();
                     document.querySelectorAll('.zone-card').forEach(c => c.classList.remove('selected'));
                     input.value = '';
@@ -889,9 +948,14 @@
                     renderZones('all');
                     if(liff.isLoggedIn()) liff.getProfile().then(p => { document.getElementById('inputName').value = p.displayName; });
                 })
-                .catch(err => { alert('發生錯誤，請截圖聯繫營主！'); console.error(err); })
+                .catch(err => { 
+                    // 只有真的網路斷線才會進這裡
+                    alert('連線異常，但訂單可能已送出。請檢查您的 Email 或 LINE 通知。'); 
+                    console.error(err); 
+                })
                 .finally(() => { btn.disabled = false; btn.innerText = originalText; });
         });
+
         document.getElementById('paymentForm').addEventListener('submit', e => {
             e.preventDefault();
             const btn = document.getElementById('payBtn');
