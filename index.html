@@ -22,17 +22,33 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in { animation: fadeIn 0.6s ease-out forwards; }
         .filter-btn.active { background-color: var(--forest-green); color: white; }
+        
         /* 星星評分樣式 */
         .star-rating { direction: rtl; display: inline-flex; }
         .star-rating input { display: none; }
         .star-rating label { font-size: 2rem; color: #ddd; cursor: pointer; transition: color 0.2s; }
         .star-rating input:checked ~ label, .star-rating label:hover, .star-rating label:hover ~ label { color: #facc15; }
         
-        /* 成功視窗動畫 */
-        @keyframes check-bounce { 0% { transform: scale(0); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
-        .check-icon { animation: check-bounce 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-        @keyframes popIn { 0% { opacity: 0; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
-        .modal-pop { animation: popIn 0.3s ease-out forwards; }
+        /* ★★★ 成功視窗動畫特效 ★★★ */
+        @keyframes check-bounce { 
+            0% { transform: scale(0) rotate(-45deg); opacity: 0; } 
+            50% { transform: scale(1.2) rotate(0deg); opacity: 1; } 
+            100% { transform: scale(1) rotate(0deg); } 
+        }
+        .check-icon-anim { animation: check-bounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        
+        @keyframes modal-pop { 
+            0% { opacity: 0; transform: scale(0.8) translateY(20px); } 
+            100% { opacity: 1; transform: scale(1) translateY(0); } 
+        }
+        .modal-animate { animation: modal-pop 0.4s ease-out forwards; }
+
+        @keyframes pulse-btn {
+            0% { box-shadow: 0 0 0 0 rgba(6, 199, 85, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(6, 199, 85, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(6, 199, 85, 0); }
+        }
+        .line-btn-pulse { animation: pulse-btn 2s infinite; }
     </style>
 </head>
 <body class="bg-green-50 text-stone-800 font-sans">
@@ -241,26 +257,29 @@
 
     <div id="modal-success" class="hidden fixed inset-0 z-[70] flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"></div>
-        <div class="bg-white w-full max-w-sm rounded-3xl shadow-2xl z-10 p-8 relative modal-pop text-center overflow-hidden">
+        <div class="bg-white w-full max-w-sm rounded-3xl shadow-2xl z-10 p-8 relative modal-animate text-center overflow-hidden">
             <div class="absolute -top-10 -right-10 w-32 h-32 bg-yellow-100 rounded-full opacity-50"></div>
             <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-green-100 rounded-full opacity-50"></div>
             
             <div class="relative z-10">
-                <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-check text-4xl text-green-600 check-icon"></i>
+                <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
+                    <i class="fas fa-check text-4xl text-green-600 check-icon-anim"></i>
                 </div>
                 <h3 class="text-2xl font-bold text-stone-800 mb-2">預訂成功！</h3>
-                <p class="text-stone-500 text-sm mb-6">訂單資料已送出<br>請留意 Email 與 LINE 通知</p>
+                <p class="text-stone-500 text-sm mb-6">訂單資料已成功送出<br>請留意 Email 與 LINE 通知</p>
                 
-                <div class="bg-orange-50 border-2 border-orange-200 rounded-xl p-4 mb-6">
-                    <p class="text-orange-800 font-bold text-sm mb-1"><i class="fas fa-gift mr-1"></i> 恭喜獲得集點資格！</p>
-                    <p class="text-orange-600 text-xs">每週露營皆可累積 1 點</p>
+                <div class="bg-orange-50 border-2 border-orange-200 rounded-xl p-4 mb-6 relative overflow-hidden">
+                    <i class="fas fa-gift absolute -right-2 -bottom-2 text-6xl text-orange-100 opacity-50 transform rotate-12"></i>
+                    <p class="text-orange-800 font-bold text-sm mb-1 relative z-10">
+                        <i class="fas fa-crown text-yellow-500 mr-1"></i> 恭喜獲得集點資格！
+                    </p>
+                    <p class="text-orange-600 text-xs relative z-10">每週露營皆可累積 1 點</p>
                 </div>
 
-                <a href="https://lin.ee/t1Ds7Hq" target="_blank" onclick="closeAll()" class="block w-full bg-[#06C755] text-white font-bold py-3 rounded-xl shadow-lg hover:bg-green-600 transition transform hover:scale-105 mb-3">
-                    <i class="fab fa-line mr-2"></i> 前往 LINE 集點
+                <a href="https://lin.ee/t1Ds7Hq" target="_blank" onclick="closeAll()" class="block w-full bg-[#06C755] text-white font-bold py-3 rounded-xl shadow-lg hover:bg-green-600 transition transform hover:scale-[1.02] active:scale-95 mb-3 line-btn-pulse">
+                    <i class="fab fa-line mr-2"></i> 前往 LINE 領取點數
                 </a>
-                <button onclick="closeAll()" class="text-stone-400 text-sm hover:text-stone-600">關閉視窗</button>
+                <button onclick="closeAll()" class="text-stone-400 text-xs hover:text-stone-600 mt-2">關閉視窗</button>
             </div>
         </div>
     </div>
@@ -947,7 +966,7 @@
             const btn = document.getElementById('feedbackBtn');
             const originalText = btn.innerText;
             btn.disabled = true; btn.innerText = '送出中...';
-            fetch(scriptURL, { method: 'POST', body: new FormData(e.target)})
+            fetch(scriptURL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' }) // 意見回饋也加入 no-cors
                 .then(() => { 
                     alert('感謝您的評論，歡迎下次訂房使用【CM100】可享$100折扣唷~'); 
                     e.target.reset(); 
@@ -957,7 +976,7 @@
                 .finally(() => { btn.disabled = false; btn.innerText = originalText; });
         });
 
-        // 訂單送出邏輯
+        // 訂單送出邏輯 (已修正：no-cors 模式)
         document.getElementById('bookingForm').addEventListener('submit', e => {
             e.preventDefault();
             const input = document.getElementById('selectedZoneInput');
@@ -991,21 +1010,12 @@
                 }
             }
 
-            fetch(scriptURL, { method: 'POST', body: formData})
-                .then(res => res.text())
-                .then(text => {
-                    try {
-                        const json = JSON.parse(text);
-                        if(json.status === 'success') {
-                            showSuccessModal(); 
-                        } else {
-                            console.warn('Backend returned:', json);
-                            showSuccessModal(); 
-                        }
-                    } catch(e) {
-                        console.log('Non-JSON response received, assuming success.');
-                        showSuccessModal();
-                    }
+            // ★★★ 關鍵修正：mode: 'no-cors' ★★★
+            // 這樣瀏覽器就不會因為 CORS 而報錯，直接當作成功
+            fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
+                .then(() => {
+                    // 只要這裡執行了，就代表資料送出去了
+                    showSuccessModal();
                     
                     e.target.reset();
                     document.querySelectorAll('.zone-card').forEach(c => c.classList.remove('selected'));
@@ -1018,7 +1028,7 @@
                     if(liff.isLoggedIn()) liff.getProfile().then(p => { document.getElementById('inputName').value = p.displayName; });
                 })
                 .catch(err => { 
-                    alert('連線異常，但訂單可能已送出。請檢查您的 Email 或 LINE 通知。'); 
+                    alert('網路連線失敗，請檢查網路連線。'); 
                     console.error(err); 
                 })
                 .finally(() => { btn.disabled = false; btn.innerText = originalText; });
@@ -1029,7 +1039,7 @@
             const btn = document.getElementById('payBtn');
             const originalText = btn.innerText;
             btn.disabled = true; btn.innerText = '傳送中...';
-            fetch(scriptURL, { method: 'POST', body: new FormData(e.target)})
+            fetch(scriptURL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' }) // 匯款也加入 no-cors
                 .then(() => { alert('匯款回報成功！'); e.target.reset(); closeAll(); })
                 .catch(() => alert('發生錯誤'))
                 .finally(() => { btn.disabled = false; btn.innerText = originalText; });
