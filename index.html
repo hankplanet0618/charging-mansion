@@ -194,7 +194,7 @@
                 <hr class="border-gray-200">
                 <div>
                     <div class="flex flex-col md:flex-row justify-between items-center mb-4">
-                        <h4 class="text-lg font-bold text-stone-800 border-l-4 border-green-600 pl-3 mb-2 md:mb-0">選擇營位</h4>
+                        <h4 class="text-lg font-bold text-stone-800 border-l-4 border-green-600 pl-3 mb-2 md:mb-0">選擇營位 (可多選)</h4>
                         <div class="flex gap-2 overflow-x-auto no-scrollbar w-full md:w-auto p-1 bg-stone-100 rounded-lg">
                             <button type="button" onclick="filterZones('all')" class="filter-btn active px-3 py-1 rounded-md text-xs font-bold transition-all text-gray-500 whitespace-nowrap">全部</button>
                             <button type="button" onclick="filterZones('shelter')" class="filter-btn px-3 py-1 rounded-md text-xs font-bold transition-all text-gray-500 whitespace-nowrap">雨棚區</button>
@@ -208,8 +208,7 @@
                     </div>
                     <div class="mt-6 hidden">
                         <select name="預訂數量" id="quantitySelect">
-                            <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
-                            <option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option>
+                            <option value="1">1</option>
                         </select>
                     </div>
                 </div>
@@ -585,6 +584,9 @@
             {n:"Emily", c:"廁所跟浴室都保持得很乾淨，熱水也很穩，這點對露營來說太重要了。"},
             {n:"阿豪", c:"草地區的草皮維護得很好，很軟很舒服，赤腳走也沒問題。"}
         ];
+        
+        // ★★★ 多選購物車變數 ★★★
+        let cart = {}; // 格式: { '棚架 A 區': 2, '小木屋': 1 }
 
         async function init() { 
             renderZones('all'); 
@@ -672,15 +674,31 @@
                     default: return 1800;
                 }
             }
-
+            
+            // ★★★ 新的計算邏輯：支援多選 ★★★
             function calculate() {
-                const zoneName = zoneInput.value;
-                const currentZone = zones.find(z => z.name === zoneName);
-                if (!currentZone) return;
+                // 將所有選中的營位字串化，放入隱藏欄位
+                const cartEntries = Object.entries(cart);
+                
+                // 如果沒有選擇任何營位，隱藏金額
+                if (cartEntries.length === 0) {
+                    resultDiv.classList.add('hidden');
+                    zoneInput.value = "";
+                    return;
+                }
+                
+                // 更新隱藏欄位 (例如: "棚架 A 區 x 2, 小木屋 x 1")
+                zoneInput.value = cartEntries.map(([name, qty]) => `${name} x ${qty}`).join(', ');
+                
+                // 更新總數量 (雖然 UI 隱藏，但後台可能需要)
+                const totalQty = Object.values(cart).reduce((a, b) => a + b, 0);
+                qtySelect.value = totalQty > 0 ? totalQty : 1;
 
-                const qty = parseInt(qtySelect.value) || 1;
-                let days = 0, normalCount = 0, specialCount = 0, normalTotal = 0, specialTotal = 0;
-                let blocked = false, blockMsg = "";
+                let days = 0;
+                let totalPrice = 0;
+                let blocked = false;
+                let blockMsg = "";
+                let detailsHTML = "";
                 
                 if (inDate.value && outDate.value) {
                     if (inDate.value < MIN_DATE) return;
@@ -692,15 +710,37 @@
                     if (days > 0) {
                         stayDaysSpan.textContent = `共 ${days} 晚`;
                         stayDaysSpan.classList.remove('hidden');
+                        
+                        // 逐日計算金額
                         for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
                             let dateStr = d.toISOString().split('T')[0];
-                            if (BLOCKED_DATES.includes(dateStr)) { blocked = true; blockMsg = `抱歉，${dateStr} 為已包場或特殊活動日，無法預訂。`; break; }
-                            if (SPECIAL_HOLIDAYS.includes(dateStr)) {
-                                if (currentZone.cat === 'camper') { blocked = true; blockMsg = `特殊連續假期期間，三人頂級露營車暫不開放預訂。`; break; }
-                                specialCount++; specialTotal += getSpecialPrice(currentZone.cat) * qty;
-                            } else {
-                                normalCount++; normalTotal += currentZone.price * qty;
+                            
+                            // 檢查包場日
+                            if (BLOCKED_DATES.includes(dateStr)) { 
+                                blocked = true; blockMsg = `抱歉，${dateStr} 為已包場或特殊活動日，無法預訂。`; break; 
                             }
+                            
+                            const isSpecialDay = SPECIAL_HOLIDAYS.includes(dateStr);
+                            let dailyTotal = 0;
+                            
+                            // 遍歷購物車中的每個營位
+                            cartEntries.forEach(([zoneName, qty]) => {
+                                const zoneData = zones.find(z => z.name === zoneName);
+                                if (!zoneData) return;
+                                
+                                // 檢查特殊假日限制 (露營車)
+                                if (isSpecialDay && zoneData.cat === 'camper') {
+                                    blocked = true; 
+                                    blockMsg = `特殊連續假期期間，三人頂級露營車暫不開放預訂。`; 
+                                    return;
+                                }
+                                
+                                let price = isSpecialDay ? getSpecialPrice(zoneData.cat) : zoneData.price;
+                                dailyTotal += price * qty;
+                            });
+                            
+                            if (blocked) break;
+                            totalPrice += dailyTotal;
                         }
                     } else { stayDaysSpan.classList.add('hidden'); days = 0; }
                 }
@@ -710,23 +750,27 @@
                     inDate.value = ''; outDate.value = ''; 
                     resultDiv.classList.add('hidden'); 
                     // 清空選擇
-                    document.getElementById('selectedZoneInput').value = '';
-                    document.querySelectorAll('.zone-card').forEach(c => c.classList.remove('selected'));
+                    cart = {};
+                    zoneInput.value = '';
+                    renderZones(document.querySelector('.filter-btn.active').getAttribute('data-filter'));
                     return;
                 }
 
-                if (zoneName && days > 0) {
-                    let total = normalTotal + specialTotal;
+                if (days > 0 && totalPrice > 0) {
                     const discount = getDiscountAmount();
-                    total = Math.max(0, total - discount);
+                    let finalTotal = Math.max(0, totalPrice - discount);
+                    
                     resultDiv.classList.remove('hidden');
-                    let html = "";
-                    if (normalCount > 0) html += `<div>一般日期：$${currentZone.price.toLocaleString()} × ${qty}帳 × ${normalCount}晚 = $${normalTotal.toLocaleString()}</div>`;
-                    if (specialCount > 0) { const spPrice = getSpecialPrice(currentZone.cat); html += `<div class="text-red-600 font-bold">特殊假日：$${spPrice.toLocaleString()} × ${qty}帳 × ${specialCount}晚 = $${specialTotal.toLocaleString()}</div>`; }
+                    
+                    // 產生明細顯示
+                    let html = `<div>共選購：${zoneInput.value}</div>`;
+                    html += `<div>入住 ${days} 晚總計：$${totalPrice.toLocaleString()}</div>`;
+                    
                     if (discount > 0) html += `<div class="text-green-600">折扣優惠：- $${discount}</div>`;
+                    
                     formulaSpan.innerHTML = html;
-                    totalDisplay.textContent = `$${total.toLocaleString()}`;
-                    document.getElementById('selectedZonePrice').value = total;
+                    totalDisplay.textContent = `$${finalTotal.toLocaleString()}`;
+                    document.getElementById('selectedZonePrice').value = finalTotal;
                 } else { resultDiv.classList.add('hidden'); }
             }
             
@@ -742,7 +786,7 @@
                 const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
                 renderZones(activeFilter);
             });
-            qtySelect.addEventListener('change', calculate);
+            // 移除 qtySelect 的監聽，因為現在由 cart 控制
             applyBtn.addEventListener('click', validateDiscount);
             discountInput.addEventListener('change', validateDiscount);
             window.reCalculate = calculate; 
@@ -793,9 +837,9 @@
                     div.classList.add('disabled-card');
                 }
 
-                const currentName = document.getElementById('selectedZoneInput').value;
-                const isSelected = currentName === zone.name;
-                const currentQty = isSelected ? document.getElementById('quantitySelect').value : 1;
+                // ★★★ 檢查購物車內是否有此營位 ★★★
+                const currentQty = cart[zone.name] || 0;
+                const isSelected = currentQty > 0;
 
                 if (isSelected) div.classList.add('selected');
 
@@ -858,42 +902,48 @@
             updateFilterBtns(filter);
         }
 
+        // ★★★ 更新數量 (多選邏輯) ★★★
         window.updateZoneQty = (zoneName, delta, e) => {
             e.stopPropagation();
-            const currentZoneInput = document.getElementById('selectedZoneInput');
-            const qtySelect = document.getElementById('quantitySelect');
             
-            // 檢查是否被封鎖
+            // 檢查日期與限制
             const inDate = document.getElementById('checkinDate').value;
             const outDate = document.getElementById('checkoutDate').value;
             const isSpecial = hasSpecialHoliday(inDate, outDate);
             const targetZone = zones.find(z => z.name === zoneName);
+            
             if (isSpecial && targetZone.cat === 'camper') {
                  alert('特殊假日期間，三人頂級露營車暫不開放預訂。'); return;
             }
 
-            if (currentZoneInput.value !== zoneName) {
-                if (delta > 0) {
-                    selectZone(zoneName);
-                    qtySelect.value = 1;
-                }
+            // 更新購物車
+            let currentQty = cart[zoneName] || 0;
+            let newQty = currentQty + delta;
+            
+            if (newQty <= 0) {
+                delete cart[zoneName];
             } else {
-                let newQty = parseInt(qtySelect.value) + delta;
-                if (newQty < 1) newQty = 1; 
-                if (newQty > 8) newQty = 8;
-                qtySelect.value = newQty;
+                // 可以設定上限，例如每區最多 8 帳
+                if (newQty > 8) newQty = 8; 
+                cart[zoneName] = newQty;
             }
+            
             const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
             renderZones(activeFilter);
             window.reCalculate();
         }
 
         function selectZone(name) {
-             document.getElementById('selectedZoneInput').value = name;
-             const event = new Event('change');
-             document.getElementById('checkinDate').dispatchEvent(event);
+             // 點擊卡片本體時：如果是 0 就變 1，如果有就變 0 (切換選取)
+             if (!cart[name]) {
+                 cart[name] = 1;
+             } else {
+                 delete cart[name];
+             }
+             
              const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
              renderZones(activeFilter); 
+             window.reCalculate();
         }
 
         function updateFilterBtns(filter) {
@@ -981,7 +1031,8 @@
         document.getElementById('bookingForm').addEventListener('submit', e => {
             e.preventDefault();
             const input = document.getElementById('selectedZoneInput');
-            if(!input.value) { alert('請先選擇一個營位區域！'); return; }
+            // 檢查購物車是否有內容
+            if(Object.keys(cart).length === 0) { alert('請至少選擇一個營位！'); return; }
             
             const inDateVal = document.getElementById('checkinDate').value;
             if (inDateVal < MIN_DATE) { alert("目前僅提供 2026/2/1 以後的訂位！"); return; }
@@ -1029,6 +1080,8 @@
                     showSuccessModal(); 
                     
                     e.target.reset();
+                    // 清空購物車與畫面
+                    cart = {};
                     document.querySelectorAll('.zone-card').forEach(c => c.classList.remove('selected'));
                     input.value = '';
                     document.getElementById('priceCalcResult').classList.add('hidden');
