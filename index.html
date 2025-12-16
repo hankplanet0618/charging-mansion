@@ -479,8 +479,8 @@
         // ============================================
         // ★★★ 設定區 ★★★
         // ============================================
-        // ★★★ 請務必確認這裡的網址是您剛剛「重新部署」後的網址 ★★★
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbxvdnWDwmG5iHUFEVQjhBFOBKDQbv7EgqC_u0Rpy8p8NiE5GacrzH9S8POqpqGBt3II/exec'; 
+        // ★★★ 更新您的 scriptURL ★★★
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzdK7z_iqREHnLe4w5PWMoK1c7wgjepKp0gmCq9LWXdfHs1acZkfia1Uwl4rkEFgy6o/exec'; 
         const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=0#gid=0';
         const myLiffId = "2008643307-nbPNvd20"; 
 
@@ -828,6 +828,7 @@
             const outDate = document.getElementById('checkoutDate').value;
             const isSpecial = hasSpecialHoliday(inDate, outDate);
 
+            // ★★★ 3. 計算庫存與剩餘數量 ★★★
             let bookedMap = {}; 
             
             if (inDate && outDate && bookedData) {
@@ -838,6 +839,7 @@
                     let dateStr = d.toISOString().split('T')[0];
                     if (bookedData[dateStr]) {
                         for (let [zName, qty] of Object.entries(bookedData[dateStr])) {
+                            // 找出這段期間內，該區域被佔用最多的量 (例如週五佔1, 週六佔2, 那這段期間就是佔2)
                             bookedMap[zName] = Math.max(bookedMap[zName] || 0, qty);
                         }
                     }
@@ -853,6 +855,7 @@
                 const div = document.createElement('div');
                 div.className = `zone-card bg-white rounded-xl p-3 relative overflow-hidden flex items-center h-32 md:h-36`;
                 
+                // ★★★ 4. 判斷是否額滿 ★★★
                 const bookedCount = bookedMap[zone.name] || 0;
                 const remaining = Math.max(0, zone.count - bookedCount);
                 const isFull = remaining <= 0;
