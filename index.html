@@ -480,9 +480,9 @@
         // ★★★ 設定區 ★★★
         // ============================================
         // ★★★ 更新您的 scriptURL ★★★
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzdK7z_iqREHnLe4w5PWMoK1c7wgjepKp0gmCq9LWXdfHs1acZkfia1Uwl4rkEFgy6o/exec'; 
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzGD9bOftJwaO8IFTEUnFWapnGKePErDBQupSGSgGTg43qPHcIGPAQDRK7DhZPb5b0e/exec'; 
         const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=0#gid=0';
-        const myLiffId = "請填入您的LIFF_ID"; 
+        const myLiffId = "2008643307-nbPNvd20"; 
 
         const MIN_DATE = '2026-02-01';
         const BLOCKED_DATES = ['2026-02-07', '2026-03-07'];
@@ -597,13 +597,32 @@
         
         // ★★★ 多選購物車變數 ★★★
         let cart = {}; // 格式: { '棚架 A 區': 2, '小木屋': 1 }
+        
+        // ★★★ 新增：用來儲存後台抓回來的訂單庫存資料 ★★★
+        let bookedData = {}; 
 
         async function init() { 
+            // 1. 先抓取庫存
+            await fetchInventory();
+            // 2. 再繪製畫面
             renderZones('all'); 
             renderGears(); 
             setupCalculator();
             renderReviews();
             if (myLiffId !== "請填入您的LIFF_ID") await initializeLiff();
+        }
+        
+        // ★★★ 新增：抓取庫存資料 ★★★
+        async function fetchInventory() {
+            try {
+                // 用 fetch 去 GET 您的 GAS 網址
+                const res = await fetch(scriptURL);
+                const data = await res.json();
+                bookedData = data; // 存入全域變數
+                console.log('庫存資料已更新:', bookedData);
+            } catch (err) {
+                console.error('無法取得庫存資料:', err);
+            }
         }
 
         async function initializeLiff() {
@@ -847,6 +866,25 @@
             const outDate = document.getElementById('checkoutDate').value;
             const isSpecial = hasSpecialHoliday(inDate, outDate);
 
+            // ★★★ 新增：計算目前選擇日期區間內的「最大已被佔用數」 ★★★
+            let bookedMap = {}; // { '棚架 A 區': 2, ... } 
+            
+            if (inDate && outDate && bookedData) {
+                const start = new Date(inDate);
+                const end = new Date(outDate);
+                
+                // 逐日檢查
+                for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
+                    let dateStr = d.toISOString().split('T')[0];
+                    if (bookedData[dateStr]) {
+                        for (let [zName, qty] of Object.entries(bookedData[dateStr])) {
+                            // 找出這段期間內，該區域被佔用最多的那一天的數量
+                            bookedMap[zName] = Math.max(bookedMap[zName] || 0, qty);
+                        }
+                    }
+                }
+            }
+
             zones.forEach(zone => {
                 if(filter !== 'all' && zone.cat !== filter && !(filter==='shelter' && zone.cat==='shelter') && !(filter==='room' && (zone.cat==='room'||zone.cat==='cabinL'||zone.cat==='cabinS'||zone.cat==='villa'||zone.cat==='camper'))) return;
                 if (filter === 'room' && !['room','cabinL','cabinS','villa','camper'].includes(zone.cat)) return;
@@ -856,8 +894,13 @@
                 const div = document.createElement('div');
                 div.className = `zone-card bg-white rounded-xl p-3 relative overflow-hidden flex items-center h-32 md:h-36`;
                 
-                // 特殊假日封鎖露營車
-                if (isSpecial && zone.cat === 'camper') {
+                // ★★★ 檢查庫存是否已滿 ★★★
+                const bookedCount = bookedMap[zone.name] || 0;
+                const remaining = zone.count - bookedCount;
+                const isFull = remaining <= 0;
+
+                // 特殊假日封鎖露營車 或 已額滿
+                if ((isSpecial && zone.cat === 'camper') || isFull) {
                     div.classList.add('disabled-card');
                 }
 
@@ -895,7 +938,14 @@
 
                 // 封鎖提示字串
                 let blockText = "";
-                if (isSpecial && zone.cat === 'camper') blockText = '<span class="text-xs text-red-500 font-bold block">特殊假日不開放</span>';
+                if (isSpecial && zone.cat === 'camper') {
+                    blockText = '<span class="text-xs text-red-500 font-bold block">特殊假日不開放</span>';
+                } else if (isFull) {
+                    blockText = '<span class="text-xs text-red-500 font-bold block">已額滿</span>';
+                } else if (inDate && outDate) {
+                    // 顯示剩餘數量 (如果 User 選了日期的話)
+                    blockText = `<span class="text-[10px] text-blue-600 font-bold block">剩餘 ${remaining} 帳</span>`;
+                }
 
                 const info = document.createElement('div');
                 info.className = "flex-1 flex flex-col justify-between h-full py-1";
@@ -907,9 +957,9 @@
                         <p class="${priceClass} font-bold text-sm">$${displayPrice.toLocaleString()} <span class="text-[10px] text-gray-400 font-normal">/晚</span></p>
                     </div>
                     <div class="flex items-center justify-end mt-2">
-                        <button type="button" class="w-8 h-8 rounded-full bg-stone-100 text-stone-600 hover:bg-stone-200 font-bold" onclick="updateZoneQty('${zone.name}', -1, event)">-</button>
+                        <button type="button" class="w-8 h-8 rounded-full bg-stone-100 text-stone-600 hover:bg-stone-200 font-bold" onclick="updateZoneQty('${zone.name}', -1, event, ${remaining})">-</button>
                         <span class="mx-3 font-bold w-4 text-center text-lg">${isSelected ? currentQty : 0}</span>
-                        <button type="button" class="w-8 h-8 rounded-full bg-stone-800 text-white hover:bg-stone-700 font-bold shadow" onclick="updateZoneQty('${zone.name}', 1, event)">+</button>
+                        <button type="button" class="w-8 h-8 rounded-full bg-stone-800 text-white hover:bg-stone-700 font-bold shadow" onclick="updateZoneQty('${zone.name}', 1, event, ${remaining})">+</button>
                     </div>
                 `;
                 div.innerHTML = badge;
@@ -919,20 +969,23 @@
                 div.onclick = (e) => {
                     if(e.target.tagName === 'BUTTON') return;
                     if(isSpecial && zone.cat === 'camper') { alert('特殊假日期間，三人頂級露營車暫不開放預訂。'); return; }
-                    selectZone(zone.name); 
+                    if(isFull) { alert('此日期區間該營位已額滿。'); return; }
+                    selectZone(zone.name, remaining); 
                 };
                 container.appendChild(div);
             });
             updateFilterBtns(filter);
         }
 
-        // ★★★ 更新數量 (多選邏輯) ★★★
-        window.updateZoneQty = (zoneName, delta, e) => {
+        // ★★★ 更新數量 (多選邏輯 + 庫存檢查) ★★★
+        window.updateZoneQty = (zoneName, delta, e, maxQty) => {
             e.stopPropagation();
             
             // 檢查日期與限制
             const inDate = document.getElementById('checkinDate').value;
             const outDate = document.getElementById('checkoutDate').value;
+            if (!inDate || !outDate) { alert('請先選擇入住與退房日期'); return; }
+
             const isSpecial = hasSpecialHoliday(inDate, outDate);
             const targetZone = zones.find(z => z.name === zoneName);
             
@@ -947,8 +1000,14 @@
             if (newQty <= 0) {
                 delete cart[zoneName];
             } else {
-                // 可以設定上限，例如每區最多 8 帳
+                // 上限檢查：不能超過剩餘庫存
+                if (newQty > maxQty) {
+                    alert(`該營位剩餘數量不足，僅剩 ${maxQty} 帳。`);
+                    newQty = maxQty;
+                }
+                // 原本的 8 帳上限 (如果 maxQty 很大)
                 if (newQty > 8) newQty = 8; 
+                
                 cart[zoneName] = newQty;
             }
             
@@ -957,9 +1016,14 @@
             window.reCalculate();
         }
 
-        function selectZone(name) {
+        function selectZone(name, maxQty) {
+             const inDate = document.getElementById('checkinDate').value;
+             const outDate = document.getElementById('checkoutDate').value;
+             if (!inDate || !outDate) { alert('請先選擇入住與退房日期，才能查看剩餘營位。'); return; }
+
              // 點擊卡片本體時：如果是 0 就變 1，如果有就變 0 (切換選取)
              if (!cart[name]) {
+                 if (maxQty < 1) { alert('此營位已額滿'); return; }
                  cart[name] = 1;
              } else {
                  delete cart[name];
