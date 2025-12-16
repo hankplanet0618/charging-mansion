@@ -403,6 +403,12 @@
                     <img src="https://i.ibb.co/G4zSJ98h/tw-11134208-81ztg-meterwxf57gmfa.jpg" onclick="showImage(this.src)" class="w-full h-auto cursor-pointer hover:opacity-90">
                 </div>
                 <div class="border-b pb-4">
+                    <div class="flex justify-between font-bold text-lg mb-2 text-purple-900">
+                        <span>Coody8+前庭 (最火網美帳)</span><span>$2000</span>
+                    </div>
+                    <img src="https://i.ibb.co/kV661NNY/coody8.jpg" onclick="showImage(this.src)" class="w-full h-auto cursor-pointer hover:opacity-90">
+                </div>
+                <div class="border-b pb-4">
                     <div class="flex justify-between font-bold mb-2">
                         <span>杜邦鯤9車尾帳篷 (99%密合Model Y)</span><span>$1000</span>
                     </div>
@@ -479,8 +485,8 @@
         // ============================================
         // ★★★ 設定區 ★★★
         // ============================================
-        // ★★★ 更新您的 scriptURL ★★★
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzdK7z_iqREHnLe4w5PWMoK1c7wgjepKp0gmCq9LWXdfHs1acZkfia1Uwl4rkEFgy6o/exec'; 
+        // ★★★ 請務必確認這裡的網址是您剛剛「重新部署」後的網址 ★★★
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxvdnWDwmG5iHUFEVQjhBFOBKDQbv7EgqC_u0Rpy8p8NiE5GacrzH9S8POqpqGBt3II/exec'; 
         const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=0#gid=0';
         const myLiffId = "2008643307-nbPNvd20"; 
 
@@ -591,7 +597,7 @@
         let bookedData = {}; 
 
         async function init() { 
-            // 1. 先抓取庫存
+            // 1. 先去後台抓取庫存資料
             await fetchInventory();
             // 2. 資料抓回來後，再繪製畫面
             renderZones('all'); 
