@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>宜蘭礁溪充電莊 - 頂級露營及心靈體驗</title>
+    <title>宜蘭礁溪充電莊 - 頂級露營體驗</title>
 <meta name="description" content="宜蘭礁溪充電莊，電動車友善露營區。宜蘭露營區，礁溪露營區，電動車充電，提供免搭帳、小木屋、雨棚營位，可遠眺龜山島與落羽松美景。立即線上預訂，享受山林充電之旅。">
 <meta name="robots" content="index, follow">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -265,7 +265,16 @@
                     <i class="fas fa-check text-4xl text-green-600 check-icon-anim"></i>
                 </div>
                 <h3 class="text-2xl font-bold text-stone-800 mb-2">預訂成功！</h3>
-                <p class="text-stone-500 text-sm mb-6">訂單資料已成功送出<br>請留意 Email 與 LINE 通知</p>
+                <p class="text-stone-500 text-sm mb-4">訂單資料已成功送出<br>請留意 Email 與 LINE 通知</p>
+                
+                <div class="mt-4 mb-6 p-4 border-4 border-red-500 rounded-xl bg-red-50 animate-pulse">
+                    <h4 class="text-red-600 font-black text-xl md:text-2xl leading-relaxed">
+                        請於下訂後 7 日內匯款完成<br>並完成匯款回報
+                    </h4>
+                    <p class="text-red-700 font-bold text-lg mt-2">
+                        如逾期系統將自動釋出營位<br>歡迎您的蒞臨
+                    </p>
+                </div>
                 
                 <div class="bg-orange-50 border-2 border-orange-200 rounded-xl p-4 mb-6 relative overflow-hidden">
                     <i class="fas fa-gift absolute -right-2 -bottom-2 text-6xl text-orange-100 opacity-50 transform rotate-12"></i>
@@ -407,13 +416,6 @@
                 </div>
                 <div class="border-b pb-4">
                     <div class="flex justify-between font-bold mb-2">
-<span>Coody8 充氣帳(超夯科技棉網美帳)</span><span>$2000</span>
-                    </div>
-                    <img src="https://i.ibb.co/kV661NNY/coody8.jpg" onclick="showImage(this.src)" class="w-full h-auto cursor-pointer hover:opacity-90">
-                </div>
-                <div class="border-b pb-4">
-                    <div class="flex justify-between font-bold mb-2">
-
                         <span>IF充氣帳篷6.0</span><span>$800</span>
                     </div>
                     <img src="https://i.ibb.co/bgdggSG1/IF-6-0.jpg" onclick="showImage(this.src)" class="w-full h-auto cursor-pointer hover:opacity-90">
@@ -477,7 +479,8 @@
         // ============================================
         // ★★★ 設定區 ★★★
         // ============================================
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwriclgfgml3Uo7N7-LKjhGaVByRBKQ-QEuZNANZBJehTQmelR7ZL0RgjibZXMVvNBN/exec'; 
+        // ★★★ 更新您的 scriptURL ★★★
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzGD9bOftJwaO8IFTEUnFWapnGKePErDBQupSGSgGTg43qPHcIGPAQDRK7DhZPb5b0e/exec'; 
         const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=0#gid=0';
         const myLiffId = "請填入您的LIFF_ID"; 
 
