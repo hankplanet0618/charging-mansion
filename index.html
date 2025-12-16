@@ -480,9 +480,9 @@
         // ★★★ 設定區 ★★★
         // ============================================
         // ★★★ 更新您的 scriptURL ★★★
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzGD9bOftJwaO8IFTEUnFWapnGKePErDBQupSGSgGTg43qPHcIGPAQDRK7DhZPb5b0e/exec'; 
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzdK7z_iqREHnLe4w5PWMoK1c7wgjepKp0gmCq9LWXdfHs1acZkfia1Uwl4rkEFgy6o/exec'; 
         const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=0#gid=0';
-        const myLiffId = "2008643307-nbPNvd20"; 
+        const myLiffId = "請填入您的LIFF_ID"; 
 
         const MIN_DATE = '2026-02-01';
         const BLOCKED_DATES = ['2026-02-07', '2026-03-07'];
@@ -623,7 +623,7 @@
                     const nameInput = document.getElementById('inputName');
                     
                     // 自動填入欄位
-                    if(nameInput && !nameInput.value) nameInput.value = profile.displayName; // 如果沒名字才填，避免覆蓋客戶手打的
+                    if(nameInput && !nameInput.value) nameInput.value = profile.displayName; 
                     
                     document.getElementById('lineUserId').value = profile.userId;
                     document.getElementById('lineDisplayName').value = profile.displayName;
@@ -632,8 +632,6 @@
             } catch (err) { 
                 console.error('LIFF Initialization failed', err); 
             }
-        }
-            } catch (err) { console.error(err); }
         }
 
         function renderReviews() {
