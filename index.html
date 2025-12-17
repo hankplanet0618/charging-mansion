@@ -79,7 +79,9 @@
             <p class="text-sm text-stone-600 relative z-10">探索充電莊的更多細節</p>
         </div>
         <div class="flex-1 overflow-y-auto py-2">
-            <a href="#" onclick="showModal('modal-report')" class="flex items-center px-6 py-4 bg-yellow-50 text-stone-800 font-bold border-b border-yellow-200"><i class="fas fa-file-invoice-dollar w-8 text-yellow-600"></i> 匯款回報</a>
+            <a href="#" onclick="showModal('modal-map')" class="flex items-center px-6 py-4 bg-green-50 text-stone-800 font-bold border-b border-green-200"><i class="fas fa-map-marked-alt w-8 text-green-700"></i> 營區地圖</a>
+            
+            <a href="#" onclick="showModal('modal-report')" class="flex items-center px-6 py-4 hover:bg-yellow-50 text-stone-600 border-b border-gray-100"><i class="fas fa-file-invoice-dollar w-8 text-yellow-600"></i> 匯款回報</a>
             <a href="#" onclick="showModal('modal-about')" class="flex items-center px-6 py-4 hover:bg-green-50 text-stone-600 border-b border-gray-100"><i class="fas fa-seedling w-8 text-green-600"></i> 關於充電莊</a>
             <a href="#" onclick="showModal('modal-rules')" class="flex items-center px-6 py-4 hover:bg-green-50 text-stone-600 border-b border-gray-100"><i class="fas fa-clipboard-check w-8 text-red-600"></i> 營區須知</a>
             <a href="#" onclick="showModal('modal-reviews')" class="flex items-center px-6 py-4 hover:bg-green-50 text-stone-600 border-b border-gray-100"><i class="fas fa-star w-8 text-yellow-500"></i> 顧客評論</a>
@@ -367,6 +369,25 @@
             <div class="bg-stone-800 text-center py-6 px-4 mt-4">
                 <p class="text-orange-100 font-serif text-lg tracking-widest mb-2">「山中若有眠，夢裡總是青。」</p>
                 <p class="text-stone-400 text-xs">歡迎愛露營的你，來這裡充電。</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="modal-map" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
+        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl z-10 p-6 relative max-h-[85vh] overflow-y-auto">
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
+            <h3 class="text-xl font-bold mb-4 text-center text-green-800">營區配置圖</h3>
+            
+            <div class="mb-6 rounded-lg overflow-hidden shadow-lg border border-gray-200">
+                <img src="https://i.ibb.co/zhbGX1SB/image.png" alt="營區地圖" class="w-full h-auto object-contain">
+            </div>
+
+            <div class="text-center">
+                <a href="https://github.com/hankplanet0618/charging-mansion/blob/main/%E5%85%85%E9%9B%BB%E8%8E%8A%E5%9C%B0%E5%9C%96.pdf" target="_blank" onclick="window.open(this.href, 'newwindow', 'width=800,height=600'); return false;" class="inline-block bg-red-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-red-700 transition transform hover:scale-105 animate-pulse">
+                    <i class="fas fa-file-pdf mr-2"></i> 查看高清 PDF 檔
+                </a>
+                <p class="text-xs text-gray-400 mt-2">點擊開啟完整地圖視窗</p>
             </div>
         </div>
     </div>
