@@ -81,6 +81,8 @@
         <div class="flex-1 overflow-y-auto py-2">
             <a href="#" onclick="showModal('modal-map')" class="flex items-center px-6 py-4 bg-green-50 text-stone-800 font-bold border-b border-green-200"><i class="fas fa-map-marked-alt w-8 text-green-700"></i> 營區地圖</a>
             
+            <a href="#" onclick="showModal('modal-qa')" class="flex items-center px-6 py-4 hover:bg-yellow-50 text-stone-600 border-b border-gray-100"><i class="fas fa-question-circle w-8 text-yellow-600"></i> 營區 Q&A</a>
+            
             <a href="#" onclick="showModal('modal-report')" class="flex items-center px-6 py-4 hover:bg-yellow-50 text-stone-600 border-b border-gray-100"><i class="fas fa-file-invoice-dollar w-8 text-yellow-600"></i> 匯款回報</a>
             <a href="#" onclick="showModal('modal-about')" class="flex items-center px-6 py-4 hover:bg-green-50 text-stone-600 border-b border-gray-100"><i class="fas fa-seedling w-8 text-green-600"></i> 關於充電莊</a>
             <a href="#" onclick="showModal('modal-rules')" class="flex items-center px-6 py-4 hover:bg-green-50 text-stone-600 border-b border-gray-100"><i class="fas fa-clipboard-check w-8 text-red-600"></i> 營區須知</a>
@@ -160,7 +162,52 @@
                 <input type="hidden" id="linePictureUrl" name="Line_Picture_URL">
 
                 <div>
-                    <h4 class="text-lg font-bold text-stone-800 mb-4 border-l-4 border-green-600 pl-3">基本資料</h4>
+                     <h4 class="text-lg font-bold text-stone-800 mb-4 border-l-4 border-green-600 pl-3">第一步：選擇預訂日期</h4>
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 mb-1">入住日期 <span class="text-red-500 text-[10px]">(限2026/2/1後)</span></label>
+                            <input type="date" id="checkinDate" name="入住日期" min="2026-02-01" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 mb-1">退房日期</label>
+                            <div class="flex items-center gap-2">
+                                <input type="date" id="checkoutDate" name="退房日期" min="2026-02-02" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none">
+                                <span id="stayDays" class="text-sm font-bold text-green-600 whitespace-nowrap hidden"></span>
+                            </div>
+                        </div>
+                     </div>
+                </div>
+
+                <hr class="border-gray-200">
+
+                <div>
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-4">
+                        <h4 class="text-lg font-bold text-stone-800 border-l-4 border-green-600 pl-3 mb-2 md:mb-0">第二步：選擇營位 (可多選)</h4>
+                        <div class="flex gap-2 overflow-x-auto no-scrollbar w-full md:w-auto p-1 bg-stone-100 rounded-lg">
+                            <button type="button" onclick="filterZones('all')" class="filter-btn active px-3 py-1 rounded-md text-xs font-bold transition-all text-gray-500 whitespace-nowrap">全部</button>
+                            <button type="button" onclick="filterZones('shelter')" class="filter-btn px-3 py-1 rounded-md text-xs font-bold transition-all text-gray-500 whitespace-nowrap">雨棚區</button>
+                            <button type="button" onclick="filterZones('room')" class="filter-btn px-3 py-1 rounded-md text-xs font-bold transition-all text-gray-500 whitespace-nowrap">住宿/懶人</button>
+                            <button type="button" onclick="filterZones('grass')" class="filter-btn px-3 py-1 rounded-md text-xs font-bold transition-all text-gray-500 whitespace-nowrap">草地/碎石</button>
+                        </div>
+                    </div>
+                    <input type="hidden" name="預訂區域" id="selectedZoneInput" required>
+                    <input type="hidden" id="selectedZonePrice" value="0">
+                    
+                    <p class="text-xs text-orange-600 mb-2 font-bold"><i class="fas fa-info-circle"></i> 請先選擇日期，系統將自動顯示可預訂營位</p>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" id="zoneContainer">
+                    </div>
+                    <div class="mt-6 hidden">
+                        <select name="預訂數量" id="quantitySelect">
+                            <option value="1">1</option>
+                        </select>
+                    </div>
+                </div>
+
+                <hr class="border-gray-200">
+
+                <div>
+                    <h4 class="text-lg font-bold text-stone-800 mb-4 border-l-4 border-green-600 pl-3">第三步：訂位資料</h4>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold text-gray-500 mb-1">訂位大名</label>
@@ -179,42 +226,10 @@
                             <input type="text" name="Line ID" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none" placeholder="方便我們聯繫您">
                         </div>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                        <div>
-                            <label class="block text-xs font-bold text-gray-500 mb-1">入住日期 <span class="text-red-500 text-[10px]">(限2026/2/1後)</span></label>
-                            <input type="date" id="checkinDate" name="入住日期" min="2026-02-01" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-500 mb-1">退房日期</label>
-                            <div class="flex items-center gap-2">
-                                <input type="date" id="checkoutDate" name="退房日期" min="2026-02-02" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none">
-                                <span id="stayDays" class="text-sm font-bold text-green-600 whitespace-nowrap hidden"></span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
+                
                 <hr class="border-gray-200">
-                <div>
-                    <div class="flex flex-col md:flex-row justify-between items-center mb-4">
-                        <h4 class="text-lg font-bold text-stone-800 border-l-4 border-green-600 pl-3 mb-2 md:mb-0">選擇營位 (可多選)</h4>
-                        <div class="flex gap-2 overflow-x-auto no-scrollbar w-full md:w-auto p-1 bg-stone-100 rounded-lg">
-                            <button type="button" onclick="filterZones('all')" class="filter-btn active px-3 py-1 rounded-md text-xs font-bold transition-all text-gray-500 whitespace-nowrap">全部</button>
-                            <button type="button" onclick="filterZones('shelter')" class="filter-btn px-3 py-1 rounded-md text-xs font-bold transition-all text-gray-500 whitespace-nowrap">雨棚區</button>
-                            <button type="button" onclick="filterZones('room')" class="filter-btn px-3 py-1 rounded-md text-xs font-bold transition-all text-gray-500 whitespace-nowrap">住宿/懶人</button>
-                            <button type="button" onclick="filterZones('grass')" class="filter-btn px-3 py-1 rounded-md text-xs font-bold transition-all text-gray-500 whitespace-nowrap">草地/碎石</button>
-                        </div>
-                    </div>
-                    <input type="hidden" name="預訂區域" id="selectedZoneInput" required>
-                    <input type="hidden" id="selectedZonePrice" value="0">
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" id="zoneContainer">
-                    </div>
-                    <div class="mt-6 hidden">
-                        <select name="預訂數量" id="quantitySelect">
-                            <option value="1">1</option>
-                        </select>
-                    </div>
-                </div>
-                <hr class="border-gray-200">
+                
                 <div>
                     <h4 class="text-lg font-bold text-stone-800 mb-4 border-l-4 border-green-600 pl-3">特殊需求</h4>
                     
@@ -238,6 +253,13 @@
                         <div class="text-2xl font-extrabold text-red-600" id="totalPriceDisplay">$0</div>
                     </div>
                 </div>
+                
+                <div class="text-center mb-2">
+                    <p class="text-red-500 text-xs font-bold cursor-pointer underline" onclick="showModal('modal-rules')">
+                        <i class="fas fa-exclamation-circle"></i> 退訂規則及注意事項請點此查看 
+                    </p>
+                </div>
+
                 <button type="submit" id="submitBtn" class="w-full bg-stone-800 text-white font-bold py-4 rounded-xl text-lg shadow-lg shadow-lg hover:bg-stone-700 transition transform hover:scale-[1.01] active:scale-95">
                     確認送出預訂
                 </button>
@@ -248,10 +270,13 @@
     <footer class="bg-gradient-to-r from-yellow-100 to-orange-200 text-stone-600 py-8 text-center text-sm">
         <p class="mb-2 text-stone-800 font-bold text-lg"><i class="fas fa-bolt text-orange-500 mr-2"></i> 宜蘭礁溪充電莊</p>
         <p class="mb-4 text-stone-600">宜蘭縣礁溪鄉匏杓崙路150之8號</p>
+        
+        <p class="mb-4 text-stone-800 font-bold text-lg"><i class="fas fa-phone-alt mr-2 text-green-700"></i> 營主電話: 0975020425</p>
+
         <div class="flex justify-center gap-4 mb-4">
-            <a href="#" class="w-8 h-8 rounded-full bg-white/50 flex items-center justify-center hover:bg-blue-600 hover:text-white transition text-stone-600"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://lin.ee/t1Ds7Hq" target="_blank" class="w-8 h-8 rounded-full bg-white/50 flex items-center justify-center hover:bg-[#06C755] hover:text-white transition text-stone-600"><i class="fab fa-line"></i></a>
-            <a href="#" class="w-8 h-8 rounded-full bg-white/50 flex items-center justify-center hover:bg-red-500 hover:text-white transition text-stone-600"><i class="fas fa-map-marker-alt"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=100083289610242" target="_blank" class="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-blue-600 hover:text-white transition text-blue-600 shadow-md"><i class="fab fa-facebook-f text-lg"></i></a>
+            <a href="https://lin.ee/t1Ds7Hq" target="_blank" class="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-[#06C755] hover:text-white transition text-[#06C755] shadow-md"><i class="fab fa-line text-lg"></i></a>
+            <a href="#" class="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-red-500 hover:text-white transition text-red-500 shadow-md"><i class="fas fa-map-marker-alt text-lg"></i></a>
         </div>
         <p>© 2025 Charging Mansion.</p>
     </footer>
@@ -392,8 +417,72 @@
         </div>
     </div>
 
-    <div id="modal-rules" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-red-600">營區須知</h3><ul class="list-disc pl-5 space-y-2 text-sm text-gray-700"><li>請注意寧靜時間為每天晚上10點後，請放低音量。<li>電動車車主請務必於表單備註，將優先安排充電位置（全區共 17 台）。<li>焚火請務必自備木柴、防火布及焚火爐，禁止直接在地面生火。<li>本營區不禁菸，但吸煙者請移步至接待處附近指定區域抽煙。<li>若進行溪邊活動將分組，可自行帶補蝦籠，有機會抓到溪蝦 (請注意安全)。<li>夜衝自搭帳及車泊每帳 $600；民宿、小木屋、露營車及 T 250 為 5 折優惠。夜衝時間為 17:00-22:00。<li>營區有各項設備可出租，詳細項目及金額請查看裝備表。
-<li>用電設備不特定限制，每座插座規格為 15-20A。</li></ul></div></div>
+    <div id="modal-rules" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto">
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button>
+            <h3 class="text-xl font-bold mb-4 text-red-600">營區須知</h3>
+            <ul class="list-disc pl-5 space-y-2 text-sm text-gray-700">
+                <li>請注意寧靜時間為每天晚上10點後，請放低音量。</li>
+                <li>電動車車主請務必於表單備註，將優先安排充電位置（全區共 17 台）。</li>
+                <li>焚火請務必自備木柴、防火布及焚火爐，禁止直接在地面生火。</li>
+                <li>本營區不禁菸，但吸煙者請移步至接待處附近指定區域抽煙。</li>
+                <li>若進行溪邊活動將分組，可自行帶補蝦籠，有機會抓到溪蝦 (請注意安全)。</li>
+                <li>夜衝自搭帳及車泊每帳 $600；民宿、小木屋、露營車及 T 250 為 5 折優惠。夜衝時間為 17:00-22:00。</li>
+                <li>營區有各項設備可出租，詳細項目及金額請查看裝備表。</li>
+                <li>用電設備不特定限制，每座插座規格為 15-20A。</li>
+            </ul>
+            <hr class="my-4">
+            <h4 class="text-lg font-bold mb-2 text-stone-800">退訂規則 (比照露營樂)</h4>
+            <ul class="list-decimal pl-5 space-y-1 text-xs text-gray-600">
+                <li>入住前 14 天退訂，可全額退款 (扣除手續費)。</li>
+                <li>入住前 10-13 天退訂，退款 70%。</li>
+                <li>入住前 7-9 天退訂，退款 50%。</li>
+                <li>入住前 4-6 天退訂，退款 40%。</li>
+                <li>入住前 2-3 天退訂，退款 30%。</li>
+                <li>入住前 1 天或當日退訂，恕不退款。</li>
+                <li>如遇天災 (颱風、地震) 經宜蘭縣政府宣布停班停課，可延期或全額退款。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="modal-qa" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto">
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button>
+            <h3 class="text-xl font-bold mb-6 text-center text-yellow-600">營區常見問題 (Q&A)</h3>
+            
+            <div class="space-y-4">
+                <div class="bg-stone-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-stone-800 text-sm mb-1">Q: 入營與拔營時間？</h4>
+                    <p class="text-gray-600 text-xs">A: 一般營位入營時間為 12:00，拔營時間為隔日 12:00-21:00(因應宜蘭假日塞車不加價，但須配合移動位置)。民宿/小木屋/免搭帳入營時間為 14:00，拔營為 11:00-21:00(因應宜蘭假日塞車不加價，但須配合移動位置)。。</p>
+                </div>
+                <div class="bg-stone-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-stone-800 text-sm mb-1">Q: 可以帶寵物嗎？</h4>
+                    <p class="text-gray-600 text-xs">A: 可以，充電莊是寵物友善營區！請務必繫上牽繩，並隨手清理便溺。民宿室內請勿讓寵物上床，寵物可借寵物帳篷使用。</p>
+                </div>
+                <div class="bg-stone-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-stone-800 text-sm mb-1">Q: 電動車充電需要付費嗎？</h4>
+                    <p class="text-gray-600 text-xs">A: 需要，2026/02/01起一度電調整為$4，J1772 - 2 座 (7kW)
+Tesla TPC - 3 座 (7kW)
+Tesla Type 2 - 2 座 (7kW)
+Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
+                </div>
+                <div class="bg-stone-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-stone-800 text-sm mb-1">Q: 營區有飲水機或冰箱嗎？</h4>
+                    <p class="text-gray-600 text-xs">A: 營本部設有大型冷藏5做/冷凍冰箱及飲水機供露友使用。</p>
+                </div>
+                <div class="bg-stone-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-stone-800 text-sm mb-1">Q: 熱水供應時間？</h4>
+                    <p class="text-gray-600 text-xs">A: 24小時熱水供應，熱水穩定強勁，請安心洗漱，若為寧靜時段請注意音量。</p>
+                </div>
+                <div class="bg-stone-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-stone-800 text-sm mb-1">Q: 夜衝規則？</h4>
+                    <p class="text-gray-600 text-xs">A: 周日訂位者不開放夜衝；其餘17:00~22:00 可入場。自搭帳享 $600 優惠價；免搭/懶人住宿享半價優惠。需搭配續住一晚。</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div id="modal-bbq" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
