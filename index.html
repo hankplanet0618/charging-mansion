@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>【官方網站】宜蘭礁溪充電莊 - 露營區線上訂位 / 充電服務/頂級露營體驗/宜蘭露營/礁溪露營</title>
-<meta name="description" content="宜蘭礁溪充電莊，電動車友善露營區。宜蘭露營區，礁溪露營區，電動車充電，提供免搭帳、小木屋、雨棚營位，可遠眺龜山島與落羽松美景。立即線上預訂，享受山林充電之旅。">
-<meta name="robots" content="index, follow">
+    <title>宜蘭礁溪充電莊 - 【官方網站】 | 獨家電動車露營區訂位/礁溪露營/宜蘭露營/懶人露營 | 宜蘭礁溪充電莊 - 露營區線上訂位 / 充電服務/頂級露營體驗/宜蘭露營/礁溪露營</title>
+    <meta name="description" content="宜蘭礁溪充電莊，電動車友善露營區。宜蘭露營區，礁溪露營區，電動車充電，提供免搭帳、小木屋、雨棚營位，可遠眺龜山島與落羽松美景。立即線上預訂，享受山林充電之旅。">
+    <meta name="robots" content="index, follow">
     <script src="https://cdn.tailwindcss.com"></script>
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -81,8 +81,9 @@
         <div class="flex-1 overflow-y-auto py-2">
             <a href="#" onclick="showModal('modal-map')" class="flex items-center px-6 py-4 bg-green-50 text-stone-800 font-bold border-b border-green-200"><i class="fas fa-map-marked-alt w-8 text-green-700"></i> 營區地圖</a>
             
-            <a href="#" onclick="showModal('modal-qa')" class="flex items-center px-6 py-4 hover:bg-yellow-50 text-stone-600 border-b border-gray-100"><i class="fas fa-question-circle w-8 text-yellow-600"></i> 營區 Q&A</a>
+            <a href="#" onclick="showModal('modal-blog')" class="flex items-center px-6 py-4 hover:bg-pink-50 text-stone-600 border-b border-gray-100"><i class="fas fa-blog w-8 text-pink-500"></i> 營區網誌</a>
             
+            <a href="#" onclick="showModal('modal-qa')" class="flex items-center px-6 py-4 hover:bg-yellow-50 text-stone-600 border-b border-gray-100"><i class="fas fa-question-circle w-8 text-yellow-600"></i> 營區 Q&A</a>
             <a href="#" onclick="showModal('modal-report')" class="flex items-center px-6 py-4 hover:bg-yellow-50 text-stone-600 border-b border-gray-100"><i class="fas fa-file-invoice-dollar w-8 text-yellow-600"></i> 匯款回報</a>
             <a href="#" onclick="showModal('modal-about')" class="flex items-center px-6 py-4 hover:bg-green-50 text-stone-600 border-b border-gray-100"><i class="fas fa-seedling w-8 text-green-600"></i> 關於充電莊</a>
             <a href="#" onclick="showModal('modal-rules')" class="flex items-center px-6 py-4 hover:bg-green-50 text-stone-600 border-b border-gray-100"><i class="fas fa-clipboard-check w-8 text-red-600"></i> 營區須知</a>
@@ -319,6 +320,46 @@
         </div>
     </div>
 
+    <div id="modal-blog" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
+        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl z-10 p-6 relative max-h-[85vh] overflow-y-auto">
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
+            <h3 class="text-xl font-bold mb-6 text-center text-pink-600">營區生活網誌</h3>
+
+            <div class="space-y-8">
+                
+                <div class="border-b border-gray-100 pb-6">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="bg-pink-100 text-pink-600 text-[10px] px-2 py-1 rounded-full font-bold">最新活動</span>
+                        <span class="text-xs text-gray-400">2025/02/01</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-stone-800 mb-3">春節來充電莊，好運龍總來！</h4>
+                    <img src="https://i.ibb.co/6cx1xrVR/image.jpg" class="w-full rounded-lg mb-3 object-cover h-48 shadow-sm">
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        今年過年大家有去哪裡玩嗎？充電莊準備了好多紅包要送給來露營的朋友們！<br>
+                        看著孩子們在草地上奔跑，這就是最棒的新年禮物了。<br>
+                        期待下次與大家相見！
+                    </p>
+                </div>
+                <div class="border-b border-gray-100 pb-6">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="bg-green-100 text-green-600 text-[10px] px-2 py-1 rounded-full font-bold">營區日常</span>
+                        <span class="text-xs text-gray-400">2025/01/15</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-stone-800 mb-3">落羽松轉紅了，美得像幅畫</h4>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        最近天氣變冷，營區的落羽松也悄悄換上了紅裝。<br>
+                        好多客人這週來都說：「不用出國也能看到這麼美的景色！」<br>
+                        歡迎大家趁著這波寒流過後，上山來走走，喝杯熱茶，享受大自然的調色盤。
+                    </p>
+                </div>
+
+            </div>
+            
+            <p class="text-center text-xs text-gray-400 mt-6">持續更新中...</p>
+        </div>
+    </div>
+
     <div id="modal-report" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
         <div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative">
@@ -335,7 +376,7 @@
         </div>
     </div>
     
-    <div id="modal-bank" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-center">匯款資訊</h3><div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200"><p class="text-sm text-gray-600">銀行：<span class="font-bold text-black">823 將來銀行</span></p><p class="text-sm text-gray-600 mt-2">戶名：<span class="font-bold text-black">林均鴻</span></p><p class="text-sm text-gray-600 mt-2">帳號：</p><p class="text-xl font-mono font-bold text-blue-800 bg-white p-2 rounded border mt-1 text-center">8865-0975-0204-25</p></div><p class="text-xs text-center text-gray-400 mt-4">匯款後請點選選單「匯款回報」</p></div></div>
+    <div id="modal-bank" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"><div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-center">匯款資訊</h3><div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200"><p class="text-sm text-gray-600">銀行：<span class="font-bold text-black">823 將來銀行</span></p><p class="text-sm text-gray-600 mt-2">戶名：<span class="font-bold text-black">林均鴻</span></p><p class="text-sm text-gray-600 mt-2">帳號：</p><p class="text-xl font-mono font-bold text-blue-800 bg-white p-2 rounded border mt-1 text-center">8865-0975-0204-25</p></div><p class="text-xs text-center text-gray-400 mt-4">匯款後請點選選單「匯款回報」</p></div></div></div>
     
     <div id="modal-about" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
@@ -683,7 +724,7 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
             { id: 'ZC1', name: '三人頂級露營車', count: 2, cat: 'camper', desc: '最有溫度的一晚 (2台)車停帳邊', price: 6980, badge: '最高級的懶人享受，送烤肉', images: ['https://i.ibb.co/jvXBxJWw/4.jpg'], idx: 0 },
             { id: 'ZC2', name: '小木屋 (大)', count: 1, cat: 'cabinL', desc: '家庭首選 (1間)', price: 2600, badge: '', images: ['https://i.ibb.co/4n2CPt5X/image.jpg', 'https://i.ibb.co/VYpvt7NF/image.jpg'], idx: 0 },
             { id: 'ZC3', name: '小木屋 (小)', count: 1, cat: 'cabinS', desc: '溫馨三人 (1間)', price: 2200, badge: '', images: ['https://i.ibb.co/CpNgsKHw/image.jpg', 'https://i.ibb.co/VW4t8GH4/image.jpg'], idx: 0 },
-            { id: 'ZD1', name: '草地區', count: 5, cat: 'grass', desc: '親近自然的美好 (6帳)車停帳邊', price: 1400, badge: '', images: ['https://i.ibb.co/7xsg5nfv/1.jpg', 'https://i.ibb.co/DDLBdhNk/3.jpg', 'https://i.ibb.co/S73TLHJR/2.jpg'], idx: 0 },
+            { id: 'ZD1', name: '草地區', count: 6, cat: 'grass', desc: '親近自然的美好 (6帳)車停帳邊', price: 1400, badge: '', images: ['https://i.ibb.co/7xsg5nfv/1.jpg', 'https://i.ibb.co/DDLBdhNk/3.jpg', 'https://i.ibb.co/S73TLHJR/2.jpg'], idx: 0 },
             { id: 'ZD2', name: '碎石地區', count: 2, cat: 'grass', desc: '充電紮營首選 (2帳)車停帳邊', price: 1400, badge: '', images: ['https://i.ibb.co/k6D740Ht/image.jpg'], idx: 0 },
             { id: 'ZE1', name: '包棟民宿 (16人)', count: 1, cat: 'villa', desc: '4房一起K歌最開心 (1棟)', price: 20000, badge: '獨享', images: ['https://i.ibb.co/6RyZYPVy/7-KW.jpg'], idx: 0 },
             { id: 'ZF1', name: '泰式免搭', count: 8, cat: 'room', desc: '懶人新福音 (8帳)', price: 1400, badge: '最新', images: ['https://i.ibb.co/60bXNB57/image.jpg', 'https://i.ibb.co/DHhm1sWR/2.jpg'], idx: 0 }
