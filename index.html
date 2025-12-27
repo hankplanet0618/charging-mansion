@@ -107,7 +107,7 @@
             </div>
             <div class="mt-4 bg-red-600 text-white p-3 rounded-xl shadow-lg animate-pulse text-center mx-4 border-2 border-yellow-400">
                 <i class="fas fa-star text-yellow-300 mr-2"></i>
-                <span class="font-bold text-sm md:text-base">228連假、兒童連假、5/1連假有特殊活動，請訂位者一同參與唷！車床特約一律官網預約並備注</span>
+                <span class="font-bold text-sm md:text-base">228連假、兒童連假、5/1連假有特殊活動，請訂位者一同參與唷！車床特約一律官網預約並於結帳區折扣碼輸入【普卡】或【VIP卡】【備注會員編號! 車床方案僅適用非假日之平日(週日-周四)】</span>
                 <i class="fas fa-star text-yellow-300 ml-2"></i>
             </div>
         </div>
@@ -243,7 +243,7 @@
                         <p id="discountMessage" class="text-xs mt-2 hidden font-bold"></p>
                     </div>
                     <label class="block text-xs font-bold text-gray-500 mb-1">備註 / 其他需求</label>
-                    <textarea name="備註需求" placeholder="例如：我是特斯拉車主需要充電 (請提供車號)、需要租借裝備、烤肉預定份數及用餐時間..." class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 h-24 focus:ring-2 focus:ring-green-500 outline-none resize-none"></textarea>
+                    <textarea name="備註需求" placeholder="例如：我是特斯拉車主需要充電 (請提供車號)、需要租借裝備、烤肉預定份數及用餐時間與車床會員編號以利查核" class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 h-24 focus:ring-2 focus:ring-green-500 outline-none resize-none"></textarea>
                 </div>
                 <div id="priceCalcResult" class="hidden bg-yellow-50 border border-yellow-200 p-4 rounded-xl flex flex-col justify-between">
                     <div class="mb-2">
@@ -327,26 +327,19 @@
             <h3 class="text-xl font-bold mb-6 text-center text-pink-600">營區生活網誌</h3>
 
             <div class="space-y-8">
-<div class="border-b border-gray-100 pb-6">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="bg-pink-100 text-pink-600 text-[10px] px-2 py-1 rounded-full font-bold">最新活動</span>
-                        <span class="text-xs text-gray-400">2025/12/24</span>
-
-                    </div>
-                    <h4 class="text-lg font-bold text-stone-800 mb-3">最近在持續優化官網</h4>
-                    <img src="https://i.ibb.co/6cx1xrVR/image.jpg" class="w-full rounded-lg mb-3 object-cover h-48 shadow-sm">
-                    <p class="text-stone-600 text-sm leading-relaxed">
-                        寫網站一直都不是一件簡單的事情<br>
-                        希望大家在宜蘭能有一個完美的露營區，可以有最Chill的生活跟最舒適的環境<br>
-                        礁溪露營區，首選應該還是充電莊露營區吧XDD
-                    </p>
-                </div>
-
                 
                 <div class="border-b border-gray-100 pb-6">
                     <div class="flex items-center gap-2 mb-2">
                         <span class="bg-pink-100 text-pink-600 text-[10px] px-2 py-1 rounded-full font-bold">最新活動</span>
-                        <span class="text-xs text-gray-400">2025/12/23</span>
+                        <span class="text-xs text-gray-400">2025/02/01</span>
+ </div>
+                    <h4 class="text-lg font-bold text-stone-800 mb-3">228團露熱烈報名中</h4>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        團露有辦桌活動、露天溫泉、齊全的親子設施、還有兒童無糖糖果製作，當天還會抽冰虎冰箱一台<br>
+                        直接官網報名吧!」<br>
+                        歡迎大家趁著228連假來體驗充電莊的一切美好。
+                    </p>
+                </div>
 
                     </div>
                     <h4 class="text-lg font-bold text-stone-800 mb-3">春節來充電莊，好運龍總來！</h4>
@@ -360,7 +353,7 @@
                 <div class="border-b border-gray-100 pb-6">
                     <div class="flex items-center gap-2 mb-2">
                         <span class="bg-green-100 text-green-600 text-[10px] px-2 py-1 rounded-full font-bold">營區日常</span>
-                        <span class="text-xs text-gray-400">2025/12/21</span>
+                        <span class="text-xs text-gray-400">2025/01/15</span>
                     </div>
                     <h4 class="text-lg font-bold text-stone-800 mb-3">落羽松轉紅了，美得像幅畫</h4>
                     <p class="text-stone-600 text-sm leading-relaxed">
@@ -729,7 +722,7 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
             '2031-12-25','2031-12-26','2031-12-27','2031-12-28'
         ];
         
-        const discountCodes = { 'LINE100': 100, '首次加入好友優惠券': 100, '首次加入好友禮': 100, 'TESLA400': 400, 'CM100': 100, '竹科臻邦': 500, '蓓蓓團': 700, '連假gogo': 500,'芮蒂': 500, };
+        const discountCodes = { 'LINE100': 100, '首次加入好友優惠券': 100, '首次加入好友禮': 100, 'TESLA400': 400, 'CM100': 100, '竹科臻邦': 500, '蓓蓓團': 700, '連假gogo': 500,'芮蒂': 500, '普卡': 850, 'VIP卡': 950 };
 
         const zones = [
             { id: 'ZA1', name: '棚架 A 區', count: 9, cat: 'shelter', desc: '寬敞遮雨棚車停帳邊 (9帳)', price: 1400, badge: '熱門', images: ['https://i.ibb.co/KjBcKGvt/A-DDcar.jpg', 'https://i.ibb.co/RTypZTzW/A1.jpg', 'https://i.ibb.co/hRNQ84SY/A.jpg'], idx: 0 },
@@ -744,8 +737,10 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
             { id: 'ZD2', name: '碎石地區', count: 2, cat: 'grass', desc: '充電紮營首選 (2帳)車停帳邊', price: 1400, badge: '', images: ['https://i.ibb.co/k6D740Ht/image.jpg'], idx: 0 },
             { id: 'ZE1', name: '包棟民宿 (16人)', count: 1, cat: 'villa', desc: '4房一起K歌最開心 (1棟)', price: 20000, badge: '獨享', images: ['https://i.ibb.co/6RyZYPVy/7-KW.jpg'], idx: 0 },
             { id: 'ZF1', name: '泰式免搭', count: 8, cat: 'room', desc: '懶人新福音 (8帳)', price: 1400, badge: '最新', images: ['https://i.ibb.co/60bXNB57/image.jpg', 'https://i.ibb.co/DHhm1sWR/2.jpg'], idx: 0 }
+{ id: 'ZF1', name: '加購電動車車床方案', count: 8, cat: 'room', desc: '限車床會員加購', price: 150, badge: '超值充電方案', images: ['https://i.ibb.co/6f7nyBp/image.jpg', 'https://i.ibb.co/DHhm1sWR/2.jpg'], idx: 0 }
+
         ];
-        const gears = [{n:'月亮椅/休閒椅',p:'100'},{n:'平躺椅',p:'150'},{n:'卡式爐/蜘蛛爐(含瓦斯)',p:'200'},{n:'五星爐(含瓦斯)',p:'300'},{n:'IGT桌全套',p:'600'},{n:'天幕 3*3+桿',p:'250'},{n:'天幕 3*5+桿',p:'350'},{n:'超聲波地墊 3*3',p:'150'},{n:'野餐地墊 2*2/燈具',p:'100'},{n:'落地頂級四葉燈',p:'350'},{n:'杜邦鯤9車尾帳',p:'1000'},{n:'代搭帳服務',p:'500'},{n:'投影機',p:'300'},{n:'投影布幕',p:'100'},{n:'電暖器/焚火台(鐵)',p:'200'},{n:'焚火台(純鈦)',p:'350'},{n:'木柴',p:'100'}];
+        const gears = [{n:'月亮椅/休閒椅',p:'100'},{n:'平躺椅',p:'150'},{n:'卡式爐/蜘蛛爐(含瓦斯)',p:'200'},{n:'五星爐(含瓦斯)',p:'300'},{n:'IGT桌全套',p:'600'},{n:'天幕 3*3+桿',p:'250'},{n:'天幕 3*5+桿',p:'350'},{n:'超聲波地墊 3*3',p:'150'},{n:'野餐地墊 2*2/燈具',p:'100'},{n:'落地頂級四葉燈',p:'350'},{n:'杜邦鯤9車尾帳',p:'1000'},{n:'代搭帳服務',p:'500'},{n:'投影機',p:'300'},{n:'投影布幕',p:'100'},{n:'電暖器/焚火台(鐵)',p:'200'},{n:'焚火台(純鈦)',p:'350'},{n:'木柴',p:'100'},{n:'電動車車床方案',p:'150'}];
         
         const reviews = [
             {n:"Tesla車主陳先生", c:"充電樁真的太方便了！不用怕開電車來山上會沒電，環境也很清幽。"},
