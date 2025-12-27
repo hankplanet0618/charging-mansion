@@ -15,6 +15,10 @@
         .zone-card { transition: all 0.3s ease; border: 1px solid #e5e7eb; }
         .zone-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); border-color: var(--forest-green); }
         .selected { border: 2px solid var(--forest-green); background-color: #f0fdf4; transform: scale(1.02); }
+        /* 增加選中時隱藏原本的勾選圈圈，顯示實心勾選 */
+        .selected .check-circle { background-color: var(--forest-green); border-color: var(--forest-green); }
+        .selected .check-circle i { opacity: 1; }
+        
         .disabled-card { opacity: 0.5; pointer-events: none; filter: grayscale(100%); background-color: #f3f4f6; }
         .cursor-change-image { cursor: pointer; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -191,7 +195,111 @@
                     <input type="hidden" name="預訂區域" id="selectedZoneInput" required>
                     <input type="hidden" id="selectedZonePrice" value="0">
                     <p class="text-xs text-orange-600 mb-2 font-bold"><i class="fas fa-info-circle"></i> 請先選擇日期，系統將自動顯示可預訂營位</p>
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" id="zoneContainer"></div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" id="zoneContainer">
+                        
+                        <div class="zone-card bg-white p-3 md:p-4 rounded-xl cursor-pointer relative group flex gap-3 md:gap-4 items-center" onclick="this.classList.toggle('selected')">
+                            <div class="w-20 h-20 md:w-24 md:h-24 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0 relative">
+                                <img src="https://i.ibb.co/6cx1xrVR/image.jpg" class="w-full h-full object-cover">
+                                <div class="absolute bottom-0 w-full bg-black/60 text-white text-[10px] text-center py-0.5">剩 3 帳</div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h5 class="font-bold text-stone-800 text-sm md:text-base">A區 雨棚碎石</h5>
+                                        <p class="text-[10px] md:text-xs text-stone-500 mt-1">5m x 8m | 獨立水槽 | 近衛浴</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="block text-green-600 font-bold text-sm md:text-lg">$1,200</span>
+                                        <span class="text-[10px] text-gray-400">/ 晚</span>
+                                    </div>
+                                </div>
+                                <div class="mt-2 flex gap-1 flex-wrap">
+                                    <span class="text-[10px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded border border-blue-100">雨棚</span>
+                                    <span class="text-[10px] bg-stone-100 text-stone-600 px-2 py-0.5 rounded border border-stone-200">碎石</span>
+                                </div>
+                            </div>
+                            <div class="absolute top-2 right-2 w-5 h-5 md:top-4 md:right-4 md:w-6 md:h-6 rounded-full border-2 border-gray-200 flex items-center justify-center bg-white group-hover:border-green-500 transition-colors check-circle">
+                                <i class="fas fa-check text-white text-xs opacity-0"></i>
+                            </div>
+                        </div>
+
+                        <div class="zone-card bg-white p-3 md:p-4 rounded-xl cursor-pointer relative group flex gap-3 md:gap-4 items-center" onclick="this.classList.toggle('selected')">
+                            <div class="w-20 h-20 md:w-24 md:h-24 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0 relative">
+                                <img src="https://i.ibb.co/6cx1xrVR/image.jpg" class="w-full h-full object-cover">
+                                <div class="absolute bottom-0 w-full bg-black/60 text-white text-[10px] text-center py-0.5">剩 5 帳</div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h5 class="font-bold text-stone-800 text-sm md:text-base">B區 景觀草地</h5>
+                                        <p class="text-[10px] md:text-xs text-stone-500 mt-1">5m x 8m | 絕美山景 | 適合團露</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="block text-green-600 font-bold text-sm md:text-lg">$1,000</span>
+                                        <span class="text-[10px] text-gray-400">/ 晚</span>
+                                    </div>
+                                </div>
+                                <div class="mt-2 flex gap-1 flex-wrap">
+                                    <span class="text-[10px] bg-green-50 text-green-600 px-2 py-0.5 rounded border border-green-100">草地</span>
+                                    <span class="text-[10px] bg-yellow-50 text-yellow-600 px-2 py-0.5 rounded border border-yellow-100">景觀</span>
+                                </div>
+                            </div>
+                            <div class="absolute top-2 right-2 w-5 h-5 md:top-4 md:right-4 md:w-6 md:h-6 rounded-full border-2 border-gray-200 flex items-center justify-center bg-white group-hover:border-green-500 transition-colors check-circle">
+                                <i class="fas fa-check text-white text-xs opacity-0"></i>
+                            </div>
+                        </div>
+
+                        <div class="zone-card bg-white p-3 md:p-4 rounded-xl cursor-pointer relative group flex gap-3 md:gap-4 items-center" onclick="this.classList.toggle('selected')">
+                            <div class="w-20 h-20 md:w-24 md:h-24 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0 relative">
+                                <img src="https://i.ibb.co/6cx1xrVR/image.jpg" class="w-full h-full object-cover">
+                                <div class="absolute bottom-0 w-full bg-orange-500 text-white text-[10px] text-center py-0.5">熱門</div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h5 class="font-bold text-stone-800 text-sm md:text-base">VIP 景觀小木屋</h5>
+                                        <p class="text-[10px] md:text-xs text-stone-500 mt-1">四人房 | 獨立衛浴 | 冷暖氣</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="block text-green-600 font-bold text-sm md:text-lg">$3,200</span>
+                                        <span class="text-[10px] text-gray-400">/ 晚</span>
+                                    </div>
+                                </div>
+                                <div class="mt-2 flex gap-1 flex-wrap">
+                                    <span class="text-[10px] bg-purple-50 text-purple-600 px-2 py-0.5 rounded border border-purple-100">免搭帳</span>
+                                    <span class="text-[10px] bg-orange-50 text-orange-600 px-2 py-0.5 rounded border border-orange-100">空調</span>
+                                </div>
+                            </div>
+                            <div class="absolute top-2 right-2 w-5 h-5 md:top-4 md:right-4 md:w-6 md:h-6 rounded-full border-2 border-gray-200 flex items-center justify-center bg-white group-hover:border-green-500 transition-colors check-circle">
+                                <i class="fas fa-check text-white text-xs opacity-0"></i>
+                            </div>
+                        </div>
+
+                        <div class="zone-card disabled-card bg-gray-100 p-3 md:p-4 rounded-xl relative flex gap-3 md:gap-4 items-center">
+                            <div class="w-20 h-20 md:w-24 md:h-24 rounded-lg bg-gray-300 overflow-hidden flex-shrink-0 relative">
+                                <img src="https://i.ibb.co/6cx1xrVR/image.jpg" class="w-full h-full object-cover grayscale opacity-50">
+                                <div class="absolute inset-0 flex items-center justify-center bg-black/50">
+                                    <span class="text-white font-bold border-2 border-white px-2 py-1 transform -rotate-12 text-xs">已額滿</span>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h5 class="font-bold text-gray-500 text-sm md:text-base">C區 碎石區</h5>
+                                        <p class="text-[10px] md:text-xs text-gray-400 mt-1">5m x 8m | 近充電樁</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="block text-gray-400 font-bold text-sm md:text-lg">$1,000</span>
+                                    </div>
+                                </div>
+                                <div class="mt-2 flex gap-1 flex-wrap">
+                                    <span class="text-[10px] bg-gray-200 text-gray-500 px-2 py-0.5 rounded">碎石</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                     <div class="mt-6 hidden">
                         <select name="預訂數量" id="quantitySelect">
                             <option value="1">1</option>
@@ -407,35 +515,75 @@
                         </p>
                     </div>
                     <div class="relative bg-orange-50/60 p-6 rounded-lg border-dashed border-2 border-orange-200">
-                        <div class="absolute -top-3 left-4 bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded font-bold">營主的心聲</div>
-                        <p class="text-stone-800 leading-loose text-sm font-medium italic">
-                            「我們想分享的，不僅是一個營位，而是一份在山中充電的寧靜。」
+                        <div class="absolute -top-3 left-4 bg-orange-100 text-orange-600 px-2 text-xs font-bold rounded">營主的話</div>
+                        <p class="text-stone-600 text-sm italic">
+                            「我們希望這裡不只是一個充電站，更是每位旅人心中，那個可以隨時回來、充飽靈魂電力的家。」
                         </p>
                     </div>
                 </div>
-                <div class="mt-8 pt-6 border-t border-stone-100 text-center">
-                    <button onclick="closeAll()" class="bg-stone-800 text-white px-8 py-2 rounded-full text-sm font-bold hover:bg-stone-700 transition">開始預訂行程</button>
-                </div>
+            </div>
+            <div class="bg-stone-100 p-4 text-center">
+                <button onclick="closeAll()" class="bg-stone-800 text-white px-8 py-2 rounded-full text-sm font-bold hover:bg-stone-700 transition">我瞭解了</button>
             </div>
         </div>
     </div>
 
+    <div id="modal-qa" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white p-6 rounded-lg z-10">功能建置中...</div></div>
+    <div id="modal-rules" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white p-6 rounded-lg z-10">功能建置中...</div></div>
+    <div id="modal-reviews" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white p-6 rounded-lg z-10">功能建置中...</div></div>
+    <div id="modal-feedback" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white p-6 rounded-lg z-10">功能建置中...</div></div>
+    <div id="modal-bbq" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white p-6 rounded-lg z-10">功能建置中...</div></div>
+    <div id="modal-gear" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white p-6 rounded-lg z-10">功能建置中...</div></div>
+    <div id="modal-tent" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white p-6 rounded-lg z-10">功能建置中...</div></div>
+    <div id="modal-map" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white p-6 rounded-lg z-10">功能建置中...</div></div>
+
     <script>
         function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('-translate-x-full');
-            document.getElementById('overlay').classList.toggle('hidden');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+            } else {
+                closeAll();
+            }
         }
+
         function closeAll() {
-            document.querySelectorAll('[id^="modal-"]').forEach(m => m.classList.add('hidden'));
-            document.getElementById('sidebar').classList.add('-translate-x-full');
-            document.getElementById('overlay').classList.add('hidden');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('opacity-0');
+            setTimeout(() => overlay.classList.add('hidden'), 300);
+
+            document.querySelectorAll('[id^="modal-"]').forEach(modal => {
+                modal.classList.add('hidden');
+            });
+            document.getElementById('image-modal').classList.add('hidden');
         }
-        function showModal(id) {
+
+        function showModal(modalId) {
             closeAll();
-            document.getElementById(id).classList.remove('hidden');
-            document.getElementById('overlay').classList.remove('hidden');
+            const modal = document.getElementById(modalId);
+            if(modal) modal.classList.remove('hidden');
         }
-        // ... 其他邏輯如 filterZones, adminLogin 等
+
+        function filterZones(type) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            // 這裡未來可加入 JS 過濾邏輯
+        }
+
+        // 簡單的價格計算範例（僅供顯示用，實際邏輯請自行撰寫）
+        const bookingForm = document.getElementById('bookingForm');
+        if(bookingForm) {
+            bookingForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                showModal('modal-success');
+            });
+        }
     </script>
 </body>
 </html>
