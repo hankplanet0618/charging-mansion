@@ -788,7 +788,6 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
             {t:'小木屋小', u:'https://i.ibb.co/4n2CPt5X/image.jpg'},
             {t:'小木屋小', u:'https://i.ibb.co/VYpvt7NF/image.jpg'},
             {t:'小木屋大', u:'https://i.ibb.co/CpNgsKHw/image.jpg'},
-            {t:'小木屋大', u:'https://i.ibb.co/VW4t8GH4/image.jpg'},
             {t:'民宿', u:'https://i.ibb.co/6RyZYPVy/7-KW.jpg'},
             {t:'泰式免搭', u:'https://i.ibb.co/60bXNB57/image.jpg'},
             {t:'泰式免搭', u:'https://i.ibb.co/DHhm1sWR/2.jpg'},
@@ -798,9 +797,9 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
             {t:'棚架B', u:'https://i.ibb.co/bMQ51htS/B.jpg'},
             {t:'棚架B', u:'https://i.ibb.co/7JY7xRYp/B.jpg'},
             {t:'棚架C', u:'https://i.ibb.co/c70KNkJ/C1.jpg'},
-            {t:'棚架C', u:'https://i.ibb.co/XrMggq46/1.jpg'},
+            {t:'棧板C', u:'https://i.ibb.co/JRmcf3bw/B.jpg'},
             {t:'棧板A+遊戲區', u:'https://i.ibb.co/XrMggq46/1.jpg'},
-            {t:'棧板B', u:'https://i.ibb.co/JRmcf3bw/B.jpg'},
+            {t:'棧板B', u:'https://i.ibb.co/XrMggq46/1.jpg'},
             {t:'草皮/碎石', u:'https://i.ibb.co/S73TLHJR/2.jpg'},
             {t:'草皮/碎石', u:'https://i.ibb.co/k6D740Ht/image.jpg'},
             {t:'草皮/碎石', u:'https://i.ibb.co/7xsg5nfv/1.jpg'},
@@ -1197,7 +1196,7 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
                 const info = document.createElement('div');
                 info.className = "flex-1 flex flex-col justify-between h-full py-1";
                 
-                // ★★★ 修改：加大按鈕尺寸與字體 (w-12 h-12 text-xl) ★★★
+                // ★★★ 修改：按鈕調整為 w-10 h-10，字體調整為 text-lg (既好按又不會太巨大) ★★★
                 info.innerHTML = `
                     <div>
                         <h3 class="font-bold text-stone-800 text-base leading-tight mb-1">${zone.name}</h3>
@@ -1206,9 +1205,9 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
                         <p class="${priceClass} font-bold text-sm">$${displayPrice.toLocaleString()} <span class="text-[10px] text-gray-400 font-normal">/晚</span></p>
                     </div>
                     <div class="flex items-center justify-end mt-2 select-none">
-                        <button type="button" class="w-12 h-12 rounded-full bg-stone-100 text-stone-600 hover:bg-stone-200 font-bold text-xl flex items-center justify-center active:bg-stone-300" onclick="updateZoneQty('${zone.name}', -1, event, ${remaining})">-</button>
+                        <button type="button" class="w-10 h-10 rounded-full bg-stone-100 text-stone-600 hover:bg-stone-200 font-bold text-lg flex items-center justify-center active:bg-stone-300" onclick="updateZoneQty('${zone.name}', -1, event, ${remaining})">-</button>
                         <span class="mx-2 font-bold w-6 text-center text-lg">${isSelected ? currentQty : 0}</span>
-                        <button type="button" class="w-12 h-12 rounded-full bg-stone-800 text-white hover:bg-stone-700 font-bold text-xl flex items-center justify-center shadow active:bg-stone-900" onclick="updateZoneQty('${zone.name}', 1, event, ${remaining})">+</button>
+                        <button type="button" class="w-10 h-10 rounded-full bg-stone-800 text-white hover:bg-stone-700 font-bold text-lg flex items-center justify-center shadow active:bg-stone-900" onclick="updateZoneQty('${zone.name}', 1, event, ${remaining})">+</button>
                     </div>
                 `;
                 div.innerHTML = badge;
