@@ -762,8 +762,8 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
             'VIP卡': 950, 
             '特惠': 800,
             '包場': 0.85, // 更新：85折
-            'VIP': 0.9   // 更新：9折
-            '愛學館信義校': 0.9   // 更新：9折
+            'VIP': 0.9,   // 更新：9折
+            '愛學館信義校': 0.9    // 更新：9折
         };
 
         const zones = [
@@ -1396,12 +1396,14 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
                 else if (discountCodes.hasOwnProperty(originalCode)) discountVal = discountCodes[originalCode];
                 
                 // 這裡的邏輯改為：
-                // 如果是百分比折扣，我們算出「省了多少錢」傳給後台
+                // 如果是百分比折扣，我們用「總金額」除以「折數」反推原價，算出省了多少錢
                 let discountAmount = 0;
                 if (discountVal > 0 && discountVal < 1) {
-                    discountAmount = 0; // 暫時設為 0，因為百分比很難在這裡反推原始金額
+                     let originalPrice = Math.round(finalTotal / discountVal);
+                     discountAmount = originalPrice - finalTotal;
                 } else {
-                    discountAmount = discountVal;
+                     // 如果是固定金額折扣 (例如 100 元)
+                     discountAmount = discountVal;
                 }
                 
                 formData.append('總金額', finalTotal);
@@ -1412,9 +1414,9 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
                       let note = formData.get('備註需求');
                       // 如果是折數，特別標註
                       if (discountVal > 0 && discountVal < 1) {
-                          note += ` [使用折扣碼: ${originalCode} (打${discountVal*10}折)]`; // 這裡修正了 dCode -> originalCode
+                          note += ` [使用折扣碼: ${originalCode} (打${discountVal*10}折)]`; 
                       } else {
-                          note += ` [使用折扣碼: ${originalCode}]`; // 這裡修正了 dCode -> originalCode
+                          note += ` [使用折扣碼: ${originalCode}]`; 
                       }
                       formData.set('備註需求', note);
                 }
