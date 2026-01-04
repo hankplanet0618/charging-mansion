@@ -19,6 +19,8 @@
         .cursor-change-image { cursor: pointer; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .cursor-pointer { cursor: pointer; } /* 修正部分游標樣式 */
+        
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in { animation: fadeIn 0.6s ease-out forwards; }
         .filter-btn.active { background-color: var(--forest-green); color: white; }
@@ -676,6 +678,7 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
         const myLiffId = "2008643307-nbPNvd20"; 
 
         const MIN_DATE = '2026-02-01';
+        // ★★★ 修改：將2026/02/07與2026/03/07加入封鎖日期 ★★★
         const BLOCKED_DATES = ['2026-02-07', '2026-03-07'];
         
         const SPECIAL_HOLIDAYS = [
@@ -992,6 +995,7 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
                         for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
                             let dateStr = d.toISOString().split('T')[0];
                             
+                            // ★★★ 核心邏輯：檢查每一天是否在封鎖名單中 ★★★
                             if (BLOCKED_DATES.includes(dateStr)) { 
                                 blocked = true; blockMsg = `【當天已包場滿額】${dateStr}，請重新預定選擇日期`; break; 
                             }
