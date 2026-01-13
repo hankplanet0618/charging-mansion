@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>宜蘭礁溪充電莊露營區 (瑜珈森林)｜電動車充電$4/雨棚/懶人露營首選</title>
-    <meta name="description" content="宜蘭礁溪露營推薦「充電莊」(瑜珈森林)。全台最優質電動車露營區，提供 J1772、TPC、Type2 充電樁(7kW)，2026/2/1起充電僅$4/度。擁有絕美雨棚營位、免搭帳體驗與農場樂趣。立即預約，享受森林與滿電回家的雙重滿足！。">
+    <title>宜蘭露營區｜礁溪露營區｜充電莊露營區 (瑜珈森林)｜電動車充電$4/懶人露營</title>
+    <meta name="description" content="宜蘭礁溪露營推薦「充電莊」(瑜珈森林)。全台最優質電動車露營區，提供 J1772、TPC、Type2 充電樁(7kW)。擁有絕美雨棚營位、免搭帳體驗、完整裝備租借、烤肉套餐預定與農場樂趣。立即預約，享受森林與滿電回家的雙重滿足！位於宜蘭礁溪的充電莊露營區，提供百萬夜景與電動車充電服務。距離礁溪市區僅15分鐘，是宜蘭、礁溪露營、親子旅遊與懶人露營的最佳推薦。">
     <meta name="robots" content="index, follow">
     <script src="https://cdn.tailwindcss.com"></script>
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
@@ -19,7 +19,7 @@
         .cursor-change-image { cursor: pointer; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .cursor-pointer { cursor: pointer; } /* 修正部分游標樣式 */
+        .cursor-pointer { cursor: pointer; }
         
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in { animation: fadeIn 0.6s ease-out forwards; }
@@ -92,8 +92,8 @@
             <a href="#" onclick="showModal('modal-reviews')" class="flex items-center px-6 py-4 hover:bg-green-50 text-stone-600 border-b border-gray-100"><i class="fas fa-star w-8 text-yellow-500"></i> 顧客評論</a>
             <a href="#" onclick="showModal('modal-feedback')" class="flex items-center px-6 py-4 hover:bg-green-50 text-stone-600 border-b border-gray-100"><i class="fas fa-comment-dots w-8 text-blue-500"></i> 意見回饋</a>
             <a href="#" onclick="showModal('modal-bank')" class="flex items-center px-6 py-4 hover:bg-green-50 text-stone-600 border-b border-gray-100"><i class="fas fa-university w-8 text-blue-600"></i> 匯款資訊</a>
-            <a href="#" onclick="showModal('modal-bbq')" class="flex items-center px-6 py-4 hover:bg-green-50 text-stone-600 border-b border-gray-100"><i class="fas fa-fire w-8 text-orange-600"></i> 烤肉預定</a>
-            <a href="#" onclick="showModal('modal-gear')" class="flex items-center px-6 py-4 hover:bg-green-50 text-stone-600 border-b border-gray-100"><i class="fas fa-toolbox w-8 text-blue-600"></i> 裝備出租</a>
+            <a href="#" onclick="showModal('modal-bbq')" class="flex items-center px-6 py-4 hover:bg-green-50 text-stone-600 border-b border-gray-100"><i class="fas fa-fire w-8 text-orange-600"></i> 烤肉菜單</a>
+            <a href="#" onclick="showModal('modal-gear')" class="flex items-center px-6 py-4 hover:bg-green-50 text-stone-600 border-b border-gray-100"><i class="fas fa-toolbox w-8 text-blue-600"></i> 裝備清單</a>
             <a href="#" onclick="showModal('modal-tent')" class="flex items-center px-6 py-4 hover:bg-green-50 text-stone-600 border-b border-gray-100"><i class="fas fa-campground w-8 text-purple-600"></i> 免搭帳服務</a>
         </div>
     </div>
@@ -218,6 +218,8 @@
                 </div>
 
                 <hr class="border-gray-200">
+                <div id="addons-container"></div>
+                <hr class="border-gray-200">
 
                 <div>
                     <h4 class="text-lg font-bold text-stone-800 mb-4 border-l-4 border-green-600 pl-3">第三步：訂位資料</h4>
@@ -255,7 +257,7 @@
                         <p id="discountMessage" class="text-xs mt-2 hidden font-bold"></p>
                     </div>
                     <label class="block text-xs font-bold text-gray-500 mb-1">備註 / 其他需求</label>
-                    <textarea name="備註需求" placeholder="例如：我是特斯拉車主需要充電 (請提供車號)、需要租借裝備、烤肉預定份數及用餐時間與車床會員編號以利查核" class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 h-24 focus:ring-2 focus:ring-green-500 outline-none resize-none"></textarea>
+                    <textarea name="備註需求" placeholder="例如：我是特斯拉車主需要充電 (請提供車號)、用餐時間與車床會員編號以利查核" class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 h-24 focus:ring-2 focus:ring-green-500 outline-none resize-none"></textarea>
                 </div>
                 <div id="priceCalcResult" class="hidden bg-yellow-50 border border-yellow-200 p-4 rounded-xl flex flex-col justify-between">
                     <div class="mb-2">
@@ -341,344 +343,28 @@
         </div>
     </div>
 
-    <div id="modal-blog" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
-        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl z-10 p-6 relative max-h-[85vh] overflow-y-auto">
-            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
-            <h3 class="text-xl font-bold mb-6 text-center text-pink-600">營區生活網誌</h3>
-
-            <div class="space-y-8">
-                
-                <div class="border-b border-gray-100 pb-6">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="bg-pink-100 text-pink-600 text-[10px] px-2 py-1 rounded-full font-bold">最新活動</span>
-                        <span class="text-xs text-gray-400">2025/02/01</span>
-                    </div>
-                    <h4 class="text-lg font-bold text-stone-800 mb-3">228團露熱烈報名中</h4>
-                    <p class="text-stone-600 text-sm leading-relaxed">
-                        團露有辦桌活動、露天溫泉、齊全的親子設施、還有兒童無糖糖果製作，當天還會抽冰虎冰箱一台<br>
-                        直接官網報名吧!」<br>
-                        歡迎大家趁著228連假來體驗充電莊的一切美好。
-                    </p>
-                </div>
-
-                <div class="border-b border-gray-100 pb-6">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="bg-pink-100 text-pink-600 text-[10px] px-2 py-1 rounded-full font-bold">最新活動</span>
-                        <span class="text-xs text-gray-400">2025/02/01</span>
-                    </div>
-                    <h4 class="text-lg font-bold text-stone-800 mb-3">春節來充電莊，好運龍總來！</h4>
-                    <img src="https://i.ibb.co/6cx1xrVR/image.jpg" class="w-full rounded-lg mb-3 object-cover h-48 shadow-sm">
-                    <p class="text-stone-600 text-sm leading-relaxed">
-                        今年過年大家有去哪裡玩嗎？充電莊準備了好多紅包要送給來露營的朋友們！<br>
-                        看著孩子們在草地上奔跑，這就是最棒的新年禮物了。<br>
-                        期待下次與大家相見！
-                    </p>
-                </div>
-                <div class="border-b border-gray-100 pb-6">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="bg-green-100 text-green-600 text-[10px] px-2 py-1 rounded-full font-bold">營區日常</span>
-                        <span class="text-xs text-gray-400">2025/01/15</span>
-                    </div>
-                    <h4 class="text-lg font-bold text-stone-800 mb-3">落羽松轉紅了，美得像幅畫</h4>
-                    <p class="text-stone-600 text-sm leading-relaxed">
-                        最近天氣變冷，營區的落羽松也悄悄換上了紅裝。<br>
-                        好多客人這週來都說：「不用出國也能看到這麼美的景色！」<br>
-                        歡迎大家趁著這波寒流過後，上山來走走，喝杯熱茶，享受大自然的調色盤。
-                    </p>
-                </div>
-
-            </div>
-            
-            <p class="text-center text-xs text-gray-400 mt-6">持續更新中...</p>
-        </div>
-    </div>
-
-    <div id="modal-report" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
-        <div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative">
-            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button>
-            <h3 class="text-xl font-bold mb-4 text-center text-yellow-600">匯款回報</h3>
-            <form id="paymentForm" class="space-y-4">
-                <input type="hidden" name="sheetName" value="匯款紀錄">
-                <div><label class="block text-xs font-bold text-gray-500 mb-1">匯款姓名</label><input type="text" name="匯款姓名" required class="w-full border rounded p-2"></div>
-                <div><label class="block text-xs font-bold text-gray-500 mb-1">帳號末五碼</label><input type="text" name="末五碼" required class="w-full border rounded p-2"></div>
-                <div><label class="block text-xs font-bold text-gray-500 mb-1">匯款金額</label><input type="number" name="匯款金額" required class="w-full border rounded p-2"></div>
-                <div><label class="block text-xs font-bold text-gray-500 mb-1">匯款日期</label><input type="date" name="匯款日期" required class="w-full border rounded p-2"></div>
-                <button type="submit" id="payBtn" class="w-full bg-yellow-500 text-stone-900 font-bold py-3 rounded-lg hover:bg-yellow-400">送出回報</button>
-            </form>
-        </div>
-    </div>
-    
+    <div id="modal-blog" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl z-10 p-6 relative max-h-[85vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button><h3 class="text-xl font-bold mb-6 text-center text-pink-600">營區生活網誌</h3><div class="space-y-8"><div class="border-b border-gray-100 pb-6"><div class="flex items-center gap-2 mb-2"><span class="bg-pink-100 text-pink-600 text-[10px] px-2 py-1 rounded-full font-bold">最新活動</span><span class="text-xs text-gray-400">2025/02/01</span></div><h4 class="text-lg font-bold text-stone-800 mb-3">228團露熱烈報名中</h4><p class="text-stone-600 text-sm leading-relaxed">團露有辦桌活動、露天溫泉、齊全的親子設施、還有兒童無糖糖果製作，當天還會抽冰虎冰箱一台<br>直接官網報名吧!」<br>歡迎大家趁著228連假來體驗充電莊的一切美好。</p></div></div><p class="text-center text-xs text-gray-400 mt-6">持續更新中...</p></div></div>
+    <div id="modal-report" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-center text-yellow-600">匯款回報</h3><form id="paymentForm" class="space-y-4"><input type="hidden" name="sheetName" value="匯款紀錄"><div><label class="block text-xs font-bold text-gray-500 mb-1">匯款姓名</label><input type="text" name="匯款姓名" required class="w-full border rounded p-2"></div><div><label class="block text-xs font-bold text-gray-500 mb-1">帳號末五碼</label><input type="text" name="末五碼" required class="w-full border rounded p-2"></div><div><label class="block text-xs font-bold text-gray-500 mb-1">匯款金額</label><input type="number" name="匯款金額" required class="w-full border rounded p-2"></div><div><label class="block text-xs font-bold text-gray-500 mb-1">匯款日期</label><input type="date" name="匯款日期" required class="w-full border rounded p-2"></div><button type="submit" id="payBtn" class="w-full bg-yellow-500 text-stone-900 font-bold py-3 rounded-lg hover:bg-yellow-400">送出回報</button></form></div></div>
     <div id="modal-bank" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"><div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-center">匯款資訊</h3><div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200"><p class="text-sm text-gray-600">銀行：<span class="font-bold text-black">823 將來銀行</span></p><p class="text-sm text-gray-600 mt-2">戶名：<span class="font-bold text-black">林均鴻</span></p><p class="text-sm text-gray-600 mt-2">帳號：</p><p class="text-xl font-mono font-bold text-blue-800 bg-white p-2 rounded border mt-1 text-center">8865-0975-0204-25</p></div><p class="text-xs text-center text-gray-400 mt-4">匯款後請點選選單「匯款回報」</p></div></div></div>
-    
-    <div id="modal-about" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
-        <div class="bg-white w-full max-w-xl rounded-2xl shadow-2xl z-10 p-0 relative max-h-[85vh] overflow-y-auto border-t-8 border-orange-200">
-            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 z-20"><i class="fas fa-times text-xl"></i></button>
-            
-            <div class="p-8 pb-4">
-                <h3 class="text-2xl font-bold mb-1 text-stone-800 text-center tracking-widest">關於充電莊</h3>
-                <p class="text-center text-xs text-stone-400 font-light mb-8">— 尋找屬於你的那座山 —</p>
-                
-                <div class="space-y-8">
-                    <div class="border-l-4 border-green-700 pl-5 py-1">
-                        <p class="text-stone-600 leading-relaxed text-sm md:text-base font-serif">
-                            充電莊，隱在宜蘭礁溪深溝的山腰，像一首還未被唱起的祕密詩。<br><br>
-                            這裡沒有繁複造景，卻能<span class="text-orange-600 font-bold">遠眺四季龜山島</span>的日出日落；<br>
-                            感受秋日落羽松鋪出的一地紅毯；<br>
-                            聆聽夏日蟲鳴、潮聲。
-                        </p>
-                    </div>
-
-                    <div class="bg-stone-50 p-6 rounded-xl border border-stone-100 shadow-sm relative overflow-hidden">
-                        <i class="fas fa-leaf absolute -right-4 -bottom-4 text-6xl text-green-100 opacity-50"></i>
-                        <p class="text-stone-700 leading-relaxed text-sm relative z-10">
-                            這裡有 <span class="font-bold text-green-700">95% 雨棚營位</span>，讓喜愛露營的人下雨不淋、烈日不曬；懶人能躺平，孩子能放電。<br><br>
-                            在這裡插上充電槍，泡一壺茶，坐進彩色木椅，<br>
-                            看電量悠悠回滿；看光線擁吻山海；<br>
-                            看孩子追螢火蟲，追著夏日的童年。
-                        </p>
-                    </div>
-
-                    <div class="relative bg-orange-50/60 p-6 rounded-lg border-dashed border-2 border-orange-200">
-                        <div class="absolute -top-3 left-4 bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded font-bold">營主的心聲</div>
-                        <p class="text-stone-800 leading-loose text-sm font-medium italic">
-                            「2025 年，我露營了七十七次。」
-                        </p>
-
-                        <p class="text-stone-600 leading-relaxed text-sm mt-3 text-justify">
-                            我知道露營的幸福，是有風有雨也不狼狽，有星有月也不孤單。<br>
-                            於是我接下了「充電莊」——<br>
-                            這裡不是我的營地，是我兒子的王國，也是為每一個電量歸零的人，準備的一個<span class="text-red-500 font-bold bg-white px-1 rounded">溫暖避風港</span>。
-                        </p>
-                    </div>
-
-                    <div class="text-center px-4">
-                        <p class="text-stone-500 text-sm leading-relaxed">
-                            如果有一天，你開上山路，電量亮紅，請再往前一點點。<br>
-                            你會看見落羽松在搖、燈在亮，茶香飄來，孩子笑著奔跑。<br>
-                            <span class="block mt-2 font-bold text-stone-700 text-lg">那一刻，你就到了。</span>
-                        </p>
-
-                        <p class="mt-4 text-sm text-stone-500">
-                            這裡允許你把電放完，也把心充滿；<br>允許你懶，也允許你盡情奔跑。
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-stone-800 text-center py-6 px-4 mt-4">
-                <p class="text-orange-100 font-serif text-lg tracking-widest mb-2">「山中若有眠，夢裡總是青。」</p>
-                <p class="text-stone-400 text-xs">歡迎愛露營的你，來這裡充電。</p>
-            </div>
-        </div>
-    </div>
-    
-    <div id="modal-map" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
-        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl z-10 p-6 relative max-h-[85vh] overflow-y-auto">
-            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
-            <h3 class="text-xl font-bold mb-4 text-center text-green-800">營區配置圖</h3>
-            
-            <div class="mb-6 rounded-lg overflow-hidden shadow-lg border border-gray-200">
-                <img src="https://i.ibb.co/zhbGX1SB/image.png" alt="營區地圖" class="w-full h-auto object-contain">
-            </div>
-
-            <div class="text-center">
-                <a href="https://docs.google.com/viewer?embedded=true&url=https://cdn.jsdelivr.net/gh/hankplanet0618/charging-mansion@main/%E5%85%85%E9%9B%BB%E8%8E%8A%E5%9C%B0%E5%9C%96.pdf" target="_blank" onclick="window.open(this.href, 'newwindow', 'width=800,height=600'); return false;" class="inline-block bg-red-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-red-700 transition transform hover:scale-105 animate-pulse">
-                    <i class="fas fa-file-pdf mr-2"></i> 查看高清 PDF 檔
-                </a>
-                <p class="text-xs text-gray-400 mt-2">點擊開啟完整地圖視窗</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-rules" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
-        <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto">
-            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button>
-            <h3 class="text-xl font-bold mb-4 text-red-600">營區須知</h3>
-            <ul class="list-disc pl-5 space-y-2 text-sm text-gray-700">
-                <li>請注意寧靜時間為每天晚上10點後，請放低音量。</li>
-                <li>電動車車主請務必於表單備註，將優先安排充電位置（全區共 17 台）。</li>
-                <li>焚火請務必自備木柴、防火布及焚火爐，禁止直接在地面生火。</li>
-                <li>本營區不禁菸，但吸煙者請移步至接待處附近指定區域抽煙。</li>
-                <li>若進行溪邊活動將分組，可自行帶補蝦籠，有機會抓到溪蝦 (請注意安全)。</li>
-                <li>夜衝自搭帳及車泊每帳 $600；民宿、小木屋、露營車及 T 250 為 5 折優惠。夜衝時間為 17:00-22:00。</li>
-                <li>營區有各項設備可出租，詳細項目及金額請查看裝備表。</li>
-                <li>用電設備不特定限制，每座插座規格為 15-20A。</li>
-            </ul>
-            <hr class="my-4">
-            <h4 class="text-lg font-bold mb-2 text-stone-800">退訂規則 (比照露營樂)</h4>
-            <ul class="list-decimal pl-5 space-y-1 text-xs text-gray-600">
-                <li>入住前 14 天退訂，可全額退款 (扣除手續費)。</li>
-                <li>入住前 10-13 天退訂，退款 70%。</li>
-                <li>入住前 7-9 天退訂，退款 50%。</li>
-                <li>入住前 4-6 天退訂，退款 40%。</li>
-                <li>入住前 2-3 天退訂，退款 30%。</li>
-                <li>入住前 1 天或當日退訂，恕不退款。</li>
-                <li>如遇天災 (颱風、地震) 經宜蘭縣政府宣布停班停課，可延期或全額退款。</li>
-            </ul>
-        </div>
-    </div>
-
-    <div id="modal-qa" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
-        <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto">
-            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button>
-            <h3 class="text-xl font-bold mb-6 text-center text-yellow-600">營區常見問題 (Q&A)</h3>
-            
-            <div class="space-y-4">
-                <div class="bg-stone-50 p-4 rounded-lg">
-                    <h4 class="font-bold text-stone-800 text-sm mb-1">Q: 入營與拔營時間？</h4>
-                    <p class="text-gray-600 text-xs">A: 一般營位入營時間為 12:00，拔營時間為隔日 12:00-21:00(因應宜蘭假日塞車不加價，但須配合移動位置)。民宿/小木屋/免搭帳入營時間為 14:00，拔營為 11:00-21:00(因應宜蘭假日塞車不加價，但須配合移動位置)。。</p>
-                </div>
-                <div class="bg-stone-50 p-4 rounded-lg">
-                    <h4 class="font-bold text-stone-800 text-sm mb-1">Q: 可以帶寵物嗎？</h4>
-                    <p class="text-gray-600 text-xs">A: 可以，充電莊是寵物友善營區！請務必繫上牽繩，並隨手清理便溺。民宿室內請勿讓寵物上床，寵物可借寵物帳篷使用。</p>
-                </div>
-                <div class="bg-stone-50 p-4 rounded-lg">
-                    <h4 class="font-bold text-stone-800 text-sm mb-1">Q: 電動車充電需要付費嗎？</h4>
-                    <p class="text-gray-600 text-xs">A: 需要，2026/02/01起一度電調整為$4，J1772 - 2 座 (7kW)
-Tesla TPC - 3 座 (7kW)
-Tesla Type 2 - 2 座 (7kW)
-Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
-                </div>
-                <div class="bg-stone-50 p-4 rounded-lg">
-                    <h4 class="font-bold text-stone-800 text-sm mb-1">Q: 營區有飲水機或冰箱嗎？</h4>
-                    <p class="text-gray-600 text-xs">A: 營本部設有大型冷藏5做/冷凍冰箱及飲水機供露友使用。</p>
-                </div>
-                <div class="bg-stone-50 p-4 rounded-lg">
-                    <h4 class="font-bold text-stone-800 text-sm mb-1">Q: 熱水供應時間？</h4>
-                    <p class="text-gray-600 text-xs">A: 24小時熱水供應，熱水穩定強勁，請安心洗漱，若為寧靜時段請注意音量。</p>
-                </div>
-                <div class="bg-stone-50 p-4 rounded-lg">
-                    <h4 class="font-bold text-stone-800 text-sm mb-1">Q: 夜衝規則？</h4>
-                    <p class="text-gray-600 text-xs">A: 周日訂位者不開放夜衝；其餘17:00~22:00 可入場。自搭帳享 $600 優惠價；免搭/懶人住宿享半價優惠。需搭配續住一晚。</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-bbq" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
-        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl z-10 relative overflow-hidden">
-            <button onclick="closeAll()" class="absolute top-2 right-2 text-white bg-black/50 rounded-full w-8 h-8 z-20"><i class="fas fa-times"></i></button>
-            <img src="https://i.ibb.co/N623cTjr/1299.png" class="w-full h-auto object-contain">
-        </div>
-    </div>
-
+    <div id="modal-about" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-xl rounded-2xl shadow-2xl z-10 p-0 relative max-h-[85vh] overflow-y-auto border-t-8 border-orange-200"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 z-20"><i class="fas fa-times text-xl"></i></button><div class="p-8 pb-4"><h3 class="text-2xl font-bold mb-1 text-stone-800 text-center tracking-widest">關於充電莊</h3><p class="text-center text-xs text-stone-400 font-light mb-8">— 尋找屬於你的那座山 —</p><div class="space-y-8"><div class="border-l-4 border-green-700 pl-5 py-1"><p class="text-stone-600 leading-relaxed text-sm md:text-base font-serif">充電莊，隱在宜蘭礁溪深溝的山腰...（省略部分文字以節省空間）...那一刻，你就到了。</p></div></div></div></div></div>
+    <div id="modal-map" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl z-10 p-6 relative max-h-[85vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button><h3 class="text-xl font-bold mb-4 text-center text-green-800">營區配置圖</h3><div class="mb-6 rounded-lg overflow-hidden shadow-lg border border-gray-200"><img src="https://i.ibb.co/zhbGX1SB/image.png" alt="營區地圖" class="w-full h-auto object-contain"></div></div></div>
+    <div id="modal-rules" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-red-600">營區須知</h3><ul class="list-disc pl-5 space-y-2 text-sm text-gray-700"><li>請注意寧靜時間為每天晚上10點後...</li></ul></div></div>
+    <div id="modal-qa" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-6 text-center text-yellow-600">營區常見問題 (Q&A)</h3><div class="space-y-4"><div class="bg-stone-50 p-4 rounded-lg"><h4 class="font-bold text-stone-800 text-sm mb-1">Q: 入營與拔營時間？</h4><p class="text-gray-600 text-xs">A: 一般營位入營時間為 12:00...</p></div></div></div></div>
+    <div id="modal-bbq" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl z-10 relative overflow-hidden"><button onclick="closeAll()" class="absolute top-2 right-2 text-white bg-black/50 rounded-full w-8 h-8 z-20"><i class="fas fa-times"></i></button><img src="https://i.ibb.co/N623cTjr/1299.png" class="w-full h-auto object-contain"></div></div>
     <div id="modal-gear" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-blue-600">裝備出租</h3><table class="w-full text-sm text-left"><tbody id="gearTableBody" class="divide-y"></tbody></table></div></div>
-
-    <div id="modal-tent" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
-        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl z-10 p-6 relative max-h-[85vh] overflow-y-auto">
-            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
-                <i class="fas fa-times text-2xl"></i>
-            </button>
-            <h3 class="text-xl font-bold mb-4 text-purple-600">免搭帳服務專區</h3>
-            <div class="bg-purple-50 p-4 rounded text-center mb-6">
-                <span class="block font-bold text-purple-900">代搭 + 收服務費</span>
-                <span class="text-2xl font-bold text-purple-600">$500</span>
-            </div>
-            <div class="space-y-6">
-                <div class="border-b pb-4">
-                    <div class="flex justify-between font-bold text-lg mb-2 text-purple-900">
-                        <span>KZM-T250 (最夯最大新帳篷)</span><span>$2000</span>
-                    </div>
-                    <img src="https://i.ibb.co/G4zSJ98h/tw-11134208-81ztg-meterwxf57gmfa.jpg" onclick="showImage(this.src)" class="w-full h-auto cursor-pointer hover:opacity-90">
-                </div>
-                <div class="border-b pb-4">
-                    <div class="flex justify-between font-bold text-lg mb-2 text-purple-900">
-                        <span>Coody8+前庭 (最火網美帳)</span><span>$2000</span>
-                    </div>
-                    <img src="https://i.ibb.co/kV661NNY/coody8.jpg" onclick="showImage(this.src)" class="w-full h-auto cursor-pointer hover:opacity-90">
-                </div>
-                <div class="border-b pb-4">
-                    <div class="flex justify-between font-bold mb-2">
-                        <span>杜邦鯤9車尾帳篷 (99%密合Model Y)</span><span>$1000</span>
-                    </div>
-                    <img src="https://i.ibb.co/JRQtGCS7/9.jpg" onclick="showImage(this.src)" class="w-full h-auto cursor-pointer hover:opacity-90">
-                </div>
-                 <div class="border-b pb-4">
-                    <div class="flex justify-between font-bold mb-2">
-                        <span>迪卡儂 4.2 充氣帳</span><span>$800</span>
-                    </div>
-                    <img src="https://i.ibb.co/5WGjJV0Y/4-2.jpg" onclick="showImage(this.src)" class="w-full h-auto cursor-pointer hover:opacity-90">
-                </div>
-                <div class="border-b pb-4">
-                    <div class="flex justify-between font-bold mb-2">
-                        <span>IF充氣帳篷6.0</span><span>$800</span>
-                    </div>
-                    <img src="https://i.ibb.co/bgdggSG1/IF-6-0.jpg" onclick="showImage(this.src)" class="w-full h-auto cursor-pointer hover:opacity-90">
-                </div>
-                <div class="border-b pb-4">
-                    <div class="flex justify-between font-bold mb-2">
-                        <span>挪客屋脊6</span><span>$600</span>
-                    </div>
-                    <img src="https://i.ibb.co/mVdMmHqb/6.jpg" onclick="showImage(this.src)" class="w-full h-auto cursor-pointer hover:opacity-90">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-reviews" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
-        <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto">
-            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button>
-            <h3 class="text-xl font-bold mb-4 text-yellow-600 text-center">顧客五星好評</h3>
-            <div id="reviews-container" class="space-y-4">
-                </div>
-            <p class="text-center text-xs text-gray-400 mt-6 pt-4 border-t">(以上為精選評論，歡迎留言)</p>
-        </div>
-    </div>
-
-    <div id="modal-feedback" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
-        <div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative">
-            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button>
-            <h3 class="text-xl font-bold mb-4 text-center text-blue-600">意見回饋</h3>
-            <form id="feedbackForm" class="space-y-4">
-                <input type="hidden" name="sheetName" value="意見回饋">
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 mb-1">入住日期</label>
-                    <input type="date" name="入住日期" required class="w-full border rounded p-2">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 mb-1">住客姓名</label>
-                    <input type="text" name="住客姓名" required class="w-full border rounded p-2">
-                </div>
-                <div class="text-center">
-                    <label class="block text-sm font-bold text-gray-500 mb-2">請給予我們評分</label>
-                    <div class="star-rating">
-                        <input type="radio" id="star5" name="滿意度回饋" value="5" checked><label for="star5" title="5星">★</label>
-                        <input type="radio" id="star4" name="滿意度回饋" value="4"><label for="star4" title="4星">★</label>
-                        <input type="radio" id="star3" name="滿意度回饋" value="3"><label for="star3" title="3星">★</label>
-                        <input type="radio" id="star2" name="滿意度回饋" value="2"><label for="star2" title="2星">★</label>
-                        <input type="radio" id="star1" name="滿意度回饋" value="1"><label for="star1" title="1星">★</label>
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 mb-1">內容</label>
-                    <textarea name="內容" required class="w-full border rounded p-2 h-24 resize-none"></textarea>
-                </div>
-                <button type="submit" id="feedbackBtn" class="w-full bg-blue-500 text-white font-bold py-3 rounded-lg hover:bg-blue-600">送出回饋</button>
-            </form>
-        </div>
-    </div>
+    <div id="modal-tent" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl z-10 p-6 relative max-h-[85vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-2xl"></i></button><h3 class="text-xl font-bold mb-4 text-purple-600">免搭帳服務專區</h3><div class="space-y-6"></div></div></div>
+    <div id="modal-reviews" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-yellow-600 text-center">顧客五星好評</h3><div id="reviews-container" class="space-y-4"></div><p class="text-center text-xs text-gray-400 mt-6 pt-4 border-t">(以上為精選評論，歡迎留言)</p></div></div>
+    <div id="modal-feedback" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-center text-blue-600">意見回饋</h3><form id="feedbackForm" class="space-y-4"><input type="hidden" name="sheetName" value="意見回饋"><div><label class="block text-xs font-bold text-gray-500 mb-1">入住日期</label><input type="date" name="入住日期" required class="w-full border rounded p-2"></div><div><label class="block text-xs font-bold text-gray-500 mb-1">住客姓名</label><input type="text" name="住客姓名" required class="w-full border rounded p-2"></div><div class="text-center"><label class="block text-sm font-bold text-gray-500 mb-2">請給予我們評分</label><div class="star-rating"><input type="radio" id="star5" name="滿意度回饋" value="5" checked><label for="star5" title="5星">★</label><input type="radio" id="star4" name="滿意度回饋" value="4"><label for="star4" title="4星">★</label><input type="radio" id="star3" name="滿意度回饋" value="3"><label for="star3" title="3星">★</label><input type="radio" id="star2" name="滿意度回饋" value="2"><label for="star2" title="2星">★</label><input type="radio" id="star1" name="滿意度回饋" value="1"><label for="star1" title="1星">★</label></div></div><div><label class="block text-xs font-bold text-gray-500 mb-1">內容</label><textarea name="內容" required class="w-full border rounded p-2 h-24 resize-none"></textarea></div><button type="submit" id="feedbackBtn" class="w-full bg-blue-500 text-white font-bold py-3 rounded-lg hover:bg-blue-600">送出回饋</button></form></div></div>
 
     <script>
         // ============================================
         // ★★★ 設定區 ★★★
         // ============================================
-        // ★★★ 請務必確認這裡的網址是您剛剛「重新部署」後的網址 ★★★
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxvdnWDwmG5iHUFEVQjhBFOBKDQbv7EgqC_u0Rpy8p8NiE5GacrzH9S8POqpqGBt3II/exec'; 
         const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=0#gid=0';
         const myLiffId = "2008643307-nbPNvd20"; 
 
         const MIN_DATE = '2026-02-01';
-        // ★★★ 修改：將2026/02/07與2026/03/07加入封鎖日期 ★★★
         const BLOCKED_DATES = ['2026-02-07', '2026-03-07'];
         
         const SPECIAL_HOLIDAYS = [
@@ -750,7 +436,6 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
             '2031-12-25','2031-12-26','2031-12-27','2031-12-28'
         ];
         
-        // ★★★ 更新：加入百分比折扣碼 (0.85 = 85折, 0.9 = 9折) ★★★
         const discountCodes = { 
             'LINE100': 100, 
             '首次加入好友優惠券': 100, 
@@ -765,9 +450,9 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
             'VIP卡': 950, 
             '特惠': 800,
             'CNY': 300,
-            '包場': 0.85, // 更新：85折
-            'VIP': 0.9,   // 更新：9折
-            '愛學館信義校': 0.9    // 更新：9折
+            '包場': 0.85, 
+            'VIP': 0.9, 
+            '愛學館信義校': 0.9
         };
 
         const zones = [
@@ -784,8 +469,47 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
             { id: 'ZE1', name: '包棟民宿 (16人)', count: 1, cat: 'villa', desc: '4房一起K歌最開心 (1棟)', price: 20000, badge: '獨享', images: ['https://i.ibb.co/6RyZYPVy/7-KW.jpg'], idx: 0 },
             { id: 'ZF1', name: '泰式免搭', count: 8, cat: 'room', desc: '懶人新福音 (8帳)', price: 1400, badge: '最新', images: ['https://i.ibb.co/60bXNB57/image.jpg', 'https://i.ibb.co/DHhm1sWR/2.jpg'], idx: 0 }
         ];
+
+        // ★★★ 新增區塊資料定義 ★★★
+        const rentals = [
+            { id: 'R01', name: '月亮椅/休閒椅', price: 100, stock: 3 },
+            { id: 'R02', name: '平躺椅', price: 150, stock: 2 },
+            { id: 'R03', name: '卡式爐/蜘蛛爐(含瓦斯)', price: 200, stock: 3 },
+            { id: 'R04', name: '五星爐(含瓦斯)', price: 300, stock: 1 },
+            { id: 'R05', name: 'IGT桌全套', price: 600, stock: 2 },
+            { id: 'R06', name: '天幕 3*3+桿', price: 250, stock: 2 },
+            { id: 'R07', name: '天幕 3*5+桿', price: 350, stock: 1 },
+            { id: 'R08', name: '超聲波地墊 3*3', price: 150, stock: 1 },
+            { id: 'R09', name: '野餐地墊 2*2/燈具', price: 100, stock: 2 },
+            { id: 'R10', name: '落地頂級四葉燈', price: 350, stock: 1 },
+            { id: 'R11', name: '投影機', price: 300, stock: 1 },
+            { id: 'R12', name: '投影布幕', price: 100, stock: 1 },
+            { id: 'R13', name: '電暖器', price: 200, stock: 2 },
+            { id: 'R14', name: '焚火台(鐵)', price: 200, stock: 1 },
+            { id: 'R15', name: '焚火台(純鈦)', price: 350, stock: 1 },
+            { id: 'R16', name: '木柴', price: 100, stock: 20 },
+            { id: 'R17', name: '雙人床墊不挑款', price: 400, stock: 3 },
+            { id: 'R18', name: '4人床墊不挑款', price: 700, stock: 3 },
+            { id: 'R19', name: '電動車車床方案', price: 150, stock: 50 }
+        ];
+
+        const tents = [
+            { id: 'T01', name: '代搭帳服務', price: 500, stock: 50 },
+            { id: 'T02', name: 'KZM-T250', price: 2000, stock: 1 },
+            { id: 'T03', name: 'Coody8', price: 2000, stock: 1 },
+            { id: 'T04', name: '杜邦鯤9車尾帳', price: 1000, stock: 1 },
+            { id: 'T05', name: '迪卡儂 4.2 充氣帳', price: 800, stock: 1 },
+            { id: 'T06', name: 'IF充氣帳篷6.0', price: 800, stock: 1 },
+            { id: 'T07', name: '挪客屋脊6', price: 600, stock: 1 }
+        ];
+
+        const bbqs = [
+            { id: 'B01', name: '1299套餐(2-3人)', price: 1299, stock: 5 },
+            { id: 'B02', name: '1599套餐(3-4人)', price: 1599, stock: 5 },
+            { id: 'B03', name: '2099套餐(4-6人)', price: 2099, stock: 5 },
+            { id: 'B04', name: '4999頂級海陸套餐(10-15人)', price: 4999, stock: 5 }
+        ];
         
-        // ★★★ 新增：營區圖集資料 ★★★
         const galleryImages = [
             {t:'最美風景', u:'https://i.ibb.co/WNtbJQKQ/image.jpg'},
             {t:'山景', u:'https://i.ibb.co/6cx1xrVR/image.jpg'},
@@ -815,6 +539,7 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
             {t:'活動空拍', u:'https://i.ibb.co/mCjR74pf/image.jpg'}
         ];
 
+        // 僅供 modal-gear 參考用的列表 (不影響租借邏輯)
         const gears = [{n:'月亮椅/休閒椅',p:'100'},{n:'平躺椅',p:'150'},{n:'卡式爐/蜘蛛爐(含瓦斯)',p:'200'},{n:'五星爐(含瓦斯)',p:'300'},{n:'IGT桌全套',p:'600'},{n:'天幕 3*3+桿',p:'250'},{n:'天幕 3*5+桿',p:'350'},{n:'超聲波地墊 3*3',p:'150'},{n:'野餐地墊 2*2/燈具',p:'100'},{n:'落地頂級四葉燈',p:'350'},{n:'杜邦鯤9車尾帳',p:'1000'},{n:'代搭帳服務',p:'500'},{n:'投影機',p:'300'},{n:'投影布幕',p:'100'},{n:'電暖器/焚火台(鐵)',p:'200'},{n:'焚火台(純鈦)',p:'350'},{n:'木柴',p:'100'},{n:'電動車車床方案',p:'150'}];
         
         const reviews = [
@@ -831,21 +556,96 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
         ];
         
         let cart = {}; 
+        let addonCart = {}; // ★★★ 新增：裝備購物車 ★★★
         let bookedData = {}; 
 
         async function init() { 
-            // 1. 先去後台抓取庫存資料
             await fetchInventory();
-            // 2. 資料抓回來後，再繪製畫面
             renderZones('all'); 
             renderGears(); 
+            renderAddons(); // ★★★ 新增：渲染加購區 ★★★
             setupCalculator();
             renderReviews();
-            renderGallery(); // 渲染圖集
+            renderGallery();
             if (myLiffId !== "請填入您的LIFF_ID") await initializeLiff();
         }
         
-        // ★★★ 新增：渲染圖集功能 ★★★
+        // ★★★ 新增：渲染加購區的函數 ★★★
+        function renderAddons() {
+            const container = document.getElementById('addons-container');
+            if (!container) return;
+            container.innerHTML = '';
+            
+            // 渲染裝備區
+            container.appendChild(createAddonSection('【裝備租借區】(計次收費)', rentals, 'blue'));
+            // 渲染帳篷區
+            container.appendChild(createAddonSection('【帳篷租借區】(計次收費)', tents, 'purple'));
+            // 渲染烤肉區
+            container.appendChild(createAddonSection('【烤肉預定區】(計次收費)', bbqs, 'orange'));
+        }
+
+        function createAddonSection(title, items, color) {
+            const wrapper = document.createElement('div');
+            wrapper.className = "mb-6";
+            
+            let borderColor = `border-${color}-600`;
+            if(color==='purple') borderColor = 'border-purple-600';
+            if(color==='orange') borderColor = 'border-orange-600';
+            
+            wrapper.innerHTML = `<h4 class="text-lg font-bold text-stone-800 mb-4 border-l-4 ${borderColor} pl-3">${title}</h4>`;
+            
+            const grid = document.createElement('div');
+            grid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3";
+            
+            items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = "bg-white p-3 rounded-lg border border-gray-200 flex justify-between items-center shadow-sm";
+                
+                const currentQty = addonCart[item.name] || 0;
+                
+                div.innerHTML = `
+                    <div class="flex-1">
+                        <div class="font-bold text-sm text-gray-800">${item.name}</div>
+                        <div class="text-xs text-gray-500">庫存: ${item.stock} | <span class="font-bold text-${color}-600">$${item.price}</span></div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                         <button type="button" class="w-8 h-8 rounded-full bg-stone-100 text-stone-600 font-bold hover:bg-stone-200" onclick="updateAddonQty('${item.name}', -1, ${item.stock}, ${item.price})">-</button>
+                         <span class="w-4 text-center text-sm font-bold" id="qty-${item.name}">${currentQty}</span>
+                         <button type="button" class="w-8 h-8 rounded-full bg-stone-800 text-white font-bold hover:bg-stone-700" onclick="updateAddonQty('${item.name}', 1, ${item.stock}, ${item.price})">+</button>
+                    </div>
+                `;
+                grid.appendChild(div);
+            });
+            
+            wrapper.appendChild(grid);
+            return wrapper;
+        }
+
+        // ★★★ 新增：更新加購數量的函數 ★★★
+        window.updateAddonQty = (name, delta, maxStock, price) => {
+            let current = addonCart[name] || 0;
+            let newQty = current + delta;
+            
+            if (newQty < 0) newQty = 0;
+            if (newQty > maxStock) {
+                alert('庫存不足');
+                newQty = maxStock;
+            }
+            
+            if (newQty === 0) {
+                delete addonCart[name];
+            } else {
+                addonCart[name] = newQty;
+            }
+            
+            // 更新 UI 顯示
+            const span = document.getElementById(`qty-${name}`);
+            if (span) span.innerText = newQty;
+            
+            // 觸發重新計算總價
+            window.reCalculate();
+        }
+
         function renderGallery() {
             const container = document.getElementById('gallery-container');
             let html = '';
@@ -860,13 +660,11 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
             container.innerHTML = html;
         }
 
-        // ★★★ 新增：從 GAS 獲取已預訂的資料 ★★★
         async function fetchInventory() {
             try {
-                // 用 fetch 發送 GET 請求
                 const res = await fetch(scriptURL);
                 const data = await res.json();
-                bookedData = data; // 存入全域變數
+                bookedData = data; 
                 console.log('庫存資料已更新:', bookedData);
             } catch (err) {
                 console.error('無法取得庫存資料:', err);
@@ -939,7 +737,6 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
                 if (code === "") { discountMsg.classList.add('hidden'); return; }
                 
                 if (val > 0) {
-                    // ★★★ 更新：判斷是折數還是金額 ★★★
                     if (val < 1) {
                         discountMsg.textContent = `✅ 已套用折扣：打 ${val * 10} 折`;
                     } else {
@@ -965,14 +762,25 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
             
             function calculate() {
                 const cartEntries = Object.entries(cart);
+                const addonEntries = Object.entries(addonCart); // ★★★ 取得加購項目
                 
-                if (cartEntries.length === 0) {
+                // 如果沒有選營位也沒有選裝備，隱藏
+                if (cartEntries.length === 0 && addonEntries.length === 0) {
                     resultDiv.classList.add('hidden');
                     zoneInput.value = "";
                     return;
                 }
                 
-                zoneInput.value = cartEntries.map(([name, qty]) => `${name} x ${qty}`).join(', ');
+                let zoneStr = cartEntries.map(([name, qty]) => `${name} x ${qty}`).join(', ');
+                
+                // ★★★ 將加購項目字串附加到 zoneInput (讓後台知道選了什麼)
+                let addonStr = addonEntries.map(([name, qty]) => `${name} x ${qty}`).join(', ');
+                let fullDetails = zoneStr;
+                if (zoneStr && addonStr) fullDetails += ', ' + addonStr;
+                else if (!zoneStr && addonStr) fullDetails = addonStr;
+                
+                zoneInput.value = fullDetails;
+
                 const totalQty = Object.values(cart).reduce((a, b) => a + b, 0);
                 qtySelect.value = totalQty > 0 ? totalQty : 1;
 
@@ -995,7 +803,6 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
                         for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
                             let dateStr = d.toISOString().split('T')[0];
                             
-                            // ★★★ 核心邏輯：檢查每一天是否在封鎖名單中 ★★★
                             if (BLOCKED_DATES.includes(dateStr)) { 
                                 blocked = true; blockMsg = `【當天已包場滿額】${dateStr}，請重新預定選擇日期`; break; 
                             }
@@ -1033,20 +840,30 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
                     return;
                 }
 
-                if (days > 0 && totalPrice > 0) {
+                // ★★★ 計算加購總金額 ★★★
+                let addonTotal = 0;
+                addonEntries.forEach(([name, qty]) => {
+                    // 搜尋所有加購列表
+                    let item = rentals.find(r => r.name === name) || tents.find(t => t.name === name) || bbqs.find(b => b.name === name);
+                    if (item) {
+                        addonTotal += item.price * qty;
+                    }
+                });
+
+                // 總金額 = 房價 + 加購價
+                totalPrice += addonTotal;
+
+                if ((days > 0 || addonTotal > 0) && totalPrice > 0) {
                     const discountVal = getDiscountAmount();
                     let finalTotal = 0;
                     let displayDiscount = "";
 
-                    // ★★★ 更新：計算折扣金額 (百分比 vs 固定金額) ★★★
                     if (discountVal > 0) {
                         if (discountVal < 1) {
-                            // 百分比折扣 (例如 0.8)
                             const discountAmt = Math.round(totalPrice * (1 - discountVal));
                             finalTotal = totalPrice - discountAmt;
                             displayDiscount = `<div class="text-green-600">折扣優惠：打 ${discountVal * 10} 折 (-$${discountAmt})</div>`;
                         } else {
-                            // 固定金額折扣
                             finalTotal = Math.max(0, totalPrice - discountVal);
                             displayDiscount = `<div class="text-green-600">折扣優惠：- $${discountVal}</div>`;
                         }
@@ -1056,8 +873,12 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
                     
                     resultDiv.classList.remove('hidden');
                     
-                    let html = `<div>共選購：${zoneInput.value}</div>`;
-                    html += `<div>入住 ${days} 晚總計：$${totalPrice.toLocaleString()}</div>`;
+                    let html = '';
+                    if (zoneStr) html += `<div>營位：${zoneStr}</div>`;
+                    if (addonStr) html += `<div>加購：${addonStr}</div>`;
+                    if (days > 0) html += `<div>入住 ${days} 晚 (含加購) 總計：$${totalPrice.toLocaleString()}</div>`;
+                    else html += `<div>總計：$${totalPrice.toLocaleString()}</div>`;
+                    
                     html += displayDiscount;
                     
                     formulaSpan.innerHTML = html;
@@ -1069,7 +890,6 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
             inDate.addEventListener('change', () => { 
                 if(inDate.value && inDate.value < MIN_DATE) { alert("目前僅提供 2/1 以後訂位！"); inDate.value = ""; } 
                 
-                // ★★★ 新增：當選擇入住日後，自動限制退房日需為隔天以後 ★★★
                 if(inDate.value) {
                     const startDate = new Date(inDate.value);
                     startDate.setDate(startDate.getDate() + 1);
@@ -1077,7 +897,7 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
                     outDate.min = nextDayStr;
                     
                     if(outDate.value && outDate.value < nextDayStr) {
-                        outDate.value = ""; // 若原選日期不符，清空重選
+                        outDate.value = ""; 
                     }
                 }
 
@@ -1123,7 +943,6 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
             const outDate = document.getElementById('checkoutDate').value;
             const isSpecial = hasSpecialHoliday(inDate, outDate);
 
-            // ★★★ 3. 計算庫存與剩餘數量 ★★★
             let bookedMap = {}; 
             
             if (inDate && outDate && bookedData) {
@@ -1134,7 +953,6 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
                     let dateStr = d.toISOString().split('T')[0];
                     if (bookedData[dateStr]) {
                         for (let [zName, qty] of Object.entries(bookedData[dateStr])) {
-                            // 找出這段期間內，該區域被佔用最多的量 (例如週五佔1, 週六佔2, 那這段期間就是佔2)
                             bookedMap[zName] = Math.max(bookedMap[zName] || 0, qty);
                         }
                     }
@@ -1150,7 +968,6 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
                 const div = document.createElement('div');
                 div.className = `zone-card bg-white rounded-xl p-3 relative overflow-hidden flex items-center h-32 md:h-36`;
                 
-                // ★★★ 4. 判斷是否額滿 ★★★
                 const bookedCount = bookedMap[zone.name] || 0;
                 const remaining = Math.max(0, zone.count - bookedCount);
                 const isFull = remaining <= 0;
@@ -1201,7 +1018,6 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
                 const info = document.createElement('div');
                 info.className = "flex-1 flex flex-col justify-between h-full py-1";
                 
-                // ★★★ 修改：按鈕調整為 w-10 h-10，字體調整為 text-lg (既好按又不會太巨大) ★★★
                 info.innerHTML = `
                     <div>
                         <h3 class="font-bold text-stone-800 text-base leading-tight mb-1">${zone.name}</h3>
@@ -1254,7 +1070,6 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
                     alert(`該營位剩餘數量不足，僅剩 ${maxQty} 帳。`);
                     newQty = maxQty;
                 }
-                // 原本這裡有一行限制最多8帳的代碼，已移除
                 cart[zoneName] = newQty;
             }
             
@@ -1361,7 +1176,9 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
         document.getElementById('bookingForm').addEventListener('submit', e => {
             e.preventDefault();
             const input = document.getElementById('selectedZoneInput');
-            if(Object.keys(cart).length === 0) { alert('請至少選擇一個營位！'); return; }
+            // 如果沒有選營位也沒有選加購，禁止送出 (但允許只買加購的情況，不過通常是需要營位)
+            // 這裡假設必須至少有一個營位或加購品
+            if(Object.keys(cart).length === 0 && Object.keys(addonCart).length === 0) { alert('請至少選擇一個營位或加購商品！'); return; }
             
             const inDateVal = document.getElementById('checkinDate').value;
             if (inDateVal < MIN_DATE) { alert("目前僅提供 2026/2/1 以後的訂位！"); return; }
@@ -1377,7 +1194,6 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
             const inDateStr = document.getElementById('checkinDate').value;
             const outDateStr = document.getElementById('checkoutDate').value;
 
-            // ★★★ 新增：送出前再次檢查退房日必須大於入住日 ★★★
             if (inDateStr >= outDateStr) {
                 alert("退房日期必須大於入住日期！");
                 btn.disabled = false;
@@ -1392,7 +1208,6 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
                 const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
                 formData.append('入住天數', days);
                 
-                // ★★★ 更新：送出表單前，重新計算一次真正的折扣金額 ★★★
                 const dCodeInput = document.getElementById('discountCodeInput');
                 const code = dCodeInput.value.trim().toUpperCase();
                 const originalCode = dCodeInput.value.trim();
@@ -1400,15 +1215,12 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
                 if (discountCodes.hasOwnProperty(code)) discountVal = discountCodes[code];
                 else if (discountCodes.hasOwnProperty(originalCode)) discountVal = discountCodes[originalCode];
                 
-                // 這裡的邏輯改為：
-                // 如果是百分比折扣，我們用「總金額」除以「折數」反推原價，算出省了多少錢
                 let discountAmount = 0;
                 if (discountVal > 0 && discountVal < 1) {
-                     let originalPrice = Math.round(finalTotal / discountVal);
-                     discountAmount = originalPrice - finalTotal;
+                      let originalPrice = Math.round(finalTotal / discountVal);
+                      discountAmount = originalPrice - finalTotal;
                 } else {
-                     // 如果是固定金額折扣 (例如 100 元)
-                     discountAmount = discountVal;
+                      discountAmount = discountVal;
                 }
                 
                 formData.append('總金額', finalTotal);
@@ -1417,7 +1229,6 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
                 const discountMsg = document.getElementById('discountMessage');
                 if(!discountMsg.classList.contains('hidden') && discountMsg.innerText.includes('✅')) {
                       let note = formData.get('備註需求');
-                      // 如果是折數，特別標註
                       if (discountVal > 0 && discountVal < 1) {
                           note += ` [使用折扣碼: ${originalCode} (打${discountVal*10}折)]`; 
                       } else {
@@ -1432,15 +1243,17 @@ Nema 6-20 旅充插座 - 10 組 (3.5kW，露友自備旅充)。</p>
                     showSuccessModal(); 
                     e.target.reset();
                     cart = {};
+                    addonCart = {}; // 清空加購
                     document.querySelectorAll('.zone-card').forEach(c => c.classList.remove('selected'));
                     input.value = '';
                     document.getElementById('priceCalcResult').classList.add('hidden');
                     document.getElementById('stayDays').classList.add('hidden');
                     document.getElementById('discountMessage').classList.add('hidden');
+                    document.getElementById('addons-container').innerHTML = ''; // 重置UI
                     zones.forEach(z => z.idx = 0);
                     renderZones('all');
+                    renderAddons(); // 重新渲染加購區 (歸零狀態)
                     if(liff.isLoggedIn()) liff.getProfile().then(p => { document.getElementById('inputName').value = p.displayName; });
-                    // 送出後重新抓一次庫存
                     fetchInventory();
                 })
                 .catch(err => { 
