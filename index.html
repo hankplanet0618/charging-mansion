@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>宜蘭露營區｜礁溪露營區｜充電莊露營區 (瑜珈森林)｜電動車充電$4/懶人露營</title>
-    <meta name="description" content="宜蘭礁溪露營推薦「充電莊」(瑜珈森林)。全台最優質電動車露營區，提供 J1772、TPC、Type2 充電樁(7kW)。擁有絕美雨棚營位、免搭帳體驗、完整裝備租借、烤肉套餐預定與農場樂趣。立即預約，享受森林與滿電回家的雙重滿足！位於宜蘭礁溪的充電莊露營區，提供百萬夜景與電動車充電服務。距離礁溪市區僅15分鐘，是宜蘭、礁溪露營、親子旅遊與懶人露營的最佳推薦。">
+    <title>宜蘭礁溪充電莊露營區 (瑜珈森林)｜裝備租借/烤肉預定/電動車充電$4/懶人露營首選</title>
+    <meta name="description" content="宜蘭礁溪露營推薦「充電莊」(瑜珈森林)。全台最優質電動車露營區，提供 J1772、TPC、Type2 充電樁(7kW)。擁有絕美雨棚營位、免搭帳體驗、完整裝備租借、烤肉套餐預定與農場樂趣。立即預約，享受森林與滿電回家的雙重滿足！">
     <meta name="robots" content="index, follow">
     <script src="https://cdn.tailwindcss.com"></script>
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
@@ -888,7 +888,8 @@
             }
             
             inDate.addEventListener('change', () => { 
-                if(inDate.value && inDate.value < MIN_DATE) { alert("目前僅提供 2/1 以後訂位！"); inDate.value = ""; } 
+                // ★★★ 移除此處原本的 alert，改為僅在計算時跳過、或等最後送出時才擋 ★★★
+                // if(inDate.value && inDate.value < MIN_DATE) { alert("目前僅提供 2/1 以後訂位！"); inDate.value = ""; } 
                 
                 if(inDate.value) {
                     const startDate = new Date(inDate.value);
@@ -1181,6 +1182,7 @@
             if(Object.keys(cart).length === 0 && Object.keys(addonCart).length === 0) { alert('請至少選擇一個營位或加購商品！'); return; }
             
             const inDateVal = document.getElementById('checkinDate').value;
+            // ★★★ 這裡保留了送出時的檢查，若日期不符會擋住 ★★★
             if (inDateVal < MIN_DATE) { alert("目前僅提供 2026/2/1 以後的訂位！"); return; }
 
             const btn = document.getElementById('submitBtn');
