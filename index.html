@@ -159,10 +159,15 @@
             </div>
         </div>
 
-        <div class="mb-8 fade-in flex justify-center" style="animation-delay: 0.15s;">
-            <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100083289610242&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="100%" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+        <div class="mb-8 fade-in flex flex-col md:flex-row gap-4 justify-center items-start" style="animation-delay: 0.15s;">
+            <div class="w-full md:w-1/2">
+                <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100083289610242&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="100%" height="350" style="border:none;overflow:hidden;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+            </div>
+            
+            <div class="w-full md:w-1/2 h-[350px] bg-black rounded-xl overflow-hidden shadow-lg relative">
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/JeoQf0x6wag?si=Ax0GtiGVvH6Tfuo8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
         </div>
-
         <div class="bg-white rounded-3xl shadow-xl overflow-hidden fade-in" style="animation-delay: 0.2s;">
             <div class="bg-green-700 p-4 text-white text-center">
                 <h3 class="font-bold text-lg">線上預訂單</h3>
@@ -294,7 +299,7 @@
             <a href="https://youtube.com/@sohocampinghank?si=hHxCi9ptRPWk7ymX" target="_blank" class="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-red-600 hover:text-white transition text-red-600 shadow-md"><i class="fab fa-youtube text-lg"></i></a>
             
             <a href="https://lin.ee/t1Ds7Hq" target="_blank" class="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-[#06C755] hover:text-white transition text-[#06C755] shadow-md"><i class="fab fa-line text-lg"></i></a>
-            <a href="https://www.google.com/maps/search/?api=1&query=宜蘭礁溪充電莊" target="_blank" class="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-red-500 hover:text-white transition text-red-500 shadow-md"><i class="fas fa-map-marker-alt text-lg"></i></a>
+           <a href="https://www.google.com/maps/search/?api=1&query=宜蘭礁溪充電莊" target="_blank" class="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-red-500 hover:text-white transition text-red-500 shadow-md"><i class="fas fa-map-marker-alt text-lg"></i></a>
         </div>
         <p>© 2025 Charging Mansion.</p>
     </footer>
@@ -372,7 +377,7 @@
         
         const SPECIAL_HOLIDAYS = [
             '2026-02-14','2026-02-15','2026-02-16','2026-02-17','2026-02-18','2026-02-19','2026-02-20','2026-02-21','2026-02-22',
-            '2026-02-27','2026-02-28','2026-03-01',
+            // '2026-02-27','2026-02-28','2026-03-01',  <-- 這一行我已經移除，這樣 2/27~3/1 就會解除封鎖，並且不會觸發露營車的限制
             '2026-04-03','2026-04-04','2026-04-05','2026-04-06',
             '2026-05-01','2026-05-02','2026-05-03',
             '2026-06-19','2026-06-20','2026-06-21',
@@ -570,7 +575,7 @@
             setupCalculator();
             renderReviews();
             renderGallery();
-            if (myLiffId !== "請填入您的LIFF_ID") await initializeLiff();
+            if (myLiffId !== "C268dc45e60850ae22e3e040f0e58a3e5") await initializeLiff();
         }
         
         // ★★★ 新增：渲染加購區的函數 ★★★
