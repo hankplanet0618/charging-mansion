@@ -580,7 +580,7 @@
             setupCalculator();
             renderReviews();
             renderGallery();
-            if (myLiffId !== "請填入您的LIFF_ID") await initializeLiff();
+            if (myLiffId !== "C268dc45e60850ae22e3e040f0e58a3e5") await initializeLiff();
         }
         
         // ★★★ 新增：渲染加購區的函數 ★★★
@@ -1205,111 +1205,6 @@
             const btn = document.getElementById('feedbackBtn');
             const originalText = btn.innerText;
             btn.disabled = true; btn.innerText = '送出中...';
-            fetch(scriptURL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
-                .then(() => { 
-                    alert('感謝您的評論，歡迎下次訂房使用【CM100】可享$100折扣唷~'); 
-                    e.target.reset(); 
-                    closeAll(); 
-                })
-                .catch(() => alert('發生錯誤'))
-                .finally(() => { btn.disabled = false; btn.innerText = originalText; });
-        });
-
-        document.getElementById('bookingForm').addEventListener('submit', e => {
-            e.preventDefault();
-            const input = document.getElementById('selectedZoneInput');
-            // 如果沒有選營位也沒有選加購，禁止送出 (但允許只買加購的情況，不過通常是需要營位)
-            // 這裡假設必須至少有一個營位或加購品
-            if(Object.keys(cart).length === 0 && Object.keys(addonCart).length === 0) { alert('請至少選擇一個營位或加購商品！'); return; }
-            
-            const inDateVal = document.getElementById('checkinDate').value;
-            if (inDateVal < MIN_DATE) { alert("目前僅提供 2026/2/1 以後的訂位！"); return; }
-
-            const btn = document.getElementById('submitBtn');
-            const originalText = btn.innerText;
-            btn.disabled = true;
-            btn.innerText = '處理中...';
-            const formData = new FormData(e.target);
-            
-            const totalText = document.getElementById('totalPriceDisplay').innerText.replace('$','').replace(/,/g,'');
-            const finalTotal = parseInt(totalText) || 0;
-            const inDateStr = document.getElementById('checkinDate').value;
-            const outDateStr = document.getElementById('checkoutDate').value;
-
-            if (inDateStr >= outDateStr) {
-                alert("退房日期必須大於入住日期！");
-                btn.disabled = false;
-                btn.innerText = originalText;
-                return;
-            }
-
-            if(inDateStr && outDateStr) {
-                const start = new Date(inDateStr);
-                const end = new Date(outDateStr);
-                const diffTime = end - start;
-                const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                formData.append('入住天數', days);
-                
-                const dCodeInput = document.getElementById('discountCodeInput');
-                const code = dCodeInput.value.trim().toUpperCase();
-                const originalCode = dCodeInput.value.trim();
-                let discountVal = 0;
-                if (discountCodes.hasOwnProperty(code)) discountVal = discountCodes[code];
-                else if (discountCodes.hasOwnProperty(originalCode)) discountVal = discountCodes[originalCode];
-                
-                let discountAmount = 0;
-                if (discountVal > 0 && discountVal < 1) {
-                      let originalPrice = Math.round(finalTotal / discountVal);
-                      discountAmount = originalPrice - finalTotal;
-                } else {
-                      discountAmount = discountVal;
-                }
-                
-                formData.append('總金額', finalTotal);
-                formData.append('折扣金額', discountAmount);
-
-                const discountMsg = document.getElementById('discountMessage');
-                if(!discountMsg.classList.contains('hidden') && discountMsg.innerText.includes('✅')) {
-                      let note = formData.get('備註需求');
-                      if (discountVal > 0 && discountVal < 1) {
-                          note += ` [使用折扣碼: ${originalCode} (打${discountVal*10}折)]`; 
-                      } else {
-                          note += ` [使用折扣碼: ${originalCode}]`; 
-                      }
-                      formData.set('備註需求', note);
-                }
-            }
-
-            fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
-                .then(() => {
-                    showSuccessModal(); 
-                    e.target.reset();
-                    cart = {};
-                    addonCart = {}; // 清空加購
-                    document.querySelectorAll('.zone-card').forEach(c => c.classList.remove('selected'));
-                    input.value = '';
-                    document.getElementById('priceCalcResult').classList.add('hidden');
-                    document.getElementById('stayDays').classList.add('hidden');
-                    document.getElementById('discountMessage').classList.add('hidden');
-                    document.getElementById('addons-container').innerHTML = ''; // 重置UI
-                    zones.forEach(z => z.idx = 0);
-                    renderZones('all');
-                    renderAddons(); // 重新渲染加購區 (歸零狀態)
-                    if(liff.isLoggedIn()) liff.getProfile().then(p => { document.getElementById('inputName').value = p.displayName; });
-                    fetchInventory();
-                })
-                .catch(err => { 
-                    console.warn('CORS 或網路干擾，但系統判斷資料已送出 (樂觀模式)', err);
-                    showSuccessModal(); 
-                })
-                .finally(() => { btn.disabled = false; btn.innerText = originalText; });
-        });
-
-        document.getElementById('paymentForm').addEventListener('submit', e => {
-            e.preventDefault();
-            const btn = document.getElementById('payBtn');
-            const originalText = btn.innerText;
-            btn.disabled = true; btn.innerText = '傳送中...';
             fetch(scriptURL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
                 .then(() => { alert('匯款回報成功！'); e.target.reset(); closeAll(); })
                 .catch(() => alert('發生錯誤'))
