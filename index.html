@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>宜蘭露營｜礁溪露營｜充電莊露營區 (瑜珈森林)｜電動車充電$4/懶人露營</title>
-    <meta name="description" content="宜蘭礁溪露營推薦「充電莊」(瑜珈森林)。全台最優質電動車露營區，提供 J1772、TPC、Type2 充電樁(7kW)。擁有絕美雨棚營位、免搭帳體驗、完整裝備租借、烤肉套餐預定與農場樂趣。立即預約，享受森林與滿電回家的雙重滿足！位於宜蘭礁溪的充電莊露營區，提供百萬夜景與電動車充電服務。距離礁溪市區僅15分鐘，是宜蘭露營、親子旅遊與懶人露營的最佳推薦。宜蘭露營區、礁溪露營區、露營樂、露營樂合作夥伴">
+    <meta name="description" content="宜蘭礁溪露營推薦「充電莊」(瑜珈森林)。全台最優質電動車露營區，提供 J1772、TPC、Type2 充電樁(7kW)。擁有絕美雨棚營位、免搭帳體驗、完整裝備租借、烤肉套餐預定與農場樂趣。立即預約，享受森林與滿電回家的雙重滿足！位於宜蘭礁溪的充電莊露營區，提供百萬夜景與電動車充電服務。距離礁溪、宜蘭市區僅15分鐘，是宜蘭露營、親子旅遊與懶人露營的最佳推薦。宜蘭露營區、礁溪露營區、露營樂、露營樂合作夥伴。">
     <meta name="robots" content="index, follow">
     <script src="https://cdn.tailwindcss.com"></script>
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
@@ -580,7 +580,7 @@
             setupCalculator();
             renderReviews();
             renderGallery();
-            if (myLiffId !== "C268dc45e60850ae22e3e040f0e58a3e5") await initializeLiff();
+            if (myLiffId !== "請填入您的LIFF_ID") await initializeLiff();
         }
         
         // ★★★ 新增：渲染加購區的函數 ★★★
@@ -1206,7 +1206,8 @@
             const btn = document.getElementById('feedbackBtn');
             const originalText = btn.innerText;
             btn.disabled = true; btn.innerText = '送出中...';
-            fetch(scriptURL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
+            // ★★★ 修正：移除 mode: 'no-cors'，確保回應可被讀取且成功畫面能正確觸發 ★★★
+            fetch(scriptURL, { method: 'POST', body: new FormData(e.target) })
                 .then(() => { alert('匯款回報成功！'); e.target.reset(); closeAll(); })
                 .catch(() => alert('發生錯誤'))
                 .finally(() => { btn.disabled = false; btn.innerText = originalText; });
