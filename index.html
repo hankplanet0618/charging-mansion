@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>宜蘭露營｜礁溪露營｜充電莊露營區 (瑜珈森林)｜電動車充電$4/懶人露營</title>
-    <meta name="description" content="宜蘭礁溪露營推薦「充電莊」(瑜珈森林)。全台最優質電動車露營區，提供 J1772、TPC、Type2 充電樁(7kW)。擁有絕美雨棚營位、免搭帳體驗、完整裝備租借、烤肉套餐預定與農場樂趣。立即預約，享受森林與滿電回家的雙重滿足！位於宜蘭礁溪的充電莊露營區，提供百萬夜景與電動車充電服務。距離礁溪市區僅15分鐘，是宜蘭露營、親子旅遊與懶人露營的最佳推薦，宜蘭露營區、礁溪露營區、露營樂、露營樂合作夥伴。">
+    <meta name="description" content="宜蘭礁溪露營推薦「充電莊」(瑜珈森林)。全台最優質電動車露營區，提供 J1772、TPC、Type2 充電樁(7kW)。擁有絕美雨棚營位、免搭帳體驗、完整裝備租借、烤肉套餐預定與農場樂趣。立即預約，享受森林與滿電回家的雙重滿足！位於宜蘭礁溪的充電莊露營區，提供百萬夜景與電動車充電服務。距離礁溪市區僅15分鐘，是宜蘭露營、親子旅遊與懶人露營的最佳推薦、宜蘭露營區、礁溪露營區、露營樂、露營樂合作夥伴。">
     <meta name="robots" content="index, follow">
     <script src="https://cdn.tailwindcss.com"></script>
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
@@ -161,14 +161,13 @@
 
         <div class="mb-8 fade-in flex flex-col md:flex-row gap-4 justify-center items-start" style="animation-delay: 0.15s;">
             <div class="w-full md:w-1/2">
-                <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100083289610242&tabs=timeline&width=500&height=350&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="100%" height="350" style="border:none;overflow:hidden;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100083289610242&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="100%" height="350" style="border:none;overflow:hidden;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
             </div>
             
             <div class="w-full md:w-1/2 h-[350px] bg-black rounded-xl overflow-hidden shadow-lg relative">
                 <iframe width="100%" height="100%" src="https://www.youtube.com/embed/JeoQf0x6wag?si=Ax0GtiGVvH6Tfuo8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>
         </div>
-
         <div class="bg-white rounded-3xl shadow-xl overflow-hidden fade-in" style="animation-delay: 0.2s;">
             <div class="bg-green-700 p-4 text-white text-center">
                 <h3 class="font-bold text-lg">線上預訂單</h3>
@@ -209,7 +208,7 @@
                             <button type="button" onclick="filterZones('grass')" class="filter-btn px-3 py-1 rounded-md text-xs font-bold transition-all text-gray-500 whitespace-nowrap">草地/碎石</button>
                         </div>
                     </div>
-                    <input type="hidden" name="預訂區域" id="selectedZoneInput">
+                    <input type="hidden" name="預訂區域" id="selectedZoneInput" required>
                     <input type="hidden" id="selectedZonePrice" value="0">
                     
                     <p class="text-xs text-orange-600 mb-2 font-bold"><i class="fas fa-info-circle"></i> 請先選擇日期，系統將自動顯示可預訂營位</p>
@@ -376,12 +375,9 @@
         const MIN_DATE = '2026-02-01';
         const BLOCKED_DATES = ['2026-02-07', '2026-03-07'];
         
-        // ★★★ 新增：定義哪些特殊假日是「允許露營車預訂」的 ★★★
-        const CAMPER_OPEN_HOLIDAYS = ['2026-02-27', '2026-02-28', '2026-03-01'];
-
         const SPECIAL_HOLIDAYS = [
             '2026-02-14','2026-02-15','2026-02-16','2026-02-17','2026-02-18','2026-02-19','2026-02-20','2026-02-21','2026-02-22',
-            '2026-02-27','2026-02-28','2026-03-01', // ★★★ 恢復：這幾天算假日價格
+            // '2026-02-27','2026-02-28','2026-03-01',  <-- 這一行我已經移除，這樣 2/27~3/1 就會解除封鎖，並且不會觸發露營車的限制
             '2026-04-03','2026-04-04','2026-04-05','2026-04-06',
             '2026-05-01','2026-05-02','2026-05-03',
             '2026-06-19','2026-06-20','2026-06-21',
@@ -564,8 +560,7 @@
             {n:"Jason", c:"這裡的落羽松季節真的超美，隨便拍都好看，很適合網美來打卡。"},
             {n:"吳先生", c:"包棟民宿設備很齊全，KTV音響效果不錯，大家玩得很盡興。"},
             {n:"Emily", c:"廁所跟浴室都保持得很乾淨，熱水也很穩，這點對露營來說太重要了。"},
-            {n:"阿豪", c:"草地區的草皮維護得很好，很軟很舒服，赤腳走也沒問題。"},
-            {n:"鴻邦", c:"宜蘭露營區，礁溪露營區，最棒的就是充電莊露營區了! 風景太美，有小型農場還有露天湯泉配夜景，根本天堂!"}
+            {n:"阿豪", c:"草地區的草皮維護得很好，很軟很舒服，赤腳走也沒問題。"}
         ];
         
         let cart = {}; 
@@ -580,7 +575,7 @@
             setupCalculator();
             renderReviews();
             renderGallery();
-            if (myLiffId !== "請填入您的LIFF_ID") await initializeLiff();
+            if (myLiffId !== "C268dc45e60850ae22e3e040f0e58a3e5") await initializeLiff();
         }
         
         // ★★★ 新增：渲染加購區的函數 ★★★
@@ -769,7 +764,6 @@
                     case 'cabinL': return 3000;
                     case 'cabinS': return 2600;
                     case 'villa': return 22000;
-                    case 'camper': return 6980; // ★★★ 修正：露營車特殊假日價格固定為 6980
                     default: return 1800;
                 }
             }
@@ -822,17 +816,13 @@
                             }
                             
                             const isSpecialDay = SPECIAL_HOLIDAYS.includes(dateStr);
-                            // ★★★ 新增：檢查這天是否在露營車開放名單中 ★★★
-                            const isCamperAllowed = CAMPER_OPEN_HOLIDAYS.includes(dateStr);
-
                             let dailyTotal = 0;
                             
                             cartEntries.forEach(([zoneName, qty]) => {
                                 const zoneData = zones.find(z => z.name === zoneName);
                                 if (!zoneData) return;
                                 
-                                // ★★★ 修改：如果這天是特殊假日，且是露營車，且不在開放名單中，才封鎖 ★★★
-                                if (isSpecialDay && zoneData.cat === 'camper' && !isCamperAllowed) {
+                                if (isSpecialDay && zoneData.cat === 'camper') {
                                     blocked = true; 
                                     blockMsg = `特殊連續假期期間，三人頂級露營車暫不開放預訂。`; 
                                     return;
@@ -944,28 +934,12 @@
             return false;
         }
 
-        // ★★★ 新增：檢查該區間是否有被封鎖的露營車假日 ★★★
-        function isCamperBlocked(startStr, endStr) {
-            if(!startStr || !endStr) return false;
-            let s = new Date(startStr);
-            let e = new Date(endStr);
-            for (let d = new Date(s); d < e; d.setDate(d.getDate() + 1)) {
-                let dateStr = d.toISOString().split('T')[0];
-                // 如果是特殊假日，且不在開放名單中 -> 封鎖
-                if (SPECIAL_HOLIDAYS.includes(dateStr) && !CAMPER_OPEN_HOLIDAYS.includes(dateStr)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
         function getSpecialPriceDisplay(cat) {
              switch(cat) {
                 case 'grass': case 'shelter': case 'room': return 1800;
                 case 'cabinL': return 3000;
                 case 'cabinS': return 2600;
                 case 'villa': return 22000;
-                case 'camper': return 6980; // ★★★ 修正：確保露營車顯示價格也是 6980 (之前少了這個case)
                 default: return 1800;
             }
         }
@@ -977,8 +951,6 @@
             const inDate = document.getElementById('checkinDate').value;
             const outDate = document.getElementById('checkoutDate').value;
             const isSpecial = hasSpecialHoliday(inDate, outDate);
-            // ★★★ 新增：取得露營車是否被封鎖的狀態 ★★★
-            const camperBlocked = isCamperBlocked(inDate, outDate);
 
             let bookedMap = {}; 
             
@@ -1009,8 +981,7 @@
                 const remaining = Math.max(0, zone.count - bookedCount);
                 const isFull = remaining <= 0;
 
-                // ★★★ 修改：使用 camperBlocked 變數來判斷 ★★★
-                if ((camperBlocked && zone.cat === 'camper') || isFull) {
+                if ((isSpecial && zone.cat === 'camper') || isFull) {
                     div.classList.add('disabled-card');
                 }
 
@@ -1045,8 +1016,7 @@
                 }
 
                 let blockText = "";
-                // ★★★ 修改：顯示封鎖文字的邏輯 ★★★
-                if (camperBlocked && zone.cat === 'camper') {
+                if (isSpecial && zone.cat === 'camper') {
                     blockText = '<span class="text-xs text-red-500 font-bold block">特殊假日不開放</span>';
                 } else if (isFull) {
                     blockText = '<span class="text-xs text-red-500 font-bold block">已額滿</span>';
@@ -1076,8 +1046,7 @@
                 
                 div.onclick = (e) => {
                     if(e.target.tagName === 'BUTTON') return;
-                    // ★★★ 修改：點擊時的封鎖判斷 ★★★
-                    if(camperBlocked && zone.cat === 'camper') { alert('特殊假日期間，三人頂級露營車暫不開放預訂。'); return; }
+                    if(isSpecial && zone.cat === 'camper') { alert('特殊假日期間，三人頂級露營車暫不開放預訂。'); return; }
                     if(isFull) { alert('此日期區間該營位已額滿。'); return; }
                     selectZone(zone.name, remaining); 
                 };
@@ -1094,12 +1063,9 @@
             if (!inDate || !outDate) { alert('請先選擇入住與退房日期'); return; }
 
             const isSpecial = hasSpecialHoliday(inDate, outDate);
-            // ★★★ 新增 ★★★
-            const camperBlocked = isCamperBlocked(inDate, outDate);
             const targetZone = zones.find(z => z.name === zoneName);
             
-            // ★★★ 修改 ★★★
-            if (camperBlocked && targetZone.cat === 'camper') {
+            if (isSpecial && targetZone.cat === 'camper') {
                  alert('特殊假日期間，三人頂級露營車暫不開放預訂。'); return;
             }
 
@@ -1206,6 +1172,111 @@
             const btn = document.getElementById('feedbackBtn');
             const originalText = btn.innerText;
             btn.disabled = true; btn.innerText = '送出中...';
+            fetch(scriptURL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
+                .then(() => { 
+                    alert('感謝您的評論，歡迎下次訂房使用【CM100】可享$100折扣唷~'); 
+                    e.target.reset(); 
+                    closeAll(); 
+                })
+                .catch(() => alert('發生錯誤'))
+                .finally(() => { btn.disabled = false; btn.innerText = originalText; });
+        });
+
+        document.getElementById('bookingForm').addEventListener('submit', e => {
+            e.preventDefault();
+            const input = document.getElementById('selectedZoneInput');
+            // 如果沒有選營位也沒有選加購，禁止送出 (但允許只買加購的情況，不過通常是需要營位)
+            // 這裡假設必須至少有一個營位或加購品
+            if(Object.keys(cart).length === 0 && Object.keys(addonCart).length === 0) { alert('請至少選擇一個營位或加購商品！'); return; }
+            
+            const inDateVal = document.getElementById('checkinDate').value;
+            if (inDateVal < MIN_DATE) { alert("目前僅提供 2026/2/1 以後的訂位！"); return; }
+
+            const btn = document.getElementById('submitBtn');
+            const originalText = btn.innerText;
+            btn.disabled = true;
+            btn.innerText = '處理中...';
+            const formData = new FormData(e.target);
+            
+            const totalText = document.getElementById('totalPriceDisplay').innerText.replace('$','').replace(/,/g,'');
+            const finalTotal = parseInt(totalText) || 0;
+            const inDateStr = document.getElementById('checkinDate').value;
+            const outDateStr = document.getElementById('checkoutDate').value;
+
+            if (inDateStr >= outDateStr) {
+                alert("退房日期必須大於入住日期！");
+                btn.disabled = false;
+                btn.innerText = originalText;
+                return;
+            }
+
+            if(inDateStr && outDateStr) {
+                const start = new Date(inDateStr);
+                const end = new Date(outDateStr);
+                const diffTime = end - start;
+                const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                formData.append('入住天數', days);
+                
+                const dCodeInput = document.getElementById('discountCodeInput');
+                const code = dCodeInput.value.trim().toUpperCase();
+                const originalCode = dCodeInput.value.trim();
+                let discountVal = 0;
+                if (discountCodes.hasOwnProperty(code)) discountVal = discountCodes[code];
+                else if (discountCodes.hasOwnProperty(originalCode)) discountVal = discountCodes[originalCode];
+                
+                let discountAmount = 0;
+                if (discountVal > 0 && discountVal < 1) {
+                      let originalPrice = Math.round(finalTotal / discountVal);
+                      discountAmount = originalPrice - finalTotal;
+                } else {
+                      discountAmount = discountVal;
+                }
+                
+                formData.append('總金額', finalTotal);
+                formData.append('折扣金額', discountAmount);
+
+                const discountMsg = document.getElementById('discountMessage');
+                if(!discountMsg.classList.contains('hidden') && discountMsg.innerText.includes('✅')) {
+                      let note = formData.get('備註需求');
+                      if (discountVal > 0 && discountVal < 1) {
+                          note += ` [使用折扣碼: ${originalCode} (打${discountVal*10}折)]`; 
+                      } else {
+                          note += ` [使用折扣碼: ${originalCode}]`; 
+                      }
+                      formData.set('備註需求', note);
+                }
+            }
+
+            fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
+                .then(() => {
+                    showSuccessModal(); 
+                    e.target.reset();
+                    cart = {};
+                    addonCart = {}; // 清空加購
+                    document.querySelectorAll('.zone-card').forEach(c => c.classList.remove('selected'));
+                    input.value = '';
+                    document.getElementById('priceCalcResult').classList.add('hidden');
+                    document.getElementById('stayDays').classList.add('hidden');
+                    document.getElementById('discountMessage').classList.add('hidden');
+                    document.getElementById('addons-container').innerHTML = ''; // 重置UI
+                    zones.forEach(z => z.idx = 0);
+                    renderZones('all');
+                    renderAddons(); // 重新渲染加購區 (歸零狀態)
+                    if(liff.isLoggedIn()) liff.getProfile().then(p => { document.getElementById('inputName').value = p.displayName; });
+                    fetchInventory();
+                })
+                .catch(err => { 
+                    console.warn('CORS 或網路干擾，但系統判斷資料已送出 (樂觀模式)', err);
+                    showSuccessModal(); 
+                })
+                .finally(() => { btn.disabled = false; btn.innerText = originalText; });
+        });
+
+        document.getElementById('paymentForm').addEventListener('submit', e => {
+            e.preventDefault();
+            const btn = document.getElementById('payBtn');
+            const originalText = btn.innerText;
+            btn.disabled = true; btn.innerText = '傳送中...';
             fetch(scriptURL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
                 .then(() => { alert('匯款回報成功！'); e.target.reset(); closeAll(); })
                 .catch(() => alert('發生錯誤'))
