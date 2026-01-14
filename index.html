@@ -580,7 +580,7 @@
             setupCalculator();
             renderReviews();
             renderGallery();
-            if (myLiffId !== "C268dc45e60850ae22e3e040f0e58a3e5") await initializeLiff();
+            if (myLiffId !== "請填入您的LIFF_ID") await initializeLiff();
         }
         
         // ★★★ 新增：渲染加購區的函數 ★★★
@@ -769,6 +769,7 @@
                     case 'cabinL': return 3000;
                     case 'cabinS': return 2600;
                     case 'villa': return 22000;
+                    case 'camper': return 6980; // ★★★ 修正：露營車特殊假日價格固定為 6980
                     default: return 1800;
                 }
             }
