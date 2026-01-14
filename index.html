@@ -161,13 +161,14 @@
 
         <div class="mb-8 fade-in flex flex-col md:flex-row gap-4 justify-center items-start" style="animation-delay: 0.15s;">
             <div class="w-full md:w-1/2">
-                <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100083289610242&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="100%" height="350" style="border:none;overflow:hidden;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100083289610242&tabs=timeline&width=500&height=350&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="100%" height="350" style="border:none;overflow:hidden;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
             </div>
             
             <div class="w-full md:w-1/2 h-[350px] bg-black rounded-xl overflow-hidden shadow-lg relative">
                 <iframe width="100%" height="100%" src="https://www.youtube.com/embed/JeoQf0x6wag?si=Ax0GtiGVvH6Tfuo8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>
         </div>
+
         <div class="bg-white rounded-3xl shadow-xl overflow-hidden fade-in" style="animation-delay: 0.2s;">
             <div class="bg-green-700 p-4 text-white text-center">
                 <h3 class="font-bold text-lg">線上預訂單</h3>
@@ -375,9 +376,12 @@
         const MIN_DATE = '2026-02-01';
         const BLOCKED_DATES = ['2026-02-07', '2026-03-07'];
         
+        // ★★★ 新增：定義哪些特殊假日是「允許露營車預訂」的 ★★★
+        const CAMPER_OPEN_HOLIDAYS = ['2026-02-27', '2026-02-28', '2026-03-01'];
+
         const SPECIAL_HOLIDAYS = [
             '2026-02-14','2026-02-15','2026-02-16','2026-02-17','2026-02-18','2026-02-19','2026-02-20','2026-02-21','2026-02-22',
-            // '2026-02-27','2026-02-28','2026-03-01',  <-- 這一行我已經移除，這樣 2/27~3/1 就會解除封鎖，並且不會觸發露營車的限制
+            '2026-02-27','2026-02-28','2026-03-01', // ★★★ 恢復：這幾天算假日價格
             '2026-04-03','2026-04-04','2026-04-05','2026-04-06',
             '2026-05-01','2026-05-02','2026-05-03',
             '2026-06-19','2026-06-20','2026-06-21',
@@ -561,6 +565,7 @@
             {n:"吳先生", c:"包棟民宿設備很齊全，KTV音響效果不錯，大家玩得很盡興。"},
             {n:"Emily", c:"廁所跟浴室都保持得很乾淨，熱水也很穩，這點對露營來說太重要了。"},
             {n:"阿豪", c:"草地區的草皮維護得很好，很軟很舒服，赤腳走也沒問題。"}
+            {n:"鴻邦", c:"宜蘭露營區，礁溪露營區，最棒的就是充電莊露營區了! 風景太美，有小型農場還有露天湯泉配夜景，根本天堂!"}
         ];
         
         let cart = {}; 
@@ -816,13 +821,17 @@
                             }
                             
                             const isSpecialDay = SPECIAL_HOLIDAYS.includes(dateStr);
+                            // ★★★ 新增：檢查這天是否在露營車開放名單中 ★★★
+                            const isCamperAllowed = CAMPER_OPEN_HOLIDAYS.includes(dateStr);
+
                             let dailyTotal = 0;
                             
                             cartEntries.forEach(([zoneName, qty]) => {
                                 const zoneData = zones.find(z => z.name === zoneName);
                                 if (!zoneData) return;
                                 
-                                if (isSpecialDay && zoneData.cat === 'camper') {
+                                // ★★★ 修改：如果這天是特殊假日，且是露營車，且不在開放名單中，才封鎖 ★★★
+                                if (isSpecialDay && zoneData.cat === 'camper' && !isCamperAllowed) {
                                     blocked = true; 
                                     blockMsg = `特殊連續假期期間，三人頂級露營車暫不開放預訂。`; 
                                     return;
@@ -934,6 +943,21 @@
             return false;
         }
 
+        // ★★★ 新增：檢查該區間是否有被封鎖的露營車假日 ★★★
+        function isCamperBlocked(startStr, endStr) {
+            if(!startStr || !endStr) return false;
+            let s = new Date(startStr);
+            let e = new Date(endStr);
+            for (let d = new Date(s); d < e; d.setDate(d.getDate() + 1)) {
+                let dateStr = d.toISOString().split('T')[0];
+                // 如果是特殊假日，且不在開放名單中 -> 封鎖
+                if (SPECIAL_HOLIDAYS.includes(dateStr) && !CAMPER_OPEN_HOLIDAYS.includes(dateStr)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         function getSpecialPriceDisplay(cat) {
              switch(cat) {
                 case 'grass': case 'shelter': case 'room': return 1800;
@@ -951,6 +975,8 @@
             const inDate = document.getElementById('checkinDate').value;
             const outDate = document.getElementById('checkoutDate').value;
             const isSpecial = hasSpecialHoliday(inDate, outDate);
+            // ★★★ 新增：取得露營車是否被封鎖的狀態 ★★★
+            const camperBlocked = isCamperBlocked(inDate, outDate);
 
             let bookedMap = {}; 
             
@@ -981,7 +1007,8 @@
                 const remaining = Math.max(0, zone.count - bookedCount);
                 const isFull = remaining <= 0;
 
-                if ((isSpecial && zone.cat === 'camper') || isFull) {
+                // ★★★ 修改：使用 camperBlocked 變數來判斷 ★★★
+                if ((camperBlocked && zone.cat === 'camper') || isFull) {
                     div.classList.add('disabled-card');
                 }
 
@@ -1016,7 +1043,8 @@
                 }
 
                 let blockText = "";
-                if (isSpecial && zone.cat === 'camper') {
+                // ★★★ 修改：顯示封鎖文字的邏輯 ★★★
+                if (camperBlocked && zone.cat === 'camper') {
                     blockText = '<span class="text-xs text-red-500 font-bold block">特殊假日不開放</span>';
                 } else if (isFull) {
                     blockText = '<span class="text-xs text-red-500 font-bold block">已額滿</span>';
@@ -1046,7 +1074,8 @@
                 
                 div.onclick = (e) => {
                     if(e.target.tagName === 'BUTTON') return;
-                    if(isSpecial && zone.cat === 'camper') { alert('特殊假日期間，三人頂級露營車暫不開放預訂。'); return; }
+                    // ★★★ 修改：點擊時的封鎖判斷 ★★★
+                    if(camperBlocked && zone.cat === 'camper') { alert('特殊假日期間，三人頂級露營車暫不開放預訂。'); return; }
                     if(isFull) { alert('此日期區間該營位已額滿。'); return; }
                     selectZone(zone.name, remaining); 
                 };
@@ -1063,9 +1092,12 @@
             if (!inDate || !outDate) { alert('請先選擇入住與退房日期'); return; }
 
             const isSpecial = hasSpecialHoliday(inDate, outDate);
+            // ★★★ 新增 ★★★
+            const camperBlocked = isCamperBlocked(inDate, outDate);
             const targetZone = zones.find(z => z.name === zoneName);
             
-            if (isSpecial && targetZone.cat === 'camper') {
+            // ★★★ 修改 ★★★
+            if (camperBlocked && targetZone.cat === 'camper') {
                  alert('特殊假日期間，三人頂級露營車暫不開放預訂。'); return;
             }
 
