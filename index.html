@@ -372,12 +372,14 @@
         const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=0#gid=0';
         const myLiffId = "2008643307-nbPNvd20"; 
 
-        const MIN_DATE = '2026-02-01';
+        // ★★★ 修改點 1：日期改為 2026-01-19 起 ★★★
+        const MIN_DATE = '2026-01-19';
         const BLOCKED_DATES = ['2026-02-07', '2026-03-07'];
         
         const SPECIAL_HOLIDAYS = [
             '2026-02-14','2026-02-15','2026-02-16','2026-02-17','2026-02-18','2026-02-19','2026-02-20','2026-02-21','2026-02-22',
-            // '2026-02-27','2026-02-28','2026-03-01',  <-- 這一行我已經移除，這樣 2/27~3/1 就會解除封鎖，並且不會觸發露營車的限制
+            // ★★★ 修改點 2：已將 2/27-3/1 取消註解，恢復為連續假日價格 (帳篷$1800/小木屋及包棟假日價) ★★★
+            '2026-02-27','2026-02-28','2026-03-01',
             '2026-04-03','2026-04-04','2026-04-05','2026-04-06',
             '2026-05-01','2026-05-02','2026-05-03',
             '2026-06-19','2026-06-20','2026-06-21',
@@ -1195,7 +1197,7 @@
             if(Object.keys(cart).length === 0 && Object.keys(addonCart).length === 0) { alert('請至少選擇一個營位或加購商品！'); return; }
             
             const inDateVal = document.getElementById('checkinDate').value;
-            if (inDateVal < MIN_DATE) { alert("目前僅提供 2026/2/1 以後的訂位！"); return; }
+            if (inDateVal < MIN_DATE) { alert("目前僅提供 2026/1/19 以後的訂位！"); return; } // ★★★ 這裡的提示文字也順便幫您微調了 ★★★
 
             const btn = document.getElementById('submitBtn');
             const originalText = btn.innerText;
