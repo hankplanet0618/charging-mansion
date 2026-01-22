@@ -378,7 +378,7 @@
         
         const SPECIAL_HOLIDAYS = [
             '2026-02-14','2026-02-15','2026-02-16','2026-02-17','2026-02-18','2026-02-19','2026-02-20','2026-02-21','2026-02-22',
-            // ★★★ 修改點 2：已將 2/27-3/1 取消註解，恢復為連續假日價格 (帳篷$1800/小木屋及包棟假日價) ★★★
+            // ★★★ 修改點 2：已將 2/27-3/1 取消註解，恢復為連續假日價格 (帳篷$1600/小木屋及包棟假日價) ★★★
             '2026-02-27','2026-02-28','2026-03-01',
             '2026-04-03','2026-04-04','2026-04-05','2026-04-06',
             '2026-05-01','2026-05-02','2026-05-03',
@@ -767,11 +767,12 @@
 
             function getSpecialPrice(cat) {
                 switch(cat) {
-                    case 'grass': case 'shelter': case 'room': return 1800;
+                    case 'grass': case 'shelter': case 'room': return 1600;
                     case 'cabinL': return 3000;
                     case 'cabinS': return 2600;
                     case 'villa': return 22000;
-                    default: return 1800;
+                    case 'villa': return 22000;
+                    default: return 1600;
                 }
             }
             
@@ -943,11 +944,12 @@
 
         function getSpecialPriceDisplay(cat) {
              switch(cat) {
-                case 'grass': case 'shelter': case 'room': return 1800;
+                case 'grass': case 'shelter': case 'room': return 1600;
                 case 'cabinL': return 3000;
                 case 'cabinS': return 2600;
                 case 'villa': return 22000;
-                default: return 1800;
+                case 'camper': return 6980;
+                default: return 1600;
             }
         }
 
