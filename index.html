@@ -2,7 +2,6 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="referrer" content="no-referrer"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>宜蘭露營｜礁溪露營｜充電莊露營區 (瑜珈森林)｜電動車充電$4｜懶人露營</title>
     <meta name="description" content="宜蘭礁溪露營推薦「充電莊」(瑜珈森林)。全台最優質電動車露營區，提供 J1772、TPC、Type2 充電樁(7kW)。擁有絕美雨棚營位、免搭帳體驗、完整裝備租借、烤肉套餐預定與農場樂趣。立即預約，享受森林與滿電回家的雙重滿足！位於宜蘭礁溪的充電莊露營區，提供百萬夜景與電動車充電服務。距離礁溪市區僅15分鐘，是宜蘭露營、親子旅遊與懶人露營的最佳推薦、宜蘭露營區、礁溪露營區、露營樂、露營樂合作夥伴、車床天地、車床天地合作夥伴。">
@@ -58,7 +57,7 @@
     <div id="overlay" onclick="closeAll()" class="fixed inset-0 bg-black bg-opacity-60 z-40 hidden transition-opacity duration-300 backdrop-blur-sm"></div>
     
     <div id="image-modal" onclick="this.classList.add('hidden')" class="fixed inset-0 z-[60] bg-black bg-opacity-90 hidden flex items-center justify-center p-4 cursor-pointer">
-        <img id="image-modal-src" src="" class="max-w-full max-h-full rounded-lg shadow-2xl transition-transform transform scale-100">
+        <img id="image-modal-src" src="" referrerpolicy="no-referrer" class="max-w-full max-h-full rounded-lg shadow-2xl transition-transform transform scale-100">
     </div>
 
     <nav class="fixed w-full z-30 transition-all duration-300 bg-gradient-to-r from-yellow-100/95 to-orange-200/95 text-stone-800 backdrop-blur-md shadow-lg">
@@ -181,8 +180,8 @@
                 <input type="hidden" id="linePictureUrl" name="Line_Picture_URL">
 
                 <div>
-                     <h4 class="text-lg font-bold text-stone-800 mb-4 border-l-4 border-green-600 pl-3">第一步：選擇預訂日期</h4>
-                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <h4 class="text-lg font-bold text-stone-800 mb-4 border-l-4 border-green-600 pl-3">第一步：選擇預訂日期</h4>
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold text-gray-500 mb-1">入住日期 <span class="text-red-500 text-[10px]">(限2026/1/19後)</span></label>
                             <input type="date" id="checkinDate" name="入住日期" min="2026-01-19" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none">
@@ -194,7 +193,7 @@
                                 <span id="stayDays" class="text-sm font-bold text-green-600 whitespace-nowrap hidden"></span>
                             </div>
                         </div>
-                     </div>
+                      </div>
                 </div>
 
                 <hr class="border-gray-200">
@@ -780,7 +779,7 @@
 
                 html += `
                     <div onclick="renderGalleryImages('${folderName}')" class="cursor-pointer group relative aspect-square rounded-xl overflow-hidden border border-stone-200 shadow-md bg-stone-100">
-                        <img src="${coverImg}" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-110 transition duration-500">
+                        <img src="${coverImg}" referrerpolicy="no-referrer" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-110 transition duration-500">
                         
                         <div class="absolute inset-0 flex flex-col items-center justify-center p-2 bg-black/40 group-hover:bg-black/20 transition">
                             <h3 class="text-white font-bold text-center text-shadow-md text-sm md:text-lg tracking-wide">${folderName}</h3>
@@ -818,7 +817,7 @@
                 images.forEach(img => {
                     html += `
                         <div class="relative w-full group rounded-lg overflow-hidden border border-gray-800 cursor-pointer" onclick="showImage('${img.u}')">
-                            <img src="${img.u}" alt="${img.t || ''}" loading="lazy" class="w-full h-auto object-cover block">
+                            <img src="${img.u}" alt="${img.t || ''}" loading="lazy" referrerpolicy="no-referrer" class="w-full h-full object-cover block">
                             ${img.t ? `<div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent text-white text-xs px-3 py-2 opacity-0 group-hover:opacity-100 transition">${img.t}</div>` : ''}
                         </div>
                     `;
@@ -844,9 +843,9 @@
                 // 每次庫存更新後，如果日期已經被選了，就重新渲染區域
                 // 這樣可以避免使用者打開網頁很久沒動，庫存沒更新到的問題
                 if(document.getElementById('checkinDate').value && document.getElementById('checkoutDate').value) {
-                     const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
-                     renderZones(activeFilter);
-                     renderAddons(); // 也要重新渲染加購區
+                      const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+                      renderZones(activeFilter);
+                      renderAddons(); // 也要重新渲染加購區
                 }
             } catch (err) {
                 console.error('無法取得庫存資料:', err);
