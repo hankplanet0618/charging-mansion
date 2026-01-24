@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="referrer" content="no-referrer"> 
-    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>宜蘭露營｜礁溪露營｜充電莊露營區 (瑜珈森林)｜電動車充電$4｜懶人露營</title>
     <meta name="description" content="宜蘭礁溪露營推薦「充電莊」(瑜珈森林)。全台最優質電動車露營區，提供 J1772、TPC、Type2 充電樁(7kW)。擁有絕美雨棚營位、免搭帳體驗、完整裝備租借、烤肉套餐預定與農場樂趣。立即預約，享受森林與滿電回家的雙重滿足！位於宜蘭礁溪的充電莊露營區，提供百萬夜景與電動車充電服務。距離礁溪市區僅15分鐘，是宜蘭露營、親子旅遊與懶人露營的最佳推薦、宜蘭露營區、礁溪露營區、露營樂、露營樂合作夥伴、車床天地、車床天地合作夥伴。">
@@ -555,7 +554,7 @@
             if (myLiffId !== "C268dc45e60850ae22e3e040f0e58a3e5") await initializeLiff();
         }
         
-        // ★★★ 新增：渲染加購區的函數 ★★★
+        // ★★★ 新增：渲染加購區的函數 (已加入庫存判斷) ★★★
         function renderAddons() {
             const container = document.getElementById('addons-container');
             if (!container) return;
@@ -582,25 +581,56 @@
             const grid = document.createElement('div');
             grid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3";
             
+            // 取得預訂日期區間，用來判斷庫存
+            const inDateVal = document.getElementById('checkinDate').value;
+            const outDateVal = document.getElementById('checkoutDate').value;
+            
+            // 計算區間內，每個品項已經被租借的最大數量
+            // 概念：如果我要住 2/1~2/3，這兩天只要其中一天「A帳篷」已經被租走了，我就不能租
+            let bookedMap = {}; 
+            if(inDateVal && outDateVal && bookedData) {
+                 const start = new Date(inDateVal);
+                 const end = new Date(outDateVal);
+                 for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
+                    let dateStr = d.toISOString().split('T')[0];
+                    if (bookedData[dateStr] && bookedData[dateStr].addons) {
+                        for (let [itemName, qty] of Object.entries(bookedData[dateStr].addons)) {
+                            bookedMap[itemName] = Math.max(bookedMap[itemName] || 0, qty);
+                        }
+                    }
+                 }
+            }
+
             items.forEach(item => {
                 const div = document.createElement('div');
                 div.className = "bg-white p-3 rounded-lg border border-gray-200 flex justify-between items-center shadow-sm";
                 
+                // 計算剩餘庫存
+                const bookedCount = bookedMap[item.name] || 0;
+                const remaining = Math.max(0, item.stock - bookedCount);
+                const isFull = remaining <= 0;
+                
+                if (isFull) {
+                    div.classList.add('opacity-50', 'pointer-events-none', 'grayscale');
+                }
+
                 const currentQty = addonCart[item.name] || 0;
                 
                 // ★★★ 修改處：檢查是否有圖片 ★★★
                 const imgHtml = item.image ? `<div class="w-16 h-16 mr-3 flex-shrink-0 cursor-pointer" onclick="showImage('${item.image}')"><img src="${item.image}" class="w-full h-full object-cover rounded-md"></div>` : '';
                 
+                let stockText = isFull ? '<span class="text-red-600 font-bold">已租完</span>' : `庫存: ${remaining} | <span class="font-bold text-${color}-600">$${item.price}</span>`;
+
                 div.innerHTML = `
                     ${imgHtml}
                     <div class="flex-1">
                         <div class="font-bold text-sm text-gray-800">${item.name}</div>
-                        <div class="text-xs text-gray-500">庫存: ${item.stock} | <span class="font-bold text-${color}-600">$${item.price}</span></div>
+                        <div class="text-xs text-gray-500">${stockText}</div>
                     </div>
                     <div class="flex items-center gap-2">
-                         <button type="button" class="w-8 h-8 rounded-full bg-stone-100 text-stone-600 font-bold hover:bg-stone-200" onclick="updateAddonQty('${item.name}', -1, ${item.stock}, ${item.price})">-</button>
+                         <button type="button" class="w-8 h-8 rounded-full bg-stone-100 text-stone-600 font-bold hover:bg-stone-200" onclick="updateAddonQty('${item.name}', -1, ${remaining}, ${item.price})">-</button>
                          <span class="w-4 text-center text-sm font-bold" id="qty-${item.name}">${currentQty}</span>
-                         <button type="button" class="w-8 h-8 rounded-full bg-stone-800 text-white font-bold hover:bg-stone-700" onclick="updateAddonQty('${item.name}', 1, ${item.stock}, ${item.price})">+</button>
+                         <button type="button" class="w-8 h-8 rounded-full bg-stone-800 text-white font-bold hover:bg-stone-700" onclick="updateAddonQty('${item.name}', 1, ${remaining}, ${item.price})">+</button>
                     </div>
                 `;
                 grid.appendChild(div);
@@ -610,14 +640,18 @@
             return wrapper;
         }
 
-        // ★★★ 新增：更新加購數量的函數 ★★★
+        // ★★★ 新增：更新加購數量的函數 (已加入庫存判斷) ★★★
         window.updateAddonQty = (name, delta, maxStock, price) => {
+            const inDate = document.getElementById('checkinDate').value;
+            const outDate = document.getElementById('checkoutDate').value;
+            if (!inDate || !outDate) { alert('請先選擇入住與退房日期，才能查看剩餘裝備數量。'); return; }
+
             let current = addonCart[name] || 0;
             let newQty = current + delta;
             
             if (newQty < 0) newQty = 0;
             if (newQty > maxStock) {
-                alert('庫存不足');
+                alert(`庫存不足，該時段剩餘數量: ${maxStock}`);
                 newQty = maxStock;
             }
             
@@ -640,49 +674,91 @@
         // ============================================
         
         let galleryData = {
-  "棧板B區": [
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1KoVNjdT0b3uJxFyxbdo2W0_hQEr4Zs0o&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1TLVSMkAsmDm-JvABCTV179VY9wrAvVW7&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=10pJ8e5cSxWKxbK_Uq0tOjxlXSGdnVwjG&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1KC0xKg_X8pzLNP6CB9A8_iFnLT3E-BG6&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=18ezF-cWzJ2YcqtDfzpb7qUiynWYlvb6O&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1aFPXDhlrfGfoibgzf1mjfwrFSc2AfULX&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1gLV28sUV4h-hxy4mNVdm8nZoglNFlyGa&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1lWAqggy4aE8sRigGLUbbLP9jvfZceXUZ&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1WGgu4SN4fNwUvhJzhcrmilXUdN1I18jl&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=138OAQezCmYCxRKrPYdOF89lIdot3P21H&sz=w1000"
-    }
-  ]
-};
+          "草地區": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1W09cneygPtFt4aMJp_TzE1wLCmVbYNPH&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1WE6GsjtkvnN0O69rHNhkEk-b1gEUIHJx&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1cDnMutMIe5wFV_xt5eicIScpwNs06SDO&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1cb_RvJNl3q83Bf8b28uk9q2UgwA2H3BY&sz=w1000" }
+          ],
+          "碎石區": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1OG66598Kdb-zMfZ3iWcMTnvKODPSspM3&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1nzkpvadQd0zb946UkWhom6ITaAl6IGgw&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1hpg4lCfaOTvxL1gzJRAqDFG72lJ2gvBd&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1CMykmiTFNtKqNtCZBzlpFZs2b0snpYOw&sz=w1000" }
+          ],
+          "空拍": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1EtvC5amdauVcErUHji5uJBOzqLEFcMtf&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1mwQqVLVkgZFM2gFgrb6Hv3NrK1nCHkfW&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1XuKdqESz6WRDUkD7Itt6CS9lRpF9eOg8&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1EuO35rrZ7fZXWkjTFOxNBCUwt7SLgs7R&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Hxd14dXsOHbN06XnWXiTAhB9mjnZnD3V&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1qknMU1NBEHlqbsuSmvevQN2XOUFwzIEz&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1sLqfrhXGoNVM9BBOL49pSHApSPwgc58Q&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1ysjeG7MsbDjmnv3Cfr-Dd8ogU9b7NSDj&sz=w1000" }
+          ],
+          "泰式免搭": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=18UZr9UuaeG6L7G3bsz8aVDUBRlm0GmV0&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1WkvAAVDLTZlEuhIfxF-9eMQtdYfjdMvP&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1T129ZISjTLKRhbirV9eVjCdn1T-ZObXT&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1cXtBwAKUQ-wS5mskdJgE8EYcTzJ3qMKB&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1LxTj8uwyd70qxyL5NKsxG06Cbcg1HNft&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1poSDm4NP090bPkYSuIa47XjzctGXXM3J&sz=w1000" }
+          ],
+          "棚架B區": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1-IVoibXS-Pe-gWrmOsdmjJMyt1OIWXVl&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1QDrT7a-jbb8J1T8BA3ae67Zox_-e2iTe&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1F_duJEzXjtfa3HvbqsEUgQPoRf8WrnuC&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1okXF-WYDrnS3DYl1HoxE0LkXAkWNl5lh&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1RPOXIVjit9UlbQFvjtdT8twCpG23TlbK&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1VYYj3sNojxjuPm8vZs2RuyY42frc43Bq&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1ryKnQmhpG-prFs07qe-PpW2buKMWaN2k&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1oBeRqUl_xx_NIK9-4Afpnz-dzCG0NTNt&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1C4h8XOg9QT73t0LAv-IQ_G-IbUQTXGIa&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1d2Orxx579pgqfkmq-NAGWlV4O61WnZYa&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1lgM_4VMpA7M8C6pNtI3tQTq4lJppJQBp&sz=w1000" }
+          ],
+          "棚架A區": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1fY7Y7kI7vOMjhhcxtrc8TUWXpm5iPK0B&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1vBkLz04uO3-6DUVnipHBnMsbCVHaDeyB&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1NIeYbAt7S6L8aETikRnMS4Y8QCB9CMgF&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1oewLpVzD7SK6c4L-vhmq0ENtERGXYACH&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1U8pAVo850gURrGAKV_tPVKokDjFdXQB1&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Q3F1G5aAqSws4jFSZjeVgIRhHYxBSLM0&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1gJp3bhzhef-RVkf_5YY-jisg2LjW26xX&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1gkUM_Yba0jgPi6gdA5DQtYwE-uj6iTOb&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1KMAYvt5NQ9L5jRa-Nd3l4XxuZLhrdDoE&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1b9q-fM2-AZcW6ml5Byhdcs0AxCke7NVC&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1rUg-sIM_HIv2nzZBsWvJkbQquPi1w24u&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1voX1LlgN_gHfZhbI8i9tCfZetrNKCE0u&sz=w1000" }
+          ],
+          "棚架C區": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1l0jhuWF_2eQdiBBvyZKNtU_kjjzali32&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1OCwq3fotgGtlL8BoOzqAay9N35aEbBmw&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1-94cWV3G6odZnwtPtUTg20HLbe_yyImI&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1ReRx8OrrYYIbfTEmg527NRJ5R9j1DVv3&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=11gisn_mqDum4hzOwsWwXHAKxfFgoKB6r&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Yg4_LLkEGirfMxdDgrE7un2PxBbs1i0r&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Tt3abYx0ePkMZ4xO1SS_xcsaZFdyLo3p&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1rZpjTWaJoqMk2VgFosiPa2HquWIzY5DJ&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1liwdvE8I3z18DBeulIRCxoAeG6tGU875&sz=w1000" }
+          ],
+          "其他": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=17zoGz-NhankevTr2O81oQw5RP4ULU_Gv&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1opV7q48ADX-2rn1lxST4FFtbDKXtu3p8&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1C2oYjEFxmbfWdreFdUPKMnjcG5IgKv_B&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1G5EHztMk4VAFuXNnQb2qB0Nk3B9NNnTZ&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1AQdwmb6VGWZpksD_jnZMvPZG4zH0JTBl&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1zINrChcUSoVOMe0sIUjZ-zl16jq5-ogE&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1u8k2pCTnUumvhDhc-vv6aCK_PvpMWPzk&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1TDtr1i6HdRZuYTkMC54pfFtTlzrCQhuP&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1VSeOsXSyMkvunr8UbT_ISp_zkOBmZk1Z&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=18R-gCPWvVkZc53FsJ98afBWbHlKN8KHS&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1VFVF6_prdmADrNbHnf_Um-fOwa9qySnu&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1uH7BbvJfxQ-34LyWZ2jXtAiox-m_Gnna&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1ivjuOzCgL5AYxOEQ5l4CH0dfzc5EVki-&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1ejkAWHkmXW9huClPT3It_Kyg7n&sz=w1000" }
+          ]
+        };
 
         // 2. 主入口：打開相簿時，預設顯示資料夾列表
         function renderGallery() {
@@ -713,10 +789,6 @@
                     </div>
                 `;
             });
-            
-            html += '</div>';
-            container.innerHTML = html;
-        }
             
             html += '</div>';
             container.innerHTML = html;
@@ -768,6 +840,14 @@
                 const data = await res.json();
                 bookedData = data; 
                 console.log('庫存資料已更新:', bookedData);
+                
+                // 每次庫存更新後，如果日期已經被選了，就重新渲染區域
+                // 這樣可以避免使用者打開網頁很久沒動，庫存沒更新到的問題
+                if(document.getElementById('checkinDate').value && document.getElementById('checkoutDate').value) {
+                     const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+                     renderZones(activeFilter);
+                     renderAddons(); // 也要重新渲染加購區
+                }
             } catch (err) {
                 console.error('無法取得庫存資料:', err);
             }
@@ -940,6 +1020,7 @@
                     cart = {};
                     zoneInput.value = '';
                     renderZones(document.querySelector('.filter-btn.active').getAttribute('data-filter'));
+                    renderAddons();
                     return;
                 }
 
@@ -1008,11 +1089,13 @@
                 calculate(); 
                 const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
                 renderZones(activeFilter);
+                renderAddons(); // 日期改變也要重刷加購區庫存
             });
             outDate.addEventListener('change', () => { 
                 calculate();
                 const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
                 renderZones(activeFilter);
+                renderAddons(); // 日期改變也要重刷加購區庫存
             });
             applyBtn.addEventListener('click', validateDiscount);
             discountInput.addEventListener('change', validateDiscount);
@@ -1056,8 +1139,8 @@
                 
                 for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
                     let dateStr = d.toISOString().split('T')[0];
-                    if (bookedData[dateStr]) {
-                        for (let [zName, qty] of Object.entries(bookedData[dateStr])) {
+                    if (bookedData[dateStr] && bookedData[dateStr].zones) { // 注意：要多判斷 .zones
+                        for (let [zName, qty] of Object.entries(bookedData[dateStr].zones)) {
                             bookedMap[zName] = Math.max(bookedMap[zName] || 0, qty);
                         }
                     }
