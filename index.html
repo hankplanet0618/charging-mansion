@@ -344,10 +344,10 @@
 
     <div id="modal-gallery" class="hidden fixed inset-0 z-[65] flex items-center justify-center md:p-4">
         <div class="absolute inset-0 bg-black/95" onclick="closeAll()"></div>
-        <div class="bg-black w-full h-full md:h-auto md:max-h-[90vh] md:max-w-2xl md:rounded-2xl z-10 relative overflow-y-auto no-scrollbar shadow-2xl">
+        <div class="bg-black w-full h-full md:h-auto md:max-h-[90vh] md:max-w-2xl md:rounded-2xl z-10 relative overflow-y-auto no-scrollbar shadow-2xl flex flex-col">
             <button onclick="closeAll()" class="absolute top-4 right-4 text-white bg-black/50 rounded-full w-10 h-10 z-20 flex items-center justify-center hover:bg-white/20 transition"><i class="fas fa-times text-xl"></i></button>
-            <div id="gallery-container" class="flex flex-col gap-1 md:gap-2 pb-10">
-                </div>
+            <div id="gallery-container" class="flex flex-col gap-1 md:gap-2 pb-10 p-2">
+            </div>
         </div>
     </div>
 
@@ -521,35 +521,7 @@
             { id: 'B04', name: '4999頂級海陸套餐(10-15人含所有烤肉用具，餐具自備)', price: 4999, stock: 5 }
         ];
         
-        const galleryImages = [
-            {t:'最美風景', u:'https://i.ibb.co/WNtbJQKQ/image.jpg'},
-            {t:'山景', u:'https://i.ibb.co/6cx1xrVR/image.jpg'},
-            {t:'夜景', u:'https://i.ibb.co/vCPbyL8x/image.jpg'},
-            {t:'小木屋小', u:'https://i.ibb.co/4n2CPt5X/image.jpg'},
-            {t:'小木屋小', u:'https://i.ibb.co/VYpvt7NF/image.jpg'},
-            {t:'小木屋大', u:'https://i.ibb.co/CpNgsKHw/image.jpg'},
-            {t:'民宿', u:'https://i.ibb.co/6RyZYPVy/7-KW.jpg'},
-            {t:'泰式免搭', u:'https://i.ibb.co/60bXNB57/image.jpg'},
-            {t:'泰式免搭', u:'https://i.ibb.co/DHhm1sWR/2.jpg'},
-            {t:'棚架A', u:'https://i.ibb.co/KjBcKGvt/A-DDcar.jpg'},
-            {t:'棚架A', u:'https://i.ibb.co/RTypZTzW/A1.jpg'},
-            {t:'棚架A', u:'https://i.ibb.co/hRNQ84SY/A.jpg'},
-            {t:'棚架B', u:'https://i.ibb.co/bMQ51htS/B.jpg'},
-            {t:'棚架B', u:'https://i.ibb.co/7JY7xRYp/B.jpg'},
-            {t:'棚架C', u:'https://i.ibb.co/c70KNkJ/C1.jpg'},
-            {t:'棧板B', u:'https://i.ibb.co/JRmcf3bw/B.jpg'},
-            {t:'棧板A+遊戲區', u:'https://i.ibb.co/XrMggq46/1.jpg'},
-            {t:'草皮/碎石', u:'https://i.ibb.co/S73TLHJR/2.jpg'},
-            {t:'草皮/碎石', u:'https://i.ibb.co/k6D740Ht/image.jpg'},
-            {t:'草皮/碎石', u:'https://i.ibb.co/7xsg5nfv/1.jpg'},
-            {t:'草皮/碎石', u:'https://i.ibb.co/DDLBdhNk/3.jpg'},
-            {t:'露營車', u:'https://i.ibb.co/cX7VrjGh/image.jpg'},
-            {t:'露營車', u:'https://i.ibb.co/4wmRggX9/image.jpg'},
-            {t:'雲海', u:'https://i.ibb.co/Z6NbCNDT/image.jpg'},
-            {t:'活動美景', u:'https://i.ibb.co/LdDqVyjX/image.jpg'},
-            {t:'活動空拍', u:'https://i.ibb.co/mCjR74pf/image.jpg'}
-        ];
-
+        
         // 僅供 modal-gear 參考用的列表 (不影響租借邏輯)
         const gears = [{n:'月亮椅/休閒椅',p:'100'},{n:'平躺椅',p:'150'},{n:'卡式爐/蜘蛛爐(含瓦斯)',p:'200'},{n:'五星爐(含瓦斯)',p:'300'},{n:'IGT桌全套',p:'600'},{n:'天幕 3*3+桿',p:'250'},{n:'天幕 3*5+桿',p:'350'},{n:'超聲波地墊 3*3',p:'150'},{n:'野餐地墊 2*2/燈具',p:'100'},{n:'落地頂級四葉燈',p:'350'},{n:'杜邦鯤9車尾帳',p:'1000'},{n:'代搭帳服務',p:'500'},{n:'投影機',p:'300'},{n:'投影布幕',p:'100'},{n:'電暖器/焚火台(鐵)',p:'200'},{n:'焚火台(純鈦)',p:'350'},{n:'木柴',p:'100'},{n:'電動車車床方案',p:'150'}];
         
@@ -661,18 +633,170 @@
             window.reCalculate();
         }
 
+        // ============================================
+        // ★★★ 新的相簿設定 (資料夾模式) ★★★
+        // ============================================
+        
+        let galleryData = {
+          "草地區": [
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1W09cneygPtFt4aMJp_TzE1wLCmVbYNPH" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1WE6GsjtkvnN0O69rHNhkEk-b1gEUIHJx" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1cDnMutMIe5wFV_xt5eicIScpwNs06SDO" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1cb_RvJNl3q83Bf8b28uk9q2UgwA2H3BY" }
+          ],
+          "碎石區": [
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1OG66598Kdb-zMfZ3iWcMTnvKODPSspM3" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1nzkpvadQd0zb946UkWhom6ITaAl6IGgw" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1hpg4lCfaOTvxL1gzJRAqDFG72lJ2gvBd" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1CMykmiTFNtKqNtCZBzlpFZs2b0snpYOw" }
+          ],
+          "空拍": [
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1EtvC5amdauVcErUHji5uJBOzqLEFcMtf" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1mwQqVLVkgZFM2gFgrb6Hv3NrK1nCHkfW" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1XuKdqESz6WRDUkD7Itt6CS9lRpF9eOg8" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1EuO35rrZ7fZXWkjTFOxNBCUwt7SLgs7R" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1Hxd14dXsOHbN06XnWXiTAhB9mjnZnD3V" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1qknMU1NBEHlqbsuSmvevQN2XOUFwzIEz" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1sLqfrhXGoNVM9BBOL49pSHApSPwgc58Q" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1ysjeG7MsbDjmnv3Cfr-Dd8ogU9b7NSDj" }
+          ],
+          "泰式免搭": [
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=18UZr9UuaeG6L7G3bsz8aVDUBRlm0GmV0" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1WkvAAVDLTZlEuhIfxF-9eMQtdYfjdMvP" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1T129ZISjTLKRhbirV9eVjCdn1T-ZObXT" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1cXtBwAKUQ-wS5mskdJgE8EYcTzJ3qMKB" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1LxTj8uwyd70qxyL5NKsxG06Cbcg1HNft" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1poSDm4NP090bPkYSuIa47XjzctGXXM3J" }
+          ],
+          "棚架B區": [
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1-IVoibXS-Pe-gWrmOsdmjJMyt1OIWXVl" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1QDrT7a-jbb8J1T8BA3ae67Zox_-e2iTe" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1F_duJEzXjtfa3HvbqsEUgQPoRf8WrnuC" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1okXF-WYDrnS3DYl1HoxE0LkXAkWNl5lh" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1RPOXIVjit9UlbQFvjtdT8twCpG23TlbK" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1VYYj3sNojxjuPm8vZs2RuyY42frc43Bq" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1ryKnQmhpG-prFs07qe-PpW2buKMWaN2k" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1oBeRqUl_xx_NIK9-4Afpnz-dzCG0NTNt" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1C4h8XOg9QT73t0LAv-IQ_G-IbUQTXGIa" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1d2Orxx579pgqfkmq-NAGWlV4O61WnZYa" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1lgM_4VMpA7M8C6pNtI3tQTq4lJppJQBp" }
+          ],
+          "棚架A區": [
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1fY7Y7kI7vOMjhhcxtrc8TUWXpm5iPK0B" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1vBkLz04uO3-6DUVnipHBnMsbCVHaDeyB" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1NIeYbAt7S6L8aETikRnMS4Y8QCB9CMgF" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1oewLpVzD7SK6c4L-vhmq0ENtERGXYACH" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1U8pAVo850gURrGAKV_tPVKokDjFdXQB1" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1Q3F1G5aAqSws4jFSZjeVgIRhHYxBSLM0" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1gJp3bhzhef-RVkf_5YY-jisg2LjW26xX" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1gkUM_Yba0jgPi6gdA5DQtYwE-uj6iTOb" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1KMAYvt5NQ9L5jRa-Nd3l4XxuZLhrdDoE" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1b9q-fM2-AZcW6ml5Byhdcs0AxCke7NVC" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1rUg-sIM_HIv2nzZBsWvJkbQquPi1w24u" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1voX1LlgN_gHfZhbI8i9tCfZetrNKCE0u" }
+          ],
+          "棚架C區": [
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1l0jhuWF_2eQdiBBvyZKNtU_kjjzali32" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1OCwq3fotgGtlL8BoOzqAay9N35aEbBmw" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1-94cWV3G6odZnwtPtUTg20HLbe_yyImI" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1ReRx8OrrYYIbfTEmg527NRJ5R9j1DVv3" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=11gisn_mqDum4hzOwsWwXHAKxfFgoKB6r" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1Yg4_LLkEGirfMxdDgrE7un2PxBbs1i0r" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1Tt3abYx0ePkMZ4xO1SS_xcsaZFdyLo3p" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1rZpjTWaJoqMk2VgFosiPa2HquWIzY5DJ" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1liwdvE8I3z18DBeulIRCxoAeG6tGU875" }
+          ],
+          "其他": [
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=17zoGz-NhankevTr2O81oQw5RP4ULU_Gv" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1opV7q48ADX-2rn1lxST4FFtbDKXtu3p8" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1C2oYjEFxmbfWdreFdUPKMnjcG5IgKv_B" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1G5EHztMk4VAFuXNnQb2qB0Nk3B9NNnTZ" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1AQdwmb6VGWZpksD_jnZMvPZG4zH0JTBl" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1zINrChcUSoVOMe0sIUjZ-zl16jq5-ogE" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1u8k2pCTnUumvhDhc-vv6aCK_PvpMWPzk" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1TDtr1i6HdRZuYTkMC54pfFtTlzrCQhuP" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1VSeOsXSyMkvunr8UbT_ISp_zkOBmZk1Z" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=18R-gCPWvVkZc53FsJ98afBWbHlKN8KHS" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1VFVF6_prdmADrNbHnf_Um-fOwa9qySnu" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1uH7BbvJfxQ-34LyWZ2jXtAiox-m_Gnna" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1ivjuOzCgL5AYxOEQ5l4CH0dfzc5EVki-" },
+            { "t": "", "u": "https://drive.google.com/uc?export=view&id=1ejkAWHkmXW9huClPT3It_Kyg7n" }
+          ]
+        };
+
+        // 2. 主入口：打開相簿時，預設顯示資料夾列表
         function renderGallery() {
+            renderGalleryFolders(); 
+        }
+
+        // 3. 顯示資料夾列表的畫面
+        function renderGalleryFolders() {
             const container = document.getElementById('gallery-container');
-            let html = '';
-            galleryImages.forEach(img => {
+            
+            let html = '<div class="grid grid-cols-2 md:grid-cols-3 gap-3 p-2">';
+            
+            // 抓出所有資料夾名稱並產生按鈕
+            Object.keys(galleryData).forEach(folderName => {
+                // 抓該資料夾的第一張圖當封面，如果沒有就留白
+                const images = galleryData[folderName];
+                const coverImg = images && images.length > 0 ? images[0].u : '';
+                const count = images ? images.length : 0;
+
                 html += `
-                    <div class="relative w-full">
-                        <img src="${img.u}" alt="${img.t}" loading="lazy" class="w-full h-auto object-cover block">
-                        <div class="absolute bottom-2 left-2 bg-black/50 text-white text-xs px-3 py-1 rounded backdrop-blur-sm">${img.t}</div>
+                    <div onclick="renderGalleryImages('${folderName}')" class="cursor-pointer group relative aspect-square rounded-xl overflow-hidden border border-stone-200 shadow-md bg-stone-100">
+                        <img src="${coverImg}" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-110 transition duration-500">
+                        
+                        <div class="absolute inset-0 flex flex-col items-center justify-center p-2 bg-black/40 group-hover:bg-black/20 transition">
+                            <i class="fas fa-folder-open text-3xl text-yellow-400 drop-shadow-md mb-2"></i>
+                            <h3 class="text-white font-bold text-center text-shadow-md text-sm md:text-lg tracking-wide">${folderName}</h3>
+                            <span class="text-[10px] text-stone-200 bg-black/50 px-2 py-0.5 rounded-full mt-1 border border-white/20">${count} 張</span>
+                        </div>
                     </div>
                 `;
             });
+            
+            html += '</div>';
             container.innerHTML = html;
+        }
+
+        // 4. 顯示特定資料夾內照片的畫面 (含返回按鈕)
+        function renderGalleryImages(folderName) {
+            const container = document.getElementById('gallery-container');
+            const images = galleryData[folderName];
+            
+            let html = '';
+
+            // ★ 加入返回按鈕與標題區塊
+            html += `
+                <div class="sticky top-0 z-20 bg-black/80 backdrop-blur-md p-3 mb-2 flex items-center gap-3 border-b border-gray-700">
+                    <button onclick="renderGalleryFolders()" class="text-white bg-white/10 hover:bg-white/30 px-3 py-1 rounded-full text-sm transition flex items-center gap-1">
+                        <i class="fas fa-arrow-left"></i> 返回
+                    </button>
+                    <h3 class="text-yellow-400 font-bold text-lg text-shadow-sm flex-1 truncate">${folderName}</h3>
+                </div>
+            `;
+            
+            // 照片列表
+            html += '<div class="flex flex-col gap-2 p-2">';
+            
+            if (images && images.length > 0) {
+                images.forEach(img => {
+                    html += `
+                        <div class="relative w-full group rounded-lg overflow-hidden border border-gray-800 cursor-pointer" onclick="showImage('${img.u}')">
+                            <img src="${img.u}" alt="${img.t || ''}" loading="lazy" class="w-full h-auto object-cover block">
+                            ${img.t ? `<div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent text-white text-xs px-3 py-2 opacity-0 group-hover:opacity-100 transition">${img.t}</div>` : ''}
+                        </div>
+                    `;
+                });
+            } else {
+                html += '<p class="text-white text-center py-10">此資料夾沒有照片</p>';
+            }
+            
+            html += '</div>';
+            
+            container.innerHTML = html;
+            // 切換後自動捲動到最上方
+            if (container.parentElement) container.parentElement.scrollTop = 0;
         }
 
         async function fetchInventory() {
