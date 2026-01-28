@@ -473,7 +473,7 @@
             { id: 'ZA3', name: '棚架 C 區', count: 3, cat: 'shelter', desc: '安靜舒適獨立區車停帳邊 (3帳)', price: 1400, badge: '', images: ['https://i.ibb.co/c70KNkJ/C1.jpg', 'https://i.ibb.co/zTRCxcwq/2.jpg'], idx: 0 },
             { id: 'ZB1', name: '棧板 A 區', count: 3, cat: 'grass', desc: '架高防潮+遊戲區 (3帳)', price: 1400, badge: '', images: ['https://i.ibb.co/XrMggq46/1.jpg'], idx: 0 },
             { id: 'ZB2', name: '棧板 B 區', count: 2, cat: 'grass', desc: '棚架 (2帳)車停帳邊', price: 1400, badge: '', images: ['https://i.ibb.co/JRmcf3bw/B.jpg'], idx: 0 },
-            { id: 'ZC1', name: '三人頂級露營車', count: 2, cat: 'camper', desc: '最有溫度的一晚 (2台)車停帳邊', price: 3980, badge: '最高級的懶人享受，送烤肉', images: ['https://i.ibb.co/jvXBxJWw/4.jpg'], idx: 0 },
+            { id: 'ZC1', name: '三人頂級露營車', count: 2, cat: 'camper', desc: '最有溫度的一晚 (2台)車停帳邊', price: 3000, badge: '最高級的懶人享受，送烤肉', images: ['https://i.ibb.co/jvXBxJWw/4.jpg'], idx: 0 },
             { id: 'ZC2', name: '小木屋 (大)', count: 1, cat: 'cabinL', desc: '家庭首選 (1間)', price: 2600, badge: '', images: ['https://i.ibb.co/4n2CPt5X/image.jpg', 'https://i.ibb.co/VYpvt7NF/image.jpg'], idx: 0 },
             { id: 'ZC3', name: '小木屋 (小)', count: 1, cat: 'cabinS', desc: '溫馨三人 (1間)', price: 2200, badge: '', images: ['https://i.ibb.co/CpNgsKHw/image.jpg', 'https://i.ibb.co/VW4t8GH4/image.jpg'], idx: 0 },
             { id: 'ZD1', name: '草地區', count: 6, cat: 'grass', desc: '親近自然的美好 (6帳)車停帳邊', price: 1400, badge: '', images: ['https://i.ibb.co/7xsg5nfv/1.jpg', 'https://i.ibb.co/DDLBdhNk/3.jpg', 'https://i.ibb.co/S73TLHJR/2.jpg'], idx: 0 },
@@ -506,13 +506,13 @@
         ];
 
         const tents = [
-            { id: 'T01', name: '代搭帳服務', price: 500, stock: 50 },
-            { id: 'T02', name: 'KZM-T250', price: 2000, stock: 1 },
-            { id: 'T03', name: 'Coody8', price: 2000, stock: 1 },
-            { id: 'T04', name: '杜邦鯤9車尾帳', price: 1000, stock: 1 },
-            { id: 'T05', name: '迪卡儂 4.2 充氣帳', price: 800, stock: 1 },
-            { id: 'T06', name: 'IF充氣帳篷6.0', price: 800, stock: 1 },
-            { id: 'T07', name: '挪客屋脊6', price: 600, stock: 1 }
+            { id: 'T00', name: '代收搭服務', price: 500, stock: 50 }, // ★★★ 新增這一項，對應選單第一項 ★★★
+            { id: 'T05', name: '迪卡儂 4.2 充氣帳', price: 800, stock: 5 },
+            { id: 'T07', name: '挪客屋脊6', price: 600, stock: 5 },
+            { id: 'T06', name: 'IF充氣帳篷6.0', price: 800, stock: 5 },
+            { id: 'T04', name: '杜邦鯤9車尾帳', price: 1000, stock: 5 },
+            { id: 'T02', name: 'KZM-T250', price: 2000, stock: 5 },
+            { id: 'T03', name: 'Coody8', price: 2000, stock: 5 }
         ];
 
         const bbqs = [
@@ -540,45 +540,24 @@
         ];
 
         // ============================================
-        // ★★★ 補回：免搭帳專區資料與渲染函數 ★★★
+        // ★★★ 補回：免搭帳專區資料與渲染函數 (更新為最新清單) ★★★
         // ============================================
         
         const tentInfoData = [
             {
-                name: "泰式免搭神殿帳 (懶人首選)",
-                price: "1,400",
-                desc: "無需搭帳，直接入住！包含：神殿帳、氣墊床、冷氣空調。適合不想動手的新手或情侶。",
-                img: "https://i.ibb.co/60bXNB57/image.jpg", 
-                tag: "熱門營位"
+                name: "代收搭服務 (自備帳篷)",
+                price: "500",
+                desc: "專人為您搭設與撤收帳篷，讓您輕鬆享受露營樂趣 (不含帳篷，僅服務)。",
+                img: "https://i.ibb.co/60bXNB57/image.jpg", // 示意圖
+                tag: "必選服務",
+                highlight: true // ★★★ 標記為需要特殊強調的項目
             },
-            {
-                name: "KZM-T250 充氣帳 (租借)",
-                price: "2,000",
-                desc: "韓國知名品牌，黑膠塗層遮光性佳，一房一廳大空間，搭設快速方便。",
-                img: "https://image.ruten.com.tw/g2/0/3e/16/22213346450966_961.jpg", 
-                tag: "頂級租借"
-            },
-            {
-                name: "Coody 8.0 充氣帳 (租借)",
-                price: "2,000",
-                desc: "充氣帳中的豪宅，空間寬敞，結構穩固，提供最舒適的露營體驗。",
-                img: "https://img.ruten.com.tw/s1/7/8f/d9/22323869966297_370.jpg", 
-                tag: "豪華享受"
-            },
-            {
-                name: "迪卡儂 4.2 充氣帳 (租借)",
-                price: "800",
-                desc: "兩房一廳設計，適合兩對情侶或家庭，CP值最高的選擇。",
-                img: "https://contents.mediadecathlon.com/p1597843/k$f1b402120d8294970404374352518770/wq.jpg",
-                tag: "高CP值"
-            },
-            {
-                name: "杜邦鯤9 車尾帳 (租借)",
-                price: "1,000",
-                desc: "專為車宿設計，延伸車內空間，通風良好，防蚊防蟲。",
-                img: "https://img.alicdn.com/imgextra/i4/2200724564282/O1CN01Wl7J1r1C8KqQ6Zq1h_!!2200724564282.jpg",
-                tag: "車宿必備"
-            }
+            { name: "迪卡儂 4.2 充氣帳 (租借)", price: "800", img: "https://i.ibb.co/5WGjJV0Y/4-2.jpg", desc: "兩房一廳設計，適合兩對情侶或家庭，CP值最高的選擇。" },
+            { name: "挪客屋脊 6 (租借)", price: "600", img: "https://i.ibb.co/mVdMmHqb/6.jpg", desc: "經典小屋帳，適合3-4人小家庭。" },
+            { name: "IF 充氣帳篷 6.0 (租借)", price: "800", img: "https://i.ibb.co/bgdggSG1/IF-6-0.jpg", desc: "寬敞充氣帳，搭建容易。" },
+            { name: "杜邦鯤 9 車尾帳 (租借)", price: "1,000", img: "https://i.ibb.co/JRQtGCS7/9.jpg", desc: "專為車宿設計，延伸車內空間，通風良好，防蚊防蟲。" },
+            { name: "KZM-T250 充氣帳 (租借)", price: "2,000", img: "https://i.ibb.co/G4zSJ98h/tw-11134208-81ztg-meterwxf57gmfa.jpg", desc: "韓國知名品牌，黑膠塗層遮光性佳，一房一廳大空間。" },
+            { name: "Coody 8.0 充氣帳 (租借)", price: "2,000", img: "https://i.ibb.co/0yRncf2r/coody-8.jpg", desc: "充氣帳中的豪宅，空間寬敞，結構穩固，提供最舒適的露營體驗。" }
         ];
 
         function renderTentInfo() {
@@ -586,23 +565,33 @@
             if (!container) return;
 
             let html = '';
-            tentInfoData.forEach(item => {
+            tentInfoData.forEach((item, index) => {
+                // ★★★ 判斷是否為強調項目 (第一項) ★★★
+                const isHighlight = item.highlight || index === 0;
+                
+                // 定義樣式：如果是強調項目，文字變超大、變紫色、框線加粗變紫色
+                const borderClass = isHighlight ? "border-4 border-purple-500 shadow-xl transform scale-[1.02]" : "border border-gray-100 shadow-md";
+                const titleClass = isHighlight ? "text-3xl font-extrabold text-purple-700 tracking-tight" : "text-lg font-bold text-stone-800";
+                const priceClass = isHighlight ? "text-3xl font-black text-purple-600" : "text-xl font-bold text-purple-600";
+                const bgClass = isHighlight ? "bg-purple-50" : "bg-white";
+
                 html += `
-                    <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden flex flex-col md:flex-row">
-                        <div class="w-full md:w-48 h-48 bg-gray-200 relative">
+                    <div class="${bgClass} rounded-xl ${borderClass} overflow-hidden flex flex-col md:flex-row transition-all relative">
+                        <div class="w-full md:w-48 h-48 bg-gray-200 relative flex-shrink-0">
                             <img src="${item.img}" class="w-full h-full object-cover">
-                            ${item.tag ? `<span class="absolute top-2 left-2 bg-purple-600 text-white text-xs px-2 py-1 rounded shadow">${item.tag}</span>` : ''}
+                            ${item.tag ? `<span class="absolute top-2 left-2 bg-purple-600 text-white text-xs px-2 py-1 rounded shadow font-bold tracking-wider">${item.tag}</span>` : ''}
                         </div>
                         <div class="p-4 flex-1 flex flex-col justify-between">
                             <div>
-                                <h4 class="font-bold text-lg text-stone-800 mb-1">${item.name}</h4>
+                                <h4 class="${titleClass} mb-2">${item.name}</h4>
                                 <p class="text-sm text-gray-500 leading-relaxed mb-4">${item.desc}</p>
                             </div>
-                            <div class="flex justify-between items-end border-t pt-3">
-                                <span class="text-xs text-gray-400">不含營位費</span>
-                                <span class="text-xl font-bold text-purple-600">$${item.price} <span class="text-xs text-gray-500 font-normal">/晚</span></span>
+                            <div class="flex justify-between items-end border-t border-gray-200 pt-3">
+                                <span class="text-xs text-gray-400 font-bold bg-gray-100 px-2 py-1 rounded">不含營位費</span>
+                                <span class="${priceClass}">$${item.price} <span class="text-xs text-gray-500 font-normal">/次</span></span>
                             </div>
                         </div>
+                        ${isHighlight ? '<div class="absolute top-0 right-0 bg-yellow-400 text-purple-900 text-xs font-bold px-3 py-1 rounded-bl-xl z-20 shadow">推薦</div>' : ''}
                     </div>
                 `;
             });
@@ -1299,318 +1288,6 @@
     {
       "t": "",
       "u": "https://drive.google.com/thumbnail?id=1IsWZe4RiYmRRhOBtN-5iueZsz9Zv7J43&sz=w1000"
-    }
-  ],
-  "包棟民宿": [
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1OgiXtPbp4V7Mv_SVAtR-_MQsAEWjSAcT&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1BGyy0Lwv7ABFuL8QXwrnFnpsWITkyMbe&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1UU9bhkQsOEZDTmaC62k6PA8T2uG4yDqc&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1YOMuXXwoPtW7BKM-Of7n7kv3yEcMbl3Y&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1BuGJdTiqWsx4b-K6WfE8BdzT6qoirDl9&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1TGKNjfIKjiGTYwO4pis33VtgFNEfRPQi&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1w8LJD9ZdmpGZJgnUGrMN5DqsUXdUK4l5&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1IiEb-58jtMQvkfBhfdCCS3CziOjfxSnW&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1EGKkt_HJvrItCCNFvvC89ZItH--28j-4&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1DA4kbG7NTNaBVNF30Iw-w2GHs-pwS6M7&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1HYp45BnmxHSDTdYDBPI7MA_UmFTppw_C&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1o1XXqJg-isQNoeidkrop-_KrUZ1boAVt&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1LINb1dXniOCSF92S4MNcx9FEofgtJDe5&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1mUox0SK6_Zc-iSvka_4T9vCouwX9KnOG&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1lYKwk0tQ_-MtUJ_eR1xtN0ilZgC-MwJV&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1q8WFnXFRvS01JrygtBsIKZBj_L9Mon25&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1KBdUQ9xvN57V8LMZlCujbt0k7nXraxaZ&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1_0O4vogaWZnHWMVC2Z8ojasTqtMGLkQK&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=14khDcJuvY0wv4_CsB1mYdERNPVgWDMB1&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1LvjcizL0iwuk1aG4PkMQBrhNDf-wEOGe&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1MqYQxr4P59B3vYxYS6HuM9Qqi6RlWuq1&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1CJqF3mj-EUJkk2uIeuSKV289LRatdTRr&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1q-dbWtXcFMLzepFgBBE8U1w_PE4LpBaZ&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1Xwp_xO2OqiJFM809afz6SingWgssxWoG&sz=w1000"
-    }
-  ],
-  "廁所": [
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=15ootVM8p3XPXzyiMD6VhUSDhShOZxZBd&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1kHLspFKWzbqiRQcZm7mtjiaOoVbFxW4j&sz=w1000"
-    }
-  ],
-  "小木屋": [
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1FNgdD14M7pEu7u_lwJV8lKuYApPzItDu&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=186TllxWaZSV__GT0yzebQ227jDxntBRu&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1MBUgPmCXIa-FzXZQCjUoZeexGFParTHo&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1c-2kzswBk-5eK1DmAFlEkDsEI-Wgg10j&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1896E3A1wMC4JuaPwjc8l_-BFFWHXvBdn&sz=w1000"
-    }
-  ],
-  "大木屋": [
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=11fldtygegpBoLYtmU-JHUY3WjrT21xfw&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=12-BSeUEi5LPFhdmb2XW8fYrav8pzewWi&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1Y-LE5GkEU3FC367l_bwPYXaJ0fMbgaNv&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=18v_GyxiquBNQZgqCYzsazi_gtI4y1gGw&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1QPONyhdKqE7346n9v1icvMPjPjcgN6-h&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1jHw7_fkX_HsDL9X77RMNQ2nkocn665fF&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1o3SF2XiJt7AYyb8T8sVI9hwpXn_3o6SZ&sz=w1000"
-    }
-  ],
-  "三人頂級露營車": [
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1uD-CtO7vkcm3t0wtKEPfU2tEnqO40xAU&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1GiR152DeVm5KHNW9Mm-37XBujZucZ3vW&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1WM3JqgUG0s_jp7sX7LQG5hggaXgz9kvw&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1zVYC0Ym30Jvg9yNcE5NCUbf4XrSLtYEQ&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1SVa50I3LlwFSY6Bwo8y0_3mEAQUnYp7S&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1a_Yrut9r3WRNYH5QOFlfYRZMyzBRmH1F&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1HC8JyrJl7ymIghIVvlWfNvfLtYKDGS8D&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1v5w_tw9eq6reChihGuVAw0H7ocQBb0Gi&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1jUc-clrv0bMtxwqZBKJmMdZr-aNt17HS&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1Buj4Gb8QK2PpOaA-U66qcdUJ8pZtl8YC&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=14R2Cpggz9DyiKaOol-fIKTjleLKdgRfv&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1NaZTL4FZ53oiPntVQt7a-q8sPwUHcmuj&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1-G8Y-Od2_6A9p3F6L0sz7rs3YsF_bDy9&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=11EkQnfutsuOyeCGezsByhM2AN-rOL4Mg&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1u6I2bxeeijTtt5E0wKWDDXR8oHcUJa2I&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1LjeFsFZt999OrokSbrlBkQ3f1DzO-Utg&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1h8CUZS-cEH1HcvOdf4TnuE-iThVtiZ_X&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1hhy5-ir_v4WlhXXdg16cq68iR-2TdE1x&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1OJusMxBtKwq03LLohY6DA1oiJSN3F5cY&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1rYlJHe15iVW6yHTP4SqHgfNjAUzL9vrU&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1F-S19cSElgpwDD84KFLnHCpds4OdjEzB&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1HZwEiHT210N6cctzgTH6-h3El-ZbZgaZ&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1k-oyxXiiZSh9byFEBu6ZARQg7r-1bBY-&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1iDQ0g2g8sQKZTwLH04L-1qAzBgcCSCCU&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1-IdxiON4pviabebO4Zx_7O1jylTOX70Y&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1JNiAmdyXqUn4OoVH1-ACaMbzfD8jZDiB&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1GuJDbTCm17kvJgSDdexryb8qQfrzYBX9&sz=w1000"
-    }
-  ],
-  "棧板B區": [
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1KoVNjdT0b3uJxFyxbdo2W0_hQEr4Zs0o&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1TLVSMkAsmDm-JvABCTV179VY9wrAvVW7&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=10pJ8e5cSxWKxbK_Uq0tOjxlXSGdnVwjG&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1KC0xKg_X8pzLNP6CB9A8_iFnLT3E-BG6&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=18ezF-cWzJ2YcqtDfzpb7qUiynWYlvb6O&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1aFPXDhlrfGfoibgzf1mjfwrFSc2AfULX&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1gLV28sUV4h-hxy4mNVdm8nZoglNFlyGa&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1lWAqggy4aE8sRigGLUbbLP9jvfZceXUZ&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1WGgu4SN4fNwUvhJzhcrmilXUdN1I18jl&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=138OAQezCmYCxRKrPYdOF89lIdot3P21H&sz=w1000"
     }
   ]
 };
