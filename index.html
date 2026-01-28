@@ -548,6 +548,7 @@
                 name: "代收搭服務 (自備帳篷)",
                 price: "500",
                 desc: "專人為您搭設與撤收帳篷，讓您輕鬆享受露營樂趣 (不含帳篷，僅服務)。",
+                img: "https://i.ibb.co/60bXNB57/image.jpg", // 示意圖
                 tag: "頂級懶人服務",
                 highlight: true // ★★★ 標記為需要特殊強調的項目
             },
@@ -555,7 +556,7 @@
             { name: "挪客屋脊 6 (租借)", price: "600", img: "https://i.ibb.co/mVdMmHqb/6.jpg", desc: "經典小屋帳，適合3-4人小家庭。" },
             { name: "IF 充氣帳篷 6.0 (租借)", price: "800", img: "https://i.ibb.co/bgdggSG1/IF-6-0.jpg", desc: "CP值充氣帳，搭建容易。" },
             { name: "杜邦鯤 9 車尾帳 (租借)", price: "1,000", img: "https://i.ibb.co/JRQtGCS7/9.jpg", desc: "專為車宿設計，密合度99%，延伸車內空間，通風良好，防蚊防蟲。" },
-            { name: "KZM-T250 充氣帳 (租借)", price: "2,000", img: "https://i.ibb.co/G4zSJ98h/tw-11134208-81ztg-meterwxf57gmfa.jpg", desc: "韓國知名品牌，缺貨，一房一廳大空間。" },
+            { name: "KZM-T250 充氣帳 (租借)", price: "2,000", img: "https://i.ibb.co/G4zSJ98h/tw-11134208-81ztg-meterwxf57gmfa.jpg", desc: "韓國知名品牌，大缺貨最熱門，一房一廳大空間。" },
             { name: "Coody 8.0 充氣帳 (租借)", price: "2,000", img: "https://i.ibb.co/0yRncf2r/coody-8.jpg", desc: "充氣帳中的豪宅，空間寬敞，結構穩固，提供最舒適的露營體驗。" }
         ];
 
@@ -575,17 +576,16 @@
                 const bgClass = isHighlight ? "bg-purple-50" : "bg-white";
 
                 html += `
-                    <div class="${bgClass} rounded-xl ${borderClass} overflow-hidden flex flex-col md:flex-row transition-all relative">
-                        <div class="w-full md:w-48 h-48 bg-gray-200 relative flex-shrink-0">
-                            <img src="${item.img}" class="w-full h-full object-cover">
-                            ${item.tag ? `<span class="absolute top-2 left-2 bg-purple-600 text-white text-xs px-2 py-1 rounded shadow font-bold tracking-wider">${item.tag}</span>` : ''}
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col justify-between">
+                    <div class="${bgClass} rounded-xl ${borderClass} p-5 relative transition-all">
+                        <div class="flex flex-col justify-between h-full">
                             <div>
-                                <h4 class="${titleClass} mb-2">${item.name}</h4>
+                                <div class="flex justify-between items-start mb-2">
+                                     <h4 class="${titleClass} flex-1 pr-4">${item.name}</h4>
+                                     ${item.tag ? `<span class="bg-purple-600 text-white text-xs px-2 py-1 rounded shadow font-bold tracking-wider whitespace-nowrap">${item.tag}</span>` : ''}
+                                </div>
                                 <p class="text-sm text-gray-500 leading-relaxed mb-4">${item.desc}</p>
                             </div>
-                            <div class="flex justify-between items-end border-t border-gray-200 pt-3">
+                            <div class="flex justify-between items-end border-t border-gray-200 pt-3 mt-auto">
                                 <span class="text-xs text-gray-400 font-bold bg-gray-100 px-2 py-1 rounded">不含營位費</span>
                                 <span class="${priceClass}">$${item.price} <span class="text-xs text-gray-500 font-normal">/次</span></span>
                             </div>
