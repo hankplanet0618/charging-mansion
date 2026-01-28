@@ -473,7 +473,7 @@
             { id: 'ZA3', name: '棚架 C 區', count: 3, cat: 'shelter', desc: '安靜舒適獨立區車停帳邊 (3帳)', price: 1400, badge: '', images: ['https://i.ibb.co/c70KNkJ/C1.jpg', 'https://i.ibb.co/zTRCxcwq/2.jpg'], idx: 0 },
             { id: 'ZB1', name: '棧板 A 區', count: 3, cat: 'grass', desc: '架高防潮+遊戲區 (3帳)', price: 1400, badge: '', images: ['https://i.ibb.co/XrMggq46/1.jpg'], idx: 0 },
             { id: 'ZB2', name: '棧板 B 區', count: 2, cat: 'grass', desc: '棚架 (2帳)車停帳邊', price: 1400, badge: '', images: ['https://i.ibb.co/JRmcf3bw/B.jpg'], idx: 0 },
-            { id: 'ZC1', name: '三人頂級露營車', count: 2, cat: 'camper', desc: '最有溫度的一晚 (2台)車停帳邊', price: 6980, badge: '最高級的懶人享受，送烤肉', images: ['https://i.ibb.co/jvXBxJWw/4.jpg'], idx: 0 },
+            { id: 'ZC1', name: '三人頂級露營車', count: 2, cat: 'camper', desc: '最有溫度的一晚 (2台)車停帳邊', price: 3980, badge: '最高級的懶人享受，送烤肉', images: ['https://i.ibb.co/jvXBxJWw/4.jpg'], idx: 0 },
             { id: 'ZC2', name: '小木屋 (大)', count: 1, cat: 'cabinL', desc: '家庭首選 (1間)', price: 2600, badge: '', images: ['https://i.ibb.co/4n2CPt5X/image.jpg', 'https://i.ibb.co/VYpvt7NF/image.jpg'], idx: 0 },
             { id: 'ZC3', name: '小木屋 (小)', count: 1, cat: 'cabinS', desc: '溫馨三人 (1間)', price: 2200, badge: '', images: ['https://i.ibb.co/CpNgsKHw/image.jpg', 'https://i.ibb.co/VW4t8GH4/image.jpg'], idx: 0 },
             { id: 'ZD1', name: '草地區', count: 6, cat: 'grass', desc: '親近自然的美好 (6帳)車停帳邊', price: 1400, badge: '', images: ['https://i.ibb.co/7xsg5nfv/1.jpg', 'https://i.ibb.co/DDLBdhNk/3.jpg', 'https://i.ibb.co/S73TLHJR/2.jpg'], idx: 0 },
@@ -538,6 +538,76 @@
             {n:"Emily", c:"廁所跟浴室都保持得很乾淨，熱水也很穩，這點對露營來說太重要了。"},
             {n:"阿豪", c:"草地區的草皮維護得很好，很軟很舒服，赤腳走也沒問題。"}
         ];
+
+        // ============================================
+        // ★★★ 補回：免搭帳專區資料與渲染函數 ★★★
+        // ============================================
+        
+        const tentInfoData = [
+            {
+                name: "泰式免搭神殿帳 (懶人首選)",
+                price: "1,400",
+                desc: "無需搭帳，直接入住！包含：神殿帳、氣墊床、冷氣空調。適合不想動手的新手或情侶。",
+                img: "https://i.ibb.co/60bXNB57/image.jpg", 
+                tag: "熱門營位"
+            },
+            {
+                name: "KZM-T250 充氣帳 (租借)",
+                price: "2,000",
+                desc: "韓國知名品牌，黑膠塗層遮光性佳，一房一廳大空間，搭設快速方便。",
+                img: "https://image.ruten.com.tw/g2/0/3e/16/22213346450966_961.jpg", 
+                tag: "頂級租借"
+            },
+            {
+                name: "Coody 8.0 充氣帳 (租借)",
+                price: "2,000",
+                desc: "充氣帳中的豪宅，空間寬敞，結構穩固，提供最舒適的露營體驗。",
+                img: "https://img.ruten.com.tw/s1/7/8f/d9/22323869966297_370.jpg", 
+                tag: "豪華享受"
+            },
+            {
+                name: "迪卡儂 4.2 充氣帳 (租借)",
+                price: "800",
+                desc: "兩房一廳設計，適合兩對情侶或家庭，CP值最高的選擇。",
+                img: "https://contents.mediadecathlon.com/p1597843/k$f1b402120d8294970404374352518770/wq.jpg",
+                tag: "高CP值"
+            },
+            {
+                name: "杜邦鯤9 車尾帳 (租借)",
+                price: "1,000",
+                desc: "專為車宿設計，延伸車內空間，通風良好，防蚊防蟲。",
+                img: "https://img.alicdn.com/imgextra/i4/2200724564282/O1CN01Wl7J1r1C8KqQ6Zq1h_!!2200724564282.jpg",
+                tag: "車宿必備"
+            }
+        ];
+
+        function renderTentInfo() {
+            const container = document.querySelector('#modal-tent .space-y-6');
+            if (!container) return;
+
+            let html = '';
+            tentInfoData.forEach(item => {
+                html += `
+                    <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden flex flex-col md:flex-row">
+                        <div class="w-full md:w-48 h-48 bg-gray-200 relative">
+                            <img src="${item.img}" class="w-full h-full object-cover">
+                            ${item.tag ? `<span class="absolute top-2 left-2 bg-purple-600 text-white text-xs px-2 py-1 rounded shadow">${item.tag}</span>` : ''}
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col justify-between">
+                            <div>
+                                <h4 class="font-bold text-lg text-stone-800 mb-1">${item.name}</h4>
+                                <p class="text-sm text-gray-500 leading-relaxed mb-4">${item.desc}</p>
+                            </div>
+                            <div class="flex justify-between items-end border-t pt-3">
+                                <span class="text-xs text-gray-400">不含營位費</span>
+                                <span class="text-xl font-bold text-purple-600">$${item.price} <span class="text-xs text-gray-500 font-normal">/晚</span></span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
         
         let cart = {}; 
         let addonCart = {}; // ★★★ 新增：裝備購物車 ★★★
@@ -547,7 +617,8 @@
             await fetchInventory();
             renderZones('all'); 
             renderGears(); 
-            renderAddons(); // ★★★ 新增：渲染加購區 ★★★
+            renderAddons(); 
+            renderTentInfo(); // ★★★ 新增這行：執行免搭帳渲染 ★★★
             setupCalculator();
             renderReviews();
             renderGallery();
@@ -1781,12 +1852,6 @@
                                 const zoneData = zones.find(z => z.name === zoneName);
                                 if (!zoneData) return;
                                 
-                                if (isSpecialDay && zoneData.cat === 'camper') {
-                                    blocked = true; 
-                                    blockMsg = `特殊連續假期期間，三人頂級露營車暫不開放預訂。`; 
-                                    return;
-                                }
-                                
                                 let price = isSpecialDay ? getSpecialPrice(zoneData.cat) : zoneData.price;
                                 dailyTotal += price * qty;
                             });
@@ -1944,7 +2009,7 @@
                 const remaining = Math.max(0, zone.count - bookedCount);
                 const isFull = remaining <= 0;
 
-                if ((isSpecial && zone.cat === 'camper') || isFull) {
+                if (isFull) {
                     div.classList.add('disabled-card');
                 }
 
@@ -1979,9 +2044,7 @@
                 }
 
                 let blockText = "";
-                if (isSpecial && zone.cat === 'camper') {
-                    blockText = '<span class="text-xs text-red-500 font-bold block">特殊假日不開放</span>';
-                } else if (isFull) {
+                if (isFull) {
                     blockText = '<span class="text-xs text-red-500 font-bold block">已額滿</span>';
                 } else if (inDate && outDate) {
                     blockText = `<span class="text-[10px] text-blue-600 font-bold block">剩餘 ${remaining} 帳</span>`;
@@ -2009,7 +2072,6 @@
                 
                 div.onclick = (e) => {
                     if(e.target.tagName === 'BUTTON') return;
-                    if(isSpecial && zone.cat === 'camper') { alert('特殊假日期間，三人頂級露營車暫不開放預訂。'); return; }
                     if(isFull) { alert('此日期區間該營位已額滿。'); return; }
                     selectZone(zone.name, remaining); 
                 };
@@ -2024,13 +2086,6 @@
             const inDate = document.getElementById('checkinDate').value;
             const outDate = document.getElementById('checkoutDate').value;
             if (!inDate || !outDate) { alert('請先選擇入住與退房日期'); return; }
-
-            const isSpecial = hasSpecialHoliday(inDate, outDate);
-            const targetZone = zones.find(z => z.name === zoneName);
-            
-            if (isSpecial && targetZone.cat === 'camper') {
-                 alert('特殊假日期間，三人頂級露營車暫不開放預訂。'); return;
-            }
 
             let currentQty = cart[zoneName] || 0;
             let newQty = currentQty + delta;
