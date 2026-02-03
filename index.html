@@ -51,6 +51,78 @@
             100% { box-shadow: 0 0 0 0 rgba(6, 199, 85, 0); }
         }
         .line-btn-pulse { animation: pulse-btn 2s infinite; }
+
+        /* ========================================= */
+        /* ★★★ 關於我們 詩意排版樣式新增 ★★★ */
+        /* ========================================= */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;500;700&display=swap');
+
+        .about-poetic-container {
+            font-family: 'Noto Serif TC', serif;
+            color: #4a4a4a;
+            line-height: 2.4;
+            text-align: center;
+            letter-spacing: 0.05em;
+            padding: 20px 10px;
+        }
+        .camp-name-styled {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #999;
+            letter-spacing: 0.3em;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        .camp-name-styled::after {
+            content: "";
+            display: block;
+            width: 30px;
+            height: 1px;
+            background: #ddd;
+            margin: 15px auto;
+        }
+        .poetic-highlight {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #749F82; /* 淡雅草綠色 */
+            margin: 60px 0;
+            line-height: 1.6;
+            letter-spacing: 0.1em;
+        }
+        .narrative-text {
+            font-size: 1.05rem;
+            font-weight: 300;
+            margin-bottom: 40px;
+            text-align: justify;
+            text-align-last: center;
+        }
+        .feature-accent {
+            color: #5d7e68;
+            font-weight: 500;
+            border-bottom: 1px solid #c9d6cc;
+        }
+        .leaf-divider {
+            color: #749F82;
+            font-size: 1.2rem;
+            margin: 30px 0;
+            opacity: 0.5;
+        }
+        .quote-footer {
+            font-size: 1.4rem;
+            color: #749F82;
+            margin-top: 50px;
+            font-weight: 500;
+        }
+        .welcome-msg {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 15px;
+            letter-spacing: 0.2em;
+        }
+        @media (max-width: 768px) {
+            .poetic-highlight { font-size: 1.3rem; margin: 40px 0; }
+            .narrative-text { font-size: 1rem; line-height: 2.1; }
+        }
     </style>
 </head>
 <body class="bg-green-50 text-stone-800 font-sans">
@@ -354,7 +426,61 @@
     <div id="modal-blog" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl z-10 p-6 relative max-h-[85vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button><h3 class="text-xl font-bold mb-6 text-center text-pink-600">營區生活網誌</h3><div class="space-y-8"><div class="border-b border-gray-100 pb-6"><div class="flex items-center gap-2 mb-2"><span class="bg-pink-100 text-pink-600 text-[10px] px-2 py-1 rounded-full font-bold">最新活動</span><span class="text-xs text-gray-400">2025/02/01</span></div><h4 class="text-lg font-bold text-stone-800 mb-3">228團露熱烈報名中</h4><p class="text-stone-600 text-sm leading-relaxed">團露有辦桌活動、露天溫泉、齊全的親子設施、還有兒童無糖糖果製作，當天還會抽冰虎冰箱一台<br>直接官網報名吧!」<br>歡迎大家趁著228連假來體驗充電莊的一切美好。</p></div></div><p class="text-center text-xs text-gray-400 mt-6">持續更新中...</p></div></div>
     <div id="modal-report" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-center text-yellow-600">匯款回報</h3><form id="paymentForm" class="space-y-4"><input type="hidden" name="sheetName" value="匯款紀錄"><div><label class="block text-xs font-bold text-gray-500 mb-1">匯款姓名</label><input type="text" name="匯款姓名" required class="w-full border rounded p-2"></div><div><label class="block text-xs font-bold text-gray-500 mb-1">帳號末五碼</label><input type="text" name="末五碼" required class="w-full border rounded p-2"></div><div><label class="block text-xs font-bold text-gray-500 mb-1">匯款金額</label><input type="number" name="匯款金額" required class="w-full border rounded p-2"></div><div><label class="block text-xs font-bold text-gray-500 mb-1">匯款日期</label><input type="date" name="匯款日期" required class="w-full border rounded p-2"></div><button type="submit" id="payBtn" class="w-full bg-yellow-500 text-stone-900 font-bold py-3 rounded-lg hover:bg-yellow-400">送出回報</button></form></div></div>
     <div id="modal-bank" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"><div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-center">匯款資訊</h3><div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200"><p class="text-sm text-gray-600">銀行：<span class="font-bold text-black">823 將來銀行</span></p><p class="text-sm text-gray-600 mt-2">戶名：<span class="font-bold text-black">林均鴻</span></p><p class="text-sm text-gray-600 mt-2">帳號：</p><p class="text-xl font-mono font-bold text-blue-800 bg-white p-2 rounded border mt-1 text-center">8865-0975-0204-25</p></div><p class="text-xs text-center text-gray-400 mt-4">匯款後請點選選單「匯款回報」</p></div></div></div>
-    <div id="modal-about" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-xl rounded-2xl shadow-2xl z-10 p-0 relative max-h-[85vh] overflow-y-auto border-t-8 border-orange-200"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 z-20"><i class="fas fa-times text-xl"></i></button><div class="p-8 pb-4"><h3 class="text-2xl font-bold mb-1 text-stone-800 text-center tracking-widest">關於充電莊</h3><p class="text-center text-xs text-stone-400 font-light mb-8">— 尋找屬於你的那座山 —</p><div class="space-y-8"><div class="border-l-4 border-green-700 pl-5 py-1"><p class="text-stone-600 leading-relaxed text-sm md:text-base font-serif">充電莊，隱在宜蘭礁溪深溝的山腰...（省略部分文字以節省空間）...那一刻，你就到了。</p></div></div></div></div></div>
+    
+    <div id="modal-about" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
+        <div class="bg-white w-full max-w-3xl rounded-2xl shadow-2xl z-10 p-0 relative max-h-[85vh] overflow-y-auto border-t-8 border-orange-200">
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 z-20">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            <div class="about-poetic-container">
+                <div class="camp-name-styled">充電莊露營區</div>
+
+                <div class="poetic-highlight">
+                    隱在宜蘭礁溪深溝的山腰，<br>
+                    像一首還未被唱起的祕密詩。
+                </div>
+
+                <div class="narrative-text">
+                    這裡沒有繁複造景，卻能遠眺四季龜山島的日出日落；<br>
+                    感受秋日落羽松鋪出的一地紅毯；<br>
+                    冬日的櫻花綻放、聆聽夏日蟲鳴、潮聲。
+                </div>
+
+                <div class="leaf-divider">✦</div>
+
+                <div class="narrative-text">
+                    這裡有 <span class="feature-accent">95% 雨棚營位</span>，讓喜愛露營的人下雨不淋、烈日不曬；<br>
+                    懶人能躺平，孩子能放電。在這裡插上充電槍，泡一壺茶，坐進彩色木椅，<br>
+                    看電量悠悠回滿；看光線擁吻山海；看孩子追螢火蟲，追著夏日的童年。
+                </div>
+
+                <div class="narrative-text">
+                    2025 年，我露營了 <span style="font-weight: 500;">七十九次</span>。我知道露營的幸福，<br>
+                    是有風有雨也不狼狽，有星有月也不孤單。<br>
+                    於是我接下了「充電莊」——這裡不是我的營地，是我兒子的王國，<br>
+                    也是為每一個電量歸零的人，準備的一個溫暖避風港。
+                </div>
+
+                <div class="narrative-text">
+                    如果有一天，你開上山路，電量亮紅，請再往前一點點。<br>
+                    你會看見落羽松在搖、燈在亮，茶香飄來，孩子笑著奔跑。
+                </div>
+
+                <div class="poetic-highlight">
+                    那一刻，你就到了。
+                </div>
+
+                <div class="narrative-text">
+                    這裡允許你把電放完，也把心充滿；<br>
+                    允許你懶，也允許你盡情奔跑。
+                </div>
+
+                <div class="quote-footer">「山中若有眠，夢裡總是青。」</div>
+                <div class="welcome-msg">歡迎愛露營的你，來這裡充電。</div>
+            </div>
+        </div>
+    </div>
     <div id="modal-map" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl z-10 p-6 relative max-h-[85vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button><h3 class="text-xl font-bold mb-4 text-center text-green-800">營區配置圖</h3><div class="mb-6 rounded-lg overflow-hidden shadow-lg border border-gray-200"><img src="https://i.ibb.co/zhbGX1SB/image.png" alt="營區地圖" class="w-full h-auto object-contain"></div></div></div>
     <div id="modal-rules" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-red-600">營區須知</h3><ul class="list-disc pl-5 space-y-2 text-sm text-gray-700"><li>請注意寧靜時間為每天晚上10點後...</li></ul></div></div>
     <div id="modal-qa" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-6 text-center text-yellow-600">營區常見問題 (Q&A)</h3><div class="space-y-4"><div class="bg-stone-50 p-4 rounded-lg"><h4 class="font-bold text-stone-800 text-sm mb-1">Q: 入營與拔營時間？</h4><p class="text-gray-600 text-xs">A: 一般營位入營時間為 12:00...</p></div></div></div></div>
