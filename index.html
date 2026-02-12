@@ -556,7 +556,7 @@
         
         const SPECIAL_HOLIDAYS = [
             '2026-02-14','2026-02-15','2026-02-16','2026-02-17','2026-02-18','2026-02-19','2026-02-20','2026-02-21','2026-02-22',
-            // ★★★ 修改點 2：已將 2/27-3/1 取消註解，恢復為連續假日價格 (帳篷$1800/小木屋及包棟假日價) ★★★
+            // ★★★ 修改點 2：已將 2/27-3/1 取消註解，恢復為連續假日價格 (帳篷$1400/小木屋及包棟假日價) ★★★
             '2026-02-27','2026-02-28','2026-03-01',
             '2026-04-03','2026-04-04','2026-04-05','2026-04-06',
             '2026-05-01','2026-05-02','2026-05-03',
@@ -633,12 +633,12 @@
             'CM100': 100, 
             '竹科臻邦': 500, 
             '蓓蓓團': 700, 
-            '連假gogo': 500,
+            '連假gogo': 300,
             '芮蒂': 500, 
-            '普卡': 0.392857, 
-            'VIP卡': 0.32142857, 
+            '普卡': 0.55, 
+            'VIP卡': 0.45, 
             '特惠': 800,
-            'CNY': 300,
+            'CNY': 100,
             '包場': 0.85, 
             'VIP': 0.9,
             'Chill孩': 0.95, 
@@ -646,18 +646,18 @@
         };
 
         const zones = [
-            { id: 'ZA1', name: '棚架 A 區', count: 9, cat: 'shelter', desc: '寬敞遮雨棚車停帳邊 (9帳)', price: 1400, badge: '熱門', images: ['https://i.ibb.co/KjBcKGvt/A-DDcar.jpg', 'https://i.ibb.co/RTypZTzW/A1.jpg', 'https://i.ibb.co/hRNQ84SY/A.jpg'], idx: 0 },
-            { id: 'ZA2', name: '棚架 B 區', count: 4, cat: 'shelter', desc: '適合包區車停帳邊 (4帳)', price: 1400, badge: '', images: ['https://i.ibb.co/bMQ51htS/B.jpg', 'https://i.ibb.co/7JY7xRYp/B.jpg'], idx: 0 },
-            { id: 'ZA3', name: '棚架 C 區', count: 3, cat: 'shelter', desc: '安靜舒適獨立區車停帳邊 (3帳)', price: 1400, badge: '', images: ['https://i.ibb.co/c70KNkJ/C1.jpg', 'https://i.ibb.co/zTRCxcwq/2.jpg'], idx: 0 },
-            { id: 'ZB1', name: '棧板 A 區', count: 3, cat: 'grass', desc: '架高防潮+遊戲區 (3帳)', price: 1400, badge: '', images: ['https://i.ibb.co/XrMggq46/1.jpg'], idx: 0 },
-            { id: 'ZB2', name: '棧板 B 區', count: 2, cat: 'grass', desc: '棚架 (2帳)車停帳邊', price: 1400, badge: '', images: ['https://i.ibb.co/JRmcf3bw/B.jpg'], idx: 0 },
+            { id: 'ZA1', name: '棚架 A 區', count: 9, cat: 'shelter', desc: '寬敞遮雨棚車停帳邊 (9帳)', price: 1000, badge: '熱門', images: ['https://i.ibb.co/KjBcKGvt/A-DDcar.jpg', 'https://i.ibb.co/RTypZTzW/A1.jpg', 'https://i.ibb.co/hRNQ84SY/A.jpg'], idx: 0 },
+            { id: 'ZA2', name: '棚架 B 區', count: 4, cat: 'shelter', desc: '適合包區車停帳邊 (4帳)', price: 1000, badge: '', images: ['https://i.ibb.co/bMQ51htS/B.jpg', 'https://i.ibb.co/7JY7xRYp/B.jpg'], idx: 0 },
+            { id: 'ZA3', name: '棚架 C 區', count: 3, cat: 'shelter', desc: '安靜舒適獨立區車停帳邊 (3帳)', price: 1000, badge: '', images: ['https://i.ibb.co/c70KNkJ/C1.jpg', 'https://i.ibb.co/zTRCxcwq/2.jpg'], idx: 0 },
+            { id: 'ZB1', name: '棧板 A 區', count: 3, cat: 'grass', desc: '架高防潮+遊戲區 (3帳)', price: 1000, badge: '', images: ['https://i.ibb.co/XrMggq46/1.jpg'], idx: 0 },
+            { id: 'ZB2', name: '棧板 B 區', count: 2, cat: 'grass', desc: '棚架 (2帳)車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/JRmcf3bw/B.jpg'], idx: 0 },
             { id: 'ZC1', name: '三人頂級露營車', count: 2, cat: 'camper', desc: '最有溫度的一晚 (2台)車停帳邊', price: 3600, badge: '最高級的懶人享受', images: ['https://i.ibb.co/jvXBxJWw/4.jpg'], idx: 0 },
             { id: 'ZC2', name: '小木屋 (大)', count: 1, cat: 'cabinL', desc: '家庭首選 (1間)', price: 2600, badge: '', images: ['https://i.ibb.co/4n2CPt5X/image.jpg', 'https://i.ibb.co/VYpvt7NF/image.jpg'], idx: 0 },
             { id: 'ZC3', name: '小木屋 (小)', count: 1, cat: 'cabinS', desc: '溫馨三人 (1間)', price: 2200, badge: '', images: ['https://i.ibb.co/CpNgsKHw/image.jpg', 'https://i.ibb.co/VW4t8GH4/image.jpg'], idx: 0 },
-            { id: 'ZD1', name: '草地區', count: 6, cat: 'grass', desc: '親近自然的美好 (6帳)車停帳邊', price: 1400, badge: '', images: ['https://i.ibb.co/7xsg5nfv/1.jpg', 'https://i.ibb.co/DDLBdhNk/3.jpg', 'https://i.ibb.co/S73TLHJR/2.jpg'], idx: 0 },
-            { id: 'ZD2', name: '碎石地區', count: 2, cat: 'grass', desc: '充電紮營首選 (2帳)車停帳邊', price: 1400, badge: '', images: ['https://i.ibb.co/k6D740Ht/image.jpg'], idx: 0 },
+            { id: 'ZD1', name: '草地區', count: 6, cat: 'grass', desc: '親近自然的美好 (6帳)車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/7xsg5nfv/1.jpg', 'https://i.ibb.co/DDLBdhNk/3.jpg', 'https://i.ibb.co/S73TLHJR/2.jpg'], idx: 0 },
+            { id: 'ZD2', name: '碎石地區', count: 2, cat: 'grass', desc: '充電紮營首選 (2帳)車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/k6D740Ht/image.jpg'], idx: 0 },
             { id: 'ZE1', name: '包棟民宿 (16人)', count: 1, cat: 'villa', desc: '4房一起K歌最開心 (1棟)', price: 20000, badge: '獨享', images: ['https://i.ibb.co/6RyZYPVy/7-KW.jpg'], idx: 0 },
-            { id: 'ZF1', name: '泰式免搭', count: 8, cat: 'room', desc: '懶人新福音 (8帳)', price: 1400, badge: '最新', images: ['https://i.ibb.co/60bXNB57/image.jpg', 'https://i.ibb.co/DHhm1sWR/2.jpg'], idx: 0 }
+            { id: 'ZF1', name: '泰式免搭', count: 8, cat: 'room', desc: '懶人新福音 (8帳)', price: 1000, badge: '最新', images: ['https://i.ibb.co/60bXNB57/image.jpg', 'https://i.ibb.co/DHhm1sWR/2.jpg'], idx: 0 }
         ];
 
         // ★★★ 新增區塊資料定義 ★★★
@@ -916,7 +916,7 @@
         // ★★★ 新的相簿設定 (資料夾模式) ★★★
         // ============================================
         
-       let galleryData = {
+      let galleryData = {
   "木屋外觀": [
     {
       "t": "",
@@ -1960,12 +1960,12 @@
 
             function getSpecialPrice(cat) {
                 switch(cat) {
-                    case 'grass': case 'shelter': case 'room': return 1800;
+                    case 'grass': case 'shelter': case 'room': return 1400;
                     case 'cabinL': return 3000;
                     case 'cabinS': return 2600;
                     case 'villa': return 22000;
-                    case 'camper': return 6980;
-                    default: return 1800;
+                    case 'camper': return 3600;
+                    default: return 1400;
                 }
             }
             
@@ -2011,19 +2011,36 @@
                         
                         for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
                             let dateStr = d.toISOString().split('T')[0];
+                            let dayOfWeek = d.getDay(); // 0:周日, 1:周一..., 5:周五, 6:周六
                             
                             if (BLOCKED_DATES.includes(dateStr)) { 
                                 blocked = true; blockMsg = `【當天已包場滿額】${dateStr}，請重新預定選擇日期`; break; 
                             }
                             
                             const isSpecialDay = SPECIAL_HOLIDAYS.includes(dateStr);
+                            const isWeekend = (dayOfWeek === 5 || dayOfWeek === 6 || dayOfWeek === 0) && !isSpecialDay;
+                            
                             let dailyTotal = 0;
                             
                             cartEntries.forEach(([zoneName, qty]) => {
                                 const zoneData = zones.find(z => z.name === zoneName);
                                 if (!zoneData) return;
                                 
-                                let price = isSpecialDay ? getSpecialPrice(zoneData.cat) : zoneData.price;
+                                let price = zoneData.price;
+                                
+                                if (isSpecialDay) {
+                                    price = getSpecialPrice(zoneData.cat);
+                                } else if (isWeekend) {
+                                    // 假日 (非連假之五六日) 價格邏輯
+                                    if (['grass', 'shelter', 'room'].includes(zoneData.cat)) {
+                                        price = 1200;
+                                    } else {
+                                        // 對於木屋、包棟等，假日通常視同連假價格或特殊價
+                                        // 這裡使用 getSpecialPrice 確保不會變成平日價
+                                        price = getSpecialPrice(zoneData.cat);
+                                    }
+                                }
+                                
                                 dailyTotal += price * qty;
                             });
                             
@@ -2134,12 +2151,12 @@
 
         function getSpecialPriceDisplay(cat) {
              switch(cat) {
-                case 'grass': case 'shelter': case 'room': return 1800;
+                case 'grass': case 'shelter': case 'room': return 1400;
                 case 'cabinL': return 3000;
                 case 'cabinS': return 2600;
                 case 'villa': return 22000;
-                case 'camper': return 6980;
-                default: return 1800;
+                case 'camper': return 3600;
+                default: return 1400;
             }
         }
 
@@ -2150,6 +2167,17 @@
             const inDate = document.getElementById('checkinDate').value;
             const outDate = document.getElementById('checkoutDate').value;
             const isSpecial = hasSpecialHoliday(inDate, outDate);
+
+            // 判斷當前選擇日期是否包含一般假日 (五六日)
+            let hasWeekend = false;
+            if (inDate && outDate) {
+                const s = new Date(inDate);
+                const e = new Date(outDate);
+                for (let d = new Date(s); d < e; d.setDate(d.getDate() + 1)) {
+                    let dw = d.getDay();
+                    if (dw === 5 || dw === 6 || dw === 0) { hasWeekend = true; break; }
+                }
+            }
 
             let bookedMap = {}; 
             
@@ -2209,9 +2237,19 @@
                 
                 let displayPrice = zone.price;
                 let priceClass = "text-green-600";
+                
                 if (isSpecial) {
                     displayPrice = getSpecialPriceDisplay(zone.cat);
                     priceClass = "text-red-600"; 
+                } else if (hasWeekend && !isSpecial) {
+                    // 如果有假日且非連假，顯示假日價格
+                    if (['grass', 'shelter', 'room'].includes(zone.cat)) {
+                        displayPrice = 1200;
+                        priceClass = "text-orange-600";
+                    } else {
+                        displayPrice = getSpecialPriceDisplay(zone.cat);
+                        priceClass = "text-orange-600";
+                    }
                 }
 
                 let blockText = "";
