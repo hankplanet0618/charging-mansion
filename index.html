@@ -430,118 +430,6 @@
         </div>
     </div>
 
-    <div id="modal-blog" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl z-10 p-6 relative max-h-[85vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button><h3 class="text-xl font-bold mb-6 text-center text-pink-600">營區生活網誌</h3><div class="space-y-8"><div class="border-b border-gray-100 pb-6"><div class="flex items-center gap-2 mb-2"><span class="bg-pink-100 text-pink-600 text-[10px] px-2 py-1 rounded-full font-bold">最新活動</span><span class="text-xs text-gray-400">2025/02/01</span></div><h4 class="text-lg font-bold text-stone-800 mb-3">228團露熱烈報名中</h4><p class="text-stone-600 text-sm leading-relaxed">團露有辦桌活動、露天溫泉、齊全的親子設施、還有兒童無糖糖果製作，當天還會抽冰虎冰箱一台<br>直接官網報名吧!」<br>歡迎大家趁著228連假來體驗充電莊的一切美好。</p></div></div><p class="text-center text-xs text-gray-400 mt-6">持續更新中...</p></div></div>
-    <div id="modal-report" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-center text-yellow-600">匯款回報</h3><form id="paymentForm" class="space-y-4"><input type="hidden" name="sheetName" value="匯款紀錄"><div><label class="block text-xs font-bold text-gray-500 mb-1">匯款姓名</label><input type="text" name="匯款姓名" required class="w-full border rounded p-2"></div><div><label class="block text-xs font-bold text-gray-500 mb-1">帳號末五碼</label><input type="text" name="末五碼" required class="w-full border rounded p-2"></div><div><label class="block text-xs font-bold text-gray-500 mb-1">匯款金額</label><input type="number" name="匯款金額" required class="w-full border rounded p-2"></div><div><label class="block text-xs font-bold text-gray-500 mb-1">匯款日期</label><input type="date" name="匯款日期" required class="w-full border rounded p-2"></div><button type="submit" id="payBtn" class="w-full bg-yellow-500 text-stone-900 font-bold py-3 rounded-lg hover:bg-yellow-400">送出回報</button></form></div></div>
-    <div id="modal-bank" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"><div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-center">匯款資訊</h3><div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200"><p class="text-sm text-gray-600">銀行：<span class="font-bold text-black">823 將來銀行</span></p><p class="text-sm text-gray-600 mt-2">戶名：<span class="font-bold text-black">林均鴻</span></p><p class="text-sm text-gray-600 mt-2">帳號：</p><p class="text-xl font-mono font-bold text-blue-800 bg-white p-2 rounded border mt-1 text-center">8865-0975-0204-25</p></div><p class="text-xs text-center text-gray-400 mt-4">匯款後請點選選單「匯款回報」</p></div></div></div>
-    
-    <div id="modal-about" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
-        <div class="bg-white w-full max-w-3xl rounded-2xl shadow-2xl z-10 p-0 relative max-h-[85vh] overflow-y-auto border-t-8 border-orange-200">
-            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 z-20">
-                <i class="fas fa-times text-xl"></i>
-            </button>
-            <div class="about-poetic-container">
-                <div class="camp-name-styled">充電莊露營區</div>
-
-                <div class="poetic-highlight">
-                    隱在宜蘭礁溪深溝的山腰，<br>
-                    像一首還未被唱起的祕密詩。
-                </div>
-
-                <div class="narrative-text">
-                    這裡沒有繁複造景，卻能遠眺四季龜山島的日出日落；<br>
-                    感受秋日落羽松鋪出的一地紅毯；<br>
-                    冬日的櫻花綻放、聆聽夏日蟲鳴、潮聲。
-                </div>
-
-                <div class="leaf-divider">✦</div>
-
-                <div class="narrative-text">
-                    這裡有 <span class="feature-accent">95% 雨棚營位</span>，讓喜愛露營的人下雨不淋、烈日不曬；<br>
-                    懶人能躺平，孩子能放電。在這裡插上充電槍，泡一壺茶，坐進彩色木椅，<br>
-                    看電量悠悠回滿；看光線擁吻山海；看孩子追螢火蟲，追著夏日的童年。
-                </div>
-
-                <div class="narrative-text">
-                    2025 年，我露營了 <span style="font-weight: 500;">無數次</span>。我知道露營的幸福，<br>
-                    是有風有雨也不狼狽，有星有月也不孤單。<br>
-                    於是我打造了「充電莊」——這裡不是我的營地，是我孩子們的王國，<br>
-                    也是為每一個電量歸零的人，準備的一個溫暖避風港。
-                </div>
-
-                <div class="narrative-text">
-                    如果有一天，你開上山路，電量亮紅，請再往前一點點。<br>
-                    你會看見落羽松在搖、燈在亮，茶香飄來，孩子笑著奔跑。
-                </div>
-
-                <div class="poetic-highlight">
-                    那一刻，你就到了。
-                </div>
-
-                <div class="narrative-text">
-                    這裡允許你把電放完，也把心充滿；<br>
-                    允許你懶，也允許你盡情奔跑。
-                </div>
-
-                <div class="quote-footer">「山中若有眠，夢裡總是青。」</div>
-                <div class="welcome-msg">歡迎愛露營的你，來這裡充電。</div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-rules" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
-        <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto">
-            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
-                <i class="fas fa-times text-xl"></i>
-            </button>
-            <h3 class="text-xl font-bold mb-4 text-red-600 text-center border-b pb-2">營區須知</h3>
-            
-            <div class="space-y-4 text-sm text-gray-700 leading-relaxed">
-                <ul class="list-disc pl-5 space-y-2">
-                    <li>
-                        <span class="font-bold text-red-600">寧靜時間：</span>請注意寧靜時間為每天 <span class="font-bold">晚上 10 點後</span>，請放低音量，以免影響其他露友休息。
-                    </li>
-                    <li>
-                        <span class="font-bold text-blue-600">電動車優先：</span>電動車車主請務必於表單備註，將優先安排充電位置（全區共 17 台）。
-                    </li>
-                    <li>
-                        <span class="font-bold text-orange-600">焚火規範：</span>請務必自備木柴、防火布及焚火爐，<span class="font-bold">禁止直接在地面生火</span>，以免破壞草皮。
-                    </li>
-                    <li>
-                        <span class="font-bold">吸菸規定：</span>本營區不禁菸，但吸煙者請移步至 <span class="font-bold">接待處附近指定區域</span> 抽煙，請勿在帳棚區吸菸。
-                    </li>
-                    <li>
-                        <span class="font-bold text-green-600">溪邊活動：</span>若進行溪邊活動將分組，可自行帶補蝦籠，有機會抓到溪蝦 (請務必注意自身安全)。
-                    </li>
-                    <li>
-                        <span class="font-bold text-purple-600">夜衝優惠：</span>
-                        <ul class="list-circle pl-4 mt-1 text-gray-600">
-                            <li>時間：17:00 - 22:00 入場。</li>
-                            <li>自搭帳及車泊：每帳 <span class="font-bold">$600</span>。</li>
-                            <li>民宿、小木屋、露營車及 T250：享 <span class="font-bold">5 折優惠</span>。</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <span class="font-bold">用電規格：</span>用電設備不特定限制，每座插座規格為 15-20A。
-                    </li>
-                    <li>
-                        <span class="font-bold">裝備租借：</span>營區有各項設備可出租，詳細項目及金額請查看選單中的「裝備清單」。
-                    </li>
-                </ul>
-
-                <div class="mt-4 pt-4 border-t border-gray-200 bg-stone-50 p-2 rounded">
-                    <h4 class="font-bold text-stone-800 mb-1 text-xs">取消/延期規則</h4>
-                    <p class="text-[10px] text-gray-500">
-                        14天前退100%；10-13天前退70%；7-9天前退50%；4-6天前退40%；2-3天前退30%；1天前退20%；當日不予退費。(天災依縣府公告為主)
-                    </p>
-                </div>
-            </div>
-            
-            <button onclick="closeAll()" class="w-full bg-stone-800 text-white font-bold py-3 rounded-xl mt-6 hover:bg-stone-700 transition">我已閱讀並同意</button>
-        </div>
-    </div>
-
     <div id="modal-qa" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
         <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto">
@@ -975,883 +863,241 @@
             window.reCalculate();
         }
 
- let galleryData = {
-  "木屋外觀": [
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1BwC53jb9SYJvlXu9Pnef8Ob4NH8ePKpB&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1N_Towiehb0T6B2qR1jyl7oJhy3CQlmkG&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1Oz-pnazylKlS9k8CSTFk0-sgFh2VFu_q&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1fbXcl0riuM7aAvhB4H7uK7rRKJh6YgTK&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=13oCI-TxYW16leH9aPKfLc1LQqXCZE0nC&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1VVbuU77HCxQ0F_KG3ujvuB_U1g9sOFmI&sz=w1000"
-    }
-  ],
-  "碎石區": [
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1vpQh879FC57MB3b2P7fXNKqiRiwSz1q9&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1Ej-HLpHmv45v72lqXBTlh1y5PfbKvMbh&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1Bl_0Qw3gD6giOJsPFudfreZiEo5MRLaJ&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1gIM8ohIt3y9UqYGHNC_BG2Bj3fq_DPjo&sz=w1000"
-    }
-  ],
-  "棧板A區": [
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=14NsSP7OlY_QvQ9-Nr7bDbSC4qEZN1f-6&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1rK4oLIo-JIy3Mkl7sMtvNMMNL24V7axn&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1yXRd79yL--OZ8rHFtdS4Qm-OKxGgxjkt&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=13j5ch9ApPe1XVQUmHsTmWIVqh2MjawDe&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1BGJg2cxgChuIfeiMc1hoQcSgts95tI4a&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1UQ5pkP7TCNEprQAqSe1htxZ5V_RrwCwu&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1WaGgAXAUDrPH9Dz1WuPlto6Z7soZidWF&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1jZs7PKqP7GoUADMnOFU_c74036uNN-Pt&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1oNNUm47I0cCattl0J-T44iutEonljW_C&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1Rqm45SQOvnutx4lZ8V6wW8bHTxs9lK02&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=12eXvtNBYvvVIfmY2WTumYrkcQTgjTddu&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1Ao2eyk1zBvqI_yBXUQaAVViYtOUDBYop&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1sJkv-UmclJjLyVOaTH1Ofc7oBTd-LQ3l&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1KxiRpXLHg62HvYVm1rV1HqzVWZ26RGb7&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=14CWJVWzzw_hpeMAaZPB8UPgXhr6F7bJb&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1L2dbf2p9PudRMN4R4binCKgkH9-tJ-wN&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1Ls1Ntm3X9DnJlnGUaIL9rfN6ZM-1ZdSm&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1KX-WQCr57MABCDm6c0bf21-TV3ANEROT&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=12wk1nkMnLg_pWxVU7pY5WZJ_TDARIt7B&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1YmvkmLDimfModwrRldWFMC3tDGnhso5I&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1HLYOT6r1YzI986Qc_6Fk9qPwNiCq1dBD&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1SHGiEZ_xfAEUkBw32RYSfBqa5iFb75ew&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1iOveALpBr0qNXq_tReNyfClxgnO3HsLy&sz=w1000"
-    }
-  ],
-  "棚架C區": [
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1t4WElUuzUH5ohScSGDmC4mZKtNu7nRrg&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1OBx6FCpHiD-JvRVDOYVmD6x7MdVA1Ug8&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1izuDFdVJojm56K4UcRBcBe8nZhXAWFwC&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1bKMrMnxMioRjwdJYBt6_6oPyOTuxURcn&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1Cw48f3ysm95orMosSJyTnKIN-fUxY1H4&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=19AIqfAVMN4fgsnmHAqFEi8KU_Autzrzf&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1ZMPswau8sPTyJhHKge69b_6XbjTz0Q9n&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1tm7k_T1bgCU_gveCYNH9noCJZ3PZBwBi&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1zzAA1WoCF4Qzv_2oCSeVho4CUdypojie&sz=w1000"
-    }
-  ],
-  "棚架B區": [
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1OkrKNB_YsbPzvDFKiWcNhIpiViMLyxIn&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1WtMbbUTxi99wNH1PHjB8Z75xBvzaKXSt&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=12-MofuZmgRotmKPOtoHUMgXqMg9cLGl2&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1GJYIyrSuk95O34YqBEEJa04QFN4f187o&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=19Ux6Y6fUSrcpagZ3zMOGfp3zCDCngZGR&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1sqgw-gBwi0scUqGQQ5-zCRU9lDjhnO1C&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1XwJGvVzixN7HABKdCugEhMOZlE1q4vu_&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1Py0cv6yruEqRysvTjguy1izLc9M-RRdZ&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1wXco9cW9NTPfgTXfJWvr7nGjD_MSpnh2&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1xCB-PlsvyDInfN9OaH_aR_tX4DhWUNu3&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=19zz5_5Kcci90EoQjFED95VR1TzYZj9T9&sz=w1000"
-    }
-  ],
-  "棚架A區": [
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1uDFLFUZBVo5EjGti7iKGTFyB-gIQplz7&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1_OUevJjfBSGnB_5Yg0eic62AAZnWhBP6&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1jgDLJu2_bu2YPoUCaJ4Xs8l0Segtwgp0&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1NZzcH7RxtlRri_bIh4VduG-K5JTcRghb&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=16ifTgVA-i5anhNxbMnmfucwacVbr2L2Z&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1z7cJQ6KeVQ3tszCcuPDc2e1z4X-8WjLU&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1-zRG9v-pxIjw7pM8ctJKICodOEAaVRH2&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1nCt8y0DIVAPyP3QYUf29jPPpX_KZaZaS&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1GWd-4M3tNx_apqiJAVNLa5dGYkpYE6kr&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1oUNW8efJohIdxZZSLYtvCBAJuX2KM1fQ&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1HnLSthF0Bz2t6aRB3HxvCGcCWBC8Wk1g&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=19aorAQVODQCq4s9h7YNDwKLBfl4rMT8S&sz=w1000"
-    }
-  ],
-  "草地區": [
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1i46pajIVErfy7KX8_pyeJ9OEy0nXgXc3&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1GV0KLtOFsFBvzM2kdiMjw7XA78SzB5si&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1UwjHFZ4I006Kf8-v2FXNPBKGc8xKk4_x&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1yjrNpDUjRI39YGVK5gQMjWo8twdzbhXT&sz=w1000"
-    }
-  ],
-  "泰式免搭": [
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=19rHhewbr6fXAch9wlZfO-9xwt4ynhciu&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=15jZUjk9cNw-HJXLQO_wGf492jQ10FGpJ&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=18eSiqj4UQiJRGgT362a3kD1xJfe4ccpT&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1JSGxQfwwsqpbOgF7fxxp2MCfLDtftdbe&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1MkUA3_cyNA4Jy9WYauhmSpszLP85kZnI&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1mEk3sxFuCXle0HOtaSaAgq-TBhRu8z38&sz=w1000"
-    }
-  ],
-  "空拍": [
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=12RReNj8AZPAcJsqmdNPJ-LLKqzUHal-v&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1gJpWwyJfNDXTzivKG7hAkTtwzsuxF7SR&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1lmd6Uw1ulBaeaKkA8gAKKZ3IiGuAr27H&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=10mCg3Y_qg60esLH9MjXaEuD9n-OJltT7&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=14ZbGd7eWdA2aU5q5r1ucjqNmqEpyEQqO&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1H3cm5OQ9dQ17Z-2EoLneOKkyhz93xymY&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1KLmuPfb0RxJIQ67Swvvzcc3RVPrdfqiW&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1qiBnqWMlrVUlmMKcEuZoskaaO34jEvB9&sz=w1000"
-    }
-  ],
-  "其他": [
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1e2oaEx3H1C8qmwidEUFJ3XMY7SlKep9R&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1NIMwYdZI4bimwaiPaImIi4VEmFAmoTNl&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=12ch0IjtcsadYlQeu_3U1WnWs6-nniIaP&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=17etpCFQo8QHcIYFvLyUEhVKIJFscojfS&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1xaSmMRJYzHbhCCWA4WgkFktBXOFbmv1R&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1uU7l47K8stLvzcKCgwnsUij8O_tzLbV0&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1ETAj2gidNt1cb1u04PW6-oX-CW2BKL6H&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1gPEe09CDuPMT0dxLAM3C-NnerzHutyHY&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1avB_J6bTn367Kby6hFCQV0yx5yIEz1Mg&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1B2R_01CNVOQuSn2gAefNVMonJLCyNvqu&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1bHSeyCVyxB-lDZb_nfjD-4TH_dSF86hD&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1RlK2vbsIKlE0gWXXkZkx2tYSfZIsivxu&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1cgy7jxCylJXjT3qFaS55j-AoKfhD8AOG&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1Hyxaa388xPjTgr6mjromJhmtZGsW6eUQ&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1PVSCb64gU1zfNuwKDyLXbGL59tVrI8zN&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1qDQsyvErqcWtc9iuRB-HGlO92ZmfKoMC&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1UuyvBjmSSfh3nxJhsb-i4tD8CD-4l3Ks&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1Ged6CsK512d_gPAcTEsDH8zwtYBYn-6W&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1FIzDo-aLO5B084J1HnRJYxTcOsBM1YAF&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1y8z1G9N3HNxrZirTSlfVyPnG5w4_KcHm&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1GCdkm7c3iStNVE-EFDUl90QIn2fsEpqk&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1-QFYqqmSfpgS7MuMQf-Y3HrQdqm3l6Oo&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=13uLpGUGrvTWxH-BKx9K_jS32PCrlH8ZS&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=174zL6jEdYJb5Ld_tWTpunTg7Fz7nDz6e&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1Rjy2bC_Dm-ThcOLrIETvUTnuTsrERgWR&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1q2_02jRlal4ItCj_S5Nvl1-zFm19Hlqp&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=14xSvMPbCHmo8woP7CjKHScqbvQ3ajHgA&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1x4NguPdbFLtYMHiKVWRRs68WwkayeqKi&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1jLEupXoR2eZFJCH9VwsPg71mm6zZp4Eu&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1_oCHRNok2_2EZJCfcSWLT8gIX9b2NbfY&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1fSO0YdM58TBSIoMulsB3gvqLOeESVd_U&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1pGUyDfHGTbf5qdNmm4jvjefeAU9Rt0ME&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1iC9Fjs4K97PmpqUMcN52fiBVn83Qz8Ld&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1qp7_T1FphfZHKdQY3lUprJtiavnGh5E3&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=15MJivcainFAGb4w6TAWchnnDOxs5v_FT&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1qPzwgWfLLx767KcPpG34A7pXfd5oFZxH&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1PKm7hbJq23Sax9NQSx4nh_u_UVPT1WfJ&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=19SFHVzMaBSY8TB4lX9eZVcwEWwOlSf_P&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=169t4HASUHOs8iDiDQysz-zqsQaAi9UYu&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=13ECfBA0vg2obl45Ht74UYUbwfTXcrzkV&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1gXom_14OJ4Fta5-_dZDItiYxH6ecBfb_&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1d0TttNQY0-Ub1ZgZURczSOwi-ODXugQz&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=155p3hvF3wyhE8-aqj3fA-EfR78hSiyYv&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1W7lio_0sCI_tWJIVsYqba0WdrPDl__Xj&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1IIdoYlqv5XFZ0IYGRu3XfyvLItSsUCp-&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1_wQsA_RuhIX_YOIxCq01r_j95QiU-KVe&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1yVYXzXtSjeyyj5yhxxTq9zSuDfWcvivi&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1wi5xbBMLGl6L1bU_fsyhpPure-gg7-e1&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1QAyWMg1RLLubQmVHTdvo-zpEPb3CRWkP&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1YZEImkfLYikfCpKfGUKXo8R0d9OJcbwz&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1IsWZe4RiYmRRhOBtN-5iueZsz9Zv7J43&sz=w1000"
-    }
-  ],
-  "包棟民宿": [
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1OgiXtPbp4V7Mv_SVAtR-_MQsAEWjSAcT&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1BGyy0Lwv7ABFuL8QXwrnFnpsWITkyMbe&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1UU9bhkQsOEZDTmaC62k6PA8T2uG4yDqc&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1YOMuXXwoPtW7BKM-Of7n7kv3yEcMbl3Y&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1BuGJdTiqWsx4b-K6WfE8BdzT6qoirDl9&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1TGKNjfIKjiGTYwO4pis33VtgFNEfRPQi&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1w8LJD9ZdmpGZJgnUGrMN5DqsUXdUK4l5&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1IiEb-58jtMQvkfBhfdCCS3CziOjfxSnW&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1EGKkt_HJvrItCCNFvvC89ZItH--28j-4&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1DA4kbG7NTNaBVNF30Iw-w2GHs-pwS6M7&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1HYp45BnmxHSDTdYDBPI7MA_UmFTppw_C&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1o1XXqJg-isQNoeidkrop-_KrUZ1boAVt&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1LINb1dXniOCSF92S4MNcx9FEofgtJDe5&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1mUox0SK6_Zc-iSvka_4T9vCouwX9KnOG&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1lYKwk0tQ_-MtUJ_eR1xtN0ilZgC-MwJV&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1q8WFnXFRvS01JrygtBsIKZBj_L9Mon25&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1KBdUQ9xvN57V8LMZlCujbt0k7nXraxaZ&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1_0O4vogaWZnHWMVC2Z8ojasTqtMGLkQK&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=14khDcJuvY0wv4_CsB1mYdERNPVgWDMB1&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1LvjcizL0iwuk1aG4PkMQBrhNDf-wEOGe&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1MqYQxr4P59B3vYxYS6HuM9Qqi6RlWuq1&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1CJqF3mj-EUJkk2uIeuSKV289LRatdTRr&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1q-dbWtXcFMLzepFgBBE8U1w_PE4LpBaZ&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1Xwp_xO2OqiJFM809afz6SingWgssxWoG&sz=w1000"
-    }
-  ],
-  "廁所": [
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=15ootVM8p3XPXzyiMD6VhUSDhShOZxZBd&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1kHLspFKWzbqiRQcZm7mtjiaOoVbFxW4j&sz=w1000"
-    }
-  ],
-  "小木屋": [
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1FNgdD14M7pEu7u_lwJV8lKuYApPzItDu&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=186TllxWaZSV__GT0yzebQ227jDxntBRu&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1MBUgPmCXIa-FzXZQCjUoZeexGFParTHo&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1c-2kzswBk-5eK1DmAFlEkDsEI-Wgg10j&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1896E3A1wMC4JuaPwjc8l_-BFFWHXvBdn&sz=w1000"
-    }
-  ],
-  "大木屋": [
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=11fldtygegpBoLYtmU-JHUY3WjrT21xfw&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=12-BSeUEi5LPFhdmb2XW8fYrav8pzewWi&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1Y-LE5GkEU3FC367l_bwPYXaJ0fMbgaNv&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=18v_GyxiquBNQZgqCYzsazi_gtI4y1gGw&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1QPONyhdKqE7346n9v1icvMPjPjcgN6-h&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1jHw7_fkX_HsDL9X77RMNQ2nkocn665fF&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1o3SF2XiJt7AYyb8T8sVI9hwpXn_3o6SZ&sz=w1000"
-    }
-  ],
-  "三人頂級露營車": [
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1uD-CtO7vkcm3t0wtKEPfU2tEnqO40xAU&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1GiR152DeVm5KHNW9Mm-37XBujZucZ3vW&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1WM3JqgUG0s_jp7sX7LQG5hggaXgz9kvw&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1zVYC0Ym30Jvg9yNcE5NCUbf4XrSLtYEQ&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1SVa50I3LlwFSY6Bwo8y0_3mEAQUnYp7S&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1a_Yrut9r3WRNYH5QOFlfYRZMyzBRmH1F&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1HC8JyrJl7ymIghIVvlWfNvfLtYKDGS8D&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1v5w_tw9eq6reChihGuVAw0H7ocQBb0Gi&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1jUc-clrv0bMtxwqZBKJmMdZr-aNt17HS&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1Buj4Gb8QK2PpOaA-U66qcdUJ8pZtl8YC&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=14R2Cpggz9DyiKaOol-fIKTjleLKdgRfv&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1NaZTL4FZ53oiPntVQt7a-q8sPwUHcmuj&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1-G8Y-Od2_6A9p3F6L0sz7rs3YsF_bDy9&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=11EkQnfutsuOyeCGezsByhM2AN-rOL4Mg&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1u6I2bxeeijTtt5E0wKWDDXR8oHcUJa2I&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1LjeFsFZt999OrokSbrlBkQ3f1DzO-Utg&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1h8CUZS-cEH1HcvOdf4TnuE-iThVtiZ_X&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1hhy5-ir_v4WlhXXdg16cq68iR-2TdE1x&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1OJusMxBtKwq03LLohY6DA1oiJSN3F5cY&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1rYlJHe15iVW6yHTP4SqHgfNjAUzL9vrU&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1F-S19cSElgpwDD84KFLnHCpds4OdjEzB&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1HZwEiHT210N6cctzgTH6-h3El-ZbZgaZ&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1k-oyxXiiZSh9byFEBu6ZARQg7r-1bBY-&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1iDQ0g2g8sQKZTwLH04L-1qAzBgcCSCCU&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1-IdxiON4pviabebO4Zx_7O1jylTOX70Y&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1JNiAmdyXqUn4OoVH1-ACaMbzfD8jZDiB&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1GuJDbTCm17kvJgSDdexryb8qQfrzYBX9&sz=w1000"
-    }
-  ],
-  "棧板B區": [
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1KoVNjdT0b3uJxFyxbdo2W0_hQEr4Zs0o&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1TLVSMkAsmDm-JvABCTV179VY9wrAvVW7&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=10pJ8e5cSxWKxbK_Uq0tOjxlXSGdnVwjG&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1KC0xKg_X8pzLNP6CB9A8_iFnLT3E-BG6&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=18ezF-cWzJ2YcqtDfzpb7qUiynWYlvb6O&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1aFPXDhlrfGfoibgzf1mjfwrFSc2AfULX&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1gLV28sUV4h-hxy4mNVdm8nZoglNFlyGa&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1lWAqggy4aE8sRigGLUbbLP9jvfZceXUZ&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=1WGgu4SN4fNwUvhJzhcrmilXUdN1I18jl&sz=w1000"
-    },
-    {
-      "t": "",
-      "u": "https://drive.google.com/thumbnail?id=138OAQezCmYCxRKrPYdOF89lIdot3P21H&sz=w1000"
-    }
-  ]
-};
+        let galleryData = {
+          "木屋外觀": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1BwC53jb9SYJvlXu9Pnef8Ob4NH8ePKpB&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1N_Towiehb0T6B2qR1jyl7oJhy3CQlmkG&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Oz-pnazylKlS9k8CSTFk0-sgFh2VFu_q&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1fbXcl0riuM7aAvhB4H7uK7rRKJh6YgTK&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=13oCI-TxYW16leH9aPKfLc1LQqXCZE0nC&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1VVbuU77HCxQ0F_KG3ujvuB_U1g9sOFmI&sz=w1000" }
+          ],
+          "碎石區": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1vpQh879FC57MB3b2P7fXNKqiRiwSz1q9&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Ej-HLpHmv45v72lqXBTlh1y5PfbKvMbh&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Bl_0Qw3gD6giOJsPFudfreZiEo5MRLaJ&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1gIM8ohIt3y9UqYGHNC_BG2Bj3fq_DPjo&sz=w1000" }
+          ],
+          "棧板A區": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=14NsSP7OlY_QvQ9-Nr7bDbSC4qEZN1f-6&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1rK4oLIo-JIy3Mkl7sMtvNMMNL24V7axn&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1yXRd79yL--OZ8rHFtdS4Qm-OKxGgxjkt&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=13j5ch9ApPe1XVQUmHsTmWIVqh2MjawDe&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1BGJg2cxgChuIfeiMc1hoQcSgts95tI4a&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1UQ5pkP7TCNEprQAqSe1htxZ5V_RrwCwu&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1WaGgAXAUDrPH9Dz1WuPlto6Z7soZidWF&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1jZs7PKqP7GoUADMnOFU_c74036uNN-Pt&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1oNNUm47I0cCattl0J-T44iutEonljW_C&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Rqm45SQOvnutx4lZ8V6wW8bHTxs9lK02&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=12eXvtNBYvvVIfmY2WTumYrkcQTgjTddu&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Ao2eyk1zBvqI_yBXUQaAVViYtOUDBYop&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1sJkv-UmclJjLyVOaTH1Ofc7oBTd-LQ3l&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1KxiRpXLHg62HvYVm1rV1HqzVWZ26RGb7&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=14CWJVWzzw_hpeMAaZPB8UPgXhr6F7bJb&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1L2dbf2p9PudRMN4R4binCKgkH9-tJ-wN&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Ls1Ntm3X9DnJlnGUaIL9rfN6ZM-1ZdSm&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1KX-WQCr57MABCDm6c0bf21-TV3ANEROT&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=12wk1nkMnLg_pWxVU7pY5WZJ_TDARIt7B&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1YmvkmLDimfModwrRldWFMC3tDGnhso5I&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1HLYOT6r1YzI986Qc_6Fk9qPwNiCq1dBD&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1SHGiEZ_xfAEUkBw32RYSfBqa5iFb75ew&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1iOveALpBr0qNXq_tReNyfClxgnO3HsLy&sz=w1000" }
+          ],
+          "棚架C區": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1t4WElUuzUH5ohScSGDmC4mZKtNu7nRrg&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1OBx6FCpHiD-JvRVDOYVmD6x7MdVA1Ug8&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1izuDFdVJojm56K4UcRBcBe8nZhXAWFwC&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1bKMrMnxMioRjwdJYBt6_6oPyOTuxURcn&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Cw48f3ysm95orMosSJyTnKIN-fUxY1H4&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=19AIqfAVMN4fgsnmHAqFEi8KU_Autzrzf&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1ZMPswau8sPTyJhHKge69b_6XbjTz0Q9n&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1tm7k_T1bgCU_gveCYNH9noCJZ3PZBwBi&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1zzAA1WoCF4Qzv_2oCSeVho4CUdypojie&sz=w1000" }
+          ],
+          "棚架B區": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1OkrKNB_YsbPzvDFKiWcNhIpiViMLyxIn&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1WtMbbUTxi99wNH1PHjB8Z75xBvzaKXSt&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=12-MofuZmgRotmKPOtoHUMgXqMg9cLGl2&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1GJYIyrSuk95O34YqBEEJa04QFN4f187o&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=19Ux6Y6fUSrcpagZ3zMOGfp3zCDCngZGR&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1sqgw-gBwi0scUqGQQ5-zCRU9lDjhnO1C&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1XwJGvVzixN7HABKdCugEhMOZlE1q4vu_&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Py0cv6yruEqRysvTjguy1izLc9M-RRdZ&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1wXco9cW9NTPfgTXfJWvr7nGjD_MSpnh2&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1xCB-PlsvyDInfN9OaH_aR_tX4DhWUNu3&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=19zz5_5Kcci90EoQjFED95VR1TzYZj9T9&sz=w1000" }
+          ],
+          "棚架A區": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1uDFLFUZBVo5EjGti7iKGTFyB-gIQplz7&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1_OUevJjfBSGnB_5Yg0eic62AAZnWhBP6&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1jgDLJu2_bu2YPoUCaJ4Xs8l0Segtwgp0&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1NZzcH7RxtlRri_bIh4VduG-K5JTcRghb&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=16ifTgVA-i5anhNxbMnmfucwacVbr2L2Z&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1z7cJQ6KeVQ3tszCcuPDc2e1z4X-8WjLU&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1-zRG9v-pxIjw7pM8ctJKICodOEAaVRH2&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1nCt8y0DIVAPyP3QYUf29jPPpX_KZaZaS&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1GWd-4M3tNx_apqiJAVNLa5dGYkpYE6kr&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1oUNW8efJohIdxZZSLYtvCBAJuX2KM1fQ&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1HnLSthF0Bz2t6aRB3HxvCGcCWBC8Wk1g&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=19aorAQVODQCq4s9h7YNDwKLBfl4rMT8S&sz=w1000" }
+          ],
+          "草地區": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1i46pajIVErfy7KX8_pyeJ9OEy0nXgXc3&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1GV0KLtOFsFBvzM2kdiMjw7XA78SzB5si&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1UwjHFZ4I006Kf8-v2FXNPBKGc8xKk4_x&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1yjrNpDUjRI39YGVK5gQMjWo8twdzbhXT&sz=w1000" }
+          ],
+          "泰式免搭": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=19rHhewbr6fXAch9wlZfO-9xwt4ynhciu&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=15jZUjk9cNw-HJXLQO_wGf492jQ10FGpJ&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=18eSiqj4UQiJRGgT362a3kD1xJfe4ccpT&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1JSGxQfwwsqpbOgF7fxxp2MCfLDtftdbe&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1MkUA3_cyNA4Jy9WYauhmSpszLP85kZnI&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1mEk3sxFuCXle0HOtaSaAgq-TBhRu8z38&sz=w1000" }
+          ],
+          "空拍": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=12RReNj8AZPAcJsqmdNPJ-LLKqzUHal-v&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1gJpWwyJfNDXTzivKG7hAkTtwzsuxF7SR&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1lmd6Uw1ulBaeaKkA8gAKKZ3IiGuAr27H&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=10mCg3Y_qg60esLH9MjXaEuD9n-OJltT7&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=14ZbGd7eWdA2aU5q5r1ucjqNmqEpyEQqO&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1H3cm5OQ9dQ17Z-2EoLneOKkyhz93xymY&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1KLmuPfb0RxJIQ67Swvvzcc3RVPrdfqiW&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1qiBnqWMlrVUlmMKcEuZoskaaO34jEvB9&sz=w1000" }
+          ],
+          "其他": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1e2oaEx3H1C8qmwidEUFJ3XMY7SlKep9R&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1NIMwYdZI4bimwaiPaImIi4VEmFAmoTNl&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=12ch0IjtcsadYlQeu_3U1WnWs6-nniIaP&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=17etpCFQo8QHcIYFvLyUEhVKIJFscojfS&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1xaSmMRJYzHbhCCWA4WgkFktBXOFbmv1R&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1uU7l47K8stLvzcKCgwnsUij8O_tzLbV0&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1ETAj2gidNt1cb1u04PW6-oX-CW2BKL6H&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1gPEe09CDuPMT0dxLAM3C-NnerzHutyHY&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1avB_J6bTn367Kby6hFCQV0yx5yIEz1Mg&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1B2R_01CNVOQuSn2gAefNVMonJLCyNvqu&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1bHSeyCVyxB-lDZb_nfjD-4TH_dSF86hD&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1RlK2vbsIKlE0gWXXkZkx2tYSfZIsivxu&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1cgy7jxCylJXjT3qFaS55j-AoKfhD8AOG&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Hyxaa388xPjTgr6mjromJhmtZGsW6eUQ&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1PVSCb64gU1zfNuwKDyLXbGL59tVrI8zN&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1qDQsyvErqcWtc9iuRB-HGlO92ZmfKoMC&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1UuyvBjmSSfh3nxJhsb-i4tD8CD-4l3Ks&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Ged6CsK512d_gPAcTEsDH8zwtYBYn-6W&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1FIzDo-aLO5B084J1HnRJYxTcOsBM1YAF&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1y8z1G9N3HNxrZirTSlfVyPnG5w4_KcHm&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1GCdkm7c3iStNVE-EFDUl90QIn2fsEpqk&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1-QFYqqmSfpgS7MuMQf-Y3HrQdqm3l6Oo&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=13uLpGUGrvTWxH-BKx9K_jS32PCrlH8ZS&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=174zL6jEdYJb5Ld_tWTpunTg7Fz7nDz6e&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Rjy2bC_Dm-ThcOLrIETvUTnuTsrERgWR&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1q2_02jRlal4ItCj_S5Nvl1-zFm19Hlqp&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=14xSvMPbCHmo8woP7CjKHScqbvQ3ajHgA&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1x4NguPdbFLtYMHiKVWRRs68WwkayeqKi&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1jLEupXoR2eZFJCH9VwsPg71mm6zZp4Eu&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1_oCHRNok2_2EZJCfcSWLT8gIX9b2NbfY&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1fSO0YdM58TBSIoMulsB3gvqLOeESVd_U&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1pGUyDfHGTbf5qdNmm4jvjefeAU9Rt0ME&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1iC9Fjs4K97PmpqUMcN52fiBVn83Qz8Ld&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1qp7_T1FphfZHKdQY3lUprJtiavnGh5E3&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=15MJivcainFAGb4w6TAWchnnDOxs5v_FT&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1qPzwgWfLLx767KcPpG34A7pXfd5oFZxH&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1PKm7hbJq23Sax9NQSx4nh_u_UVPT1WfJ&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=19SFHVzMaBSY8TB4lX9eZVcwEWwOlSf_P&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=169t4HASUHOs8iDiDQysz-zqsQaAi9UYu&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=13ECfBA0vg2obl45Ht74UYUbwfTXcrzkV&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1gXom_14OJ4Fta5-_dZDItiYxH6ecBfb_&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1d0TttNQY0-Ub1ZgZURczSOwi-ODXugQz&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=155p3hvF3wyhE8-aqj3fA-EfR78hSiyYv&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1W7lio_0sCI_tWJIVsYqba0WdrPDl__Xj&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1IIdoYlqv5XFZ0IYGRu3XfyvLItSsUCp-&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1_wQsA_RuhIX_YOIxCq01r_j95QiU-KVe&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1yVYXzXtSjeyyj5yhxxTq9zSuDfWcvivi&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1wi5xbBMLGl6L1bU_fsyhpPure-gg7-e1&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1QAyWMg1RLLubQmVHTdvo-zpEPb3CRWkP&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1YZEImkfLYikfCpKfGUKXo8R0d9OJcbwz&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1IsWZe4RiYmRRhOBtN-5iueZsz9Zv7J43&sz=w1000" }
+          ],
+          "廁所": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=15ootVM8p3XPXzyiMD6VhUSDhShOZxZBd&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1kHLspFKWzbqiRQcZm7mtjiaOoVbFxW4j&sz=w1000" }
+          ],
+          "小木屋": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1FNgdD14M7pEu7u_lwJV8lKuYApPzItDu&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=186TllxWaZSV__GT0yzebQ227jDxntBRu&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1MBUgPmCXIa-FzXZQCjUoZeexGFParTHo&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1c-2kzswBk-5eK1DmAFlEkDsEI-Wgg10j&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1896E3A1wMC4JuaPwjc8l_-BFFWHXvBdn&sz=w1000" }
+          ],
+          "大木屋": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=11fldtygegpBoLYtmU-JHUY3WjrT21xfw&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=12-BSeUEi5LPFhdmb2XW8fYrav8pzewWi&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Y-LE5GkEU3FC367l_bwPYXaJ0fMbgaNv&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=18v_GyxiquBNQZgqCYzsazi_gtI4y1gGw&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1QPONyhdKqE7346n9v1icvMPjPjcgN6-h&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1jHw7_fkX_HsDL9X77RMNQ2nkocn665fF&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1o3SF2XiJt7AYyb8T8sVI9hwpXn_3o6SZ&sz=w1000" }
+          ],
+          "三人頂級露營車": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1uD-CtO7vkcm3t0wtKEPfU2tEnqO40xAU&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1GiR152DeVm5KHNW9Mm-37XBujZucZ3vW&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1WM3JqgUG0s_jp7sX7LQG5hggaXgz9kvw&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1zVYC0Ym30Jvg9yNcE5NCUbf4XrSLtYEQ&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1SVa50I3LlwFSY6Bwo8y0_3mEAQUnYp7S&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1a_Yrut9r3WRNYH5QOFlfYRZMyzBRmH1F&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1HC8JyrJl7ymIghIVvlWfNvfLtYKDGS8D&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1v5w_tw9eq6reChihGuVAw0H7ocQBb0Gi&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1jUc-clrv0bMtxwqZBKJmMdZr-aNt17HS&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Buj4Gb8QK2PpOaA-U66qcdUJ8pZtl8YC&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=14R2Cpggz9DyiKaOol-fIKTjleLKdgRfv&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1NaZTL4FZ53oiPntVQt7a-q8sPwUHcmuj&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1-G8Y-Od2_6A9p3F6L0sz7rs3YsF_bDy9&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=11EkQnfutsuOyeCGezsByhM2AN-rOL4Mg&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1u6I2bxeeijTtt5E0wKWDDXR8oHcUJa2I&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1LjeFsFZt999OrokSbrlBkQ3f1DzO-Utg&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1h8CUZS-cEH1HcvOdf4TnuE-iThVtiZ_X&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1hhy5-ir_v4WlhXXdg16cq68iR-2TdE1x&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1OJusMxBtKwq03LLohY6DA1oiJSN3F5cY&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1rYlJHe15iVW6yHTP4SqHgfNjAUzL9vrU&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1F-S19cSElgpwDD84KFLnHCpds4OdjEzB&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1HZwEiHT210N6cctzgTH6-h3El-ZbZgaZ&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1k-oyxXiiZSh9byFEBu6ZARQg7r-1bBY-&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1iDQ0g2g8sQKZTwLH04L-1qAzBgcCSCCU&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1-IdxiON4pviabebO4Zx_7O1jylTOX70Y&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1JNiAmdyXqUn4OoVH1-ACaMbzfD8jZDiB&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1GuJDbTCm17kvJgSDdexryb8qQfrzYBX9&sz=w1000" }
+          ],
+          "棧板B區": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1KoVNjdT0b3uJxFyxbdo2W0_hQEr4Zs0o&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1TLVSMkAsmDm-JvABCTV179VY9wrAvVW7&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=10pJ8e5cSxWKxbK_Uq0tOjxlXSGdnVwjG&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1KC0xKg_X8pzLNP6CB9A8_iFnLT3E-BG6&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=18ezF-cWzJ2YcqtDfzpb7qUiynWYlvb6O&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1aFPXDhlrfGfoibgzf1mjfwrFSc2AfULX&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1gLV28sUV4h-hxy4mNVdm8nZoglNFlyGa&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1lWAqggy4aE8sRigGLUbbLP9jvfZceXUZ&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1WGgu4SN4fNwUvhJzhcrmilXUdN1I18jl&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=138OAQezCmYCxRKrPYdOF89lIdot3P21H&sz=w1000" }
+          ]
+        };
+
+        // ★ 新增的 Google Drive 圖片網址轉換器，防止破圖
+        function getSafeImageUrl(url) {
+            if (!url) return '';
+            const match = url.match(/id=([a-zA-Z0-9_-]+)/);
+            if (match && match[1]) {
+                return `https://lh3.googleusercontent.com/d/${match[1]}`;
+            }
+            return url;
+        }
+
         function renderGalleryFolders() {
             const container = document.getElementById('gallery-container');
             let html = '<div class="grid grid-cols-2 md:grid-cols-3 gap-3 p-2">';
             
             Object.keys(galleryData).forEach(folderName => {
                 const images = galleryData[folderName];
-                const coverImg = images && images.length > 0 ? images[0].u : '';
+                const coverImg = images && images.length > 0 ? getSafeImageUrl(images[0].u) : '';
                 const count = images ? images.length : 0;
 
                 html += `
@@ -1888,9 +1134,10 @@
             
             if (images && images.length > 0) {
                 images.forEach(img => {
+                    const safeUrl = getSafeImageUrl(img.u);
                     html += `
-                        <div class="relative w-full group rounded-lg overflow-hidden border border-gray-800 cursor-pointer" onclick="showImage('${img.u}')">
-                            <img src="${img.u}" alt="${img.t || ''}" loading="lazy" referrerpolicy="no-referrer" class="w-full h-full object-cover block">
+                        <div class="relative w-full group rounded-lg overflow-hidden border border-gray-800 cursor-pointer" onclick="showImage('${safeUrl}')">
+                            <img src="${safeUrl}" alt="${img.t || ''}" loading="lazy" referrerpolicy="no-referrer" class="w-full h-full object-cover block">
                             ${img.t ? `<div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent text-white text-xs px-3 py-2 opacity-0 group-hover:opacity-100 transition">${img.t}</div>` : ''}
                         </div>
                     `;
