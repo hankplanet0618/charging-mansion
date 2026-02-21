@@ -101,6 +101,7 @@
         </div>
         <div class="flex-1 overflow-y-auto py-2">
             <a href="#" onclick="showModal('modal-map')" class="flex items-center px-6 py-4 bg-green-50 text-stone-800 font-bold border-b border-green-200"><i class="fas fa-map-marked-alt w-8 text-green-700"></i> 營區地圖</a>
+            
             <a href="#" onclick="showModal('modal-blog')" class="flex items-center px-6 py-4 hover:bg-pink-50 text-stone-600 border-b border-gray-100"><i class="fas fa-blog w-8 text-pink-500"></i> 營區網誌</a>
             <a href="#" onclick="showModal('modal-gallery')" class="flex items-center px-6 py-4 hover:bg-orange-50 text-stone-600 border-b border-gray-100"><i class="fas fa-images w-8 text-orange-500"></i> 營區圖集</a>
             <a href="#" onclick="showModal('modal-qa')" class="flex items-center px-6 py-4 hover:bg-yellow-50 text-stone-600 border-b border-gray-100"><i class="fas fa-question-circle w-8 text-yellow-600"></i> 營區 Q&A</a>
@@ -754,9 +755,9 @@
                         <div class="text-xs text-gray-500 truncate">${stockText}</div>
                     </div>
                     <div class="flex items-center gap-2 flex-shrink-0">
-                         <button type="button" class="w-7 h-7 flex-shrink-0 rounded-full bg-stone-100 text-stone-600 font-bold hover:bg-stone-300 transition border border-stone-300 flex items-center justify-center" onclick="updateAddonQty('${item.name}', -1, ${remaining}, ${item.price})">-</button>
+                         <button type="button" class="w-7 h-7 flex-shrink-0 rounded-full bg-stone-100 text-stone-600 font-bold hover:bg-stone-300 transition border border-stone-300 flex items-center justify-center" onclick="updateAddonQty(event, '${item.name}', -1, ${remaining}, ${item.price})">-</button>
                          <span class="w-4 text-center text-sm font-bold" id="qty-${item.name}">${currentQty}</span>
-                         <button type="button" class="w-7 h-7 flex-shrink-0 rounded-full bg-stone-800 text-white font-bold hover:bg-stone-700 transition shadow flex items-center justify-center" onclick="updateAddonQty('${item.name}', 1, ${remaining}, ${item.price})">+</button>
+                         <button type="button" class="w-7 h-7 flex-shrink-0 rounded-full bg-stone-800 text-white font-bold hover:bg-stone-700 transition shadow flex items-center justify-center" onclick="updateAddonQty(event, '${item.name}', 1, ${remaining}, ${item.price})">+</button>
                     </div>
                 `;
                 grid.appendChild(div);
@@ -766,7 +767,8 @@
             return wrapper;
         }
 
-        window.updateAddonQty = (name, delta, maxStock, price) => {
+        window.updateAddonQty = (e, name, delta, maxStock, price) => {
+            if (e) { e.preventDefault(); e.stopPropagation(); }
             const inDate = document.getElementById('checkinDate').value;
             const outDate = document.getElementById('checkoutDate').value;
             if (!inDate || !outDate) { alert('請先選擇入住與退房日期，才能查看剩餘裝備數量。'); return; }
@@ -788,6 +790,7 @@
             
             const span = document.getElementById(`qty-${name}`);
             if (span) span.innerText = newQty;
+            
             window.reCalculate();
         }
 
@@ -1464,18 +1467,17 @@
                     if (inDate && outDate) {
                         blockText = `<span class="text-[10px] text-blue-600 font-bold block">剩餘 1 帳</span>`;
                     }
-                    // ★ 徹底修復：不跑版縮小按鈕、拿掉可能會影響的手機觸控事件干擾
+                    // ★ 終極修復：加上 onclick 阻擋所有卡片事件，並縮小至 w-7 h-7 絕不跑版
                     actionBtn = `
-                        <div class="flex items-center bg-stone-100 rounded-full border border-stone-200 overflow-hidden shadow-sm flex-shrink-0">
-                            <button type="button" class="w-7 h-7 flex items-center justify-center text-stone-600 hover:bg-stone-300 font-bold text-sm transition" onclick="updateZoneQty(event, '${zone.name}', -1, ${remaining})">-</button>
-                            <div class="w-5 text-center font-bold text-stone-800 text-sm">${currentQty}</div>
-                            <button type="button" class="w-7 h-7 flex items-center justify-center text-stone-600 hover:bg-stone-300 font-bold text-sm transition" onclick="updateZoneQty(event, '${zone.name}', 1, ${remaining})">+</button>
+                        <div class="flex items-center bg-stone-100 rounded-full border border-stone-200 overflow-hidden shadow-sm flex-shrink-0" onclick="event.stopPropagation();">
+                            <button type="button" class="w-7 h-7 flex-shrink-0 bg-stone-100 text-stone-600 hover:bg-stone-300 font-bold text-sm transition flex items-center justify-center border-r border-stone-200" onclick="event.stopPropagation(); updateZoneQty('${zone.name}', -1, ${remaining})">-</button>
+                            <div class="w-6 text-center font-bold text-stone-800 text-sm flex-shrink-0">${currentQty}</div>
+                            <button type="button" class="w-7 h-7 flex-shrink-0 bg-stone-800 text-white hover:bg-stone-700 font-bold text-sm transition shadow flex items-center justify-center" onclick="event.stopPropagation(); updateZoneQty('${zone.name}', 1, ${remaining})">+</button>
                         </div>
                     `;
                 }
 
                 const info = document.createElement('div');
-                // ★ 加上 min-w-0 防止文字過長擠開按鈕
                 info.className = "flex-1 flex flex-col justify-between h-full py-1 min-w-0";
                 
                 info.innerHTML = `
@@ -1492,18 +1494,14 @@
                 div.innerHTML = badge;
                 div.appendChild(imgWrap);
                 div.appendChild(info);
+                
                 container.appendChild(div);
             });
             updateFilterBtns(filter);
         }
 
-        // ★ 完全阻斷點擊穿透，保證 + - 功能正常運作
-        window.updateZoneQty = (e, zoneName, delta, maxQty) => {
-            if(e) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-            
+        // ★ 拿掉 event 參數直接計算，保證最快速度重繪畫面不報錯
+        window.updateZoneQty = (zoneName, delta, maxQty) => {
             const inDate = document.getElementById('checkinDate').value;
             const outDate = document.getElementById('checkoutDate').value;
             if (!inDate || !outDate) { alert('請先選擇入住與退房日期'); return; }
@@ -1513,20 +1511,15 @@
             
             if (newQty <= 0) {
                 delete cart[zoneName];
+            } else if (newQty > maxQty) {
+                alert(`【溫馨提示】\n此為獨立營位，上限為 1 帳。\n\n👉 如需預訂多帳，請繼續點選下方【其他營位】的 + 號即可同時結帳喔！\n(例如：點選 A1 的 + 號，再點選 A2 的 + 號)`);
             } else {
-                if (newQty > maxQty) {
-                    alert(`【提示】此為獨立營位，數量上限為 1 帳。\n\n👉 若要預訂多帳，請點選下方「其他營位」的 + 號即可同時結帳喔！\n(例如：點了 A1，再點 A2)`);
-                    newQty = maxQty;
-                }
                 cart[zoneName] = newQty;
             }
             
-            // 強制重繪確保畫面即時更新
-            setTimeout(() => {
-                const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
-                renderZones(activeFilter);
-                window.reCalculate();
-            }, 0);
+            const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+            renderZones(activeFilter);
+            window.reCalculate();
         }
 
         function updateFilterBtns(filter) {
