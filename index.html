@@ -429,9 +429,7 @@
         
         // ★ 已設定封鎖 2/27-3/1
         const BLOCKED_DATES = [
-            '2026-02-07', '2026-03-07', 
-           
-        ];
+            '2026-02-07', '2026-03-07' ];
         
         const SPECIAL_HOLIDAYS = [
             '2026-02-14','2026-02-15','2026-02-16','2026-02-17','2026-02-18','2026-02-19','2026-02-20','2026-02-21','2026-02-22',
@@ -683,7 +681,7 @@
         let addonCart = {};
         let bookedData = {};
 
-        async function init() {
+       async function init() {
             await fetchInventory();
             renderZones('all');
             renderGears();
@@ -691,7 +689,7 @@
             renderTentInfo();
             setupCalculator();
             renderReviews();
-            renderGallery();
+            renderGalleryFolders(); // <--- 這裡原本少寫了 Folders 導致當機，已修正！
             if (myLiffId !== "C268dc45e60850ae22e3e040f0e58a3e5") await initializeLiff();
         }
 
@@ -796,11 +794,11 @@
         }
 
         // ★ 已經修復的 Google Drive 圖片防破圖機制
-        function getSafeImageUrl(url) {
+       function getSafeImageUrl(url) {
             if (!url) return '';
             const match = url.match(/id=([a-zA-Z0-9_-]+)/);
             if (match && match[1]) {
-                return `https://lh3.googleusercontent.com/d/${match[1]}`;
+                return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1000`;
             }
             return url;
         }
@@ -1348,28 +1346,25 @@
                 default: return 1400;
             }
         }
-        function renderZones(filter) {
-            const container = document.getElementById('zoneContainer');
-            container.innerHTML = '';
-            
-            const inDate = document.getElementById('checkinDate').value;
+     function renderZones(filter) {
+            const container = document.getElementById('zoneContainer'); container.innerHTML = '';
+            const inDate = document.getElementById('checkinDate').value; 
             const outDate = document.getElementById('checkoutDate').value;
             const isSpecial = hasSpecialHoliday(inDate, outDate);
             let hasWeekend = false;
             if (inDate && outDate) {
-                const s = new Date(inDate);
-                const e = new Date(outDate);
+                const s = new Date(inDate); const e = new Date(outDate);
                 for (let d = new Date(s); d < e; d.setDate(d.getDate() + 1)) {
                     let dw = d.getDay();
                     if (dw === 5 || dw === 6 || dw === 0) { hasWeekend = true; break; }
                 }
             }
-            let bookedMap = {};
+            
+            let bookedMap = {}; 
+            let consumedOld = {}; // 追蹤舊訂單名稱已分配的數量
             
             if (inDate && outDate && bookedData) {
-                const start = new Date(inDate);
-                const end = new Date(outDate);
-                
+                const start = new Date(inDate); const end = new Date(outDate);
                 for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
                     let dateStr = d.toISOString().split('T')[0];
                     if (bookedData[dateStr] && bookedData[dateStr].zones) {
@@ -1380,54 +1375,29 @@
                 }
             }
 
-            // ★ 新增：分配舊版的群組訂單數量到個別營位上
-            let consumedOld = {};
-
             zones.forEach(zone => {
                 if(filter !== 'all' && zone.cat !== filter && !(filter==='shelter' && zone.cat==='shelter') && !(filter==='room' && (zone.cat==='room'||zone.cat==='cabinL'||zone.cat==='cabinS'||zone.cat==='villa'||zone.cat==='camper'))) return;
                 if (filter === 'room' && !['room','cabinL','cabinS','villa','camper'].includes(zone.cat)) return;
                 if (filter === 'shelter' && zone.cat !== 'shelter') return;
                 if (filter === 'grass' && zone.cat !== 'grass') return;
-                
-                let bookedCount = bookedMap[zone.name] || 0;
 
-                // ★ 自動判斷：如果新的獨立名稱沒被訂，就去抓舊的總稱，並分配數量
+                let bookedCount = bookedMap[zone.name] || 0;
+                
+                // ★ 解決舊訂單鎖不住新營位的問題：自動把舊版群組訂單配給 A1, A2
                 if (bookedCount === 0 && bookedMap[zone.originalName] > 0) {
                     if (!consumedOld[zone.originalName]) consumedOld[zone.originalName] = 0;
                     if (consumedOld[zone.originalName] < bookedMap[zone.originalName]) {
-                        bookedCount = 1;
+                        bookedCount = 1; 
                         consumedOld[zone.originalName] += 1;
                     }
                 }
 
-                const div = document.createElement('div');
-                div.className = `zone-card bg-white rounded-xl p-3 relative overflow-hidden flex items-center h-32 md:h-36`;
-                
                 const remaining = Math.max(0, zone.count - bookedCount);
                 const isFull = remaining <= 0;
-                if (isFull) {
-                    div.classList.add('disabled-card');
-                }
                 const currentQty = cart[zone.name] || 0;
-                const isSelected = currentQty > 0;
-                if (isSelected) div.classList.add('selected');
-                const badge = zone.badge ? `<span class="absolute top-0 right-0 bg-yellow-400 text-stone-900 text-xs font-bold px-2 py-1 rounded-bl-lg z-20 shadow-sm">${zone.badge}</span>` : '';
                 
-                const imgWrap = document.createElement('div');
-                imgWrap.className = "w-24 h-full md:w-32 flex-shrink-0 rounded-lg overflow-hidden relative mr-3";
-                const img = document.createElement('img');
-                img.src = zone.images[zone.idx];
-                img.className = "w-full h-full object-cover transition duration-500 hover:scale-110";
-                
-                if (zone.images.length > 1) {
-                    imgWrap.classList.add('cursor-change-image');
-                    imgWrap.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        zone.idx = (zone.idx + 1) % zone.images.length;
-                        img.src = zone.images[zone.idx];
-                    });
-                }
-                imgWrap.prepend(img);
+                const div = document.createElement('div');
+                div.className = `zone-card bg-white rounded-xl p-3 relative flex items-center h-32 md:h-36 ${isFull ? 'disabled-card' : ''} ${currentQty > 0 ? 'selected' : ''}`;
                 
                 let displayPrice = zone.price;
                 let priceClass = "text-green-600";
@@ -1444,98 +1414,67 @@
                         priceClass = "text-orange-600";
                     }
                 }
-                let blockText = "";
-                let actionBtn = "";
-                
-                if (isFull) {
-                    blockText = '<span class="text-xs text-red-500 font-bold block">已額滿</span>';
-                    actionBtn = `<span class="bg-gray-200 text-gray-400 px-3 py-1 rounded-lg text-xs font-bold">已額滿</span>`;
-                } else {
-                    if (inDate && outDate) {
-                        blockText = `<span class="text-[10px] text-blue-600 font-bold block">剩餘 1 帳</span>`;
-                    }
-                    actionBtn = `
-                        <div class="flex items-center bg-stone-100 rounded-full border border-stone-200 overflow-hidden shadow-sm flex-shrink-0">
-                            <button type="button" class="w-7 h-7 flex-shrink-0 bg-stone-100 text-stone-600 font-bold text-sm hover:bg-stone-300 transition flex items-center justify-center border-r border-stone-200 btn-minus" data-name="${zone.name}" data-rem="${remaining}">-</button>
-                            <div class="w-6 text-center font-bold text-stone-800 text-sm flex-shrink-0">${currentQty}</div>
-                            <button type="button" class="w-7 h-7 flex-shrink-0 bg-stone-800 text-white font-bold text-sm hover:bg-stone-700 transition shadow flex items-center justify-center btn-plus" data-name="${zone.name}" data-rem="${remaining}">+</button>
-                        </div>
-                    `;
-                }
-                const info = document.createElement('div');
-                info.className = "flex-1 flex flex-col justify-between h-full py-1 min-w-0";
-                
-                info.innerHTML = `
-                    <div>
-                        <h3 class="font-bold text-stone-800 text-base leading-tight mb-1 truncate">${zone.name}</h3>
-                        <p class="text-[10px] text-gray-500 font-medium leading-tight mb-1 truncate">${zone.desc}</p>
-                        ${blockText}
-                        <p class="${priceClass} font-bold text-sm mt-1 truncate">$${displayPrice.toLocaleString()} <span class="text-[10px] text-gray-400 font-normal">/晚</span></p>
-                    </div>
-                    <div class="flex items-center justify-end mt-1 select-none flex-shrink-0">
-                        ${actionBtn}
-                    </div>
-                `;
-                div.innerHTML = badge;
-                div.appendChild(imgWrap);
-                div.appendChild(info);
-                
-                if (!isFull) {
-                    const btnMinus = div.querySelector('.btn-minus');
-                    const btnPlus = div.querySelector('.btn-plus');
-                    if(btnMinus) {
-                        btnMinus.addEventListener('click', function(e) {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            updateZoneQty(this.dataset.name, -1, parseInt(this.dataset.rem));
-                        });
-                    }
-                    if(btnPlus) {
-                        btnPlus.addEventListener('click', function(e) {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            updateZoneQty(this.dataset.name, 1, parseInt(this.dataset.rem));
-                        });
-                    }
-                }
 
-                div.addEventListener('click', function(e) {
-                    let target = e.target;
-                    while(target && target !== this) {
-                        if(target.tagName === 'BUTTON' || target.classList.contains('controls-wrapper')) {
-                            return; 
-                        }
-                        target = target.parentNode;
-                    }
-                    if(isFull) { alert('此日期區間該營位已額滿。'); return; }
-                    selectZone(zone.name, remaining); 
-                });
+                let blockText = isFull ? '<span class="text-xs text-red-500 font-bold block">已額滿</span>' : (inDate && outDate ? `<span class="text-[10px] text-blue-600 font-bold block">剩餘 1 帳</span>` : "");
                 
+                // ★ 按鈕縮小為 w-8 h-8 防止跑版，並加上 event.stopPropagation 徹底隔離點擊
+                let actionBtn = isFull ? `<span class="bg-gray-200 text-gray-400 px-3 py-1 rounded-lg text-xs font-bold">已額滿</span>` : `
+                    <div class="flex items-center bg-stone-100 rounded-full border border-stone-200 shadow-sm flex-shrink-0">
+                        <button type="button" class="w-8 h-8 text-stone-600 font-bold hover:bg-stone-300 rounded-l-full flex items-center justify-center border-r border-stone-200" onclick="updateZoneQty(event, '${zone.name}', -1, 1)">-</button>
+                        <div class="w-6 text-center font-bold text-sm">${currentQty}</div>
+                        <button type="button" class="w-8 h-8 bg-stone-800 text-white font-bold hover:bg-stone-700 rounded-r-full flex items-center justify-center" onclick="updateZoneQty(event, '${zone.name}', 1, 1)">+</button>
+                    </div>`;
+
+                div.innerHTML = `
+                    <div class="w-24 h-full md:w-32 flex-shrink-0 rounded-lg overflow-hidden relative mr-3">
+                        <img src="${zone.images[0]}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1 flex flex-col justify-between h-full py-1 min-w-0">
+                        <div>
+                            <h3 class="font-bold text-stone-800 text-base leading-tight truncate">${zone.name}</h3>
+                            <p class="text-[10px] text-gray-500 truncate">${zone.desc}</p>
+                            ${blockText}
+                            <p class="${priceClass} font-bold text-sm mt-1 truncate">$${displayPrice.toLocaleString()} <span class="text-[10px] text-gray-400 font-normal">/晚</span></p>
+                        </div>
+                        <div class="flex items-center justify-end select-none flex-shrink-0">${actionBtn}</div>
+                    </div>`;
+                
+                // ★ 點擊卡片空白處也可以選位，且不會跟按鈕打架
+                div.onclick = (e) => {
+                    if (e.target.closest('button')) return;
+                    if (isFull) { alert('此日期區間該營位已額滿。'); return; }
+                    if (!inDate || !outDate) { alert('請先選擇入住與退房日期，才能查看剩餘營位。'); return; }
+                    if (!cart[zone.name]) cart[zone.name] = 1; else delete cart[zone.name];
+                    renderZones(document.querySelector('.filter-btn.active').getAttribute('data-filter'));
+                    window.reCalculate();
+                };
                 container.appendChild(div);
             });
             updateFilterBtns(filter);
         }
 
-        function updateZoneQty(zoneName, delta, maxQty) {
+        // ★ 完全阻絕事件干擾的更新函式
+        window.updateZoneQty = (e, zoneName, delta, maxQty) => {
+            if(e) { e.preventDefault(); e.stopPropagation(); }
             const inDate = document.getElementById('checkinDate').value;
             const outDate = document.getElementById('checkoutDate').value;
             if (!inDate || !outDate) { alert('請先選擇入住與退房日期'); return; }
-            let currentQty = cart[zoneName] || 0;
+
+            let currentQty = cart[zoneName] || 0; 
             let newQty = currentQty + delta;
             
             if (newQty <= 0) {
                 delete cart[zoneName];
-            } else if (newQty > maxQty) {
-                alert(`【溫馨提示】\n此為獨立營位，上限為 1 帳。\n\n👉 如需預訂多帳，請繼續點選下方【其他營位】的 + 號即可同時結帳喔！\n(例如：點選 A1 的 + 號，再點選 A2 的 + 號)`);
+            } else if (newQty > maxQty) { 
+                alert(`【溫馨提示】此為獨立營位，數量上限為 1 帳。\n👉 如需預訂多帳請點擊下方其他營位的「+」號加入！`); 
+                cart[zoneName] = maxQty; 
             } else {
                 cart[zoneName] = newQty;
             }
             
-            const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
-            renderZones(activeFilter);
+            renderZones(document.querySelector('.filter-btn.active').getAttribute('data-filter'));
             window.reCalculate();
         }
-
         function updateFilterBtns(filter) {
              document.querySelectorAll('.filter-btn').forEach(btn => {
                 if(btn.getAttribute('data-filter') === filter) {
