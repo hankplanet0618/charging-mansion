@@ -101,7 +101,6 @@
         </div>
         <div class="flex-1 overflow-y-auto py-2">
             <a href="#" onclick="showModal('modal-map')" class="flex items-center px-6 py-4 bg-green-50 text-stone-800 font-bold border-b border-green-200"><i class="fas fa-map-marked-alt w-8 text-green-700"></i> 營區地圖</a>
-            
             <a href="#" onclick="showModal('modal-blog')" class="flex items-center px-6 py-4 hover:bg-pink-50 text-stone-600 border-b border-gray-100"><i class="fas fa-blog w-8 text-pink-500"></i> 營區網誌</a>
             <a href="#" onclick="showModal('modal-gallery')" class="flex items-center px-6 py-4 hover:bg-orange-50 text-stone-600 border-b border-gray-100"><i class="fas fa-images w-8 text-orange-500"></i> 營區圖集</a>
             <a href="#" onclick="showModal('modal-qa')" class="flex items-center px-6 py-4 hover:bg-yellow-50 text-stone-600 border-b border-gray-100"><i class="fas fa-question-circle w-8 text-yellow-600"></i> 營區 Q&A</a>
@@ -179,7 +178,6 @@
         </div>
 
         <div class="mb-8 fade-in flex flex-col md:flex-row gap-4 justify-center items-start" style="animation-delay: 0.15s;">
-            
             <div class="w-full md:w-1/2 flex flex-col gap-4">
                 <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100083289610242&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="100%" height="350" style="border:none;overflow:hidden;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                 <iframe src="https://www.youtube.com/embed/pdWhXiQRR7w" width="100%" height="350" style="border:none;overflow:hidden;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -749,17 +747,16 @@
                 const imgHtml = item.image ? `<div class="w-16 h-16 mr-3 flex-shrink-0 cursor-pointer" onclick="showImage('${item.image}')"><img src="${item.image}" class="w-full h-full object-cover rounded-md"></div>` : '';
                 let stockText = isFull ? '<span class="text-red-600 font-bold">已租完</span>' : `庫存: ${remaining} | <span class="font-bold text-${color}-600">$${item.price}</span>`;
 
-                // 修改：裝備區按鈕也加上 if(event) event.stopPropagation() 防冒泡
                 div.innerHTML = `
                     ${imgHtml}
-                    <div class="flex-1">
-                        <div class="font-bold text-sm text-gray-800">${item.name}</div>
-                        <div class="text-xs text-gray-500">${stockText}</div>
+                    <div class="flex-1 min-w-0">
+                        <div class="font-bold text-sm text-gray-800 truncate">${item.name}</div>
+                        <div class="text-xs text-gray-500 truncate">${stockText}</div>
                     </div>
-                    <div class="flex items-center gap-2" onclick="if(event) event.stopPropagation()">
-                         <button type="button" class="w-8 h-8 rounded-full bg-stone-100 text-stone-600 font-bold hover:bg-stone-200" onclick="updateAddonQty('${item.name}', -1, ${remaining}, ${item.price})">-</button>
+                    <div class="flex items-center gap-2 flex-shrink-0">
+                         <button type="button" class="w-7 h-7 flex-shrink-0 rounded-full bg-stone-100 text-stone-600 font-bold hover:bg-stone-300 transition border border-stone-300 flex items-center justify-center" onclick="updateAddonQty('${item.name}', -1, ${remaining}, ${item.price})">-</button>
                          <span class="w-4 text-center text-sm font-bold" id="qty-${item.name}">${currentQty}</span>
-                         <button type="button" class="w-8 h-8 rounded-full bg-stone-800 text-white font-bold hover:bg-stone-700" onclick="updateAddonQty('${item.name}', 1, ${remaining}, ${item.price})">+</button>
+                         <button type="button" class="w-7 h-7 flex-shrink-0 rounded-full bg-stone-800 text-white font-bold hover:bg-stone-700 transition shadow flex items-center justify-center" onclick="updateAddonQty('${item.name}', 1, ${remaining}, ${item.price})">+</button>
                     </div>
                 `;
                 grid.appendChild(div);
@@ -770,7 +767,6 @@
         }
 
         window.updateAddonQty = (name, delta, maxStock, price) => {
-            if(window.event) window.event.stopPropagation();
             const inDate = document.getElementById('checkinDate').value;
             const outDate = document.getElementById('checkoutDate').value;
             if (!inDate || !outDate) { alert('請先選擇入住與退房日期，才能查看剩餘裝備數量。'); return; }
@@ -1468,9 +1464,9 @@
                     if (inDate && outDate) {
                         blockText = `<span class="text-[10px] text-blue-600 font-bold block">剩餘 1 帳</span>`;
                     }
-                    // ★ 徹底修復：按鈕改用最安全的結構，onclick 傳入 event 變數，並且縮小按鈕不跑版
+                    // ★ 徹底修復：不跑版縮小按鈕、拿掉可能會影響的手機觸控事件干擾
                     actionBtn = `
-                        <div class="flex items-center bg-stone-100 rounded-full border border-stone-200 overflow-hidden shadow-sm flex-shrink-0 controls-wrapper">
+                        <div class="flex items-center bg-stone-100 rounded-full border border-stone-200 overflow-hidden shadow-sm flex-shrink-0">
                             <button type="button" class="w-7 h-7 flex items-center justify-center text-stone-600 hover:bg-stone-300 font-bold text-sm transition" onclick="updateZoneQty(event, '${zone.name}', -1, ${remaining})">-</button>
                             <div class="w-5 text-center font-bold text-stone-800 text-sm">${currentQty}</div>
                             <button type="button" class="w-7 h-7 flex items-center justify-center text-stone-600 hover:bg-stone-300 font-bold text-sm transition" onclick="updateZoneQty(event, '${zone.name}', 1, ${remaining})">+</button>
@@ -1479,14 +1475,15 @@
                 }
 
                 const info = document.createElement('div');
-                info.className = "flex-1 flex flex-col justify-between h-full py-1";
+                // ★ 加上 min-w-0 防止文字過長擠開按鈕
+                info.className = "flex-1 flex flex-col justify-between h-full py-1 min-w-0";
                 
                 info.innerHTML = `
                     <div>
-                        <h3 class="font-bold text-stone-800 text-base leading-tight mb-1">${zone.name}</h3>
-                        <p class="text-[10px] text-gray-500 font-medium leading-tight mb-1">${zone.desc}</p>
+                        <h3 class="font-bold text-stone-800 text-base leading-tight mb-1 truncate">${zone.name}</h3>
+                        <p class="text-[10px] text-gray-500 font-medium leading-tight mb-1 truncate">${zone.desc}</p>
                         ${blockText}
-                        <p class="${priceClass} font-bold text-sm mt-1">$${displayPrice.toLocaleString()} <span class="text-[10px] text-gray-400 font-normal">/晚</span></p>
+                        <p class="${priceClass} font-bold text-sm mt-1 truncate">$${displayPrice.toLocaleString()} <span class="text-[10px] text-gray-400 font-normal">/晚</span></p>
                     </div>
                     <div class="flex items-center justify-end mt-1 select-none flex-shrink-0">
                         ${actionBtn}
@@ -1495,29 +1492,14 @@
                 div.innerHTML = badge;
                 div.appendChild(imgWrap);
                 div.appendChild(info);
-                
-                // ★ 更安全的點擊判斷，防止穿透
-                div.addEventListener('click', function(e) {
-                    let target = e.target;
-                    while(target && target !== this) {
-                        if(target.tagName === 'BUTTON' || target.classList.contains('controls-wrapper')) {
-                            return; 
-                        }
-                        target = target.parentNode;
-                    }
-                    
-                    if(isFull) { alert('此日期區間該營位已額滿。'); return; }
-                    selectZone(zone.name, remaining); 
-                });
-
                 container.appendChild(div);
             });
             updateFilterBtns(filter);
         }
 
-        // ★ 確保事件完全阻擋的 updateZoneQty
+        // ★ 完全阻斷點擊穿透，保證 + - 功能正常運作
         window.updateZoneQty = (e, zoneName, delta, maxQty) => {
-            if (e) {
+            if(e) {
                 e.preventDefault();
                 e.stopPropagation();
             }
@@ -1533,35 +1515,18 @@
                 delete cart[zoneName];
             } else {
                 if (newQty > maxQty) {
-                    alert(`【貼心提醒】\n「${zoneName}」為獨立營位，數量上限為 1 帳。\n👉 如需預訂多帳，請繼續點選下方其他營位的「+」號加入即可！`);
+                    alert(`【提示】此為獨立營位，數量上限為 1 帳。\n\n👉 若要預訂多帳，請點選下方「其他營位」的 + 號即可同時結帳喔！\n(例如：點了 A1，再點 A2)`);
                     newQty = maxQty;
                 }
                 cart[zoneName] = newQty;
             }
             
-            // 使用 setTimeout 確保事件冒泡結束後再重繪 DOM，完美解決點擊失效的問題
+            // 強制重繪確保畫面即時更新
             setTimeout(() => {
                 const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
                 renderZones(activeFilter);
                 window.reCalculate();
             }, 0);
-        }
-
-        function selectZone(name, maxQty) {
-             const inDate = document.getElementById('checkinDate').value;
-             const outDate = document.getElementById('checkoutDate').value;
-             if (!inDate || !outDate) { alert('請先選擇入住與退房日期，才能查看剩餘營位。'); return; }
-
-             if (!cart[name]) {
-                 if (maxQty < 1) { alert('此營位已額滿'); return; }
-                 cart[name] = 1;
-             } else {
-                 delete cart[name];
-             }
-             
-             const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
-             renderZones(activeFilter); 
-             window.reCalculate();
         }
 
         function updateFilterBtns(filter) {
