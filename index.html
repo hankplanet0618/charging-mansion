@@ -181,7 +181,7 @@
             </div>
             <div class="mt-4 bg-red-600 text-white p-3 rounded-xl shadow-lg animate-pulse text-center mx-4 border-2 border-yellow-400">
                 <i class="fas fa-star text-yellow-300 mr-2"></i>
-                <span class="font-bold text-sm md:text-base">228連假、兒童連假、5/1連假有特殊活動，請訂位者一同參與唷！車床特約一律官網預約並於結帳區折扣碼輸入【普卡】或【VIP卡】【備注會員編號! 車床方案僅適用非假日之平日(週日-周四)】</span>
+                <span class="font-bold text-sm md:text-base">228連假、兒童連假、5/1連假有特殊活動，請訂位者一同參與唷！車床特約一律官網預約並於結帳區折扣碼輸入【普卡】或【VIP卡】【車床備注會員編號! 車床方案僅適用非假日之平日(週日-周四)；車床假日及連續假日限定預定日前一天下單，提早下單者將不接受訂位】</span>
                 <i class="fas fa-star text-yellow-300 ml-2"></i>
             </div>
         </div>
@@ -231,11 +231,20 @@
             </div>
         </div>
 
-        <div class="mb-8 fade-in flex flex-col md:flex-row gap-4 justify-center items-start" style="animation-delay: 0.15s;">
-            <div class="w-full md:w-1/2">
+       <div class="mb-8 fade-in flex flex-col md:flex-row gap-4 justify-center items-start" style="animation-delay: 0.15s;">
+            
+            <div class="w-full md:w-1/2 flex flex-col gap-4">
+                
                 <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100083289610242&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="100%" height="350" style="border:none;overflow:hidden;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                
+                <iframe src="https://www.youtube.com/embed/pdWhXiQRR7w" width="100%" height="350" style="border:none;overflow:hidden;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                
             </div>
-                    <div class="bg-white rounded-3xl shadow-xl overflow-hidden fade-in" style="animation-delay: 0.2s;">
+
+            <div class="w-full md:w-1/2 bg-white rounded-3xl shadow-xl overflow-hidden fade-in" style="animation-delay: 0.2s;">
+            <div class="bg-green-700 p-4 text-white text-center">
+                <h3 class="font-bold text-lg">線上預訂單</h3>
+            </div>                    <div class="bg-white rounded-3xl shadow-xl overflow-hidden fade-in" style="animation-delay: 0.2s;">
             <div class="bg-green-700 p-4 text-white text-center">
                 <h3 class="font-bold text-lg">線上預訂單</h3>
             </div>
@@ -389,7 +398,7 @@
                         請於下訂後 7 日內匯款完成<br>並完成匯款回報
                     </h4>
                     <p class="text-red-700 font-bold text-lg mt-2">
-                        如逾期系統將自動釋出營位<br>歡迎您的蒞臨
+                        如逾期7天內未繳費系統自動再發信催繳<br>歡迎您的蒞臨
                     </p>
                 </div>
                 
@@ -545,13 +554,11 @@
         const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=0#gid=0';
         const myLiffId = "2008643307-nbPNvd20"; 
 
-        // ★★★ 修改點 1：日期改為 2026-01-19 起 ★★★
         const MIN_DATE = '2026-01-19';
         const BLOCKED_DATES = ['2026-02-07', '2026-03-07'];
         
         const SPECIAL_HOLIDAYS = [
             '2026-02-14','2026-02-15','2026-02-16','2026-02-17','2026-02-18','2026-02-19','2026-02-20','2026-02-21','2026-02-22',
-            // ★★★ 修改點 2：已將 2/27-3/1 取消註解，恢復為連續假日價格 (帳篷$1400/小木屋及包棟假日價) ★★★
             '2026-02-27','2026-02-28','2026-03-01',
             '2026-04-03','2026-04-04','2026-04-05','2026-04-06',
             '2026-05-01','2026-05-02','2026-05-03',
@@ -631,7 +638,8 @@
             '連假gogo': 300,
             '芮蒂': 500, 
             '普卡': 0.55, 
-            'VIP卡': 0.45, 
+            'VIP卡': 0.45,
+            'VIP卡特惠': 0.45, 
             '特惠': 800,
             'CNY': 100,
             '包場': 0.85, 
@@ -640,22 +648,57 @@
             '愛學館信義校': 0.9
         };
 
-        const zones = [
-            { id: 'ZA1', name: '棚架 A 區', count: 9, cat: 'shelter', desc: '寬敞遮雨棚車停帳邊 (9帳)', price: 1000, badge: '熱門', images: ['https://i.ibb.co/KjBcKGvt/A-DDcar.jpg', 'https://i.ibb.co/RTypZTzW/A1.jpg', 'https://i.ibb.co/hRNQ84SY/A.jpg'], idx: 0 },
-            { id: 'ZA2', name: '棚架 B 區', count: 4, cat: 'shelter', desc: '適合包區車停帳邊 (4帳)', price: 1000, badge: '', images: ['https://i.ibb.co/bMQ51htS/B.jpg', 'https://i.ibb.co/7JY7xRYp/B.jpg'], idx: 0 },
-            { id: 'ZA3', name: '棚架 C 區', count: 3, cat: 'shelter', desc: '安靜舒適獨立區車停帳邊 (3帳)', price: 1000, badge: '', images: ['https://i.ibb.co/c70KNkJ/C1.jpg', 'https://i.ibb.co/zTRCxcwq/2.jpg'], idx: 0 },
-            { id: 'ZB1', name: '棧板 A 區', count: 3, cat: 'grass', desc: '架高防潮+遊戲區 (3帳)', price: 1000, badge: '', images: ['https://i.ibb.co/XrMggq46/1.jpg'], idx: 0 },
-            { id: 'ZB2', name: '棧板 B 區', count: 2, cat: 'grass', desc: '棚架 (2帳)車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/JRmcf3bw/B.jpg'], idx: 0 },
-            { id: 'ZC1', name: '三人頂級露營車', count: 2, cat: 'camper', desc: '最有溫度的一晚 (2台)車停帳邊', price: 3600, badge: '最高級的懶人享受', images: ['https://i.ibb.co/jvXBxJWw/4.jpg'], idx: 0 },
-            { id: 'ZC2', name: '小木屋 (大)', count: 1, cat: 'cabinL', desc: '家庭首選 (1間)', price: 2600, badge: '', images: ['https://i.ibb.co/4n2CPt5X/image.jpg', 'https://i.ibb.co/VYpvt7NF/image.jpg'], idx: 0 },
-            { id: 'ZC3', name: '小木屋 (小)', count: 1, cat: 'cabinS', desc: '溫馨三人 (1間)', price: 2200, badge: '', images: ['https://i.ibb.co/CpNgsKHw/image.jpg', 'https://i.ibb.co/VW4t8GH4/image.jpg'], idx: 0 },
-            { id: 'ZD1', name: '草地區', count: 6, cat: 'grass', desc: '親近自然的美好 (6帳)車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/7xsg5nfv/1.jpg', 'https://i.ibb.co/DDLBdhNk/3.jpg', 'https://i.ibb.co/S73TLHJR/2.jpg'], idx: 0 },
-            { id: 'ZD2', name: '碎石地區', count: 2, cat: 'grass', desc: '充電紮營首選 (2帳)車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/k6D740Ht/image.jpg'], idx: 0 },
-            { id: 'ZE1', name: '包棟民宿 (16人)', count: 1, cat: 'villa', desc: '4房一起K歌最開心 (1棟)', price: 20000, badge: '獨享', images: ['https://i.ibb.co/6RyZYPVy/7-KW.jpg'], idx: 0 },
-            { id: 'ZF1', name: '泰式免搭', count: 8, cat: 'room', desc: '懶人新福音 (8帳)', price: 1000, badge: '最新', images: ['https://i.ibb.co/60bXNB57/image.jpg', 'https://i.ibb.co/DHhm1sWR/2.jpg'], idx: 0 }
+        // ★★★ 這裡是重點修改區塊：將營位自動拆解成單一位置 ★★★
+        const originalZones = [
+            { id: 'ZA1', name: '棚架 A 區', count: 9, cat: 'shelter', desc: '寬敞遮雨棚車停帳邊', price: 1000, badge: '熱門', images: ['https://i.ibb.co/KjBcKGvt/A-DDcar.jpg', 'https://i.ibb.co/RTypZTzW/A1.jpg', 'https://i.ibb.co/hRNQ84SY/A.jpg'], idx: 0 },
+            { id: 'ZA2', name: '棚架 B 區', count: 4, cat: 'shelter', desc: '適合包區車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/bMQ51htS/B.jpg', 'https://i.ibb.co/7JY7xRYp/B.jpg'], idx: 0 },
+            { id: 'ZA3', name: '棚架 C 區', count: 3, cat: 'shelter', desc: '安靜舒適獨立區車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/c70KNkJ/C1.jpg', 'https://i.ibb.co/zTRCxcwq/2.jpg'], idx: 0 },
+            { id: 'ZB1', name: '棧板 A 區', count: 3, cat: 'grass', desc: '架高防潮+遊戲區', price: 1000, badge: '', images: ['https://i.ibb.co/XrMggq46/1.jpg'], idx: 0 },
+            { id: 'ZB2', name: '棧板 B 區', count: 2, cat: 'grass', desc: '棚架車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/JRmcf3bw/B.jpg'], idx: 0 },
+            { id: 'ZC1', name: '三人頂級露營車', count: 2, cat: 'camper', desc: '最有溫度的一晚車停帳邊', price: 3600, badge: '最高級的懶人享受', images: ['https://i.ibb.co/jvXBxJWw/4.jpg'], idx: 0 },
+            { id: 'ZC2', name: '小木屋 (大)', count: 1, cat: 'cabinL', desc: '家庭首選', price: 2600, badge: '', images: ['https://i.ibb.co/4n2CPt5X/image.jpg', 'https://i.ibb.co/VYpvt7NF/image.jpg'], idx: 0 },
+            { id: 'ZC3', name: '小木屋 (小)', count: 1, cat: 'cabinS', desc: '溫馨三人', price: 2200, badge: '', images: ['https://i.ibb.co/CpNgsKHw/image.jpg', 'https://i.ibb.co/VW4t8GH4/image.jpg'], idx: 0 },
+            { id: 'ZD1', name: '草地區', count: 6, cat: 'grass', desc: '親近自然的美好車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/7xsg5nfv/1.jpg', 'https://i.ibb.co/DDLBdhNk/3.jpg', 'https://i.ibb.co/S73TLHJR/2.jpg'], idx: 0 },
+            { id: 'ZD2', name: '碎石地區', count: 2, cat: 'grass', desc: '充電紮營首選車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/k6D740Ht/image.jpg'], idx: 0 },
+            { id: 'ZE1', name: '包棟民宿 (16人)', count: 1, cat: 'villa', desc: '4房一起K歌最開心', price: 20000, badge: '獨享', images: ['https://i.ibb.co/6RyZYPVy/7-KW.jpg'], idx: 0 },
+            { id: 'ZF1', name: '泰式免搭', count: 8, cat: 'room', desc: '懶人新福音', price: 1000, badge: '最新', images: ['https://i.ibb.co/60bXNB57/image.jpg', 'https://i.ibb.co/DHhm1sWR/2.jpg'], idx: 0 }
         ];
 
-        // ★★★ 新增區塊資料定義 ★★★
+        // 透過迴圈展開成為獨立營位
+        const zones = [];
+        originalZones.forEach(zone => {
+            if (zone.count > 1) {
+                for (let i = 1; i <= zone.count; i++) {
+                    let spotName = '';
+                    if (zone.name === '棚架 A 區') spotName = `棚架A${i}`;
+                    else if (zone.name === '棚架 B 區') spotName = `棚架B${i}`;
+                    else if (zone.name === '棚架 C 區') spotName = `棚架C${i}`;
+                    else if (zone.name === '棧板 A 區') spotName = `棧板A${i}`;
+                    else if (zone.name === '棧板 B 區') spotName = `棧板B${i}`;
+                    else if (zone.name === '三人頂級露營車') spotName = `露營車${String.fromCharCode(64 + i)}`; // A, B
+                    else if (zone.name === '草地區') spotName = `草地區${i}`;
+                    else if (zone.name === '碎石地區') spotName = `碎石區${i}`;
+                    else if (zone.name === '泰式免搭') spotName = `泰式${String.fromCharCode(64 + i)}`; // A, B, C...
+                    else spotName = `${zone.name}${i}`;
+
+                    zones.push({
+                        ...zone,
+                        id: `${zone.id}_${i}`,
+                        name: spotName,
+                        count: 1, // 展開後每個位置庫存上限為 1
+                        desc: `專屬營位: ${spotName}` 
+                    });
+                }
+            } else {
+                zones.push({
+                    ...zone,
+                    name: zone.name,
+                    count: 1,
+                    desc: `專屬營位: ${zone.name}`
+                });
+            }
+        });
+
         const rentals = [
             { id: 'R01', name: '月亮椅/休閒椅', price: 100, stock: 3 },
             { id: 'R02', name: '平躺椅', price: 150, stock: 2 },
@@ -679,7 +722,7 @@
         ];
 
         const tents = [
-            { id: 'T00', name: '代收搭服務', price: 500, stock: 50 }, // ★★★ 新增這一項，對應選單第一項 ★★★
+            { id: 'T00', name: '代收搭服務', price: 500, stock: 50 }, 
             { id: 'T05', name: '迪卡儂 4.2 充氣帳', price: 800, stock: 1 },
             { id: 'T07', name: '挪客屋脊6', price: 600, stock: 1 },
             { id: 'T06', name: 'IF充氣帳篷6.0', price: 800, stock: 1 },
@@ -696,8 +739,6 @@
             { id: 'B04', name: '4999頂級海陸套餐(10-15人含所有烤肉用具，餐具自備)', price: 4999, stock: 5 }
         ];
         
-        
-        // 僅供 modal-gear 參考用的列表 (不影響租借邏輯)
         const gears = [{n:'月亮椅/休閒椅',p:'100'},{n:'平躺椅',p:'150'},{n:'卡式爐/蜘蛛爐(含瓦斯)',p:'200'},{n:'五星爐(含瓦斯)',p:'300'},{n:'IGT桌全套',p:'600'},{n:'天幕 3*3+桿',p:'250'},{n:'天幕 3*5+桿',p:'350'},{n:'超聲波地墊 3*3',p:'150'},{n:'野餐地墊 2*2/燈具',p:'100'},{n:'落地頂級四葉燈',p:'350'},{n:'杜邦鯤9車尾帳',p:'1000'},{n:'代搭帳服務',p:'500'},{n:'投影機',p:'300'},{n:'投影布幕',p:'100'},{n:'電暖器/焚火台(鐵)',p:'200'},{n:'焚火台(純鈦)',p:'350'},{n:'木柴',p:'100'},{n:'電動車車床方案',p:'150'}];
         
         const reviews = [
@@ -712,19 +753,15 @@
             {n:"Emily", c:"廁所跟浴室都保持得很乾淨，熱水也很穩，這點對露營來說太重要了。"},
             {n:"阿豪", c:"草地區的草皮維護得很好，很軟很舒服，赤腳走也沒問題。"}
         ];
-
-        // ============================================
-        // ★★★ 補回：免搭帳專區資料與渲染函數 (更新為最新清單) ★★★
-        // ============================================
         
         const tentInfoData = [
             {
                 name: "代收搭服務 (自備帳篷)",
                 price: "500",
                 desc: "專人為您搭設與撤收帳篷，讓您輕鬆享受露營樂趣 (不含帳篷，僅服務)。",
-                img: "https://i.ibb.co/C3kqHQBG/DSC00043.jpg", // 示意圖
+                img: "https://i.ibb.co/C3kqHQBG/DSC00043.jpg", 
                 tag: "頂級懶人服務",
-                highlight: true // ★★★ 標記為需要特殊強調的項目
+                highlight: true 
             },
             { name: "迪卡儂 4.2 充氣帳 (租借)", price: "800", img: "https://i.ibb.co/5WGjJV0Y/4-2.jpg", desc: "兩房一廳設計，適合兩對情侶或家庭，CP值最高的選擇。" },
             { name: "挪客屋脊 6 (租借)", price: "600", img: "https://i.ibb.co/mVdMmHqb/6.jpg", desc: "經典小屋帳，適合3-4人小家庭。" },
@@ -741,10 +778,8 @@
 
             let html = '';
             tentInfoData.forEach((item, index) => {
-                // ★★★ 判斷是否為強調項目 (第一項) ★★★
                 const isHighlight = item.highlight || index === 0;
                 
-                // 定義樣式：如果是強調項目，文字變超大、變紫色、框線加粗變紫色
                 const borderClass = isHighlight ? "border-4 border-purple-500 shadow-xl transform scale-[1.02]" : "border border-gray-100 shadow-md";
                 const titleClass = isHighlight ? "text-3xl font-extrabold text-purple-700 tracking-tight" : "text-lg font-bold text-stone-800";
                 const priceClass = isHighlight ? "text-3xl font-black text-purple-600" : "text-xl font-bold text-purple-600";
@@ -777,7 +812,7 @@
         }
         
         let cart = {}; 
-        let addonCart = {}; // ★★★ 新增：裝備購物車 ★★★
+        let addonCart = {}; 
         let bookedData = {}; 
 
         async function init() { 
@@ -785,24 +820,20 @@
             renderZones('all'); 
             renderGears(); 
             renderAddons(); 
-            renderTentInfo(); // ★★★ 新增這行：執行免搭帳渲染 ★★★
+            renderTentInfo(); 
             setupCalculator();
             renderReviews();
             renderGallery();
             if (myLiffId !== "C268dc45e60850ae22e3e040f0e58a3e5") await initializeLiff();
         }
         
-        // ★★★ 新增：渲染加購區的函數 (已加入庫存判斷) ★★★
         function renderAddons() {
             const container = document.getElementById('addons-container');
             if (!container) return;
             container.innerHTML = '';
             
-            // 渲染裝備區
             container.appendChild(createAddonSection('【裝備租借區】(計次收費)', rentals, 'blue'));
-            // 渲染帳篷區
             container.appendChild(createAddonSection('【帳篷租借區】(計次收費)', tents, 'purple'));
-            // 渲染烤肉區
             container.appendChild(createAddonSection('【烤肉預定區】(計次收費)', bbqs, 'orange'));
         }
 
@@ -819,12 +850,9 @@
             const grid = document.createElement('div');
             grid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3";
             
-            // 取得預訂日期區間，用來判斷庫存
             const inDateVal = document.getElementById('checkinDate').value;
             const outDateVal = document.getElementById('checkoutDate').value;
             
-            // 計算區間內，每個品項已經被租借的最大數量
-            // 概念：如果我要住 2/1~2/3，這兩天只要其中一天「A帳篷」已經被租走了，我就不能租
             let bookedMap = {}; 
             if(inDateVal && outDateVal && bookedData) {
                  const start = new Date(inDateVal);
@@ -843,7 +871,6 @@
                 const div = document.createElement('div');
                 div.className = "bg-white p-3 rounded-lg border border-gray-200 flex justify-between items-center shadow-sm";
                 
-                // 計算剩餘庫存
                 const bookedCount = bookedMap[item.name] || 0;
                 const remaining = Math.max(0, item.stock - bookedCount);
                 const isFull = remaining <= 0;
@@ -854,7 +881,6 @@
 
                 const currentQty = addonCart[item.name] || 0;
                 
-                // ★★★ 修改處：檢查是否有圖片 ★★★
                 const imgHtml = item.image ? `<div class="w-16 h-16 mr-3 flex-shrink-0 cursor-pointer" onclick="showImage('${item.image}')"><img src="${item.image}" class="w-full h-full object-cover rounded-md"></div>` : '';
                 
                 let stockText = isFull ? '<span class="text-red-600 font-bold">已租完</span>' : `庫存: ${remaining} | <span class="font-bold text-${color}-600">$${item.price}</span>`;
@@ -878,7 +904,6 @@
             return wrapper;
         }
 
-        // ★★★ 新增：更新加購數量的函數 (已加入庫存判斷) ★★★
         window.updateAddonQty = (name, delta, maxStock, price) => {
             const inDate = document.getElementById('checkinDate').value;
             const outDate = document.getElementById('checkoutDate').value;
@@ -899,20 +924,18 @@
                 addonCart[name] = newQty;
             }
             
-            // 更新 UI 顯示
             const span = document.getElementById(`qty-${name}`);
             if (span) span.innerText = newQty;
             
-            // 觸發重新計算總價
             window.reCalculate();
         }
 
-        // ============================================
-        // ★★★ 新的相簿設定 (資料夾模式) ★★★
-        // ============================================
-        
-      let galleryData = {
+ let galleryData = {
   "木屋外觀": [
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1BwC53jb9SYJvlXu9Pnef8Ob4NH8ePKpB&sz=w1000"
+    },
     {
       "t": "",
       "u": "https://drive.google.com/thumbnail?id=1N_Towiehb0T6B2qR1jyl7oJhy3CQlmkG&sz=w1000"
@@ -1258,7 +1281,321 @@
       "u": "https://drive.google.com/thumbnail?id=1qiBnqWMlrVUlmMKcEuZoskaaO34jEvB9&sz=w1000"
     }
   ],
-    "小木屋": [
+  "其他": [
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1e2oaEx3H1C8qmwidEUFJ3XMY7SlKep9R&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1NIMwYdZI4bimwaiPaImIi4VEmFAmoTNl&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=12ch0IjtcsadYlQeu_3U1WnWs6-nniIaP&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=17etpCFQo8QHcIYFvLyUEhVKIJFscojfS&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1xaSmMRJYzHbhCCWA4WgkFktBXOFbmv1R&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1uU7l47K8stLvzcKCgwnsUij8O_tzLbV0&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1ETAj2gidNt1cb1u04PW6-oX-CW2BKL6H&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1gPEe09CDuPMT0dxLAM3C-NnerzHutyHY&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1avB_J6bTn367Kby6hFCQV0yx5yIEz1Mg&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1B2R_01CNVOQuSn2gAefNVMonJLCyNvqu&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1bHSeyCVyxB-lDZb_nfjD-4TH_dSF86hD&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1RlK2vbsIKlE0gWXXkZkx2tYSfZIsivxu&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1cgy7jxCylJXjT3qFaS55j-AoKfhD8AOG&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1Hyxaa388xPjTgr6mjromJhmtZGsW6eUQ&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1PVSCb64gU1zfNuwKDyLXbGL59tVrI8zN&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1qDQsyvErqcWtc9iuRB-HGlO92ZmfKoMC&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1UuyvBjmSSfh3nxJhsb-i4tD8CD-4l3Ks&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1Ged6CsK512d_gPAcTEsDH8zwtYBYn-6W&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1FIzDo-aLO5B084J1HnRJYxTcOsBM1YAF&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1y8z1G9N3HNxrZirTSlfVyPnG5w4_KcHm&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1GCdkm7c3iStNVE-EFDUl90QIn2fsEpqk&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1-QFYqqmSfpgS7MuMQf-Y3HrQdqm3l6Oo&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=13uLpGUGrvTWxH-BKx9K_jS32PCrlH8ZS&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=174zL6jEdYJb5Ld_tWTpunTg7Fz7nDz6e&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1Rjy2bC_Dm-ThcOLrIETvUTnuTsrERgWR&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1q2_02jRlal4ItCj_S5Nvl1-zFm19Hlqp&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=14xSvMPbCHmo8woP7CjKHScqbvQ3ajHgA&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1x4NguPdbFLtYMHiKVWRRs68WwkayeqKi&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1jLEupXoR2eZFJCH9VwsPg71mm6zZp4Eu&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1_oCHRNok2_2EZJCfcSWLT8gIX9b2NbfY&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1fSO0YdM58TBSIoMulsB3gvqLOeESVd_U&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1pGUyDfHGTbf5qdNmm4jvjefeAU9Rt0ME&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1iC9Fjs4K97PmpqUMcN52fiBVn83Qz8Ld&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1qp7_T1FphfZHKdQY3lUprJtiavnGh5E3&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=15MJivcainFAGb4w6TAWchnnDOxs5v_FT&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1qPzwgWfLLx767KcPpG34A7pXfd5oFZxH&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1PKm7hbJq23Sax9NQSx4nh_u_UVPT1WfJ&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=19SFHVzMaBSY8TB4lX9eZVcwEWwOlSf_P&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=169t4HASUHOs8iDiDQysz-zqsQaAi9UYu&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=13ECfBA0vg2obl45Ht74UYUbwfTXcrzkV&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1gXom_14OJ4Fta5-_dZDItiYxH6ecBfb_&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1d0TttNQY0-Ub1ZgZURczSOwi-ODXugQz&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=155p3hvF3wyhE8-aqj3fA-EfR78hSiyYv&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1W7lio_0sCI_tWJIVsYqba0WdrPDl__Xj&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1IIdoYlqv5XFZ0IYGRu3XfyvLItSsUCp-&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1_wQsA_RuhIX_YOIxCq01r_j95QiU-KVe&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1yVYXzXtSjeyyj5yhxxTq9zSuDfWcvivi&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1wi5xbBMLGl6L1bU_fsyhpPure-gg7-e1&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1QAyWMg1RLLubQmVHTdvo-zpEPb3CRWkP&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1YZEImkfLYikfCpKfGUKXo8R0d9OJcbwz&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1IsWZe4RiYmRRhOBtN-5iueZsz9Zv7J43&sz=w1000"
+    }
+  ],
+  "包棟民宿": [
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1OgiXtPbp4V7Mv_SVAtR-_MQsAEWjSAcT&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1BGyy0Lwv7ABFuL8QXwrnFnpsWITkyMbe&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1UU9bhkQsOEZDTmaC62k6PA8T2uG4yDqc&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1YOMuXXwoPtW7BKM-Of7n7kv3yEcMbl3Y&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1BuGJdTiqWsx4b-K6WfE8BdzT6qoirDl9&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1TGKNjfIKjiGTYwO4pis33VtgFNEfRPQi&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1w8LJD9ZdmpGZJgnUGrMN5DqsUXdUK4l5&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1IiEb-58jtMQvkfBhfdCCS3CziOjfxSnW&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1EGKkt_HJvrItCCNFvvC89ZItH--28j-4&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1DA4kbG7NTNaBVNF30Iw-w2GHs-pwS6M7&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1HYp45BnmxHSDTdYDBPI7MA_UmFTppw_C&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1o1XXqJg-isQNoeidkrop-_KrUZ1boAVt&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1LINb1dXniOCSF92S4MNcx9FEofgtJDe5&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1mUox0SK6_Zc-iSvka_4T9vCouwX9KnOG&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1lYKwk0tQ_-MtUJ_eR1xtN0ilZgC-MwJV&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1q8WFnXFRvS01JrygtBsIKZBj_L9Mon25&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1KBdUQ9xvN57V8LMZlCujbt0k7nXraxaZ&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1_0O4vogaWZnHWMVC2Z8ojasTqtMGLkQK&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=14khDcJuvY0wv4_CsB1mYdERNPVgWDMB1&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1LvjcizL0iwuk1aG4PkMQBrhNDf-wEOGe&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1MqYQxr4P59B3vYxYS6HuM9Qqi6RlWuq1&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1CJqF3mj-EUJkk2uIeuSKV289LRatdTRr&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1q-dbWtXcFMLzepFgBBE8U1w_PE4LpBaZ&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1Xwp_xO2OqiJFM809afz6SingWgssxWoG&sz=w1000"
+    }
+  ],
+  "廁所": [
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=15ootVM8p3XPXzyiMD6VhUSDhShOZxZBd&sz=w1000"
+    },
+    {
+      "t": "",
+      "u": "https://drive.google.com/thumbnail?id=1kHLspFKWzbqiRQcZm7mtjiaOoVbFxW4j&sz=w1000"
+    }
+  ],
+  "小木屋": [
     {
       "t": "",
       "u": "https://drive.google.com/thumbnail?id=1FNgdD14M7pEu7u_lwJV8lKuYApPzItDu&sz=w1000"
@@ -1463,20 +1800,12 @@
     }
   ]
 };
-        // 2. 主入口：打開相簿時，預設顯示資料夾列表
-        function renderGallery() {
-            renderGalleryFolders(); 
-        }
 
-        // 3. 顯示資料夾列表的畫面 (修改版：移除黃色icon)
         function renderGalleryFolders() {
             const container = document.getElementById('gallery-container');
-            
             let html = '<div class="grid grid-cols-2 md:grid-cols-3 gap-3 p-2">';
             
-            // 抓出所有資料夾名稱並產生按鈕
             Object.keys(galleryData).forEach(folderName => {
-                // 抓該資料夾的第一張圖當封面，如果沒有就留白
                 const images = galleryData[folderName];
                 const coverImg = images && images.length > 0 ? images[0].u : '';
                 const count = images ? images.length : 0;
@@ -1497,14 +1826,11 @@
             container.innerHTML = html;
         }
 
-        // 4. 顯示特定資料夾內照片的畫面 (含返回按鈕)
         function renderGalleryImages(folderName) {
             const container = document.getElementById('gallery-container');
             const images = galleryData[folderName];
             
             let html = '';
-
-            // ★ 加入返回按鈕與標題區塊
             html += `
                 <div class="sticky top-0 z-20 bg-black/80 backdrop-blur-md p-3 mb-2 flex items-center gap-3 border-b border-gray-700">
                     <button onclick="renderGalleryFolders()" class="text-white bg-white/10 hover:bg-white/30 px-3 py-1 rounded-full text-sm transition flex items-center gap-1">
@@ -1514,7 +1840,6 @@
                 </div>
             `;
             
-            // 照片列表
             html += '<div class="flex flex-col gap-2 p-2">';
             
             if (images && images.length > 0) {
@@ -1533,7 +1858,6 @@
             html += '</div>';
             
             container.innerHTML = html;
-            // 切換後自動捲動到最上方
             if (container.parentElement) container.parentElement.scrollTop = 0;
         }
 
@@ -1544,12 +1868,10 @@
                 bookedData = data; 
                 console.log('庫存資料已更新:', bookedData);
                 
-                // 每次庫存更新後，如果日期已經被選了，就重新渲染區域
-                // 這樣可以避免使用者打開網頁很久沒動，庫存沒更新到的問題
                 if(document.getElementById('checkinDate').value && document.getElementById('checkoutDate').value) {
                       const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
                       renderZones(activeFilter);
-                      renderAddons(); // 也要重新渲染加購區
+                      renderAddons(); 
                 }
             } catch (err) {
                 console.error('無法取得庫存資料:', err);
@@ -1648,19 +1970,17 @@
             
             function calculate() {
                 const cartEntries = Object.entries(cart);
-                const addonEntries = Object.entries(addonCart); // ★★★ 取得加購項目
+                const addonEntries = Object.entries(addonCart); 
                 
-                // 如果沒有選營位也沒有選裝備，隱藏
                 if (cartEntries.length === 0 && addonEntries.length === 0) {
                     resultDiv.classList.add('hidden');
                     zoneInput.value = "";
                     return;
                 }
                 
-                let zoneStr = cartEntries.map(([name, qty]) => `${name} x ${qty}`).join(', ');
+                let zoneStr = cartEntries.map(([name, qty]) => `${name} * ${qty}`).join(', ');
                 
-                // ★★★ 將加購項目字串附加到 zoneInput (讓後台知道選了什麼)
-                let addonStr = addonEntries.map(([name, qty]) => `${name} x ${qty}`).join(', ');
+                let addonStr = addonEntries.map(([name, qty]) => `${name} * ${qty}`).join(', ');
                 let fullDetails = zoneStr;
                 if (zoneStr && addonStr) fullDetails += ', ' + addonStr;
                 else if (!zoneStr && addonStr) fullDetails = addonStr;
@@ -1688,7 +2008,7 @@
                         
                         for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
                             let dateStr = d.toISOString().split('T')[0];
-                            let dayOfWeek = d.getDay(); // 0:周日, 1:周一..., 5:周五, 6:周六
+                            let dayOfWeek = d.getDay(); 
                             
                             if (BLOCKED_DATES.includes(dateStr)) { 
                                 blocked = true; blockMsg = `【當天已包場滿額】${dateStr}，請重新預定選擇日期`; break; 
@@ -1708,12 +2028,9 @@
                                 if (isSpecialDay) {
                                     price = getSpecialPrice(zoneData.cat);
                                 } else if (isWeekend) {
-                                    // 假日 (非連假之五六日) 價格邏輯
                                     if (['grass', 'shelter', 'room'].includes(zoneData.cat)) {
                                         price = 1200;
                                     } else {
-                                        // 對於木屋、包棟等，假日通常視同連假價格或特殊價
-                                        // 這裡使用 getSpecialPrice 確保不會變成平日價
                                         price = getSpecialPrice(zoneData.cat);
                                     }
                                 }
@@ -1738,17 +2055,14 @@
                     return;
                 }
 
-                // ★★★ 計算加購總金額 ★★★
                 let addonTotal = 0;
                 addonEntries.forEach(([name, qty]) => {
-                    // 搜尋所有加購列表
                     let item = rentals.find(r => r.name === name) || tents.find(t => t.name === name) || bbqs.find(b => b.name === name);
                     if (item) {
                         addonTotal += item.price * qty;
                     }
                 });
 
-                // 總金額 = 房價 + 加購價
                 totalPrice += addonTotal;
 
                 if ((days > 0 || addonTotal > 0) && totalPrice > 0) {
@@ -1786,9 +2100,6 @@
             }
             
             inDate.addEventListener('change', () => { 
-                // ★★★ 移除此處原本的 alert，改為僅在計算時跳過、或等最後送出時才擋 ★★★
-                // if(inDate.value && inDate.value < MIN_DATE) { alert("目前僅提供 2/1 以後訂位！"); inDate.value = ""; } 
-                
                 if(inDate.value) {
                     const startDate = new Date(inDate.value);
                     startDate.setDate(startDate.getDate() + 1);
@@ -1803,13 +2114,13 @@
                 calculate(); 
                 const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
                 renderZones(activeFilter);
-                renderAddons(); // 日期改變也要重刷加購區庫存
+                renderAddons(); 
             });
             outDate.addEventListener('change', () => { 
                 calculate();
                 const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
                 renderZones(activeFilter);
-                renderAddons(); // 日期改變也要重刷加購區庫存
+                renderAddons(); 
             });
             applyBtn.addEventListener('click', validateDiscount);
             discountInput.addEventListener('change', validateDiscount);
@@ -1845,7 +2156,6 @@
             const outDate = document.getElementById('checkoutDate').value;
             const isSpecial = hasSpecialHoliday(inDate, outDate);
 
-            // 判斷當前選擇日期是否包含一般假日 (五六日)
             let hasWeekend = false;
             if (inDate && outDate) {
                 const s = new Date(inDate);
@@ -1864,7 +2174,7 @@
                 
                 for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
                     let dateStr = d.toISOString().split('T')[0];
-                    if (bookedData[dateStr] && bookedData[dateStr].zones) { // 注意：要多判斷 .zones
+                    if (bookedData[dateStr] && bookedData[dateStr].zones) {
                         for (let [zName, qty] of Object.entries(bookedData[dateStr].zones)) {
                             bookedMap[zName] = Math.max(bookedMap[zName] || 0, qty);
                         }
@@ -1919,7 +2229,6 @@
                     displayPrice = getSpecialPriceDisplay(zone.cat);
                     priceClass = "text-red-600"; 
                 } else if (hasWeekend && !isSpecial) {
-                    // 如果有假日且非連假，顯示假日價格
                     if (['grass', 'shelter', 'room'].includes(zone.cat)) {
                         displayPrice = 1200;
                         priceClass = "text-orange-600";
@@ -2089,12 +2398,10 @@
         document.getElementById('bookingForm').addEventListener('submit', e => {
             e.preventDefault();
             const input = document.getElementById('selectedZoneInput');
-            // 如果沒有選營位也沒有選加購，禁止送出 (但允許只買加購的情況，不過通常是需要營位)
-            // 這裡假設必須至少有一個營位或加購品
             if(Object.keys(cart).length === 0 && Object.keys(addonCart).length === 0) { alert('請至少選擇一個營位或加購商品！'); return; }
             
             const inDateVal = document.getElementById('checkinDate').value;
-            if (inDateVal < MIN_DATE) { alert("目前僅提供 2026/1/19 以後的訂位！"); return; } // ★★★ 這裡的提示文字也順便幫您微調了 ★★★
+            if (inDateVal < MIN_DATE) { alert("目前僅提供 2026/1/19 以後的訂位！"); return; }
 
             const btn = document.getElementById('submitBtn');
             const originalText = btn.innerText;
@@ -2156,16 +2463,16 @@
                     showSuccessModal(); 
                     e.target.reset();
                     cart = {};
-                    addonCart = {}; // 清空加購
+                    addonCart = {}; 
                     document.querySelectorAll('.zone-card').forEach(c => c.classList.remove('selected'));
                     input.value = '';
                     document.getElementById('priceCalcResult').classList.add('hidden');
                     document.getElementById('stayDays').classList.add('hidden');
                     document.getElementById('discountMessage').classList.add('hidden');
-                    document.getElementById('addons-container').innerHTML = ''; // 重置UI
+                    document.getElementById('addons-container').innerHTML = ''; 
                     zones.forEach(z => z.idx = 0);
                     renderZones('all');
-                    renderAddons(); // 重新渲染加購區 (歸零狀態)
+                    renderAddons(); 
                     if(liff.isLoggedIn()) liff.getProfile().then(p => { document.getElementById('inputName').value = p.displayName; });
                     fetchInventory();
                 })
