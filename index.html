@@ -20,43 +20,40 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .cursor-pointer { cursor: pointer; }
-        
+       
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in { animation: fadeIn 0.6s ease-out forwards; }
         .filter-btn.active { background-color: var(--forest-green); color: white; }
-        
+       
         /* 星星評分樣式 */
         .star-rating { direction: rtl; display: inline-flex; }
         .star-rating input { display: none; }
         .star-rating label { font-size: 2rem; color: #ddd; cursor: pointer; transition: color 0.2s; }
         .star-rating input:checked ~ label, .star-rating label:hover, .star-rating label:hover ~ label { color: #facc15; }
-        
+       
         /* ★★★ 成功視窗動畫特效 ★★★ */
-        @keyframes check-bounce { 
-            0% { transform: scale(0) rotate(-45deg); opacity: 0; } 
-            50% { transform: scale(1.2) rotate(0deg); opacity: 1; } 
-            100% { transform: scale(1) rotate(0deg); } 
+        @keyframes check-bounce {
+            0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+            50% { transform: scale(1.2) rotate(0deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); }
         }
         .check-icon-anim { animation: check-bounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-        
-        @keyframes modal-pop { 
-            0% { opacity: 0; transform: scale(0.8) translateY(20px); } 
-            100% { opacity: 1; transform: scale(1) translateY(0); } 
+       
+        @keyframes modal-pop {
+            0% { opacity: 0; transform: scale(0.8) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
         }
         .modal-animate { animation: modal-pop 0.4s ease-out forwards; }
-
         @keyframes pulse-btn {
             0% { box-shadow: 0 0 0 0 rgba(6, 199, 85, 0.7); }
             70% { box-shadow: 0 0 0 10px rgba(6, 199, 85, 0); }
             100% { box-shadow: 0 0 0 0 rgba(6, 199, 85, 0); }
         }
         .line-btn-pulse { animation: pulse-btn 2s infinite; }
-
         /* ========================================= */
         /* ★★★ 關於我們 詩意排版樣式 ★★★ */
         /* ========================================= */
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;500;700&display=swap');
-
         .about-poetic-container { font-family: 'Noto Serif TC', serif; color: #4a4a4a; line-height: 2.4; text-align: center; letter-spacing: 0.05em; padding: 20px 10px; }
         .camp-name-styled { font-size: 1.1rem; font-weight: 500; color: #999; letter-spacing: 0.3em; margin-bottom: 50px; position: relative; }
         .camp-name-styled::after { content: ""; display: block; width: 30px; height: 1px; background: #ddd; margin: 15px auto; }
@@ -74,11 +71,10 @@
 </head>
 <body class="bg-green-50 text-stone-800 font-sans">
     <div id="overlay" onclick="closeAll()" class="fixed inset-0 bg-black bg-opacity-60 z-40 hidden transition-opacity duration-300 backdrop-blur-sm"></div>
-    
+   
     <div id="image-modal" onclick="this.classList.add('hidden')" class="fixed inset-0 z-[60] bg-black bg-opacity-90 hidden flex items-center justify-center p-4 cursor-pointer">
         <img id="image-modal-src" src="" referrerpolicy="no-referrer" class="max-w-full max-h-full rounded-lg shadow-2xl transition-transform transform scale-100">
     </div>
-
     <nav class="fixed w-full z-30 transition-all duration-300 bg-gradient-to-r from-yellow-100/95 to-orange-200/95 text-stone-800 backdrop-blur-md shadow-lg">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center gap-4">
@@ -92,7 +88,6 @@
             </button>
         </div>
     </nav>
-
     <div id="sidebar" class="fixed inset-y-0 left-0 w-72 bg-white shadow-2xl transform -translate-x-full transition-transform duration-300 z-50 flex flex-col">
         <div class="h-48 bg-gradient-to-br from-yellow-100 to-orange-200 flex flex-col justify-end p-6 text-stone-800 relative overflow-hidden">
             <i class="fas fa-mountain text-8xl absolute -right-4 -bottom-8 text-orange-300 opacity-30"></i>
@@ -101,7 +96,6 @@
         </div>
         <div class="flex-1 overflow-y-auto py-2">
             <a href="#" onclick="showModal('modal-map')" class="flex items-center px-6 py-4 bg-green-50 text-stone-800 font-bold border-b border-green-200"><i class="fas fa-map-marked-alt w-8 text-green-700"></i> 營區地圖</a>
-            
             <a href="#" onclick="showModal('modal-blog')" class="flex items-center px-6 py-4 hover:bg-pink-50 text-stone-600 border-b border-gray-100"><i class="fas fa-blog w-8 text-pink-500"></i> 營區網誌</a>
             <a href="#" onclick="showModal('modal-gallery')" class="flex items-center px-6 py-4 hover:bg-orange-50 text-stone-600 border-b border-gray-100"><i class="fas fa-images w-8 text-orange-500"></i> 營區圖集</a>
             <a href="#" onclick="showModal('modal-qa')" class="flex items-center px-6 py-4 hover:bg-yellow-50 text-stone-600 border-b border-gray-100"><i class="fas fa-question-circle w-8 text-yellow-600"></i> 營區 Q&A</a>
@@ -116,7 +110,6 @@
             <a href="#" onclick="showModal('modal-tent')" class="flex items-center px-6 py-4 hover:bg-green-50 text-stone-600 border-b border-gray-100"><i class="fas fa-campground w-8 text-purple-600"></i> 免搭帳服務</a>
         </div>
     </div>
-
     <header class="bg-gradient-to-r from-yellow-100 to-orange-200 pt-20 pb-8 px-0 flex justify-center items-center">
         <div class="relative w-full max-w-7xl mx-auto">
             <div class="relative aspect-video w-full overflow-hidden md:rounded-2xl shadow-2xl bg-black">
@@ -133,7 +126,6 @@
             </div>
         </div>
     </header>
-
     <main class="container mx-auto px-4 pb-12 -mt-2 relative z-10" id="booking-section">
         <div class="grid grid-cols-3 gap-2 md:gap-4 mb-4 fade-in">
             <div onclick="showModal('modal-about')" class="bg-white p-4 rounded-xl shadow-md text-center cursor-pointer hover:bg-green-50 transition border-b-4 border-green-600">
@@ -149,7 +141,7 @@
                 <div class="text-xs md:text-sm font-bold text-gray-700">匯款資訊</div>
             </div>
         </div>
-        
+       
         <div class="mb-8 fade-in" style="animation-delay: 0.05s;">
              <div onclick="showModal('modal-gallery')" class="bg-gradient-to-r from-orange-400 to-yellow-400 p-4 rounded-xl shadow-lg text-center cursor-pointer hover:scale-[1.01] transition transform border-b-4 border-orange-600 text-white relative overflow-hidden group">
                  <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition"></div>
@@ -159,7 +151,7 @@
                  <i class="fas fa-camera absolute -right-2 -bottom-2 text-6xl text-white opacity-20 transform rotate-12"></i>
              </div>
         </div>
-        
+       
         <div class="mb-8 fade-in" style="animation-delay: 0.1s;">
             <div class="bg-[#06C755] rounded-2xl shadow-lg p-6 text-white flex flex-col md:flex-row items-center justify-between gap-4 relative overflow-hidden">
                 <i class="fab fa-line absolute -right-6 -bottom-6 text-8xl opacity-10 rotate-12"></i>
@@ -177,13 +169,11 @@
                 </a>
             </div>
         </div>
-
         <div class="mb-8 fade-in flex flex-col md:flex-row gap-4 justify-center items-start" style="animation-delay: 0.15s;">
             <div class="w-full md:w-1/2 flex flex-col gap-4">
                 <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100083289610242&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="100%" height="350" style="border:none;overflow:hidden;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                 <iframe src="https://www.youtube.com/embed/pdWhXiQRR7w" width="100%" height="350" style="border:none;overflow:hidden;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
-
             <div class="w-full md:w-1/2 bg-white rounded-3xl shadow-xl overflow-hidden fade-in" style="animation-delay: 0.2s;">
                 <div class="bg-green-700 p-4 text-white text-center">
                     <h3 class="font-bold text-lg">線上預訂單</h3>
@@ -193,7 +183,6 @@
                     <input type="hidden" id="lineUserId" name="Line_User_ID">
                     <input type="hidden" id="lineDisplayName" name="Line_Display_Name">
                     <input type="hidden" id="linePictureUrl" name="Line_Picture_URL">
-
                     <div>
                           <h4 class="text-lg font-bold text-stone-800 mb-4 border-l-4 border-green-600 pl-3">第一步：選擇預訂日期</h4>
                           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -210,9 +199,7 @@
                             </div>
                           </div>
                     </div>
-
                     <hr class="border-gray-200">
-
                     <div>
                         <div class="flex flex-col md:flex-row justify-between items-center mb-4">
                             <h4 class="text-lg font-bold text-stone-800 border-l-4 border-green-600 pl-3 mb-2 md:mb-0">第二步：選擇營位 (可多選)</h4>
@@ -225,21 +212,18 @@
                         </div>
                         <input type="hidden" name="預訂區域" id="selectedZoneInput" required>
                         <input type="hidden" id="selectedZonePrice" value="0">
-                        
+                       
                         <p class="text-xs text-orange-600 mb-2 font-bold"><i class="fas fa-info-circle"></i> 請先選擇日期，方可選取營位數量 (支援多選)</p>
-
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" id="zoneContainer">
                         </div>
-                        
+                       
                         <div class="mt-6 hidden">
                             <input type="hidden" name="預訂數量" id="quantitySelect" value="1">
                         </div>
                     </div>
-
                     <hr class="border-gray-200">
                     <div id="addons-container"></div>
                     <hr class="border-gray-200">
-
                     <div>
                         <h4 class="text-lg font-bold text-stone-800 mb-4 border-l-4 border-green-600 pl-3">第三步：訂位資料</h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -269,12 +253,12 @@
                             </div>
                         </div>
                     </div>
-                    
+                   
                     <hr class="border-gray-200">
-                    
+                   
                     <div>
                         <h4 class="text-lg font-bold text-stone-800 mb-4 border-l-4 border-green-600 pl-3">特殊需求</h4>
-                        
+                       
                         <div class="mb-4 bg-yellow-50 p-4 rounded-xl border border-yellow-200">
                             <label class="block text-xs font-bold text-gray-500 mb-2"><i class="fas fa-ticket-alt text-yellow-500 mr-1"></i>折扣碼 / 優惠券</label>
                             <div class="flex gap-2">
@@ -295,13 +279,12 @@
                             <div class="text-2xl font-extrabold text-red-600" id="totalPriceDisplay">$0</div>
                         </div>
                     </div>
-                    
+                   
                     <div class="text-center mb-2">
                         <p class="text-red-500 text-xs font-bold cursor-pointer underline" onclick="showModal('modal-rules')">
-                            <i class="fas fa-exclamation-circle"></i> 退訂規則及注意事項請點此查看 
+                            <i class="fas fa-exclamation-circle"></i> 退訂規則及注意事項請點此查看
                         </p>
                     </div>
-
                     <button type="submit" id="submitBtn" class="w-full bg-stone-800 text-white font-bold py-4 rounded-xl text-lg shadow-lg shadow-lg hover:bg-stone-700 transition transform hover:scale-[1.01] active:scale-95">
                         確認送出預訂
                     </button>
@@ -313,33 +296,31 @@
     <footer class="bg-gradient-to-r from-yellow-100 to-orange-200 text-stone-600 py-8 text-center text-sm">
         <p class="mb-2 text-stone-800 font-bold text-lg"><i class="fas fa-bolt text-orange-500 mr-2"></i> 宜蘭礁溪充電莊</p>
         <p class="mb-4 text-stone-600">宜蘭縣礁溪鄉匏杓崙路150之8號</p>
-        
+       
         <p class="mb-4 text-stone-800 font-bold text-lg"><i class="fas fa-phone-alt mr-2 text-green-700"></i> 營主電話: 0975020425</p>
-
         <div class="flex justify-center gap-4 mb-4">
             <a href="https://www.facebook.com/profile.php?id=100083289610242" target="_blank" class="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-blue-600 hover:text-white transition text-blue-600 shadow-md"><i class="fab fa-facebook-f text-lg"></i></a>
-            
+           
             <a href="https://youtube.com/@sohocampinghank?si=hHxCi9ptRPWk7ymX" target="_blank" class="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-red-600 hover:text-white transition text-red-600 shadow-md"><i class="fab fa-youtube text-lg"></i></a>
-            
+           
             <a href="https://lin.ee/t1Ds7Hq" target="_blank" class="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-[#06C755] hover:text-white transition text-[#06C755] shadow-md"><i class="fab fa-line text-lg"></i></a>
            <a href="https://www.google.com/maps/search/?api=1&query=宜蘭礁溪充電莊" target="_blank" class="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-red-500 hover:text-white transition text-red-500 shadow-md"><i class="fas fa-map-marker-alt text-lg"></i></a>
         </div>
         <p>© 2025 Charging Mansion.</p>
     </footer>
-
     <div id="modal-success" class="hidden fixed inset-0 z-[70] flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"></div>
         <div class="bg-white w-full max-w-sm rounded-3xl shadow-2xl z-10 p-8 relative modal-animate text-center overflow-hidden">
             <div class="absolute -top-10 -right-10 w-32 h-32 bg-yellow-100 rounded-full opacity-50"></div>
             <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-green-100 rounded-full opacity-50"></div>
-            
+           
             <div class="relative z-10">
                 <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
                     <i class="fas fa-check text-4xl text-green-600 check-icon-anim"></i>
                 </div>
                 <h3 class="text-2xl font-bold text-stone-800 mb-2">預訂成功！</h3>
                 <p class="text-stone-500 text-sm mb-4">訂單資料已成功送出<br>請留意 Email 與 LINE 通知</p>
-                
+               
                 <div class="mt-4 mb-6 p-4 border-4 border-red-500 rounded-xl bg-red-50 animate-pulse">
                     <h4 class="text-red-600 font-black text-xl md:text-2xl leading-relaxed">
                         請於下訂後 7 日內匯款完成<br>並完成匯款回報
@@ -348,7 +329,7 @@
                         如逾期7天內未繳費系統自動再發信催繳<br>歡迎您的蒞臨
                     </p>
                 </div>
-                
+               
                 <div class="bg-orange-50 border-2 border-orange-200 rounded-xl p-4 mb-6 relative overflow-hidden">
                     <i class="fas fa-gift absolute -right-2 -bottom-2 text-6xl text-orange-100 opacity-50 transform rotate-12"></i>
                     <p class="text-orange-800 font-bold text-sm mb-1 relative z-10">
@@ -356,7 +337,6 @@
                     </p>
                     <p class="text-orange-600 text-xs relative z-10">每週露營皆可累積 1 點</p>
                 </div>
-
                 <a href="https://u.lin.ee/Q3NUD8N" target="_blank" onclick="closeAll()" class="block w-full bg-[#06C755] text-white font-bold py-3 rounded-xl shadow-lg hover:bg-green-600 transition transform hover:scale-[1.02] active:scale-95 mb-3 line-btn-pulse">
                     <i class="fab fa-line mr-2"></i> 前往 LINE 集點卡
                 </a>
@@ -364,7 +344,6 @@
             </div>
         </div>
     </div>
-
     <div id="modal-gallery" class="hidden fixed inset-0 z-[65] flex items-center justify-center md:p-4">
         <div class="absolute inset-0 bg-black/95" onclick="closeAll()"></div>
         <div class="bg-black w-full h-full md:h-auto md:max-h-[90vh] md:max-w-2xl md:rounded-2xl z-10 relative overflow-y-auto no-scrollbar shadow-2xl flex flex-col">
@@ -373,7 +352,6 @@
             </div>
         </div>
     </div>
-
     <div id="modal-qa" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
         <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto">
@@ -381,7 +359,7 @@
                 <i class="fas fa-times text-xl"></i>
             </button>
             <h3 class="text-xl font-bold mb-6 text-center text-yellow-600 border-b pb-2">營區常見問題 (Q&A)</h3>
-            
+           
             <div class="space-y-4">
                 <div class="bg-stone-50 p-4 rounded-lg border border-stone-100">
                     <h4 class="font-bold text-stone-800 text-sm mb-2"><i class="fas fa-clock text-yellow-500 mr-2"></i>Q: 入營與拔營時間？</h4>
@@ -390,21 +368,19 @@
                         <span class="font-bold text-orange-600">【民宿 / 小木屋 / 免搭帳】</span> 入營時間為 15:00，拔營時間為隔日 11:00。
                     </p>
                 </div>
-                
+               
                 <div class="bg-stone-50 p-4 rounded-lg border border-stone-100">
                     <h4 class="font-bold text-stone-800 text-sm mb-2"><i class="fas fa-paw text-yellow-500 mr-2"></i>Q: 營區可以帶寵物嗎？</h4>
                     <p class="text-gray-600 text-xs leading-relaxed">
                         A: 營區為寵物友善！毛小孩需繫牽繩並請主人自行清理便溺。若入住「民宿室內」，請注意寵物不可上床喔！
                     </p>
                 </div>
-
                 <div class="bg-stone-50 p-4 rounded-lg border border-stone-100">
                     <h4 class="font-bold text-stone-800 text-sm mb-2"><i class="fas fa-charging-station text-yellow-500 mr-2"></i>Q: 營區提供哪些設施與充電？</h4>
                     <p class="text-gray-600 text-xs leading-relaxed">
                         A: 營區提供 24 小時熱水浴室、冷藏/冷凍冰箱、飲水機。<br>電動車車主更享有專屬充電服務 (提供 J1772、TPC、Type2 規格，請於備註提供車號以利安排)。
                     </p>
                 </div>
-
                 <div class="bg-stone-50 p-4 rounded-lg border border-stone-100">
                     <h4 class="font-bold text-stone-800 text-sm mb-2"><i class="fas fa-moon text-yellow-500 mr-2"></i>Q: 夜衝時間與計費方式？</h4>
                     <p class="text-gray-600 text-xs leading-relaxed">
@@ -421,18 +397,16 @@
     <div id="modal-tent" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl z-10 p-6 relative max-h-[85vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-2xl"></i></button><h3 class="text-xl font-bold mb-4 text-purple-600">免搭帳服務專區</h3><div class="space-y-6"></div></div></div>
     <div id="modal-reviews" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-yellow-600 text-center">顧客五星好評</h3><div id="reviews-container" class="space-y-4"></div><p class="text-center text-xs text-gray-400 mt-6 pt-4 border-t">(以上為精選評論，歡迎留言)</p></div></div>
     <div id="modal-feedback" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-center text-blue-600">意見回饋</h3><form id="feedbackForm" class="space-y-4"><input type="hidden" name="sheetName" value="意見回饋"><div><label class="block text-xs font-bold text-gray-500 mb-1">入住日期</label><input type="date" name="入住日期" required class="w-full border rounded p-2"></div><div><label class="block text-xs font-bold text-gray-500 mb-1">住客姓名</label><input type="text" name="住客姓名" required class="w-full border rounded p-2"></div><div class="text-center"><label class="block text-sm font-bold text-gray-500 mb-2">請給予我們評分</label><div class="star-rating"><input type="radio" id="star5" name="滿意度回饋" value="5" checked><label for="star5" title="5星">★</label><input type="radio" id="star4" name="滿意度回饋" value="4"><label for="star4" title="4星">★</label><input type="radio" id="star3" name="滿意度回饋" value="3"><label for="star3" title="3星">★</label><input type="radio" id="star2" name="滿意度回饋" value="2"><label for="star2" title="2星">★</label><input type="radio" id="star1" name="滿意度回饋" value="1"><label for="star1" title="1星">★</label></div></div><div><label class="block text-xs font-bold text-gray-500 mb-1">內容</label><textarea name="內容" required class="w-full border rounded p-2 h-24 resize-none"></textarea></div><button type="submit" id="feedbackBtn" class="w-full bg-blue-500 text-white font-bold py-3 rounded-lg hover:bg-blue-600">送出回饋</button></form></div></div>
-
     <script>
         // ============================================
         // ★★★ 設定區 ★★★
         // ============================================
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbxAn7fW4-W99nsLzRRrTMG7dHrg98rSUNUef96WeIC43e5rgoM9KcwvGDczfv365Uan/exec'; 
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxAn7fW4-W99nsLzRRrTMG7dHrg98rSUNUef96WeIC43e5rgoM9KcwvGDczfv365Uan/exec';
         const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=0#gid=0';
-        const myLiffId = "2008643307-nbPNvd20"; 
-
+        const myLiffId = "2008643307-nbPNvd20";
         const MIN_DATE = '2026-01-19';
         const BLOCKED_DATES = ['2026-02-07', '2026-03-07'];
-        
+       
         const SPECIAL_HOLIDAYS = [
             '2026-02-14','2026-02-15','2026-02-16','2026-02-17','2026-02-18','2026-02-19','2026-02-20','2026-02-21','2026-02-22',
             '2026-02-27','2026-02-28','2026-03-01',
@@ -501,29 +475,28 @@
             '2031-10-24','2031-10-25','2031-10-26',
             '2031-12-25','2031-12-26','2031-12-27','2031-12-28'
         ];
-        
-        const discountCodes = { 
+       
+        const discountCodes = {
             'Chunhunglinonly': 99999999,
-            'LINE100': 100, 
-            '首次加入好友優惠券': 100, 
-            '首次加入好友禮': 100, 
-            'TESLA400': 400, 
-            'CM100': 100, 
-            '竹科臻邦': 500, 
-            '蓓蓓團': 700, 
+            'LINE100': 100,
+            '首次加入好友優惠券': 100,
+            '首次加入好友禮': 100,
+            'TESLA400': 400,
+            'CM100': 100,
+            '竹科臻邦': 500,
+            '蓓蓓團': 700,
             '連假gogo': 300,
-            '芮蒂': 500, 
-            '普卡': 0.55, 
+            '芮蒂': 500,
+            '普卡': 0.55,
             'VIP卡': 0.45,
-            'VIP卡特惠': 0.45, 
+            'VIP卡特惠': 0.45,
             '特惠': 800,
             'CNY': 100,
-            '包場': 0.85, 
+            '包場': 0.85,
             'VIP': 0.9,
-            'Chill孩': 0.95, 
+            'Chill孩': 0.95,
             '愛學館信義校': 0.9
         };
-
         const originalZones = [
             { id: 'ZA1', name: '棚架 A 區', count: 9, cat: 'shelter', desc: '寬敞遮雨棚車停帳邊', price: 1000, badge: '熱門', images: ['https://i.ibb.co/KjBcKGvt/A-DDcar.jpg', 'https://i.ibb.co/RTypZTzW/A1.jpg', 'https://i.ibb.co/hRNQ84SY/A.jpg'], idx: 0 },
             { id: 'ZA2', name: '棚架 B 區', count: 4, cat: 'shelter', desc: '適合包區車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/bMQ51htS/B.jpg', 'https://i.ibb.co/7JY7xRYp/B.jpg'], idx: 0 },
@@ -538,7 +511,6 @@
             { id: 'ZE1', name: '包棟民宿 (16人)', count: 1, cat: 'villa', desc: '4房一起K歌最開心', price: 20000, badge: '獨享', images: ['https://i.ibb.co/6RyZYPVy/7-KW.jpg'], idx: 0 },
             { id: 'ZF1', name: '泰式免搭', count: 8, cat: 'room', desc: '懶人新福音', price: 1000, badge: '最新', images: ['https://i.ibb.co/60bXNB57/image.jpg', 'https://i.ibb.co/DHhm1sWR/2.jpg'], idx: 0 }
         ];
-
         const zones = [];
         originalZones.forEach(zone => {
             if (zone.count > 1) {
@@ -554,13 +526,12 @@
                     else if (zone.name === '碎石地區') spotName = `碎石區${i}`;
                     else if (zone.name === '泰式免搭') spotName = `泰式${String.fromCharCode(64 + i)}`;
                     else spotName = `${zone.name}${i}`;
-
                     zones.push({
                         ...zone,
                         id: `${zone.id}_${i}`,
                         name: spotName,
                         count: 1,
-                        desc: `專屬營位: ${spotName}` 
+                        desc: `專屬營位: ${spotName}`
                     });
                 }
             } else {
@@ -572,7 +543,6 @@
                 });
             }
         });
-
         const rentals = [
             { id: 'R01', name: '月亮椅/休閒椅', price: 100, stock: 3 },
             { id: 'R02', name: '平躺椅', price: 150, stock: 2 },
@@ -594,9 +564,8 @@
             { id: 'R17', name: '4人床墊不挑款', price: 700, stock: 3 },
             { id: 'R18', name: '電動車車床方案', price: 150, stock: 50 }
         ];
-
         const tents = [
-            { id: 'T00', name: '代收搭服務', price: 500, stock: 50 }, 
+            { id: 'T00', name: '代收搭服務', price: 500, stock: 50 },
             { id: 'T05', name: '迪卡儂 4.2 充氣帳', price: 800, stock: 1 },
             { id: 'T07', name: '挪客屋脊6', price: 600, stock: 1 },
             { id: 'T06', name: 'IF充氣帳篷6.0', price: 800, stock: 1 },
@@ -605,16 +574,15 @@
             { id: 'T02', name: 'KZM-T250', price: 2000, stock: 1 },
             { id: 'T03', name: 'Coody8', price: 2000, stock: 1 }
         ];
-
         const bbqs = [
             { id: 'B01', name: '1299套餐(2-3人含所有烤肉用具，餐具自備)', price: 1299, stock: 5, image: 'https://i.ibb.co/N623cTjr/1299.png'},
             { id: 'B02', name: '2299套餐(3-4人含所有烤肉用具，餐具自備)', price: 2299, stock: 5, image: 'https://i.ibb.co/Lz8v5BBj/2599.jpg' },
             { id: 'B03', name: '3099套餐(4-6人含所有烤肉用具，餐具自備)', price: 3099, stock: 5, image: 'https://i.ibb.co/ynJ4BYJC/3099.jpg' },
             { id: 'B04', name: '4999頂級海陸套餐(10-15人含所有烤肉用具，餐具自備)', price: 4999, stock: 5 }
         ];
-        
+       
         const gears = [{n:'月亮椅/休閒椅',p:'100'},{n:'平躺椅',p:'150'},{n:'卡式爐/蜘蛛爐(含瓦斯)',p:'200'},{n:'五星爐(含瓦斯)',p:'300'},{n:'IGT桌全套',p:'600'},{n:'天幕 3*3+桿',p:'250'},{n:'天幕 3*5+桿',p:'350'},{n:'超聲波地墊 3*3',p:'150'},{n:'野餐地墊 2*2/燈具',p:'100'},{n:'落地頂級四葉燈',p:'350'},{n:'杜邦鯤9車尾帳',p:'1000'},{n:'代搭帳服務',p:'500'},{n:'投影機',p:'300'},{n:'投影布幕',p:'100'},{n:'電暖器/焚火台(鐵)',p:'200'},{n:'焚火台(純鈦)',p:'350'},{n:'木柴',p:'100'},{n:'電動車車床方案',p:'150'}];
-        
+       
         const reviews = [
             {n:"Tesla車主陳先生", c:"充電樁真的太方便了！不用怕開電車來山上會沒電，環境也很清幽。"},
             {n:"林小姐一家", c:"帶小朋友來這裡放電真的很適合，雨棚區下雨也不怕，營主很熱情！"},
@@ -627,7 +595,7 @@
             {n:"Emily", c:"廁所跟浴室都保持得很乾淨，熱水也很穩，這點對露營來說太重要了。"},
             {n:"阿豪", c:"草地區的草皮維護得很好，很軟很舒服，赤腳走也沒問題。"}
         ];
-        
+       
         const tentInfoData = [
             { name: "代收搭服務 (自備帳篷)", price: "500", desc: "專人為您搭設與撤收帳篷，讓您輕鬆享受露營樂趣 (不含帳篷，僅服務)。", img: "https://i.ibb.co/C3kqHQBG/DSC00043.jpg", tag: "頂級懶人服務", highlight: true },
             { name: "迪卡儂 4.2 充氣帳 (租借)", price: "800", img: "https://i.ibb.co/5WGjJV0Y/4-2.jpg", desc: "兩房一廳設計，適合兩對情侶或家庭，CP值最高的選擇。" },
@@ -638,7 +606,6 @@
             { name: "KZM-T250 充氣帳 (租借)", price: "2,000", img: "https://i.ibb.co/G4zSJ98h/tw-11134208-81ztg-meterwxf57gmfa.jpg", desc: "韓國知名品牌，缺貨，一房一廳大空間。" },
             { name: "Coody 8.0 充氣帳 (租借)", price: "2,000", img: "https://i.ibb.co/0yRncf2r/coody-8.jpg", desc: "充氣帳中的豪宅，空間寬敞，結構穩固，提供最舒適的露營體驗。" }
         ];
-
         function renderTentInfo() {
             const container = document.querySelector('#modal-tent .space-y-6');
             if (!container) return;
@@ -649,7 +616,6 @@
                 const titleClass = isHighlight ? "text-3xl font-extrabold text-purple-700 tracking-tight" : "text-lg font-bold text-stone-800";
                 const priceClass = isHighlight ? "text-3xl font-black text-purple-600" : "text-xl font-bold text-purple-600";
                 const bgClass = isHighlight ? "bg-purple-50" : "bg-white";
-
                 html += `
                     <div class="${bgClass} rounded-xl ${borderClass} overflow-hidden flex flex-col md:flex-row transition-all relative">
                         <div class="w-full md:w-48 h-48 bg-gray-200 relative flex-shrink-0 cursor-pointer" onclick="showImage('${item.img}')">
@@ -675,50 +641,48 @@
             });
             container.innerHTML = html;
         }
-        
-        let cart = {}; 
-        let addonCart = {}; 
-        let bookedData = {}; 
-
-        async function init() { 
+       
+        let cart = {};
+        let addonCart = {};
+        let bookedData = {};
+        async function init() {
             await fetchInventory();
-            renderZones('all'); 
-            renderGears(); 
-            renderAddons(); 
-            renderTentInfo(); 
+            renderZones('all');
+            renderGears();
+            renderAddons();
+            renderTentInfo();
             setupCalculator();
             renderReviews();
             renderGallery();
             if (myLiffId !== "C268dc45e60850ae22e3e040f0e58a3e5") await initializeLiff();
         }
-        
+       
         function renderAddons() {
             const container = document.getElementById('addons-container');
             if (!container) return;
             container.innerHTML = '';
-            
+           
             container.appendChild(createAddonSection('【裝備租借區】(計次收費)', rentals, 'blue'));
             container.appendChild(createAddonSection('【帳篷租借區】(計次收費)', tents, 'purple'));
             container.appendChild(createAddonSection('【烤肉預定區】(計次收費)', bbqs, 'orange'));
         }
-
         function createAddonSection(title, items, color) {
             const wrapper = document.createElement('div');
             wrapper.className = "mb-6";
-            
+           
             let borderColor = `border-${color}-600`;
             if(color==='purple') borderColor = 'border-purple-600';
             if(color==='orange') borderColor = 'border-orange-600';
-            
+           
             wrapper.innerHTML = `<h4 class="text-lg font-bold text-stone-800 mb-4 border-l-4 ${borderColor} pl-3">${title}</h4>`;
-            
+           
             const grid = document.createElement('div');
             grid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3";
-            
+           
             const inDateVal = document.getElementById('checkinDate').value;
             const outDateVal = document.getElementById('checkoutDate').value;
-            
-            let bookedMap = {}; 
+           
+            let bookedMap = {};
             if(inDateVal && outDateVal && bookedData) {
                  const start = new Date(inDateVal);
                  const end = new Date(outDateVal);
@@ -731,23 +695,20 @@
                     }
                  }
             }
-
             items.forEach(item => {
                 const div = document.createElement('div');
                 div.className = "bg-white p-3 rounded-lg border border-gray-200 flex justify-between items-center shadow-sm";
-                
+               
                 const bookedCount = bookedMap[item.name] || 0;
                 const remaining = Math.max(0, item.stock - bookedCount);
                 const isFull = remaining <= 0;
-                
+               
                 if (isFull) {
                     div.classList.add('opacity-50', 'pointer-events-none', 'grayscale');
                 }
-
                 const currentQty = addonCart[item.name] || 0;
                 const imgHtml = item.image ? `<div class="w-16 h-16 mr-3 flex-shrink-0 cursor-pointer" onclick="showImage('${item.image}')"><img src="${item.image}" class="w-full h-full object-cover rounded-md"></div>` : '';
                 let stockText = isFull ? '<span class="text-red-600 font-bold">已租完</span>' : `庫存: ${remaining} | <span class="font-bold text-${color}-600">$${item.price}</span>`;
-
                 div.innerHTML = `
                     ${imgHtml}
                     <div class="flex-1 min-w-0">
@@ -755,45 +716,40 @@
                         <div class="text-xs text-gray-500 truncate">${stockText}</div>
                     </div>
                     <div class="flex items-center gap-2 flex-shrink-0">
-                         <button type="button" class="w-7 h-7 flex-shrink-0 rounded-full bg-stone-100 text-stone-600 font-bold hover:bg-stone-300 transition border border-stone-300 flex items-center justify-center" onclick="updateAddonQty(event, '${item.name}', -1, ${remaining}, ${item.price})">-</button>
+                         <button type="button" class="w-7 h-7 flex-shrink-0 rounded-full bg-stone-100 text-stone-600 font-bold hover:bg-stone-300 transition border border-stone-300 flex items-center justify-center" onclick="updateAddonQty('${item.name}', -1, ${remaining}, ${item.price})">-</button>
                          <span class="w-4 text-center text-sm font-bold" id="qty-${item.name}">${currentQty}</span>
-                         <button type="button" class="w-7 h-7 flex-shrink-0 rounded-full bg-stone-800 text-white font-bold hover:bg-stone-700 transition shadow flex items-center justify-center" onclick="updateAddonQty(event, '${item.name}', 1, ${remaining}, ${item.price})">+</button>
+                         <button type="button" class="w-7 h-7 flex-shrink-0 rounded-full bg-stone-800 text-white font-bold hover:bg-stone-700 transition shadow flex items-center justify-center" onclick="updateAddonQty('${item.name}', 1, ${remaining}, ${item.price})">+</button>
                     </div>
                 `;
                 grid.appendChild(div);
             });
-            
+           
             wrapper.appendChild(grid);
             return wrapper;
         }
-
-        window.updateAddonQty = (e, name, delta, maxStock, price) => {
-            if (e) { e.preventDefault(); e.stopPropagation(); }
+        window.updateAddonQty = (name, delta, maxStock, price) => {
             const inDate = document.getElementById('checkinDate').value;
             const outDate = document.getElementById('checkoutDate').value;
             if (!inDate || !outDate) { alert('請先選擇入住與退房日期，才能查看剩餘裝備數量。'); return; }
-
             let current = addonCart[name] || 0;
             let newQty = current + delta;
-            
+           
             if (newQty < 0) newQty = 0;
             if (newQty > maxStock) {
                 alert(`庫存不足，該時段剩餘數量: ${maxStock}`);
                 newQty = maxStock;
             }
-            
+           
             if (newQty === 0) {
                 delete addonCart[name];
             } else {
                 addonCart[name] = newQty;
             }
-            
+           
             const span = document.getElementById(`qty-${name}`);
             if (span) span.innerText = newQty;
-            
             window.reCalculate();
         }
-
         function getSafeImageUrl(url) {
             if (!url) return '';
             const match = url.match(/id=([a-zA-Z0-9_-]+)/);
@@ -802,7 +758,6 @@
             }
             return url;
         }
-
         let galleryData = {
           "木屋外觀": [
             { "t": "", "u": "https://drive.google.com/thumbnail?id=1BwC53jb9SYJvlXu9Pnef8Ob4NH8ePKpB&sz=w1000" },
@@ -1020,20 +975,18 @@
             { "t": "", "u": "https://drive.google.com/thumbnail?id=138OAQezCmYCxRKrPYdOF89lIdot3P21H&sz=w1000" }
           ]
         };
-
         function renderGalleryFolders() {
             const container = document.getElementById('gallery-container');
             let html = '<div class="grid grid-cols-2 md:grid-cols-3 gap-3 p-2">';
-            
+           
             Object.keys(galleryData).forEach(folderName => {
                 const images = galleryData[folderName];
                 const coverImg = images && images.length > 0 ? getSafeImageUrl(images[0].u) : '';
                 const count = images ? images.length : 0;
-
                 html += `
                     <div onclick="renderGalleryImages('${folderName}')" class="cursor-pointer group relative aspect-square rounded-xl overflow-hidden border border-stone-200 shadow-md bg-stone-100">
                         <img src="${coverImg}" referrerpolicy="no-referrer" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-110 transition duration-500">
-                        
+                       
                         <div class="absolute inset-0 flex flex-col items-center justify-center p-2 bg-black/40 group-hover:bg-black/20 transition">
                             <h3 class="text-white font-bold text-center text-shadow-md text-sm md:text-lg tracking-wide">${folderName}</h3>
                             <span class="text-[10px] text-stone-200 bg-black/50 px-2 py-0.5 rounded-full mt-1 border border-white/20">${count} 張</span>
@@ -1041,15 +994,14 @@
                     </div>
                 `;
             });
-            
+           
             html += '</div>';
             container.innerHTML = html;
         }
-
         function renderGalleryImages(folderName) {
             const container = document.getElementById('gallery-container');
             const images = galleryData[folderName];
-            
+           
             let html = '';
             html += `
                 <div class="sticky top-0 z-20 bg-black/80 backdrop-blur-md p-3 mb-2 flex items-center gap-3 border-b border-gray-700">
@@ -1059,9 +1011,9 @@
                     <h3 class="text-yellow-400 font-bold text-lg text-shadow-sm flex-1 truncate">${folderName}</h3>
                 </div>
             `;
-            
+           
             html += '<div class="flex flex-col gap-2 p-2">';
-            
+           
             if (images && images.length > 0) {
                 images.forEach(img => {
                     const safeUrl = getSafeImageUrl(img.u);
@@ -1075,49 +1027,46 @@
             } else {
                 html += '<p class="text-white text-center py-10">此資料夾沒有照片</p>';
             }
-            
+           
             html += '</div>';
-            
+           
             container.innerHTML = html;
             if (container.parentElement) container.parentElement.scrollTop = 0;
         }
-
         async function fetchInventory() {
             try {
                 const res = await fetch(scriptURL);
                 const data = await res.json();
-                bookedData = data; 
-                
+                bookedData = data;
+               
                 if(document.getElementById('checkinDate').value && document.getElementById('checkoutDate').value) {
                       const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
                       renderZones(activeFilter);
-                      renderAddons(); 
+                      renderAddons();
                 }
             } catch (err) {
                 console.error('無法取得庫存資料:', err);
             }
         }
-
         async function initializeLiff() {
             try {
                 await liff.init({ liffId: myLiffId });
                 if (!liff.isLoggedIn()) {
                     if (liff.isInClient()) {
-                        liff.login(); 
+                        liff.login();
                     }
                 } else {
                     const profile = await liff.getProfile();
                     const nameInput = document.getElementById('inputName');
-                    if(nameInput && !nameInput.value) nameInput.value = profile.displayName; 
+                    if(nameInput && !nameInput.value) nameInput.value = profile.displayName;
                     document.getElementById('lineUserId').value = profile.userId;
                     document.getElementById('lineDisplayName').value = profile.displayName;
                     document.getElementById('linePictureUrl').value = profile.pictureUrl;
                 }
-            } catch (err) { 
-                console.error('LIFF Initialization failed', err); 
+            } catch (err) {
+                console.error('LIFF Initialization failed', err);
             }
         }
-
         function renderReviews() {
             const container = document.getElementById('reviews-container');
             const shuffled = reviews.sort(() => 0.5 - Math.random()).slice(0, 3);
@@ -1135,7 +1084,6 @@
             });
             container.innerHTML = html;
         }
-
         function setupCalculator() {
             const inDate = document.getElementById('checkinDate');
             const outDate = document.getElementById('checkoutDate');
@@ -1149,20 +1097,18 @@
             const discountInput = document.getElementById('discountCodeInput');
             const discountMsg = document.getElementById('discountMessage');
             const applyBtn = document.getElementById('applyDiscountBtn');
-
             function getDiscountAmount() {
-                const code = discountInput.value.trim().toUpperCase(); 
+                const code = discountInput.value.trim().toUpperCase();
                 const originalCode = discountInput.value.trim();
                 if (discountCodes.hasOwnProperty(code)) return discountCodes[code];
                 else if (discountCodes.hasOwnProperty(originalCode)) return discountCodes[originalCode];
                 return 0;
             }
-
             function validateDiscount() {
                 const val = getDiscountAmount();
                 const code = discountInput.value.trim();
                 if (code === "") { discountMsg.classList.add('hidden'); return; }
-                
+               
                 if (val > 0) {
                     if (val < 1) {
                         discountMsg.textContent = `✅ 已套用折扣：打 ${val * 10} 折`;
@@ -1176,7 +1122,6 @@
                 }
                 calculate();
             }
-
             function getSpecialPrice(cat) {
                 switch(cat) {
                     case 'grass': case 'shelter': case 'room': return 1400;
@@ -1187,63 +1132,61 @@
                     default: return 1400;
                 }
             }
-            
+           
             function calculate() {
                 const cartEntries = Object.entries(cart);
-                const addonEntries = Object.entries(addonCart); 
-                
+                const addonEntries = Object.entries(addonCart);
+               
                 if (cartEntries.length === 0 && addonEntries.length === 0) {
                     resultDiv.classList.add('hidden');
                     zoneInput.value = "";
                     return;
                 }
-                
+               
                 let zoneStr = cartEntries.map(([name, qty]) => `${name} * ${qty}`).join(', ');
                 let addonStr = addonEntries.map(([name, qty]) => `${name} * ${qty}`).join(', ');
-                
+               
                 let fullDetails = zoneStr;
                 if (zoneStr && addonStr) fullDetails += ', ' + addonStr;
                 else if (!zoneStr && addonStr) fullDetails = addonStr;
-                
+               
                 zoneInput.value = fullDetails;
-
                 const totalQty = Object.values(cart).reduce((a, b) => a + b, 0);
                 qtySelect.value = totalQty > 0 ? totalQty : 1;
-
                 let days = 0;
                 let totalPrice = 0;
                 let blocked = false;
                 let blockMsg = "";
-                
+               
                 if (inDate.value && outDate.value) {
                     const start = new Date(inDate.value);
                     const end = new Date(outDate.value);
                     const diffTime = end - start;
                     days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                    
+                   
                     if (days > 0) {
                         stayDaysSpan.textContent = `共 ${days} 晚`;
                         stayDaysSpan.classList.remove('hidden');
-                        
+                       
                         for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
                             let dateStr = d.toISOString().split('T')[0];
-                            let dayOfWeek = d.getDay(); 
-                            
-                            if (BLOCKED_DATES.includes(dateStr)) { 
-                                blocked = true; blockMsg = `【當天已包場滿額】${dateStr}，請重新預定選擇日期`; break; 
+                            let dayOfWeek = d.getDay();
+                           
+                            if (BLOCKED_DATES.includes(dateStr)) {
+                                blocked = true; blockMsg = `【當天已包場滿額】${dateStr}，請重新預定選擇日期`; break;
                             }
-                            
+                           
                             const isSpecialDay = SPECIAL_HOLIDAYS.includes(dateStr);
                             const isWeekend = (dayOfWeek === 5 || dayOfWeek === 6 || dayOfWeek === 0) && !isSpecialDay;
-                            
+                           
                             let dailyTotal = 0;
-                            
+                           
                             cartEntries.forEach(([zoneName, qty]) => {
                                 const zoneData = zones.find(z => z.name === zoneName);
                                 if (!zoneData) return;
-                                
+                               
                                 let price = zoneData.price;
-                                
+                               
                                 if (isSpecialDay) {
                                     price = getSpecialPrice(zoneData.cat);
                                 } else if (isWeekend) {
@@ -1253,27 +1196,25 @@
                                         price = getSpecialPrice(zoneData.cat);
                                     }
                                 }
-                                
+                               
                                 dailyTotal += price * qty;
                             });
-                            
+                           
                             if (blocked) break;
                             totalPrice += dailyTotal;
                         }
                     } else { stayDaysSpan.classList.add('hidden'); days = 0; }
                 }
-
                 if (blocked) {
-                    alert(blockMsg); 
-                    inDate.value = ''; outDate.value = ''; 
-                    resultDiv.classList.add('hidden'); 
+                    alert(blockMsg);
+                    inDate.value = ''; outDate.value = '';
+                    resultDiv.classList.add('hidden');
                     cart = {};
                     zoneInput.value = '';
                     renderZones(document.querySelector('.filter-btn.active').getAttribute('data-filter'));
                     renderAddons();
                     return;
                 }
-
                 let addonTotal = 0;
                 addonEntries.forEach(([name, qty]) => {
                     let item = rentals.find(r => r.name === name) || tents.find(t => t.name === name) || bbqs.find(b => b.name === name);
@@ -1281,14 +1222,11 @@
                         addonTotal += item.price * qty;
                     }
                 });
-
                 totalPrice += addonTotal;
-
                 if ((days > 0 || addonTotal > 0) && totalPrice > 0) {
                     const discountVal = getDiscountAmount();
                     let finalTotal = 0;
                     let displayDiscount = "";
-
                     if (discountVal > 0) {
                         if (discountVal < 1) {
                             const discountAmt = Math.round(totalPrice * (1 - discountVal));
@@ -1301,51 +1239,49 @@
                     } else {
                         finalTotal = totalPrice;
                     }
-                    
+                   
                     resultDiv.classList.remove('hidden');
-                    
+                   
                     let html = '';
                     if (zoneStr) html += `<div>營位：${zoneStr}</div>`;
                     if (addonStr) html += `<div>加購：${addonStr}</div>`;
                     if (days > 0) html += `<div>入住 ${days} 晚 (含加購) 總計：$${totalPrice.toLocaleString()}</div>`;
                     else html += `<div>總計：$${totalPrice.toLocaleString()}</div>`;
-                    
+                   
                     html += displayDiscount;
-                    
+                   
                     formulaSpan.innerHTML = html;
                     totalDisplay.textContent = `$${finalTotal.toLocaleString()}`;
                     document.getElementById('selectedZonePrice').value = finalTotal;
                 } else { resultDiv.classList.add('hidden'); }
             }
-            
-            inDate.addEventListener('change', () => { 
+           
+            inDate.addEventListener('change', () => {
                 if(inDate.value) {
                     const startDate = new Date(inDate.value);
                     startDate.setDate(startDate.getDate() + 1);
                     const nextDayStr = startDate.toISOString().split('T')[0];
                     outDate.min = nextDayStr;
-                    
+                   
                     if(outDate.value && outDate.value < nextDayStr) {
-                        outDate.value = ""; 
+                        outDate.value = "";
                     }
                 }
-
-                calculate(); 
-                const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
-                renderZones(activeFilter);
-                renderAddons(); 
-            });
-            outDate.addEventListener('change', () => { 
                 calculate();
                 const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
                 renderZones(activeFilter);
-                renderAddons(); 
+                renderAddons();
+            });
+            outDate.addEventListener('change', () => {
+                calculate();
+                const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+                renderZones(activeFilter);
+                renderAddons();
             });
             applyBtn.addEventListener('click', validateDiscount);
             discountInput.addEventListener('change', validateDiscount);
-            window.reCalculate = calculate; 
+            window.reCalculate = calculate;
         }
-
         function hasSpecialHoliday(startStr, endStr) {
             if(!startStr || !endStr) return false;
             let s = new Date(startStr);
@@ -1355,7 +1291,6 @@
             }
             return false;
         }
-
         function getSpecialPriceDisplay(cat) {
              switch(cat) {
                 case 'grass': case 'shelter': case 'room': return 1400;
@@ -1366,15 +1301,13 @@
                 default: return 1400;
             }
         }
-
         function renderZones(filter) {
             const container = document.getElementById('zoneContainer');
             container.innerHTML = '';
-            
+           
             const inDate = document.getElementById('checkinDate').value;
             const outDate = document.getElementById('checkoutDate').value;
             const isSpecial = hasSpecialHoliday(inDate, outDate);
-
             let hasWeekend = false;
             if (inDate && outDate) {
                 const s = new Date(inDate);
@@ -1384,13 +1317,12 @@
                     if (dw === 5 || dw === 6 || dw === 0) { hasWeekend = true; break; }
                 }
             }
-
-            let bookedMap = {}; 
-            
+            let bookedMap = {};
+           
             if (inDate && outDate && bookedData) {
                 const start = new Date(inDate);
                 const end = new Date(outDate);
-                
+               
                 for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
                     let dateStr = d.toISOString().split('T')[0];
                     if (bookedData[dateStr] && bookedData[dateStr].zones) {
@@ -1400,37 +1332,31 @@
                     }
                 }
             }
-
             zones.forEach(zone => {
                 if(filter !== 'all' && zone.cat !== filter && !(filter==='shelter' && zone.cat==='shelter') && !(filter==='room' && (zone.cat==='room'||zone.cat==='cabinL'||zone.cat==='cabinS'||zone.cat==='villa'||zone.cat==='camper'))) return;
                 if (filter === 'room' && !['room','cabinL','cabinS','villa','camper'].includes(zone.cat)) return;
                 if (filter === 'shelter' && zone.cat !== 'shelter') return;
                 if (filter === 'grass' && zone.cat !== 'grass') return;
-
                 const div = document.createElement('div');
                 div.className = `zone-card bg-white rounded-xl p-3 relative overflow-hidden flex items-center h-32 md:h-36`;
-                
+               
                 const bookedCount = bookedMap[zone.name] || 0;
                 const remaining = Math.max(0, zone.count - bookedCount);
                 const isFull = remaining <= 0;
-
                 if (isFull) {
                     div.classList.add('disabled-card');
                 }
-
                 const currentQty = cart[zone.name] || 0;
                 const isSelected = currentQty > 0;
-
                 if (isSelected) div.classList.add('selected');
-
                 const badge = zone.badge ? `<span class="absolute top-0 right-0 bg-yellow-400 text-stone-900 text-xs font-bold px-2 py-1 rounded-bl-lg z-20 shadow-sm">${zone.badge}</span>` : '';
-                
+               
                 const imgWrap = document.createElement('div');
                 imgWrap.className = "w-24 h-full md:w-32 flex-shrink-0 rounded-lg overflow-hidden relative mr-3";
                 const img = document.createElement('img');
                 img.src = zone.images[zone.idx];
                 img.className = "w-full h-full object-cover transition duration-500 hover:scale-110";
-                
+               
                 if (zone.images.length > 1) {
                     imgWrap.classList.add('cursor-change-image');
                     imgWrap.addEventListener('click', (e) => {
@@ -1440,13 +1366,13 @@
                     });
                 }
                 imgWrap.prepend(img);
-                
+               
                 let displayPrice = zone.price;
                 let priceClass = "text-green-600";
-                
+               
                 if (isSpecial) {
                     displayPrice = getSpecialPriceDisplay(zone.cat);
-                    priceClass = "text-red-600"; 
+                    priceClass = "text-red-600";
                 } else if (hasWeekend && !isSpecial) {
                     if (['grass', 'shelter', 'room'].includes(zone.cat)) {
                         displayPrice = 1200;
@@ -1456,10 +1382,9 @@
                         priceClass = "text-orange-600";
                     }
                 }
-
                 let blockText = "";
                 let actionBtn = "";
-                
+               
                 if (isFull) {
                     blockText = '<span class="text-xs text-red-500 font-bold block">已額滿</span>';
                     actionBtn = `<span class="bg-gray-200 text-gray-400 px-3 py-1 rounded-lg text-xs font-bold">已額滿</span>`;
@@ -1467,19 +1392,19 @@
                     if (inDate && outDate) {
                         blockText = `<span class="text-[10px] text-blue-600 font-bold block">剩餘 1 帳</span>`;
                     }
-                    // ★ 終極修復：加上 onclick 阻擋所有卡片事件，並縮小至 w-7 h-7 絕不跑版
+                    // ★ 徹底修復：不跑版縮小按鈕、拿掉可能會影響的手機觸控事件干擾
                     actionBtn = `
-                        <div class="flex items-center bg-stone-100 rounded-full border border-stone-200 overflow-hidden shadow-sm flex-shrink-0" onclick="event.stopPropagation();">
-                            <button type="button" class="w-7 h-7 flex-shrink-0 bg-stone-100 text-stone-600 hover:bg-stone-300 font-bold text-sm transition flex items-center justify-center border-r border-stone-200" onclick="event.stopPropagation(); updateZoneQty('${zone.name}', -1, ${remaining})">-</button>
-                            <div class="w-6 text-center font-bold text-stone-800 text-sm flex-shrink-0">${currentQty}</div>
-                            <button type="button" class="w-7 h-7 flex-shrink-0 bg-stone-800 text-white hover:bg-stone-700 font-bold text-sm transition shadow flex items-center justify-center" onclick="event.stopPropagation(); updateZoneQty('${zone.name}', 1, ${remaining})">+</button>
+                        <div class="flex items-center bg-stone-100 rounded-full border border-stone-200 overflow-hidden shadow-sm flex-shrink-0">
+                            <button type="button" class="w-7 h-7 flex items-center justify-center text-stone-600 hover:bg-stone-300 font-bold text-sm transition" onclick="updateZoneQty(event, '${zone.name}', -1, ${remaining})">-</button>
+                            <div class="w-5 text-center font-bold text-stone-800 text-sm">${currentQty}</div>
+                            <button type="button" class="w-7 h-7 flex items-center justify-center text-stone-600 hover:bg-stone-300 font-bold text-sm transition" onclick="updateZoneQty(event, '${zone.name}', 1, ${remaining})">+</button>
                         </div>
                     `;
                 }
-
                 const info = document.createElement('div');
+                // ★ 加上 min-w-0 防止文字過長擠開按鈕
                 info.className = "flex-1 flex flex-col justify-between h-full py-1 min-w-0";
-                
+               
                 info.innerHTML = `
                     <div>
                         <h3 class="font-bold text-stone-800 text-base leading-tight mb-1 truncate">${zone.name}</h3>
@@ -1494,34 +1419,40 @@
                 div.innerHTML = badge;
                 div.appendChild(imgWrap);
                 div.appendChild(info);
-                
                 container.appendChild(div);
             });
             updateFilterBtns(filter);
         }
-
-        // ★ 拿掉 event 參數直接計算，保證最快速度重繪畫面不報錯
-        window.updateZoneQty = (zoneName, delta, maxQty) => {
+        // ★ 完全阻斷點擊穿透，保證 + - 功能正常運作
+        window.updateZoneQty = (e, zoneName, delta, maxQty) => {
+            if(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+           
             const inDate = document.getElementById('checkinDate').value;
             const outDate = document.getElementById('checkoutDate').value;
             if (!inDate || !outDate) { alert('請先選擇入住與退房日期'); return; }
-
             let currentQty = cart[zoneName] || 0;
             let newQty = currentQty + delta;
-            
+           
             if (newQty <= 0) {
                 delete cart[zoneName];
-            } else if (newQty > maxQty) {
-                alert(`【溫馨提示】\n此為獨立營位，上限為 1 帳。\n\n👉 如需預訂多帳，請繼續點選下方【其他營位】的 + 號即可同時結帳喔！\n(例如：點選 A1 的 + 號，再點選 A2 的 + 號)`);
             } else {
+                if (newQty > maxQty) {
+                    alert(`【提示】此為獨立營位，數量上限為 1 帳。\n\n👉 若要預訂多帳，請點選下方「其他營位」的 + 號即可同時結帳喔！\n(例如：點了 A1，再點 A2)`);
+                    newQty = maxQty;
+                }
                 cart[zoneName] = newQty;
             }
-            
-            const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
-            renderZones(activeFilter);
-            window.reCalculate();
+           
+            // 強制重繪確保畫面即時更新
+            setTimeout(() => {
+                const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+                renderZones(activeFilter);
+                window.reCalculate();
+            }, 0);
         }
-
         function updateFilterBtns(filter) {
              document.querySelectorAll('.filter-btn').forEach(btn => {
                 if(btn.getAttribute('data-filter') === filter) {
@@ -1533,7 +1464,7 @@
                 }
             });
         }
-        
+       
         window.filterZones = (cat) => renderZones(cat);
         function renderGears() {
             const tbody = document.getElementById('gearTableBody');
@@ -1560,14 +1491,13 @@
             document.querySelectorAll('[id^="modal-"]').forEach(el => el.classList.add('hidden'));
             document.getElementById(id).classList.remove('hidden');
         };
-        
+       
         window.showSuccessModal = () => {
             document.getElementById('sidebar').classList.add('-translate-x-full');
             document.getElementById('overlay').classList.remove('hidden');
             document.querySelectorAll('[id^="modal-"]').forEach(el => el.classList.add('hidden'));
             document.getElementById('modal-success').classList.remove('hidden');
         };
-
         window.closeAll = () => {
             document.getElementById('sidebar').classList.add('-translate-x-full');
             document.getElementById('overlay').classList.add('hidden');
@@ -1584,62 +1514,58 @@
                 window.open(adminSheetURL, '_blank');
             } else if (pwd !== null) alert("密碼錯誤");
         };
-        
+       
         document.getElementById('feedbackForm').addEventListener('submit', e => {
             e.preventDefault();
             const btn = document.getElementById('feedbackBtn');
             const originalText = btn.innerText;
             btn.disabled = true; btn.innerText = '送出中...';
             fetch(scriptURL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
-                .then(() => { 
-                    alert('感謝您的評論，歡迎下次訂房使用【CM100】可享$100折扣唷~'); 
-                    e.target.reset(); 
-                    closeAll(); 
+                .then(() => {
+                    alert('感謝您的評論，歡迎下次訂房使用【CM100】可享$100折扣唷~');
+                    e.target.reset();
+                    closeAll();
                 })
                 .catch(() => alert('發生錯誤'))
                 .finally(() => { btn.disabled = false; btn.innerText = originalText; });
         });
-
         document.getElementById('bookingForm').addEventListener('submit', e => {
             e.preventDefault();
             const input = document.getElementById('selectedZoneInput');
             if(Object.keys(cart).length === 0 && Object.keys(addonCart).length === 0) { alert('請至少選擇一個營位或加購商品！'); return; }
-            
+           
             const inDateVal = document.getElementById('checkinDate').value;
             if (inDateVal < MIN_DATE) { alert("目前僅提供 2026/1/19 以後的訂位！"); return; }
-
             const btn = document.getElementById('submitBtn');
             const originalText = btn.innerText;
             btn.disabled = true;
             btn.innerText = '處理中...';
             const formData = new FormData(e.target);
-            
+           
             const totalText = document.getElementById('totalPriceDisplay').innerText.replace('$','').replace(/,/g,'');
             const finalTotal = parseInt(totalText) || 0;
             const inDateStr = document.getElementById('checkinDate').value;
             const outDateStr = document.getElementById('checkoutDate').value;
-
             if (inDateStr >= outDateStr) {
                 alert("退房日期必須大於入住日期！");
                 btn.disabled = false;
                 btn.innerText = originalText;
                 return;
             }
-
             if(inDateStr && outDateStr) {
                 const start = new Date(inDateStr);
                 const end = new Date(outDateStr);
                 const diffTime = end - start;
                 const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
                 formData.append('入住天數', days);
-                
+               
                 const dCodeInput = document.getElementById('discountCodeInput');
                 const code = dCodeInput.value.trim().toUpperCase();
                 const originalCode = dCodeInput.value.trim();
                 let discountVal = 0;
                 if (discountCodes.hasOwnProperty(code)) discountVal = discountCodes[code];
                 else if (discountCodes.hasOwnProperty(originalCode)) discountVal = discountCodes[originalCode];
-                
+               
                 let discountAmount = 0;
                 if (discountVal > 0 && discountVal < 1) {
                       let originalPrice = Math.round(finalTotal / discountVal);
@@ -1647,65 +1573,65 @@
                 } else {
                       discountAmount = discountVal;
                 }
-                
+               
                 formData.append('總金額', finalTotal);
                 formData.append('折扣金額', discountAmount);
-
                 const discountMsg = document.getElementById('discountMessage');
                 if(!discountMsg.classList.contains('hidden') && discountMsg.innerText.includes('✅')) {
                       let note = formData.get('備註需求');
                       if (discountVal > 0 && discountVal < 1) {
-                          note += ` [使用折扣碼: ${originalCode} (打${discountVal*10}折)]`; 
+                          note += ` [使用折扣碼: ${originalCode} (打${discountVal*10}折)]`;
                       } else {
-                          note += ` [使用折扣碼: ${originalCode}]`; 
+                          note += ` [使用折扣碼: ${originalCode}]`;
                       }
                       formData.set('備註需求', note);
                 }
             }
-
             fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
                 .then(() => {
-                    showSuccessModal(); 
+                    showSuccessModal();
                     e.target.reset();
                     cart = {};
-                    addonCart = {}; 
+                    addonCart = {};
                     document.querySelectorAll('.zone-card').forEach(c => c.classList.remove('selected'));
                     input.value = '';
                     document.getElementById('priceCalcResult').classList.add('hidden');
                     document.getElementById('stayDays').classList.add('hidden');
                     document.getElementById('discountMessage').classList.add('hidden');
-                    document.getElementById('addons-container').innerHTML = ''; 
+                    document.getElementById('addons-container').innerHTML = '';
                     zones.forEach(z => z.idx = 0);
                     renderZones('all');
-                    renderAddons(); 
+                    renderAddons();
                     if(liff.isLoggedIn()) liff.getProfile().then(p => { document.getElementById('inputName').value = p.displayName; });
                     fetchInventory();
                 })
-                .catch(err => { 
+                .catch(err => {
                     console.warn('CORS 或網路干擾，但系統判斷資料已送出 (樂觀模式)', err);
-                    showSuccessModal(); 
+                    showSuccessModal();
                 })
                 .finally(() => { btn.disabled = false; btn.innerText = originalText; });
         });
+        // ==================== 修復重點：保護不存在的 paymentForm，避免 JS error 阻斷後續所有功能（包含 bookingForm submit 與 init()） ====================
+        const paymentForm = document.getElementById('paymentForm');
+        if (paymentForm) {
+            paymentForm.addEventListener('submit', e => {
+                e.preventDefault();
+                const btn = document.getElementById('payBtn');
+                const originalText = btn.innerText;
+                btn.disabled = true; btn.innerText = '傳送中...';
+                fetch(scriptURL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
+                    .then(() => { alert('匯款回報成功！'); e.target.reset(); closeAll(); })
+                    .catch(() => alert('發生錯誤'))
+                    .finally(() => { btn.disabled = false; btn.innerText = originalText; });
+            });
+        }
 
-        document.getElementById('paymentForm').addEventListener('submit', e => {
-            e.preventDefault();
-            const btn = document.getElementById('payBtn');
-            const originalText = btn.innerText;
-            btn.disabled = true; btn.innerText = '傳送中...';
-            fetch(scriptURL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
-                .then(() => { alert('匯款回報成功！'); e.target.reset(); closeAll(); })
-                .catch(() => alert('發生錯誤'))
-                .finally(() => { btn.disabled = false; btn.innerText = originalText; });
-        });
-        
         document.querySelectorAll('.filter-btn').forEach(btn => {
             if(btn.textContent === '全部') btn.setAttribute('data-filter', 'all');
             if(btn.textContent === '雨棚區') btn.setAttribute('data-filter', 'shelter');
             if(btn.textContent === '住宿/懶人') btn.setAttribute('data-filter', 'room');
             if(btn.textContent === '草地/碎石') btn.setAttribute('data-filter', 'grass');
         });
-
         init();
     </script>
 </body>
