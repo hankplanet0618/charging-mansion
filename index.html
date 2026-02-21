@@ -244,7 +244,6 @@
                 </div>
                 <form id="bookingForm" class="p-6 space-y-8">
                     <input type="hidden" name="sheetName" value="訂單資料">
-                    
                     <input type="hidden" id="lineUserId" name="Line_User_ID">
                     <input type="hidden" id="lineDisplayName" name="Line_Display_Name">
                     <input type="hidden" id="linePictureUrl" name="Line_Picture_URL">
@@ -465,7 +464,7 @@
                     <p class="text-gray-600 text-xs leading-relaxed">
                         A: 夜衝時間為 17:00 - 22:00 之間入場。<br>
                         自搭帳及車泊：每帳 <span class="font-bold">$600</span>。<br>
-                        民宿、小木屋、露營車及懶人：享 <span class="font-bold">5 折優惠</span>。
+                        民宿、小木屋、露營車及 T250：享 <span class="font-bold">5 折優惠</span>。
                     </p>
                 </div>
             </div>
@@ -570,7 +569,7 @@
             '芮蒂': 500, 
             '普卡': 0.55, 
             'VIP卡': 0.45,
-            'VIP卡特惠': 0.40, 
+            'VIP卡特惠': 0.45, 
             '特惠': 800,
             'CNY': 100,
             '包場': 0.85, 
@@ -671,13 +670,13 @@
         const gears = [{n:'月亮椅/休閒椅',p:'100'},{n:'平躺椅',p:'150'},{n:'卡式爐/蜘蛛爐(含瓦斯)',p:'200'},{n:'五星爐(含瓦斯)',p:'300'},{n:'IGT桌全套',p:'600'},{n:'天幕 3*3+桿',p:'250'},{n:'天幕 3*5+桿',p:'350'},{n:'超聲波地墊 3*3',p:'150'},{n:'野餐地墊 2*2/燈具',p:'100'},{n:'落地頂級四葉燈',p:'350'},{n:'杜邦鯤9車尾帳',p:'1000'},{n:'代搭帳服務',p:'500'},{n:'投影機',p:'300'},{n:'投影布幕',p:'100'},{n:'電暖器/焚火台(鐵)',p:'200'},{n:'焚火台(純鈦)',p:'350'},{n:'木柴',p:'100'},{n:'電動車車床方案',p:'150'}];
         
         const reviews = [
-            {n:"Tesla車主陳先生", c:"充電樁真的太方便了！不用怕開電車來山上會沒電，環境也很清幽，重點營主超會聊天XD。"},
+            {n:"Tesla車主陳先生", c:"充電樁真的太方便了！不用怕開電車來山上會沒電，環境也很清幽。"},
             {n:"林小姐一家", c:"帶小朋友來這裡放電真的很適合，雨棚區下雨也不怕，營主很熱情！"},
             {n:"露營新手小張", c:"第一次露營選擇了泰式免搭，裝備都很乾淨，晚上還有蟲鳴聲，很棒的體驗。"},
             {n:"李媽媽", c:"小木屋很溫馨，適合長輩一起來，風景優美，空氣很好。"},
-            {n:"王先生", c:"價格很佛心，老闆人很好，還賣了我們超值的木柴，snowpeak的才260!，下次一定再來。"},
+            {n:"王先生", c:"夜衝價格很佛心，老闆人很好，還送了我們一些木柴，下次一定再來。"},
             {n:"Model Y 車友", c:"專門為了充電來的，位置安排得很好，可以直接停在帳篷旁邊充電，大推！"},
-            {n:"Jason", c:"這裡的櫻花季節真的超美，隨便拍都好看，很適合網美來打卡。"},
+            {n:"Jason", c:"這裡的落羽松季節真的超美，隨便拍都好看，很適合網美來打卡。"},
             {n:"吳先生", c:"包棟民宿設備很齊全，KTV音響效果不錯，大家玩得很盡興。"},
             {n:"Emily", c:"廁所跟浴室都保持得很乾淨，熱水也很穩，這點對露營來說太重要了。"},
             {n:"阿豪", c:"草地區的草皮維護得很好，很軟很舒服，赤腳走也沒問題。"}
@@ -800,9 +799,7 @@
                 }
 
                 const currentQty = addonCart[item.name] || 0;
-                
                 const imgHtml = item.image ? `<div class="w-16 h-16 mr-3 flex-shrink-0 cursor-pointer" onclick="showImage('${item.image}')"><img src="${item.image}" class="w-full h-full object-cover rounded-md"></div>` : '';
-                
                 let stockText = isFull ? '<span class="text-red-600 font-bold">已租完</span>' : `庫存: ${remaining} | <span class="font-bold text-${color}-600">$${item.price}</span>`;
 
                 div.innerHTML = `
@@ -850,7 +847,6 @@
             window.reCalculate();
         }
 
-        // ★ 自動轉換 Google 照片網址機制 (防破圖)
         function getSafeImageUrl(url) {
             if (!url) return '';
             const match = url.match(/id=([a-zA-Z0-9_-]+)/);
@@ -1196,7 +1192,6 @@
         function setupCalculator() {
             const inDate = document.getElementById('checkinDate');
             const outDate = document.getElementById('checkoutDate');
-            // ★ 修改: 對應 hidden input，確保提交時不會因為 select 缺少選項而失敗
             const qtySelect = document.getElementById('quantitySelect');
             const zoneInput = document.getElementById('selectedZoneInput');
             const zonePriceInput = document.getElementById('selectedZonePrice');
@@ -1483,8 +1478,9 @@
 
                 const badge = zone.badge ? `<span class="absolute top-0 right-0 bg-yellow-400 text-stone-900 text-xs font-bold px-2 py-1 rounded-bl-lg z-20 shadow-sm">${zone.badge}</span>` : '';
                 
+                // 調整照片寬度，讓右邊按鈕有更多空間
                 const imgWrap = document.createElement('div');
-                imgWrap.className = "w-28 h-full md:w-36 flex-shrink-0 rounded-lg overflow-hidden relative mr-3";
+                imgWrap.className = "w-24 h-full md:w-32 flex-shrink-0 rounded-lg overflow-hidden relative mr-3";
                 const img = document.createElement('img');
                 img.src = zone.images[zone.idx];
                 img.className = "w-full h-full object-cover transition duration-500 hover:scale-110";
@@ -1525,7 +1521,7 @@
                 const info = document.createElement('div');
                 info.className = "flex-1 flex flex-col justify-between h-full py-1";
                 
-                // ★ 這裡加回原本的 + - 號按鈕
+                // ★ 已修復：按鈕縮小，且保證不會跑版
                 info.innerHTML = `
                     <div>
                         <h3 class="font-bold text-stone-800 text-base leading-tight mb-1">${zone.name}</h3>
@@ -1533,17 +1529,16 @@
                         ${blockText}
                         <p class="${priceClass} font-bold text-sm">$${displayPrice.toLocaleString()} <span class="text-[10px] text-gray-400 font-normal">/晚</span></p>
                     </div>
-                    <div class="flex items-center justify-end mt-2 select-none">
-                        <button type="button" class="w-10 h-10 rounded-full bg-stone-100 text-stone-600 hover:bg-stone-200 font-bold text-lg flex items-center justify-center active:bg-stone-300" onclick="updateZoneQty('${zone.name}', -1, event, ${remaining})">-</button>
-                        <span class="mx-2 font-bold w-6 text-center text-lg">${isSelected ? currentQty : 0}</span>
-                        <button type="button" class="w-10 h-10 rounded-full bg-stone-800 text-white hover:bg-stone-700 font-bold text-lg flex items-center justify-center shadow active:bg-stone-900" onclick="updateZoneQty('${zone.name}', 1, event, ${remaining})">+</button>
+                    <div class="flex items-center justify-end mt-1 select-none flex-shrink-0">
+                        <button type="button" class="w-7 h-7 flex-shrink-0 rounded-full bg-stone-200 text-stone-600 hover:bg-stone-300 font-bold text-sm flex items-center justify-center border border-stone-300 active:bg-stone-400 transition" onclick="updateZoneQty('${zone.name}', -1, event, ${remaining})">-</button>
+                        <span class="mx-2 font-bold w-4 text-center text-sm">${isSelected ? currentQty : 0}</span>
+                        <button type="button" class="w-7 h-7 flex-shrink-0 rounded-full bg-stone-800 text-white hover:bg-stone-700 font-bold text-sm flex items-center justify-center shadow active:bg-stone-900 transition" onclick="updateZoneQty('${zone.name}', 1, event, ${remaining})">+</button>
                     </div>
                 `;
                 div.innerHTML = badge;
                 div.appendChild(imgWrap);
                 div.appendChild(info);
                 
-                // 點擊卡片空白處也可以選取
                 div.onclick = (e) => {
                     if(e.target.tagName === 'BUTTON') return;
                     if(isFull) { alert('此日期區間該營位已額滿。'); return; }
@@ -1554,7 +1549,6 @@
             updateFilterBtns(filter);
         }
 
-        // ★ 這裡修改了超額點擊的警告文字，教學客人如何多選
         window.updateZoneQty = (zoneName, delta, e, maxQty) => {
             e.stopPropagation();
             
@@ -1569,7 +1563,8 @@
                 delete cart[zoneName];
             } else {
                 if (newQty > maxQty) {
-                    alert(`【貼心提醒】\n您選取的「${zoneName}」是單一獨立位置，上限為 1 帳。\n\n👉 如果您想預訂多帳，請繼續點擊下方「其他營位」的 + 號即可！\n(例如：點選 A1 的 + 號，再點選 A2 的 + 號)`);
+                    // ★ 更新：多選溫馨提示
+                    alert(`【貼心提醒】\n該位置為獨立營位，上限為 1 帳。\n\n如需預訂多帳，請點選其他營位的「+」號加入！`);
                     newQty = maxQty;
                 }
                 cart[zoneName] = newQty;
