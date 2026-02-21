@@ -52,17 +52,73 @@
         }
         .line-btn-pulse { animation: pulse-btn 2s infinite; }
 
+        /* ========================================= */
+        /* ★★★ 關於我們 詩意排版樣式 ★★★ */
+        /* ========================================= */
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;500;700&display=swap');
 
-        .about-poetic-container { font-family: 'Noto Serif TC', serif; color: #4a4a4a; line-height: 2.4; text-align: center; letter-spacing: 0.05em; padding: 20px 10px; }
-        .camp-name-styled { font-size: 1.1rem; font-weight: 500; color: #999; letter-spacing: 0.3em; margin-bottom: 50px; position: relative; }
-        .camp-name-styled::after { content: ""; display: block; width: 30px; height: 1px; background: #ddd; margin: 15px auto; }
-        .poetic-highlight { font-size: 1.5rem; font-weight: 600; color: #749F82; margin: 60px 0; line-height: 1.6; letter-spacing: 0.1em; }
-        .narrative-text { font-size: 1.05rem; font-weight: 300; margin-bottom: 40px; text-align: justify; text-align-last: center; }
-        .feature-accent { color: #5d7e68; font-weight: 500; border-bottom: 1px solid #c9d6cc; }
-        .leaf-divider { color: #749F82; font-size: 1.2rem; margin: 30px 0; opacity: 0.5; }
-        .quote-footer { font-size: 1.4rem; color: #749F82; margin-top: 50px; font-weight: 500; }
-        .welcome-msg { font-size: 0.9rem; color: #888; margin-top: 15px; letter-spacing: 0.2em; }
+        .about-poetic-container {
+            font-family: 'Noto Serif TC', serif;
+            color: #4a4a4a;
+            line-height: 2.4;
+            text-align: center;
+            letter-spacing: 0.05em;
+            padding: 20px 10px;
+        }
+        .camp-name-styled {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #999;
+            letter-spacing: 0.3em;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        .camp-name-styled::after {
+            content: "";
+            display: block;
+            width: 30px;
+            height: 1px;
+            background: #ddd;
+            margin: 15px auto;
+        }
+        .poetic-highlight {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #749F82; /* 淡雅草綠色 */
+            margin: 60px 0;
+            line-height: 1.6;
+            letter-spacing: 0.1em;
+        }
+        .narrative-text {
+            font-size: 1.05rem;
+            font-weight: 300;
+            margin-bottom: 40px;
+            text-align: justify;
+            text-align-last: center;
+        }
+        .feature-accent {
+            color: #5d7e68;
+            font-weight: 500;
+            border-bottom: 1px solid #c9d6cc;
+        }
+        .leaf-divider {
+            color: #749F82;
+            font-size: 1.2rem;
+            margin: 30px 0;
+            opacity: 0.5;
+        }
+        .quote-footer {
+            font-size: 1.4rem;
+            color: #749F82;
+            margin-top: 50px;
+            font-weight: 500;
+        }
+        .welcome-msg {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 15px;
+            letter-spacing: 0.2em;
+        }
         @media (max-width: 768px) {
             .poetic-highlight { font-size: 1.3rem; margin: 40px 0; }
             .narrative-text { font-size: 1rem; line-height: 2.1; }
@@ -225,14 +281,13 @@
                         <input type="hidden" name="預訂區域" id="selectedZoneInput" required>
                         <input type="hidden" id="selectedZonePrice" value="0">
                         
-                        <p class="text-xs text-orange-600 mb-2 font-bold"><i class="fas fa-info-circle"></i> 請先選擇日期，點擊卡片即可選取</p>
+                        <p class="text-xs text-orange-600 mb-2 font-bold"><i class="fas fa-info-circle"></i> 請先選擇日期，方可選取營位數量 (支援多選)</p>
 
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" id="zoneContainer">
                         </div>
+                        
                         <div class="mt-6 hidden">
-                            <select name="預訂數量" id="quantitySelect">
-                                <option value="1">1</option>
-                            </select>
+                            <input type="hidden" name="預訂數量" id="quantitySelect" value="1">
                         </div>
                     </div>
 
@@ -410,7 +465,7 @@
                     <p class="text-gray-600 text-xs leading-relaxed">
                         A: 夜衝時間為 17:00 - 22:00 之間入場。<br>
                         自搭帳及車泊：每帳 <span class="font-bold">$600</span>。<br>
-                        民宿、小木屋、露營車及 T250：享 <span class="font-bold">5 折優惠</span>。
+                        民宿、小木屋、露營車及懶人：享 <span class="font-bold">5 折優惠</span>。
                     </p>
                 </div>
             </div>
@@ -515,7 +570,7 @@
             '芮蒂': 500, 
             '普卡': 0.55, 
             'VIP卡': 0.45,
-            'VIP卡特惠': 0.45, 
+            'VIP卡特惠': 0.40, 
             '特惠': 800,
             'CNY': 100,
             '包場': 0.85, 
@@ -616,13 +671,13 @@
         const gears = [{n:'月亮椅/休閒椅',p:'100'},{n:'平躺椅',p:'150'},{n:'卡式爐/蜘蛛爐(含瓦斯)',p:'200'},{n:'五星爐(含瓦斯)',p:'300'},{n:'IGT桌全套',p:'600'},{n:'天幕 3*3+桿',p:'250'},{n:'天幕 3*5+桿',p:'350'},{n:'超聲波地墊 3*3',p:'150'},{n:'野餐地墊 2*2/燈具',p:'100'},{n:'落地頂級四葉燈',p:'350'},{n:'杜邦鯤9車尾帳',p:'1000'},{n:'代搭帳服務',p:'500'},{n:'投影機',p:'300'},{n:'投影布幕',p:'100'},{n:'電暖器/焚火台(鐵)',p:'200'},{n:'焚火台(純鈦)',p:'350'},{n:'木柴',p:'100'},{n:'電動車車床方案',p:'150'}];
         
         const reviews = [
-            {n:"Tesla車主陳先生", c:"充電樁真的太方便了！不用怕開電車來山上會沒電，環境也很清幽。"},
+            {n:"Tesla車主陳先生", c:"充電樁真的太方便了！不用怕開電車來山上會沒電，環境也很清幽，重點營主超會聊天XD。"},
             {n:"林小姐一家", c:"帶小朋友來這裡放電真的很適合，雨棚區下雨也不怕，營主很熱情！"},
             {n:"露營新手小張", c:"第一次露營選擇了泰式免搭，裝備都很乾淨，晚上還有蟲鳴聲，很棒的體驗。"},
             {n:"李媽媽", c:"小木屋很溫馨，適合長輩一起來，風景優美，空氣很好。"},
-            {n:"王先生", c:"夜衝價格很佛心，老闆人很好，還送了我們一些木柴，下次一定再來。"},
+            {n:"王先生", c:"價格很佛心，老闆人很好，還賣了我們超值的木柴，snowpeak的才260!，下次一定再來。"},
             {n:"Model Y 車友", c:"專門為了充電來的，位置安排得很好，可以直接停在帳篷旁邊充電，大推！"},
-            {n:"Jason", c:"這裡的落羽松季節真的超美，隨便拍都好看，很適合網美來打卡。"},
+            {n:"Jason", c:"這裡的櫻花季節真的超美，隨便拍都好看，很適合網美來打卡。"},
             {n:"吳先生", c:"包棟民宿設備很齊全，KTV音響效果不錯，大家玩得很盡興。"},
             {n:"Emily", c:"廁所跟浴室都保持得很乾淨，熱水也很穩，這點對露營來說太重要了。"},
             {n:"阿豪", c:"草地區的草皮維護得很好，很軟很舒服，赤腳走也沒問題。"}
@@ -745,7 +800,9 @@
                 }
 
                 const currentQty = addonCart[item.name] || 0;
+                
                 const imgHtml = item.image ? `<div class="w-16 h-16 mr-3 flex-shrink-0 cursor-pointer" onclick="showImage('${item.image}')"><img src="${item.image}" class="w-full h-full object-cover rounded-md"></div>` : '';
+                
                 let stockText = isFull ? '<span class="text-red-600 font-bold">已租完</span>' : `庫存: ${remaining} | <span class="font-bold text-${color}-600">$${item.price}</span>`;
 
                 div.innerHTML = `
@@ -789,12 +846,20 @@
             
             const span = document.getElementById(`qty-${name}`);
             if (span) span.innerText = newQty;
+            
             window.reCalculate();
         }
 
-        // ============================================
-        // ★ 相簿資料與防破圖機制 ★
-        // ============================================
+        // ★ 自動轉換 Google 照片網址機制 (防破圖)
+        function getSafeImageUrl(url) {
+            if (!url) return '';
+            const match = url.match(/id=([a-zA-Z0-9_-]+)/);
+            if (match && match[1]) {
+                return `https://lh3.googleusercontent.com/d/${match[1]}=w1000`;
+            }
+            return url;
+        }
+
         let galleryData = {
           "木屋外觀": [
             { "t": "", "u": "https://drive.google.com/thumbnail?id=1BwC53jb9SYJvlXu9Pnef8Ob4NH8ePKpB&sz=w1000" },
@@ -1013,16 +1078,6 @@
           ]
         };
 
-        // 自動轉譯 Google Drive 網址防破圖
-        function getSafeImageUrl(url) {
-            if (!url) return '';
-            const match = url.match(/id=([a-zA-Z0-9_-]+)/);
-            if (match && match[1]) {
-                return `https://lh3.googleusercontent.com/d/${match[1]}`;
-            }
-            return url;
-        }
-
         function renderGalleryFolders() {
             const container = document.getElementById('gallery-container');
             let html = '<div class="grid grid-cols-2 md:grid-cols-3 gap-3 p-2">';
@@ -1089,7 +1144,6 @@
                 const res = await fetch(scriptURL);
                 const data = await res.json();
                 bookedData = data; 
-                console.log('庫存資料已更新:', bookedData);
                 
                 if(document.getElementById('checkinDate').value && document.getElementById('checkoutDate').value) {
                       const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
@@ -1142,6 +1196,7 @@
         function setupCalculator() {
             const inDate = document.getElementById('checkinDate');
             const outDate = document.getElementById('checkoutDate');
+            // ★ 修改: 對應 hidden input，確保提交時不會因為 select 缺少選項而失敗
             const qtySelect = document.getElementById('quantitySelect');
             const zoneInput = document.getElementById('selectedZoneInput');
             const zonePriceInput = document.getElementById('selectedZonePrice');
@@ -1219,7 +1274,6 @@
                 let blockMsg = "";
                 
                 if (inDate.value && outDate.value) {
-                    if (inDate.value < MIN_DATE) return;
                     const start = new Date(inDate.value);
                     const end = new Date(outDate.value);
                     const diffTime = end - start;
@@ -1462,42 +1516,36 @@
                 }
 
                 let blockText = "";
-                // ★ 為了避免混淆，隱藏 + - 號，改為明確的選取按鈕
-                let actionBtn = "";
                 if (isFull) {
                     blockText = '<span class="text-xs text-red-500 font-bold block">已額滿</span>';
-                    actionBtn = `<span class="bg-gray-200 text-gray-400 px-3 py-1 rounded-lg text-xs font-bold">已額滿</span>`;
-                } else {
-                    if (inDate && outDate) {
-                        blockText = `<span class="text-[10px] text-blue-600 font-bold block">剩餘 1 帳</span>`;
-                    }
-                    if (isSelected) {
-                        actionBtn = `<span class="bg-green-600 text-white px-3 py-1 rounded-lg text-xs font-bold shadow flex items-center cursor-pointer hover:bg-green-700 transition"><i class="fas fa-check mr-1"></i>已選取</span>`;
-                    } else {
-                        actionBtn = `<span class="bg-stone-800 text-white px-3 py-1 rounded-lg text-xs font-bold shadow hover:bg-stone-700 cursor-pointer transition">選擇營位</span>`;
-                    }
+                } else if (inDate && outDate) {
+                    blockText = `<span class="text-[10px] text-blue-600 font-bold block">剩餘 ${remaining} 帳</span>`;
                 }
 
                 const info = document.createElement('div');
                 info.className = "flex-1 flex flex-col justify-between h-full py-1";
                 
+                // ★ 這裡加回原本的 + - 號按鈕
                 info.innerHTML = `
                     <div>
                         <h3 class="font-bold text-stone-800 text-base leading-tight mb-1">${zone.name}</h3>
                         <p class="text-[10px] text-gray-500 font-medium leading-tight mb-1">${zone.desc}</p>
                         ${blockText}
-                        <p class="${priceClass} font-bold text-sm mt-1">$${displayPrice.toLocaleString()} <span class="text-[10px] text-gray-400 font-normal">/晚</span></p>
+                        <p class="${priceClass} font-bold text-sm">$${displayPrice.toLocaleString()} <span class="text-[10px] text-gray-400 font-normal">/晚</span></p>
                     </div>
-                    <div class="flex items-center justify-end mt-1 select-none">
-                        ${actionBtn}
+                    <div class="flex items-center justify-end mt-2 select-none">
+                        <button type="button" class="w-10 h-10 rounded-full bg-stone-100 text-stone-600 hover:bg-stone-200 font-bold text-lg flex items-center justify-center active:bg-stone-300" onclick="updateZoneQty('${zone.name}', -1, event, ${remaining})">-</button>
+                        <span class="mx-2 font-bold w-6 text-center text-lg">${isSelected ? currentQty : 0}</span>
+                        <button type="button" class="w-10 h-10 rounded-full bg-stone-800 text-white hover:bg-stone-700 font-bold text-lg flex items-center justify-center shadow active:bg-stone-900" onclick="updateZoneQty('${zone.name}', 1, event, ${remaining})">+</button>
                     </div>
                 `;
                 div.innerHTML = badge;
                 div.appendChild(imgWrap);
                 div.appendChild(info);
                 
-                // 點擊卡片任何地方都能選取/取消選取
+                // 點擊卡片空白處也可以選取
                 div.onclick = (e) => {
+                    if(e.target.tagName === 'BUTTON') return;
                     if(isFull) { alert('此日期區間該營位已額滿。'); return; }
                     selectZone(zone.name, remaining); 
                 };
@@ -1506,7 +1554,32 @@
             updateFilterBtns(filter);
         }
 
-        // 修改後的 selectZone (當作切換開關)
+        // ★ 這裡修改了超額點擊的警告文字，教學客人如何多選
+        window.updateZoneQty = (zoneName, delta, e, maxQty) => {
+            e.stopPropagation();
+            
+            const inDate = document.getElementById('checkinDate').value;
+            const outDate = document.getElementById('checkoutDate').value;
+            if (!inDate || !outDate) { alert('請先選擇入住與退房日期'); return; }
+
+            let currentQty = cart[zoneName] || 0;
+            let newQty = currentQty + delta;
+            
+            if (newQty <= 0) {
+                delete cart[zoneName];
+            } else {
+                if (newQty > maxQty) {
+                    alert(`【貼心提醒】\n您選取的「${zoneName}」是單一獨立位置，上限為 1 帳。\n\n👉 如果您想預訂多帳，請繼續點擊下方「其他營位」的 + 號即可！\n(例如：點選 A1 的 + 號，再點選 A2 的 + 號)`);
+                    newQty = maxQty;
+                }
+                cart[zoneName] = newQty;
+            }
+            
+            const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+            renderZones(activeFilter);
+            window.reCalculate();
+        }
+
         function selectZone(name, maxQty) {
              const inDate = document.getElementById('checkinDate').value;
              const outDate = document.getElementById('checkoutDate').value;
