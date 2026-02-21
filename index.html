@@ -179,7 +179,6 @@
         </div>
 
         <div class="mb-8 fade-in flex flex-col md:flex-row gap-4 justify-center items-start" style="animation-delay: 0.15s;">
-            
             <div class="w-full md:w-1/2 flex flex-col gap-4">
                 <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100083289610242&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="100%" height="350" style="border:none;overflow:hidden;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                 <iframe src="https://www.youtube.com/embed/pdWhXiQRR7w" width="100%" height="350" style="border:none;overflow:hidden;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -191,7 +190,6 @@
                 </div>
                 <form id="bookingForm" class="p-6 space-y-8">
                     <input type="hidden" name="sheetName" value="訂單資料">
-                    
                     <input type="hidden" id="lineUserId" name="Line_User_ID">
                     <input type="hidden" id="lineDisplayName" name="Line_Display_Name">
                     <input type="hidden" id="linePictureUrl" name="Line_Picture_URL">
@@ -430,6 +428,7 @@
         const myLiffId = "2008643307-nbPNvd20";
         const MIN_DATE = '2026-01-19';
         
+        // ★ 封鎖日期：已加上你要求的 2/27-3/1 
         const BLOCKED_DATES = [
             '2026-02-07', '2026-03-07', 
             '2026-02-27', '2026-02-28', '2026-03-01'
@@ -504,25 +503,25 @@
             '2031-12-25','2031-12-26','2031-12-27','2031-12-28'
         ];
         
-        const discountCodes = {
+        const discountCodes = { 
             'Chunhunglinonly': 99999999,
-            'LINE100': 100,
-            '首次加入好友優惠券': 100,
-            '首次加入好友禮': 100,
-            'TESLA400': 400,
-            'CM100': 100,
-            '竹科臻邦': 500,
-            '蓓蓓團': 700,
+            'LINE100': 100, 
+            '首次加入好友優惠券': 100, 
+            '首次加入好友禮': 100, 
+            'TESLA400': 400, 
+            'CM100': 100, 
+            '竹科臻邦': 500, 
+            '蓓蓓團': 700, 
             '連假gogo': 300,
-            '芮蒂': 500,
-            '普卡': 0.55,
+            '芮蒂': 500, 
+            '普卡': 0.55, 
             'VIP卡': 0.45,
-            'VIP卡特惠': 0.40,
+            'VIP卡特惠': 0.40, 
             '特惠': 800,
             'CNY': 100,
-            '包場': 0.85,
+            '包場': 0.85, 
             'VIP': 0.9,
-            'Chill孩': 0.95,
+            'Chill孩': 0.95, 
             '愛學館信義校': 0.9
         };
 
@@ -562,7 +561,8 @@
                         id: `${zone.id}_${i}`,
                         name: spotName,
                         count: 1,
-                        desc: `專屬營位: ${spotName}`
+                        desc: `專屬營位: ${spotName}`,
+                        groupName: zone.name 
                     });
                 }
             } else {
@@ -570,7 +570,8 @@
                     ...zone,
                     name: zone.name,
                     count: 1,
-                    desc: `專屬營位: ${zone.name}`
+                    desc: `專屬營位: ${zone.name}`,
+                    groupName: zone.name
                 });
             }
         });
@@ -598,7 +599,7 @@
         ];
 
         const tents = [
-            { id: 'T00', name: '代收搭服務', price: 500, stock: 50 },
+            { id: 'T00', name: '代收搭服務', price: 500, stock: 50 }, 
             { id: 'T05', name: '迪卡儂 4.2 充氣帳', price: 800, stock: 1 },
             { id: 'T07', name: '挪客屋脊6', price: 600, stock: 1 },
             { id: 'T06', name: 'IF充氣帳篷6.0', price: 800, stock: 1 },
@@ -755,10 +756,10 @@
                         <div class="font-bold text-sm text-gray-800 truncate">${item.name}</div>
                         <div class="text-xs text-gray-500 truncate">${stockText}</div>
                     </div>
-                    <div class="flex items-center gap-2 flex-shrink-0" onclick="if(event) event.stopPropagation()">
-                         <button type="button" class="w-7 h-7 flex-shrink-0 bg-stone-100 text-stone-600 font-bold text-sm hover:bg-stone-300 transition flex items-center justify-center border border-stone-200 rounded-full" onclick="updateAddonQty('${item.name}', -1, ${remaining}, ${item.price})">-</button>
+                    <div class="flex items-center gap-2 flex-shrink-0">
+                         <button type="button" class="w-7 h-7 flex-shrink-0 bg-stone-100 text-stone-600 font-bold text-sm hover:bg-stone-300 transition flex items-center justify-center border border-stone-200 rounded-full" onclick="updateAddonQty(event, '${item.name}', -1, ${remaining}, ${item.price})">-</button>
                          <span class="w-4 text-center text-sm font-bold" id="qty-${item.name}">${currentQty}</span>
-                         <button type="button" class="w-7 h-7 flex-shrink-0 bg-stone-800 text-white font-bold text-sm hover:bg-stone-700 transition shadow flex items-center justify-center rounded-full" onclick="updateAddonQty('${item.name}', 1, ${remaining}, ${item.price})">+</button>
+                         <button type="button" class="w-7 h-7 flex-shrink-0 bg-stone-800 text-white font-bold text-sm hover:bg-stone-700 transition shadow flex items-center justify-center rounded-full" onclick="updateAddonQty(event, '${item.name}', 1, ${remaining}, ${item.price})">+</button>
                     </div>
                 `;
                 grid.appendChild(div);
@@ -768,7 +769,8 @@
             return wrapper;
         }
 
-        window.updateAddonQty = (name, delta, maxStock, price) => {
+        window.updateAddonQty = (e, name, delta, maxStock, price) => {
+            if(e) { e.preventDefault(); e.stopPropagation(); }
             const inDate = document.getElementById('checkinDate').value;
             const outDate = document.getElementById('checkoutDate').value;
             if (!inDate || !outDate) { alert('請先選擇入住與退房日期，才能查看剩餘裝備數量。'); return; }
@@ -793,11 +795,13 @@
             window.reCalculate();
         }
 
+        // ★ 圖片防破圖機制修正
         function getSafeImageUrl(url) {
             if (!url) return '';
             const match = url.match(/id=([a-zA-Z0-9_-]+)/);
             if (match && match[1]) {
-                return `https://lh3.googleusercontent.com/d/$${match[1]}=w1000`;
+                // 自動轉譯為穩定不斷線的 Google Drive 圖片連結
+                return `https://lh3.googleusercontent.com/d/${match[1]}=w1000`;
             }
             return url;
         }
@@ -1019,6 +1023,7 @@
             { "t": "", "u": "https://drive.google.com/thumbnail?id=138OAQezCmYCxRKrPYdOF89lIdot3P21H&sz=w1000" }
           ]
         };
+
         function renderGalleryFolders() {
             const container = document.getElementById('gallery-container');
             let html = '<div class="grid grid-cols-2 md:grid-cols-3 gap-3 p-2">';
@@ -1042,6 +1047,7 @@
             html += '</div>';
             container.innerHTML = html;
         }
+
         function renderGalleryImages(folderName) {
             const container = document.getElementById('gallery-container');
             const images = galleryData[folderName];
@@ -1077,6 +1083,7 @@
             container.innerHTML = html;
             if (container.parentElement) container.parentElement.scrollTop = 0;
         }
+
         async function fetchInventory() {
             try {
                 const res = await fetch(scriptURL);
@@ -1092,6 +1099,7 @@
                 console.error('無法取得庫存資料:', err);
             }
         }
+
         async function initializeLiff() {
             try {
                 await liff.init({ liffId: myLiffId });
@@ -1111,6 +1119,7 @@
                 console.error('LIFF Initialization failed', err);
             }
         }
+
         function renderReviews() {
             const container = document.getElementById('reviews-container');
             const shuffled = reviews.sort(() => 0.5 - Math.random()).slice(0, 3);
@@ -1128,6 +1137,7 @@
             });
             container.innerHTML = html;
         }
+
         function setupCalculator() {
             const inDate = document.getElementById('checkinDate');
             const outDate = document.getElementById('checkoutDate');
@@ -1141,6 +1151,7 @@
             const discountInput = document.getElementById('discountCodeInput');
             const discountMsg = document.getElementById('discountMessage');
             const applyBtn = document.getElementById('applyDiscountBtn');
+
             function getDiscountAmount() {
                 const code = discountInput.value.trim().toUpperCase();
                 const originalCode = discountInput.value.trim();
@@ -1148,6 +1159,7 @@
                 else if (discountCodes.hasOwnProperty(originalCode)) return discountCodes[originalCode];
                 return 0;
             }
+
             function validateDiscount() {
                 const val = getDiscountAmount();
                 const code = discountInput.value.trim();
@@ -1166,6 +1178,7 @@
                 }
                 calculate();
             }
+
             function getSpecialPrice(cat) {
                 switch(cat) {
                     case 'grass': case 'shelter': case 'room': return 1400;
@@ -1249,6 +1262,7 @@
                         }
                     } else { stayDaysSpan.classList.add('hidden'); days = 0; }
                 }
+
                 if (blocked) {
                     alert(blockMsg);
                     inDate.value = ''; outDate.value = '';
@@ -1259,6 +1273,7 @@
                     renderAddons();
                     return;
                 }
+
                 let addonTotal = 0;
                 addonEntries.forEach(([name, qty]) => {
                     let item = rentals.find(r => r.name === name) || tents.find(t => t.name === name) || bbqs.find(b => b.name === name);
@@ -1267,10 +1282,12 @@
                     }
                 });
                 totalPrice += addonTotal;
+
                 if ((days > 0 || addonTotal > 0) && totalPrice > 0) {
                     const discountVal = getDiscountAmount();
                     let finalTotal = 0;
                     let displayDiscount = "";
+
                     if (discountVal > 0) {
                         if (discountVal < 1) {
                             const discountAmt = Math.round(totalPrice * (1 - discountVal));
@@ -1326,6 +1343,7 @@
             discountInput.addEventListener('change', validateDiscount);
             window.reCalculate = calculate;
         }
+
         function hasSpecialHoliday(startStr, endStr) {
             if(!startStr || !endStr) return false;
             let s = new Date(startStr);
@@ -1335,6 +1353,7 @@
             }
             return false;
         }
+
         function getSpecialPriceDisplay(cat) {
              switch(cat) {
                 case 'grass': case 'shelter': case 'room': return 1400;
@@ -1345,6 +1364,7 @@
                 default: return 1400;
             }
         }
+
         function renderZones(filter) {
             const container = document.getElementById('zoneContainer');
             container.innerHTML = '';
@@ -1361,12 +1381,11 @@
                     if (dw === 5 || dw === 6 || dw === 0) { hasWeekend = true; break; }
                 }
             }
-            let bookedMap = {};
             
+            let bookedMap = {};
             if (inDate && outDate && bookedData) {
                 const start = new Date(inDate);
                 const end = new Date(outDate);
-                
                 for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
                     let dateStr = d.toISOString().split('T')[0];
                     if (bookedData[dateStr] && bookedData[dateStr].zones) {
@@ -1376,17 +1395,33 @@
                     }
                 }
             }
+
+            // ★ 新增：分配舊版的群組訂單數量到個別營位上
+            let consumedGeneral = {};
+
             zones.forEach(zone => {
                 if(filter !== 'all' && zone.cat !== filter && !(filter==='shelter' && zone.cat==='shelter') && !(filter==='room' && (zone.cat==='room'||zone.cat==='cabinL'||zone.cat==='cabinS'||zone.cat==='villa'||zone.cat==='camper'))) return;
                 if (filter === 'room' && !['room','cabinL','cabinS','villa','camper'].includes(zone.cat)) return;
                 if (filter === 'shelter' && zone.cat !== 'shelter') return;
                 if (filter === 'grass' && zone.cat !== 'grass') return;
+                
                 const div = document.createElement('div');
                 div.className = `zone-card bg-white rounded-xl p-3 relative overflow-hidden flex items-center h-32 md:h-36`;
                 
-                const bookedCount = bookedMap[zone.name] || 0;
+                let bookedCount = bookedMap[zone.name] || 0;
+
+                // ★ 自動分配舊版訂單的庫存
+                if (bookedCount === 0 && bookedMap[zone.groupName] > 0) {
+                    if (!consumedGeneral[zone.groupName]) consumedGeneral[zone.groupName] = 0;
+                    if (consumedGeneral[zone.groupName] < bookedMap[zone.groupName]) {
+                        bookedCount += 1;
+                        consumedGeneral[zone.groupName] += 1;
+                    }
+                }
+
                 const remaining = Math.max(0, zone.count - bookedCount);
                 const isFull = remaining <= 0;
+                
                 if (isFull) {
                     div.classList.add('disabled-card');
                 }
@@ -1436,9 +1471,8 @@
                     if (inDate && outDate) {
                         blockText = `<span class="text-[10px] text-blue-600 font-bold block">剩餘 1 帳</span>`;
                     }
-                    // ★ 終極修復：移除 onclick 事件，改用 addEventListener 確保隔離，按鈕縮小
                     actionBtn = `
-                        <div class="flex items-center bg-stone-100 rounded-full border border-stone-200 overflow-hidden shadow-sm flex-shrink-0">
+                        <div class="flex items-center bg-stone-100 rounded-full border border-stone-200 overflow-hidden shadow-sm flex-shrink-0 controls-wrapper">
                             <button type="button" class="w-7 h-7 flex-shrink-0 bg-stone-100 text-stone-600 font-bold text-sm hover:bg-stone-300 transition flex items-center justify-center border-r border-stone-200 btn-minus" data-name="${zone.name}" data-rem="${remaining}">-</button>
                             <div class="w-6 text-center font-bold text-stone-800 text-sm flex-shrink-0">${currentQty}</div>
                             <button type="button" class="w-7 h-7 flex-shrink-0 bg-stone-800 text-white font-bold text-sm hover:bg-stone-700 transition shadow flex items-center justify-center btn-plus" data-name="${zone.name}" data-rem="${remaining}">+</button>
@@ -1463,7 +1497,6 @@
                 div.appendChild(imgWrap);
                 div.appendChild(info);
                 
-                // ★ 綁定按鈕事件，並阻擋冒泡
                 if (!isFull) {
                     const btnMinus = div.querySelector('.btn-minus');
                     const btnPlus = div.querySelector('.btn-plus');
@@ -1482,31 +1515,63 @@
                         });
                     }
                 }
+
+                div.addEventListener('click', function(e) {
+                    let target = e.target;
+                    while(target && target !== this) {
+                        if(target.tagName === 'BUTTON' || target.classList.contains('controls-wrapper')) {
+                            return; 
+                        }
+                        target = target.parentNode;
+                    }
+                    if(isFull) { alert('此日期區間該營位已額滿。'); return; }
+                    selectZone(zone.name, remaining); 
+                });
                 
                 container.appendChild(div);
             });
             updateFilterBtns(filter);
         }
 
-        // ★ 純粹的數量更新邏輯，不再接收 event 參數
-        function updateZoneQty(zoneName, delta, maxQty) {
+        // ★ 完全阻絕事件干擾的更新函式
+        window.updateZoneQty = (zoneName, delta, maxQty) => {
             const inDate = document.getElementById('checkinDate').value;
             const outDate = document.getElementById('checkoutDate').value;
             if (!inDate || !outDate) { alert('請先選擇入住與退房日期'); return; }
+
             let currentQty = cart[zoneName] || 0;
             let newQty = currentQty + delta;
             
             if (newQty <= 0) {
                 delete cart[zoneName];
             } else if (newQty > maxQty) {
-                alert(`【溫馨提示】\n此為獨立營位，上限為 1 帳。\n\n👉 如需預訂多帳，請繼續點選下方【其他營位】的 + 號即可同時結帳喔！\n(例如：點選 A1 的 + 號，再點選 A2 的 + 號)`);
+                alert(`【溫馨提示】\n此為獨立營位，數量上限為 1 帳。\n\n👉 如需預訂多帳，請點選下方其他營位的「+」號加入即可！\n(例如：點了 A1 的 + 號，再點 A2 的 + 號)`);
             } else {
                 cart[zoneName] = newQty;
             }
             
-            const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
-            renderZones(activeFilter);
-            window.reCalculate();
+            setTimeout(() => {
+                const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+                renderZones(activeFilter);
+                window.reCalculate();
+            }, 0);
+        }
+
+        function selectZone(name, maxQty) {
+             const inDate = document.getElementById('checkinDate').value;
+             const outDate = document.getElementById('checkoutDate').value;
+             if (!inDate || !outDate) { alert('請先選擇入住與退房日期，才能查看剩餘營位。'); return; }
+
+             if (!cart[name]) {
+                 if (maxQty < 1) { alert('此營位已額滿'); return; }
+                 cart[name] = 1;
+             } else {
+                 delete cart[name];
+             }
+             
+             const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+             renderZones(activeFilter); 
+             window.reCalculate();
         }
 
         function updateFilterBtns(filter) {
