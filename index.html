@@ -52,73 +52,17 @@
         }
         .line-btn-pulse { animation: pulse-btn 2s infinite; }
 
-        /* ========================================= */
-        /* ★★★ 關於我們 詩意排版樣式 ★★★ */
-        /* ========================================= */
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;500;700&display=swap');
 
-        .about-poetic-container {
-            font-family: 'Noto Serif TC', serif;
-            color: #4a4a4a;
-            line-height: 2.4;
-            text-align: center;
-            letter-spacing: 0.05em;
-            padding: 20px 10px;
-        }
-        .camp-name-styled {
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: #999;
-            letter-spacing: 0.3em;
-            margin-bottom: 50px;
-            position: relative;
-        }
-        .camp-name-styled::after {
-            content: "";
-            display: block;
-            width: 30px;
-            height: 1px;
-            background: #ddd;
-            margin: 15px auto;
-        }
-        .poetic-highlight {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #749F82; /* 淡雅草綠色 */
-            margin: 60px 0;
-            line-height: 1.6;
-            letter-spacing: 0.1em;
-        }
-        .narrative-text {
-            font-size: 1.05rem;
-            font-weight: 300;
-            margin-bottom: 40px;
-            text-align: justify;
-            text-align-last: center;
-        }
-        .feature-accent {
-            color: #5d7e68;
-            font-weight: 500;
-            border-bottom: 1px solid #c9d6cc;
-        }
-        .leaf-divider {
-            color: #749F82;
-            font-size: 1.2rem;
-            margin: 30px 0;
-            opacity: 0.5;
-        }
-        .quote-footer {
-            font-size: 1.4rem;
-            color: #749F82;
-            margin-top: 50px;
-            font-weight: 500;
-        }
-        .welcome-msg {
-            font-size: 0.9rem;
-            color: #888;
-            margin-top: 15px;
-            letter-spacing: 0.2em;
-        }
+        .about-poetic-container { font-family: 'Noto Serif TC', serif; color: #4a4a4a; line-height: 2.4; text-align: center; letter-spacing: 0.05em; padding: 20px 10px; }
+        .camp-name-styled { font-size: 1.1rem; font-weight: 500; color: #999; letter-spacing: 0.3em; margin-bottom: 50px; position: relative; }
+        .camp-name-styled::after { content: ""; display: block; width: 30px; height: 1px; background: #ddd; margin: 15px auto; }
+        .poetic-highlight { font-size: 1.5rem; font-weight: 600; color: #749F82; margin: 60px 0; line-height: 1.6; letter-spacing: 0.1em; }
+        .narrative-text { font-size: 1.05rem; font-weight: 300; margin-bottom: 40px; text-align: justify; text-align-last: center; }
+        .feature-accent { color: #5d7e68; font-weight: 500; border-bottom: 1px solid #c9d6cc; }
+        .leaf-divider { color: #749F82; font-size: 1.2rem; margin: 30px 0; opacity: 0.5; }
+        .quote-footer { font-size: 1.4rem; color: #749F82; margin-top: 50px; font-weight: 500; }
+        .welcome-msg { font-size: 0.9rem; color: #888; margin-top: 15px; letter-spacing: 0.2em; }
         @media (max-width: 768px) {
             .poetic-highlight { font-size: 1.3rem; margin: 40px 0; }
             .narrative-text { font-size: 1rem; line-height: 2.1; }
@@ -281,7 +225,7 @@
                         <input type="hidden" name="預訂區域" id="selectedZoneInput" required>
                         <input type="hidden" id="selectedZonePrice" value="0">
                         
-                        <p class="text-xs text-orange-600 mb-2 font-bold"><i class="fas fa-info-circle"></i> 請先選擇日期，系統將自動顯示可預訂營位</p>
+                        <p class="text-xs text-orange-600 mb-2 font-bold"><i class="fas fa-info-circle"></i> 請先選擇日期，點擊卡片即可選取</p>
 
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" id="zoneContainer">
                         </div>
@@ -580,12 +524,10 @@
             '愛學館信義校': 0.9
         };
 
-        // ★★★ 這裡是重點修改區塊：將營位自動拆解成單一位置 ★★★
         const originalZones = [
             { id: 'ZA1', name: '棚架 A 區', count: 9, cat: 'shelter', desc: '寬敞遮雨棚車停帳邊', price: 1000, badge: '熱門', images: ['https://i.ibb.co/KjBcKGvt/A-DDcar.jpg', 'https://i.ibb.co/RTypZTzW/A1.jpg', 'https://i.ibb.co/hRNQ84SY/A.jpg'], idx: 0 },
             { id: 'ZA2', name: '棚架 B 區', count: 4, cat: 'shelter', desc: '適合包區車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/bMQ51htS/B.jpg', 'https://i.ibb.co/7JY7xRYp/B.jpg'], idx: 0 },
             { id: 'ZA3', name: '棚架 C 區', count: 3, cat: 'shelter', desc: '安靜舒適獨立區車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/c70KNkJ/C1.jpg', 'https://i.ibb.co/zTRCxcwq/2.jpg'], idx: 0 },
-            // ★已確認這裡的 count: 2，迴圈執行後就會自動拆成 棧板A1(數量1) 與 棧板A2(數量1)
             { id: 'ZB1', name: '棧板 A 區', count: 2, cat: 'grass', desc: '架高防潮+遊戲區', price: 1000, badge: '', images: ['https://i.ibb.co/XrMggq46/1.jpg'], idx: 0 },
             { id: 'ZB2', name: '棧板 B 區', count: 2, cat: 'grass', desc: '棚架車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/JRmcf3bw/B.jpg'], idx: 0 },
             { id: 'ZC1', name: '三人頂級露營車', count: 2, cat: 'camper', desc: '最有溫度的一晚車停帳邊', price: 3600, badge: '最高級的懶人享受', images: ['https://i.ibb.co/jvXBxJWw/4.jpg'], idx: 0 },
@@ -597,7 +539,6 @@
             { id: 'ZF1', name: '泰式免搭', count: 8, cat: 'room', desc: '懶人新福音', price: 1000, badge: '最新', images: ['https://i.ibb.co/60bXNB57/image.jpg', 'https://i.ibb.co/DHhm1sWR/2.jpg'], idx: 0 }
         ];
 
-        // 透過迴圈展開成為獨立營位
         const zones = [];
         originalZones.forEach(zone => {
             if (zone.count > 1) {
@@ -608,17 +549,17 @@
                     else if (zone.name === '棚架 C 區') spotName = `棚架C${i}`;
                     else if (zone.name === '棧板 A 區') spotName = `棧板A${i}`;
                     else if (zone.name === '棧板 B 區') spotName = `棧板B${i}`;
-                    else if (zone.name === '三人頂級露營車') spotName = `露營車${String.fromCharCode(64 + i)}`; // A, B
+                    else if (zone.name === '三人頂級露營車') spotName = `露營車${String.fromCharCode(64 + i)}`;
                     else if (zone.name === '草地區') spotName = `草地區${i}`;
                     else if (zone.name === '碎石地區') spotName = `碎石區${i}`;
-                    else if (zone.name === '泰式免搭') spotName = `泰式${String.fromCharCode(64 + i)}`; // A, B, C...
+                    else if (zone.name === '泰式免搭') spotName = `泰式${String.fromCharCode(64 + i)}`;
                     else spotName = `${zone.name}${i}`;
 
                     zones.push({
                         ...zone,
                         id: `${zone.id}_${i}`,
                         name: spotName,
-                        count: 1, // 展開後每個位置庫存上限為 1
+                        count: 1,
                         desc: `專屬營位: ${spotName}` 
                     });
                 }
@@ -688,14 +629,7 @@
         ];
         
         const tentInfoData = [
-            {
-                name: "代收搭服務 (自備帳篷)",
-                price: "500",
-                desc: "專人為您搭設與撤收帳篷，讓您輕鬆享受露營樂趣 (不含帳篷，僅服務)。",
-                img: "https://i.ibb.co/C3kqHQBG/DSC00043.jpg", 
-                tag: "頂級懶人服務",
-                highlight: true 
-            },
+            { name: "代收搭服務 (自備帳篷)", price: "500", desc: "專人為您搭設與撤收帳篷，讓您輕鬆享受露營樂趣 (不含帳篷，僅服務)。", img: "https://i.ibb.co/C3kqHQBG/DSC00043.jpg", tag: "頂級懶人服務", highlight: true },
             { name: "迪卡儂 4.2 充氣帳 (租借)", price: "800", img: "https://i.ibb.co/5WGjJV0Y/4-2.jpg", desc: "兩房一廳設計，適合兩對情侶或家庭，CP值最高的選擇。" },
             { name: "挪客屋脊 6 (租借)", price: "600", img: "https://i.ibb.co/mVdMmHqb/6.jpg", desc: "經典小屋帳，適合3-4人小家庭。" },
             { name: "IF 充氣帳篷 6.0 (租借)", price: "800", img: "https://i.ibb.co/bgdggSG1/IF-6-0.jpg", desc: "CP值充氣帳，搭建容易。" },
@@ -708,11 +642,9 @@
         function renderTentInfo() {
             const container = document.querySelector('#modal-tent .space-y-6');
             if (!container) return;
-
             let html = '';
             tentInfoData.forEach((item, index) => {
                 const isHighlight = item.highlight || index === 0;
-                
                 const borderClass = isHighlight ? "border-4 border-purple-500 shadow-xl transform scale-[1.02]" : "border border-gray-100 shadow-md";
                 const titleClass = isHighlight ? "text-3xl font-extrabold text-purple-700 tracking-tight" : "text-lg font-bold text-stone-800";
                 const priceClass = isHighlight ? "text-3xl font-black text-purple-600" : "text-xl font-bold text-purple-600";
@@ -813,9 +745,7 @@
                 }
 
                 const currentQty = addonCart[item.name] || 0;
-                
                 const imgHtml = item.image ? `<div class="w-16 h-16 mr-3 flex-shrink-0 cursor-pointer" onclick="showImage('${item.image}')"><img src="${item.image}" class="w-full h-full object-cover rounded-md"></div>` : '';
-                
                 let stockText = isFull ? '<span class="text-red-600 font-bold">已租完</span>' : `庫存: ${remaining} | <span class="font-bold text-${color}-600">$${item.price}</span>`;
 
                 div.innerHTML = `
@@ -859,10 +789,12 @@
             
             const span = document.getElementById(`qty-${name}`);
             if (span) span.innerText = newQty;
-            
             window.reCalculate();
         }
 
+        // ============================================
+        // ★ 相簿資料與防破圖機制 ★
+        // ============================================
         let galleryData = {
           "木屋外觀": [
             { "t": "", "u": "https://drive.google.com/thumbnail?id=1BwC53jb9SYJvlXu9Pnef8Ob4NH8ePKpB&sz=w1000" },
@@ -1081,7 +1013,7 @@
           ]
         };
 
-        // ★ 新增的 Google Drive 圖片網址轉換器，防止破圖
+        // 自動轉譯 Google Drive 網址防破圖
         function getSafeImageUrl(url) {
             if (!url) return '';
             const match = url.match(/id=([a-zA-Z0-9_-]+)/);
@@ -1530,10 +1462,20 @@
                 }
 
                 let blockText = "";
+                // ★ 為了避免混淆，隱藏 + - 號，改為明確的選取按鈕
+                let actionBtn = "";
                 if (isFull) {
                     blockText = '<span class="text-xs text-red-500 font-bold block">已額滿</span>';
-                } else if (inDate && outDate) {
-                    blockText = `<span class="text-[10px] text-blue-600 font-bold block">剩餘 ${remaining} 帳</span>`;
+                    actionBtn = `<span class="bg-gray-200 text-gray-400 px-3 py-1 rounded-lg text-xs font-bold">已額滿</span>`;
+                } else {
+                    if (inDate && outDate) {
+                        blockText = `<span class="text-[10px] text-blue-600 font-bold block">剩餘 1 帳</span>`;
+                    }
+                    if (isSelected) {
+                        actionBtn = `<span class="bg-green-600 text-white px-3 py-1 rounded-lg text-xs font-bold shadow flex items-center cursor-pointer hover:bg-green-700 transition"><i class="fas fa-check mr-1"></i>已選取</span>`;
+                    } else {
+                        actionBtn = `<span class="bg-stone-800 text-white px-3 py-1 rounded-lg text-xs font-bold shadow hover:bg-stone-700 cursor-pointer transition">選擇營位</span>`;
+                    }
                 }
 
                 const info = document.createElement('div');
@@ -1544,20 +1486,18 @@
                         <h3 class="font-bold text-stone-800 text-base leading-tight mb-1">${zone.name}</h3>
                         <p class="text-[10px] text-gray-500 font-medium leading-tight mb-1">${zone.desc}</p>
                         ${blockText}
-                        <p class="${priceClass} font-bold text-sm">$${displayPrice.toLocaleString()} <span class="text-[10px] text-gray-400 font-normal">/晚</span></p>
+                        <p class="${priceClass} font-bold text-sm mt-1">$${displayPrice.toLocaleString()} <span class="text-[10px] text-gray-400 font-normal">/晚</span></p>
                     </div>
-                    <div class="flex items-center justify-end mt-2 select-none">
-                        <button type="button" class="w-10 h-10 rounded-full bg-stone-100 text-stone-600 hover:bg-stone-200 font-bold text-lg flex items-center justify-center active:bg-stone-300" onclick="updateZoneQty('${zone.name}', -1, event, ${remaining})">-</button>
-                        <span class="mx-2 font-bold w-6 text-center text-lg">${isSelected ? currentQty : 0}</span>
-                        <button type="button" class="w-10 h-10 rounded-full bg-stone-800 text-white hover:bg-stone-700 font-bold text-lg flex items-center justify-center shadow active:bg-stone-900" onclick="updateZoneQty('${zone.name}', 1, event, ${remaining})">+</button>
+                    <div class="flex items-center justify-end mt-1 select-none">
+                        ${actionBtn}
                     </div>
                 `;
                 div.innerHTML = badge;
                 div.appendChild(imgWrap);
                 div.appendChild(info);
                 
+                // 點擊卡片任何地方都能選取/取消選取
                 div.onclick = (e) => {
-                    if(e.target.tagName === 'BUTTON') return;
                     if(isFull) { alert('此日期區間該營位已額滿。'); return; }
                     selectZone(zone.name, remaining); 
                 };
@@ -1566,31 +1506,7 @@
             updateFilterBtns(filter);
         }
 
-        window.updateZoneQty = (zoneName, delta, e, maxQty) => {
-            e.stopPropagation();
-            
-            const inDate = document.getElementById('checkinDate').value;
-            const outDate = document.getElementById('checkoutDate').value;
-            if (!inDate || !outDate) { alert('請先選擇入住與退房日期'); return; }
-
-            let currentQty = cart[zoneName] || 0;
-            let newQty = currentQty + delta;
-            
-            if (newQty <= 0) {
-                delete cart[zoneName];
-            } else {
-                if (newQty > maxQty) {
-                    alert(`該營位剩餘數量不足，僅剩 ${maxQty} 帳。`);
-                    newQty = maxQty;
-                }
-                cart[zoneName] = newQty;
-            }
-            
-            const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
-            renderZones(activeFilter);
-            window.reCalculate();
-        }
-
+        // 修改後的 selectZone (當作切換開關)
         function selectZone(name, maxQty) {
              const inDate = document.getElementById('checkinDate').value;
              const outDate = document.getElementById('checkoutDate').value;
