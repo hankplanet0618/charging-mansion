@@ -57,68 +57,15 @@
         /* ========================================= */
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;500;700&display=swap');
 
-        .about-poetic-container {
-            font-family: 'Noto Serif TC', serif;
-            color: #4a4a4a;
-            line-height: 2.4;
-            text-align: center;
-            letter-spacing: 0.05em;
-            padding: 20px 10px;
-        }
-        .camp-name-styled {
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: #999;
-            letter-spacing: 0.3em;
-            margin-bottom: 50px;
-            position: relative;
-        }
-        .camp-name-styled::after {
-            content: "";
-            display: block;
-            width: 30px;
-            height: 1px;
-            background: #ddd;
-            margin: 15px auto;
-        }
-        .poetic-highlight {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #749F82; /* 淡雅草綠色 */
-            margin: 60px 0;
-            line-height: 1.6;
-            letter-spacing: 0.1em;
-        }
-        .narrative-text {
-            font-size: 1.05rem;
-            font-weight: 300;
-            margin-bottom: 40px;
-            text-align: justify;
-            text-align-last: center;
-        }
-        .feature-accent {
-            color: #5d7e68;
-            font-weight: 500;
-            border-bottom: 1px solid #c9d6cc;
-        }
-        .leaf-divider {
-            color: #749F82;
-            font-size: 1.2rem;
-            margin: 30px 0;
-            opacity: 0.5;
-        }
-        .quote-footer {
-            font-size: 1.4rem;
-            color: #749F82;
-            margin-top: 50px;
-            font-weight: 500;
-        }
-        .welcome-msg {
-            font-size: 0.9rem;
-            color: #888;
-            margin-top: 15px;
-            letter-spacing: 0.2em;
-        }
+        .about-poetic-container { font-family: 'Noto Serif TC', serif; color: #4a4a4a; line-height: 2.4; text-align: center; letter-spacing: 0.05em; padding: 20px 10px; }
+        .camp-name-styled { font-size: 1.1rem; font-weight: 500; color: #999; letter-spacing: 0.3em; margin-bottom: 50px; position: relative; }
+        .camp-name-styled::after { content: ""; display: block; width: 30px; height: 1px; background: #ddd; margin: 15px auto; }
+        .poetic-highlight { font-size: 1.5rem; font-weight: 600; color: #749F82; margin: 60px 0; line-height: 1.6; letter-spacing: 0.1em; }
+        .narrative-text { font-size: 1.05rem; font-weight: 300; margin-bottom: 40px; text-align: justify; text-align-last: center; }
+        .feature-accent { color: #5d7e68; font-weight: 500; border-bottom: 1px solid #c9d6cc; }
+        .leaf-divider { color: #749F82; font-size: 1.2rem; margin: 30px 0; opacity: 0.5; }
+        .quote-footer { font-size: 1.4rem; color: #749F82; margin-top: 50px; font-weight: 500; }
+        .welcome-msg { font-size: 0.9rem; color: #888; margin-top: 15px; letter-spacing: 0.2em; }
         @media (max-width: 768px) {
             .poetic-highlight { font-size: 1.3rem; margin: 40px 0; }
             .narrative-text { font-size: 1rem; line-height: 2.1; }
@@ -244,7 +191,6 @@
                 </div>
                 <form id="bookingForm" class="p-6 space-y-8">
                     <input type="hidden" name="sheetName" value="訂單資料">
-                    
                     <input type="hidden" id="lineUserId" name="Line_User_ID">
                     <input type="hidden" id="lineDisplayName" name="Line_Display_Name">
                     <input type="hidden" id="linePictureUrl" name="Line_Picture_URL">
@@ -803,13 +749,14 @@
                 const imgHtml = item.image ? `<div class="w-16 h-16 mr-3 flex-shrink-0 cursor-pointer" onclick="showImage('${item.image}')"><img src="${item.image}" class="w-full h-full object-cover rounded-md"></div>` : '';
                 let stockText = isFull ? '<span class="text-red-600 font-bold">已租完</span>' : `庫存: ${remaining} | <span class="font-bold text-${color}-600">$${item.price}</span>`;
 
+                // 修改：裝備區按鈕也加上 if(event) event.stopPropagation() 防冒泡
                 div.innerHTML = `
                     ${imgHtml}
                     <div class="flex-1">
                         <div class="font-bold text-sm text-gray-800">${item.name}</div>
                         <div class="text-xs text-gray-500">${stockText}</div>
                     </div>
-                    <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-2" onclick="if(event) event.stopPropagation()">
                          <button type="button" class="w-8 h-8 rounded-full bg-stone-100 text-stone-600 font-bold hover:bg-stone-200" onclick="updateAddonQty('${item.name}', -1, ${remaining}, ${item.price})">-</button>
                          <span class="w-4 text-center text-sm font-bold" id="qty-${item.name}">${currentQty}</span>
                          <button type="button" class="w-8 h-8 rounded-full bg-stone-800 text-white font-bold hover:bg-stone-700" onclick="updateAddonQty('${item.name}', 1, ${remaining}, ${item.price})">+</button>
@@ -823,6 +770,7 @@
         }
 
         window.updateAddonQty = (name, delta, maxStock, price) => {
+            if(window.event) window.event.stopPropagation();
             const inDate = document.getElementById('checkinDate').value;
             const outDate = document.getElementById('checkoutDate').value;
             if (!inDate || !outDate) { alert('請先選擇入住與退房日期，才能查看剩餘裝備數量。'); return; }
@@ -849,6 +797,10 @@
 
         function getSafeImageUrl(url) {
             if (!url) return '';
+            const match = url.match(/id=([a-zA-Z0-9_-]+)/);
+            if (match && match[1]) {
+                return `https://lh3.googleusercontent.com/d/${match[1]}=w1000`;
+            }
             return url;
         }
 
@@ -1514,14 +1466,14 @@
                     actionBtn = `<span class="bg-gray-200 text-gray-400 px-3 py-1 rounded-lg text-xs font-bold">已額滿</span>`;
                 } else {
                     if (inDate && outDate) {
-                        blockText = `<span class="text-[10px] text-blue-600 font-bold block">剩餘 ${remaining} 帳</span>`;
+                        blockText = `<span class="text-[10px] text-blue-600 font-bold block">剩餘 1 帳</span>`;
                     }
-                    // ★ 縮小的、不跑版的加減控制器，並移除 inline event 參數確保相容性
+                    // ★ 徹底修復：按鈕改用最安全的結構，onclick 傳入 event 變數，並且縮小按鈕不跑版
                     actionBtn = `
-                        <div class="flex items-center bg-stone-100 rounded-full border border-stone-200 overflow-hidden shadow-sm flex-shrink-0">
-                            <button type="button" class="w-6 h-6 flex items-center justify-center text-stone-600 hover:bg-stone-300 font-bold transition" onclick="updateZoneQty('${zone.name}', -1, ${remaining})">-</button>
-                            <div class="w-6 text-center font-bold text-stone-800 text-sm">${currentQty}</div>
-                            <button type="button" class="w-6 h-6 flex items-center justify-center text-stone-600 hover:bg-stone-300 font-bold transition" onclick="updateZoneQty('${zone.name}', 1, ${remaining})">+</button>
+                        <div class="flex items-center bg-stone-100 rounded-full border border-stone-200 overflow-hidden shadow-sm flex-shrink-0 controls-wrapper">
+                            <button type="button" class="w-7 h-7 flex items-center justify-center text-stone-600 hover:bg-stone-300 font-bold text-sm transition" onclick="updateZoneQty(event, '${zone.name}', -1, ${remaining})">-</button>
+                            <div class="w-5 text-center font-bold text-stone-800 text-sm">${currentQty}</div>
+                            <button type="button" class="w-7 h-7 flex items-center justify-center text-stone-600 hover:bg-stone-300 font-bold text-sm transition" onclick="updateZoneQty(event, '${zone.name}', 1, ${remaining})">+</button>
                         </div>
                     `;
                 }
@@ -1544,19 +1496,32 @@
                 div.appendChild(imgWrap);
                 div.appendChild(info);
                 
-                // ★ 點擊卡片空白處也可以選取/取消，且不會跟按鈕打架
-                div.onclick = (e) => {
-                    if(e.target.closest('button')) return; // 忽略按鈕的點擊
+                // ★ 更安全的點擊判斷，防止穿透
+                div.addEventListener('click', function(e) {
+                    let target = e.target;
+                    while(target && target !== this) {
+                        if(target.tagName === 'BUTTON' || target.classList.contains('controls-wrapper')) {
+                            return; 
+                        }
+                        target = target.parentNode;
+                    }
+                    
                     if(isFull) { alert('此日期區間該營位已額滿。'); return; }
                     selectZone(zone.name, remaining); 
-                };
+                });
+
                 container.appendChild(div);
             });
             updateFilterBtns(filter);
         }
 
-        // ★ 簡化並確保手機版相容的 updateZoneQty
-        window.updateZoneQty = (zoneName, delta, maxQty) => {
+        // ★ 確保事件完全阻擋的 updateZoneQty
+        window.updateZoneQty = (e, zoneName, delta, maxQty) => {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
             const inDate = document.getElementById('checkinDate').value;
             const outDate = document.getElementById('checkoutDate').value;
             if (!inDate || !outDate) { alert('請先選擇入住與退房日期'); return; }
@@ -1568,15 +1533,18 @@
                 delete cart[zoneName];
             } else {
                 if (newQty > maxQty) {
-                    alert(`【貼心提醒】\n該位置為獨立營位，上限為 1 帳。\n\n👉 如需預訂多帳，請點選其他營位的「+」號加入即可！\n(例如：點選 A1 的 + 號，再點選 A2 的 + 號)`);
+                    alert(`【貼心提醒】\n「${zoneName}」為獨立營位，數量上限為 1 帳。\n👉 如需預訂多帳，請繼續點選下方其他營位的「+」號加入即可！`);
                     newQty = maxQty;
                 }
                 cart[zoneName] = newQty;
             }
             
-            const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
-            renderZones(activeFilter);
-            window.reCalculate();
+            // 使用 setTimeout 確保事件冒泡結束後再重繪 DOM，完美解決點擊失效的問題
+            setTimeout(() => {
+                const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+                renderZones(activeFilter);
+                window.reCalculate();
+            }, 0);
         }
 
         function selectZone(name, maxQty) {
