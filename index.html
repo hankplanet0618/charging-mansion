@@ -116,7 +116,7 @@
                 <img src="https://i.ibb.co/6cx1xrVR/image.jpg" alt="山景" class="w-full h-full object-contain mx-auto opacity-90">
                 <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4 bg-gradient-to-t from-black/60 via-transparent to-transparent">
                     <h2 class="text-3xl md:text-5xl font-bold mb-2 text-white text-shadow-lg tracking-tight">露營，是心靈充電的最佳選擇</h2>
-                    <p class="text-yellow-400 font-bold tracking-widest text-sm md:text-lg">宜蘭礁溪秘境 ｜ 電動車露營首選｜車床特約及非特約營位價格請洽官網｜露營樂合作夥伴，請要訂位過年的別再猶豫囉~</p>
+                    <p class="text-yellow-400 font-bold tracking-widest text-sm md:text-lg">宜蘭礁溪秘境 ｜ 電動車露營首選｜車床特約及非特約營位價格請洽官網｜露營樂合作夥伴，請要訂位兒童連假的別再猶豫囉~</p>
                 </div>
             </div>
             <div class="mt-4 bg-red-600 text-white p-3 rounded-xl shadow-lg animate-pulse text-center mx-4 border-2 border-yellow-400">
@@ -489,7 +489,7 @@
             '芮蒂': 500,
             '普卡': 0.55,
             'VIP卡': 0.45,
-            'VIP卡特惠': 0.45,
+            'VIP卡特惠': 0.40,
             '特惠': 800,
             'CNY': 100,
             '包場': 0.85,
@@ -1535,7 +1535,7 @@
             if(Object.keys(cart).length === 0 && Object.keys(addonCart).length === 0) { alert('請至少選擇一個營位或加購商品！'); return; }
            
             const inDateVal = document.getElementById('checkinDate').value;
-            if (inDateVal < MIN_DATE) { alert("目前僅提供 2026/1/19 以後的訂位！"); return; }
+            if (inDateVal < MIN_DATE) { alert("車床會員一律在最下方輸入卡號!"); return; }
             const btn = document.getElementById('submitBtn');
             const originalText = btn.innerText;
             btn.disabled = true;
