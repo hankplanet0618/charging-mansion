@@ -201,12 +201,27 @@
                                 <input type="date" id="checkinDate" name="入住日期" min="2026-01-19" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none">
                             </div>
                             <div>
+                               <div>
                                 <label class="block text-xs font-bold text-gray-500 mb-1">退房日期</label>
                                 <div class="flex items-center gap-2">
                                     <input type="date" id="checkoutDate" name="退房日期" min="2026-01-20" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none">
                                     <span id="stayDays" class="text-sm font-bold text-green-600 whitespace-nowrap hidden"></span>
                                 </div>
                             </div>
+                          </div>
+                          
+                          <div id="nightBeforeSection" class="hidden mt-4 bg-blue-50 p-4 rounded-xl border border-blue-200">
+                              <label class="block text-sm font-bold text-blue-800 mb-2">是否需要前一天夜衝？(限定週六及連續假日首日)</label>
+                              <div class="flex items-center gap-4">
+                                  <label class="inline-flex items-center cursor-pointer">
+                                      <input type="radio" name="夜衝選項" value="否" class="form-radio text-blue-600 h-5 w-5" checked onchange="window.reCalculate()">
+                                      <span class="ml-2 text-stone-700">否</span>
+                                  </label>
+                                  <label class="inline-flex items-center cursor-pointer">
+                                      <input type="radio" name="夜衝選項" value="是" class="form-radio text-blue-600 h-5 w-5" onchange="window.reCalculate()">
+                                      <span class="ml-2 text-stone-700 font-bold">是 <span id="nightBeforeDateDisplay" class="text-xs text-blue-500 font-normal"></span></span>
+                                  </label>
+                              </div>
                           </div>
                     </div>
 
@@ -1217,6 +1232,12 @@
                 let blocked = false;
                 let blockMsg = "";
                 
+                // ★ 夜衝邏輯變數
+                const isNightBeforeChecked = document.querySelector('input[name="夜衝選項"]:checked')?.value === '是';
+                let nightBeforeDate = null;
+                let nightBeforePriceTotal = 0;
+                let nightBeforeDetails = "";
+                
                 if (inDate.value && outDate.value) {
                     const start = new Date(inDate.value);
                     const end = new Date(outDate.value);
@@ -1227,6 +1248,51 @@
                         stayDaysSpan.textContent = `共 ${days} 晚`;
                         stayDaysSpan.classList.remove('hidden');
                         
+                        // ★ 判斷是否顯示夜衝選項 (週六或連假首日)
+                        const checkinDayOfWeek = start.getDay();
+                        const dateStrForCheck = start.toISOString().split('T')[0];
+                        const isHolidayStart = SPECIAL_HOLIDAYS.includes(dateStrForCheck) && !SPECIAL_HOLIDAYS.includes(new Date(start.getTime() - 86400000).toISOString().split('T')[0]);
+                        
+                        if (checkinDayOfWeek === 6 || isHolidayStart) {
+                            document.getElementById('nightBeforeSection').classList.remove('hidden');
+                            nightBeforeDate = new Date(start.getTime() - 86400000); // 前一天
+                            document.getElementById('nightBeforeDateDisplay').innerText = `(${nightBeforeDate.toISOString().split('T')[0]})`;
+                        } else {
+                            document.getElementById('nightBeforeSection').classList.add('hidden');
+                            document.querySelector('input[name="夜衝選項"][value="否"]').checked = true; // 強制重置為否
+                        }
+
+                        // 如果勾選了夜衝，計算夜衝費用
+                        if (isNightBeforeChecked && nightBeforeDate) {
+                            cartEntries.forEach(([zoneName, qty]) => {
+                                const zoneData = zones.find(z => z.name === zoneName);
+                                if (!zoneData) return;
+                                
+                                let nPrice = 0;
+                                // 特定營位 600，其他半價
+                                if (['棚架A', '棚架B', '棚架C', '棧板A', '棧板B', '泰式免搭', '草地區', '碎石區'].some(k => zoneData.cat === 'shelter' || zoneData.cat === 'grass' || zoneData.cat === 'room')) {
+                                    nPrice = 600;
+                                } else {
+                                    nPrice = zoneData.price / 2;
+                                }
+                                nightBeforePriceTotal += nPrice * qty;
+                            });
+                            if(nightBeforePriceTotal > 0){
+                                nightBeforeDetails = `<div class="text-blue-600 mt-1">含夜衝 (${nightBeforeDate.toISOString().split('T')[0]}): +$${nightBeforePriceTotal.toLocaleString()}</div>`;
+                                // 同時檢查夜衝當天是否被訂走 (防呆)
+                                let nbDateStr = nightBeforeDate.toISOString().split('T')[0];
+                                if (bookedData[nbDateStr] && bookedData[nbDateStr].zones) {
+                                     cartEntries.forEach(([zoneName, qty]) => {
+                                         if(bookedData[nbDateStr].zones[zoneName]) {
+                                             blocked = true; 
+                                             blockMsg = `您選擇的營位在夜衝日 (${nbDateStr}) 已被預訂，無法夜衝。`;
+                                         }
+                                     });
+                                }
+                            }
+                        }
+                        
+                        // 原本的正常天數計算
                         for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
                             let dateStr = d.toISOString().split('T')[0];
                             let dayOfWeek = d.getDay();
@@ -1274,6 +1340,10 @@
                     renderAddons();
                     return;
                 }
+                
+                // 加入夜衝總價
+                totalPrice += nightBeforePriceTotal;
+
                 let addonTotal = 0;
                 addonEntries.forEach(([name, qty]) => {
                     let item = rentals.find(r => r.name === name) || tents.find(t => t.name === name) || bbqs.find(b => b.name === name);
@@ -1282,7 +1352,8 @@
                     }
                 });
                 totalPrice += addonTotal;
-                if ((days > 0 || addonTotal > 0) && totalPrice > 0) {
+
+                if ((days > 0 || addonTotal > 0 || nightBeforePriceTotal > 0) && totalPrice > 0) {
                     const discountVal = getDiscountAmount();
                     let finalTotal = 0;
                     let displayDiscount = "";
@@ -1304,9 +1375,10 @@
                     let html = '';
                     if (zoneStr) html += `<div>營位：${zoneStr}</div>`;
                     if (addonStr) html += `<div>加購：${addonStr}</div>`;
-                    if (days > 0) html += `<div>入住 ${days} 晚 (含加購) 總計：$${totalPrice.toLocaleString()}</div>`;
-                    else html += `<div>總計：$${totalPrice.toLocaleString()}</div>`;
+                    if (days > 0) html += `<div>入住 ${days} 晚 (含加購) 小計：$${(totalPrice - nightBeforePriceTotal).toLocaleString()}</div>`;
+                    else html += `<div>小計：$${(totalPrice - nightBeforePriceTotal).toLocaleString()}</div>`;
                     
+                    html += nightBeforeDetails; // 顯示夜衝明細
                     html += displayDiscount;
                     
                     formulaSpan.innerHTML = html;
@@ -1314,9 +1386,6 @@
                     document.getElementById('selectedZonePrice').value = finalTotal;
                 } else { resultDiv.classList.add('hidden'); }
             }
-            
-            inDate.addEventListener('change', () => {
-                if(inDate.value) {
                     const startDate = new Date(inDate.value);
                     startDate.setDate(startDate.getDate() + 1);
                     const nextDayStr = startDate.toISOString().split('T')[0];
@@ -1619,16 +1688,21 @@
                     formData.append('總金額', finalTotal);
                     formData.append('折扣金額', discountAmount);
                     const discountMsg = document.getElementById('discountMessage');
+                    let note = formData.get('備註需求') || '';
                     if(!discountMsg.classList.contains('hidden') && discountMsg.innerText.includes('✅')) {
-                          let note = formData.get('備註需求');
                           if (discountVal > 0 && discountVal < 1) {
                               note += ` [使用折扣碼: ${originalCode} (打${discountVal*10}折)]`;
                           } else {
                               note += ` [使用折扣碼: ${originalCode}]`;
                           }
-                          formData.set('備註需求', note);
                     }
-                }
+                    // ★ 將夜衝資訊寫入備註
+                    const isNightBeforeChecked = document.querySelector('input[name="夜衝選項"]:checked')?.value === '是';
+                    if(isNightBeforeChecked) {
+                         const nbDate = new Date(new Date(inDateStr).getTime() - 86400000).toISOString().split('T')[0];
+                         note += ` [含夜衝: ${nbDate}]`;
+                    }
+                    formData.set('備註需求', note);                }
                 fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
                     .then(() => {
                         showSuccessModal();
