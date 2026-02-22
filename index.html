@@ -1948,11 +1948,15 @@
                               note += ` [使用折扣碼: ${originalCode}]`;
                           }
                     }
-                    // ★ 修復重點：正確的括號結構，並加入夜衝備註
+                  // ★ 修復重點：正確的括號結構，並加入夜衝備註
                     const isNightBeforeChecked = document.querySelector('input[name="夜衝選項"]:checked')?.value === '是';
                     if(isNightBeforeChecked) {
                          const nbDate = new Date(new Date(inDateStr).getTime() - 86400000).toISOString().split('T')[0];
                          note += ` [含夜衝: ${nbDate}]`;
+                         
+                         // ★ 新增這兩行：把送出給後台的「入住日期」直接提早一天，這樣系統就會自動扣除夜衝當晚的庫存！
+                         formData.set('入住日期', nbDate);
+                         formData.set('入住天數', days + 1);
                     }
                     formData.set('備註需求', note);
                 } // 確保 if(inDateStr && outDateStr) 有正確關閉
