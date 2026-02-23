@@ -402,6 +402,61 @@
             </form>
         </div>
     </div>
+<div id="modal-map" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
+        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl z-10 p-6 relative max-h-[85vh] overflow-y-auto">
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
+            <h3 class="text-xl font-bold mb-4 text-center text-green-700">營區地圖</h3>
+            <img src="https://i.ibb.co/6cx1xrVR/image.jpg" class="w-full rounded-xl shadow">
+        </div>
+    </div>
+
+    <div id="modal-blog" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
+        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl z-10 p-6 relative max-h-[85vh] overflow-y-auto">
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
+            <h3 class="text-xl font-bold mb-6 text-center text-pink-600">營區生活網誌</h3>
+            <p class="text-center text-sm text-gray-500 py-10">持續更新中...敬請期待！</p>
+        </div>
+    </div>
+
+    <div id="modal-about" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto about-poetic-container">
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
+            <div class="camp-name-styled">充電莊 瑜珈森林</div>
+            <h3 class="poetic-highlight">露營，<br>是心靈充電的最佳選擇</h3>
+            <p class="narrative-text">位於宜蘭礁溪的秘境，遠離塵囂，享受百萬夜景與滿天星斗。我們提供全台最優質的電動車露營體驗，讓您的愛車與心靈同時充飽電。</p>
+            <div class="leaf-divider"><i class="fas fa-leaf"></i></div>
+            <p class="welcome-msg">期待在森林中與您相遇</p>
+        </div>
+    </div>
+
+    <div id="modal-rules" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto">
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
+            <h3 class="text-xl font-bold mb-4 text-red-600 text-center">營區須知與退訂規則</h3>
+            <div class="text-sm text-gray-700 space-y-3">
+                <p>1. 晚上 10 點後請降低音量，避免影響其他露友休息。</p>
+                <p>2. 車床特約請於備註填寫會員編號，並於結帳時輸入專屬折扣碼。</p>
+                <p>3. 退訂規則：依據行政院定型化契約，14天前取消全額退費，詳情請參考官方粉絲專頁公告。</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-bank" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative">
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
+            <h3 class="text-xl font-bold mb-4 text-center text-blue-600">匯款資訊</h3>
+            <div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200">
+                <p class="text-sm">銀行：<span class="font-bold">823 將來銀行</span></p>
+                <p class="text-sm mt-2">戶名：<span class="font-bold">林均鴻</span></p>
+                <p class="text-xl font-mono font-bold text-blue-800 bg-white p-2 rounded border mt-1 text-center">8865-0975-0204-25</p>
+            </div>
+        </div>
+    </div>
     <div id="modal-qa" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
         <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto">
