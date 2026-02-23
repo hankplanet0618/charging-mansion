@@ -411,14 +411,22 @@
         </div>
     </div>
 
-    <div id="modal-blog" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
-        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl z-10 p-6 relative max-h-[85vh] overflow-y-auto">
-            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
-            <h3 class="text-xl font-bold mb-6 text-center text-pink-600">營區生活網誌</h3>
-            <p class="text-center text-sm text-gray-500 py-10">02.23、終於結束了過年的惡魔週，接下來準備迎接連續三週的滿帳周末QAQ！</p>
+   <div id="modal-blog" class="hidden fixed inset-0 z-50 flex items-center justify-center p-0 md:p-4">
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onclick="closeAll()"></div>
+    
+    <div class="bg-gray-100 w-full h-full md:h-auto md:max-h-[85vh] max-w-lg md:rounded-3xl shadow-2xl z-10 relative overflow-hidden flex flex-col border border-gray-200">
+        
+        <div class="bg-white/90 backdrop-blur-md px-4 py-3 border-b border-gray-200 flex justify-between items-center sticky top-0 z-20">
+            <h3 class="text-lg font-bold text-gray-900 tracking-wide">營區動態</h3>
+            <button onclick="closeAll()" class="text-gray-400 hover:text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center transition focus:outline-none">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
+        
+        <div id="blog-feed-container" class="p-3 md:p-4 overflow-y-auto no-scrollbar flex flex-col gap-3 md:gap-4 flex-1">
+            </div>
     </div>
+</div>
 
    <div id="modal-about" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
@@ -778,7 +786,52 @@
             { id: 'B03', name: '3099套餐(4-6人含所有烤肉用具，餐具自備)', price: 3099, stock: 5, image: 'https://i.ibb.co/ynJ4BYJC/3099.jpg' },
             { id: 'B04', name: '4999頂級海陸套餐(10-15人含所有烤肉用具，餐具自備)', price: 4999, stock: 5 }
         ];
-        
+        const blogPosts = [
+    {
+        id: 4,
+        date: "2026-02-23",
+        author: "斜槓露人 Hank",
+        avatar: "https://i.ibb.co/6cx1xrVR/image.jpg", 
+        content: "終於結束了過年的惡魔週，接下來準備迎接連續三週的滿帳周末QAQ！\n\n草皮跟設施都已經重新整理過了，趁著今天有短暫的空檔喝杯茶回個血。期待大家週末來享受好天氣與櫻花季！記得提早預約喔～目前還有兒童跟5/1連假~",
+        images: [],
+        tags: ["#Hank碎碎念", "#過年地獄", "#滿帳日常", "#充電莊"],
+        likes: 128,    
+        comments: 15   
+    },
+    {
+        id: 3,
+        date: "2026-02-12",
+        author: "斜槓露人 Hank",
+        avatar: "https://i.ibb.co/6cx1xrVR/image.jpg", 
+        content: "營區多了兩位新嬌客！🦆🦆\n\n最近我們迎來了兩隻超級可愛的柯爾鴨，走起路來有夠療癒。這幾天已經變成小露友們的目光焦點了，大家來露營的時候歡迎來找牠們玩，但記得要溫柔對待，不要追著牠們跑喔！",
+        images: ["https://i.ibb.co/CpNgsKHw/image.jpg"], // 這裡放一張小木屋或動物的示意圖
+        tags: ["#柯爾鴨", "#營區日常", "#寵物友善", "#親子露營"],
+        likes: 245,
+        comments: 32
+    },
+    {
+        id: 2,
+        date: "2026-01-29",
+        author: "斜槓露人 Hank",
+        avatar: "https://i.ibb.co/6cx1xrVR/image.jpg", 
+        content: "狂賀！專屬小露友的快樂基地完工啦！🎉\n\n為了讓爸媽能更安心地在帳篷放空，我們花了好幾天，終於打造出這個 3公尺 x 2公尺 的「室內專屬沙坑」。不受天氣影響，下雨也能玩得超開心！\n\n珵已經幫大家嚴格「實測」過了，玩到根本不想起來😆。下次來充電莊，小孩放電、車子充電、大人身心靈也跟著充電！",
+        images: ["https://i.ibb.co/XrMggq46/1.jpg"], // 放一張棧板遊戲區的圖
+        tags: ["#室內沙坑", "#小孩放電神器", "#雨天備案", "#懶人露營"],
+        likes: 312,
+        comments: 48
+    },
+    {
+        id: 1,
+        date: "2026-01-18",
+        author: "斜槓露人 Hank",
+        avatar: "https://i.ibb.co/6cx1xrVR/image.jpg", 
+        content: "夜衝的浪漫，就是一把吉他配上滿滿的電量。🎸⚡\n\n身為 Model Y 車主，真的太懂開電車上山那種「看著電量掉」的焦慮感。這也是為什麼我們營區堅持要拉好充沛的充電樁 (J1772/TPC/Type2通通有)。\n\n昨晚點起焚火台，拿出陪了我 20 年的手工吉他，接上 Bose S1 Pro 彈唱了幾首。看著愛車在旁邊悠悠地充著電，這種沒有里程焦慮的露營，才是真正的放鬆啊！",
+        images: ["https://i.ibb.co/KjBcKGvt/A-DDcar.jpg"], // 特斯拉在A區充電的圖
+        tags: ["#電車露營", "#TeslaModelY", "#夜衝", "#吉他彈唱"],
+        likes: 456,
+        comments: 55
+    }
+];
         const gears = [{n:'月亮椅/休閒椅',p:'100'},{n:'平躺椅',p:'150'},{n:'卡式爐/蜘蛛爐(含瓦斯)',p:'200'},{n:'五星爐(含瓦斯)',p:'300'},{n:'IGT桌全套',p:'600'},{n:'天幕 3*3+桿',p:'250'},{n:'天幕 3*5+桿',p:'350'},{n:'超聲波地墊 3*3',p:'150'},{n:'野餐地墊 2*2/燈具',p:'100'},{n:'落地頂級四葉燈',p:'350'},{n:'杜邦鯤9車尾帳',p:'1000'},{n:'代搭帳服務',p:'500'},{n:'投影機',p:'300'},{n:'投影布幕',p:'100'},{n:'電暖器/焚火台(鐵)',p:'200'},{n:'焚火台(純鈦)',p:'350'},{n:'木柴',p:'100'},{n:'電動車車床方案',p:'150'}];
         
         const reviews = [
@@ -851,6 +904,7 @@
             renderZones('all');
             renderGears();
             renderAddons();
+            renderBlogPosts();
             renderTentInfo();
             setupCalculator();
             renderReviews();
@@ -1376,6 +1430,85 @@
                 console.error('LIFF Initialization failed', err);
             }
         }
+function renderBlogPosts() {
+    const container = document.getElementById('blog-feed-container');
+    if (!container) return;
+    
+    let html = '';
+    
+    // 將貼文反轉，讓最新發布的在最上面
+    const sortedPosts = [...blogPosts].reverse();
+
+    sortedPosts.forEach(post => {
+        // 處理貼文圖片 (支援多圖排版，並串接你原本的 showImage 放大功能)
+        let imagesHtml = '';
+        if (post.images && post.images.length > 0) {
+            const gridClass = post.images.length === 1 ? 'grid-cols-1' : 'grid-cols-2';
+            imagesHtml = `<div class="grid ${gridClass} gap-1 mt-3 rounded-xl overflow-hidden border border-gray-100">`;
+            post.images.forEach(img => {
+                imagesHtml += `<img src="${img}" class="w-full h-48 md:h-64 object-cover cursor-pointer hover:opacity-90 transition" onclick="showImage('${img}')" referrerpolicy="no-referrer">`;
+            });
+            imagesHtml += `</div>`;
+        }
+
+        // 處理 Hashtag 標籤
+        let tagsHtml = '';
+        if (post.tags && post.tags.length > 0) {
+            tagsHtml = `<div class="mt-2 flex flex-wrap gap-x-2 gap-y-1">`;
+            post.tags.forEach(tag => {
+                tagsHtml += `<span class="text-[13px] text-blue-600 cursor-pointer hover:underline font-medium">${tag}</span>`;
+            });
+            tagsHtml += `</div>`;
+        }
+
+        // 組裝單篇貼文卡片
+        html += `
+            <div class="bg-white rounded-2xl p-4 md:p-5 shadow-sm border border-gray-200">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden flex-shrink-0 border border-gray-100">
+                        ${post.avatar ? `<img src="${post.avatar}" class="w-full h-full object-cover">` : `<i class="fas fa-user text-gray-400 mt-2 ml-2.5 text-xl"></i>`}
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-bold text-[15px] text-gray-900 leading-none">${post.author}</span>
+                        <span class="text-xs text-gray-500 mt-1">${post.date}</span>
+                    </div>
+                    <div class="ml-auto text-gray-400 hover:text-gray-600 cursor-pointer p-2">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                </div>
+                
+                <div class="text-[15px] text-gray-800 whitespace-pre-wrap leading-relaxed font-sans">${post.content}</div>
+                
+                ${tagsHtml}
+                ${imagesHtml}
+
+                <div class="flex items-center gap-6 mt-4 pt-3 border-t border-gray-100 text-gray-500">
+                    <button class="flex items-center gap-1.5 hover:text-red-500 transition text-sm font-medium focus:outline-none">
+                        <i class="far fa-heart text-lg"></i>
+                        <span>${post.likes}</span>
+                    </button>
+                    <button class="flex items-center gap-1.5 hover:text-blue-500 transition text-sm font-medium focus:outline-none">
+                        <i class="far fa-comment text-lg"></i>
+                        <span>${post.comments}</span>
+                    </button>
+                    <button class="flex items-center gap-1.5 ml-auto hover:text-green-500 transition text-sm font-medium focus:outline-none">
+                        <i class="far fa-paper-plane text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+
+    // 結尾標記
+    html += `
+        <div class="py-6 text-center">
+            <i class="fas fa-check-circle text-gray-300 text-3xl mb-2 block"></i>
+            <span class="text-sm text-gray-400 font-medium">已經到底囉！期待營主更新。</span>
+        </div>
+    `;
+
+    container.innerHTML = html;
+}
         function renderReviews() {
             const container = document.getElementById('reviews-container');
             const shuffled = reviews.sort(() => 0.5 - Math.random()).slice(0, 3);
