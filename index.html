@@ -791,7 +791,7 @@
         id: 4,
         date: "2026-02-23",
         author: "斜槓露人 Hank",
-        avatar: "https://i.ibb.co/6cx1xrVR/image.jpg", 
+        avatar: "https://i.ibb.co/wZH2y8Fq/image.jpg", 
         content: "終於結束了過年的惡魔週，接下來準備迎接連續三週的滿帳周末QAQ！\n\n草皮跟設施都已經重新整理過了，趁著今天有短暫的空檔喝杯茶回個血。期待大家週末來享受好天氣與櫻花季！記得提早預約喔～目前還有兒童跟5/1連假~",
         images: [],
         tags: ["#Hank碎碎念", "#過年地獄", "#滿帳日常", "#充電莊"],
@@ -804,7 +804,7 @@
         author: "斜槓露人 Hank",
         avatar: "https://i.ibb.co/6cx1xrVR/image.jpg", 
         content: "營區多了兩位新嬌客！🦆🦆\n\n最近我們迎來了兩隻超級可愛的柯爾鴨，走起路來有夠療癒。這幾天已經變成小露友們的目光焦點了，大家來露營的時候歡迎來找牠們玩，但記得要溫柔對待，不要追著牠們跑喔！",
-        images: ["https://i.ibb.co/CpNgsKHw/image.jpg"], // 這裡放一張小木屋或動物的示意圖
+        images: ["https://i.ibb.co/8LQbwPjQ/image.jpg"], // 這裡放一張小木屋或動物的示意圖
         tags: ["#柯爾鴨", "#營區日常", "#寵物友善", "#親子露營"],
         likes: 245,
         comments: 32
@@ -815,7 +815,7 @@
         author: "斜槓露人 Hank",
         avatar: "https://i.ibb.co/6cx1xrVR/image.jpg", 
         content: "狂賀！專屬小露友的快樂基地完工啦！🎉\n\n為了讓爸媽能更安心地在帳篷放空，我們花了好幾天，終於打造出這個 3公尺 x 2公尺 的「室內專屬沙坑」。不受天氣影響，下雨也能玩得超開心！\n\n珵已經幫大家嚴格「實測」過了，玩到根本不想起來😆。下次來充電莊，小孩放電、車子充電、大人身心靈也跟著充電！",
-        images: ["https://i.ibb.co/XrMggq46/1.jpg"], // 放一張棧板遊戲區的圖
+        images: ["https://i.ibb.co/FfSfyfP/image.jpg"], // 放一張棧板遊戲區的圖
         tags: ["#室內沙坑", "#小孩放電神器", "#雨天備案", "#懶人露營"],
         likes: 312,
         comments: 48
@@ -824,7 +824,7 @@
         id: 1,
         date: "2026-01-18",
         author: "斜槓露人 Hank",
-        avatar: "https://i.ibb.co/6cx1xrVR/image.jpg", 
+        avatar: "https://i.ibb.co/HLW7rx8W/image.jpg", 
         content: "夜衝的浪漫，就是一把吉他配上滿滿的電量。🎸⚡\n\n身為 Model Y 車主，真的太懂開電車上山那種「看著電量掉」的焦慮感。這也是為什麼我們營區堅持要拉好充沛的充電樁 (J1772/TPC/Type2通通有)。\n\n昨晚點起焚火台，拿出陪了我 20 年的手工吉他，接上 Bose S1 Pro 彈唱了幾首。看著愛車在旁邊悠悠地充著電，這種沒有里程焦慮的露營，才是真正的放鬆啊！",
         images: ["https://i.ibb.co/KjBcKGvt/A-DDcar.jpg"], // 特斯拉在A區充電的圖
         tags: ["#電車露營", "#TeslaModelY", "#夜衝", "#吉他彈唱"],
@@ -1437,7 +1437,7 @@ function renderBlogPosts() {
     let html = '';
     
     // 將貼文反轉，讓最新發布的在最上面
-    const sortedPosts = [...blogPosts].reverse();
+    const sortedPosts = blogPosts;
 
     sortedPosts.forEach(post => {
         // 處理貼文圖片 (支援多圖排版，並串接你原本的 showImage 放大功能)
