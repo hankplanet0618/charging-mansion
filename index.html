@@ -127,7 +127,7 @@
             </div>
             <div class="mt-4 bg-red-600 text-white p-3 rounded-xl shadow-lg animate-pulse text-center mx-4 border-2 border-yellow-400">
                 <i class="fas fa-star text-yellow-300 mr-2"></i>
-                <span class="font-bold text-sm md:text-base">228連假、兒童連假、5/1連假有特殊活動，請訂位者一同參與唷！車床特約一律官網預約並於結帳區折扣碼輸入【普卡】或【VIP卡】【車床備注會員編號! 車床方案僅適用非假日之平日(週日-周四)；車床假日及連續假日限定預定日前一天下單，提早下單者將不接受訂位】</span>
+                <span class="font-bold text-sm md:text-base">兒童連假、5/1連假有特殊活動，請訂位者一同參與唷！車床特約一律官網預約並於結帳區折扣碼輸入【普卡】或【VIP卡】【車床備注會員編號! 車床方案僅適用非假日之平日(週日-周四)；車床假日及連續假日限定預定日前一天下單，提早下單者將不接受訂位】</span>
                 <i class="fas fa-star text-yellow-300 ml-2"></i>
             </div>
         </div>
@@ -696,10 +696,10 @@
 
         const originalZones = [
             { id: 'ZA1', name: '棚架 A 區', count: 9, cat: 'shelter', desc: '寬敞遮雨棚車停帳邊', price: 1000, badge: '熱門', images: ['https://i.ibb.co/KjBcKGvt/A-DDcar.jpg', 'https://i.ibb.co/RTypZTzW/A1.jpg', 'https://i.ibb.co/hRNQ84SY/A.jpg'], idx: 0 },
-            { id: 'ZA2', name: '棚架 B 區', count: 4, cat: 'shelter', desc: '適合包區車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/bMQ51htS/B.jpg', 'https://i.ibb.co/7JY7xRYp/B.jpg'], idx: 0 },
-            { id: 'ZA3', name: '棚架 C 區', count: 3, cat: 'shelter', desc: '安靜舒適獨立區車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/c70KNkJ/C1.jpg', 'https://i.ibb.co/zTRCxcwq/2.jpg'], idx: 0 },
-            { id: 'ZB1', name: '棧板 A 區', count: 2, cat: 'grass', desc: '架高防潮+遊戲區', price: 1000, badge: '', images: ['https://i.ibb.co/XrMggq46/1.jpg'], idx: 0 },
-            { id: 'ZB2', name: '棧板 B 區', count: 2, cat: 'grass', desc: '棚架車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/JRmcf3bw/B.jpg'], idx: 0 },
+            { id: 'ZA2', name: '棚架 B 區', count: 1, baseTents: 4, cat: 'shelter', desc: '4帳包區 (平日4000/假日4800/連假5600)', price: 4000, weekendPrice: 4800, holidayPrice: 5600, badge: '包區', images: ['https://i.ibb.co/bMQ51htS/B.jpg', 'https://i.ibb.co/7JY7xRYp/B.jpg'], idx: 0 },
+            { id: 'ZA3', name: '棚架 C 區', count: 1, baseTents: 3, cat: 'shelter', desc: '3帳包區 (平日3000/假日3600/連假4200)', price: 3000, weekendPrice: 3600, holidayPrice: 4200, badge: '包區', images: ['https://i.ibb.co/c70KNkJ/C1.jpg', 'https://i.ibb.co/zTRCxcwq/2.jpg'], idx: 0 },
+            { id: 'ZB1', name: '棧板 A 區', count: 1, baseTents: 2, cat: 'grass', desc: '2帳包區 (平日2000/假日2400/連假2800)', price: 2000, weekendPrice: 2400, holidayPrice: 2800, badge: '包區', images: ['https://i.ibb.co/XrMggq46/1.jpg'], idx: 0 },
+            { id: 'ZB2', name: '棧板 B 區', count: 1, baseTents: 2, cat: 'grass', desc: '2帳包區 (平日2000/假日2400/連假2800)', price: 2000, weekendPrice: 2400, holidayPrice: 2800, badge: '包區', images: ['https://i.ibb.co/JRmcf3bw/B.jpg'], idx: 0 },
             { id: 'ZC1', name: '三人頂級露營車', count: 2, cat: 'camper', desc: '最有溫度的一晚車停帳邊', price: 3600, badge: '最高級的懶人享受', images: ['https://i.ibb.co/jvXBxJWw/4.jpg'], idx: 0 },
             { id: 'ZC2', name: '小木屋 (大)', count: 1, cat: 'cabinL', desc: '家庭首選', price: 2600, badge: '', images: ['https://i.ibb.co/4n2CPt5X/image.jpg', 'https://i.ibb.co/VYpvt7NF/image.jpg'], idx: 0 },
             { id: 'ZC3', name: '小木屋 (小)', count: 1, cat: 'cabinS', desc: '溫馨三人', price: 2200, badge: '', images: ['https://i.ibb.co/CpNgsKHw/image.jpg', 'https://i.ibb.co/VW4t8GH4/image.jpg'], idx: 0 },
@@ -707,6 +707,7 @@
             { id: 'ZD2', name: '碎石地區', count: 2, cat: 'grass', desc: '充電紮營首選車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/k6D740Ht/image.jpg'], idx: 0 },
             { id: 'ZE1', name: '包棟民宿 (16人)', count: 1, cat: 'villa', desc: '4房一起K歌最開心', price: 20000, badge: '獨享', images: ['https://i.ibb.co/6RyZYPVy/7-KW.jpg'], idx: 0 },
             { id: 'ZF1', name: '泰式免搭', count: 8, cat: 'room', desc: '懶人新福音', price: 1000, badge: '最新', images: ['https://i.ibb.co/60bXNB57/image.jpg', 'https://i.ibb.co/DHhm1sWR/2.jpg'], idx: 0 }
+        ];
         ];
 
         // ★ 為了解決舊訂單鎖不住新營位的問題，我們加入 originalName 標記
@@ -735,12 +736,12 @@
                         originalName: zone.name 
                     });
                 }
-            } else {
+           } else {
                 zones.push({
                     ...zone,
                     name: zone.name,
                     count: 1,
-                    desc: `專屬營位: ${zone.name}`,
+                    desc: zone.desc,
                     originalName: zone.name
                 });
             }
@@ -1639,16 +1640,17 @@ function renderBlogPosts() {
                             if(noRadio) noRadio.checked = true; // 強制重置為否
                         }
 
-                        // ★ 計算夜衝費用
+                       // ★ 計算夜衝費用
                         if (isNightBeforeChecked && nightBeforeDate) {
                             cartEntries.forEach(([zoneName, qty]) => {
                                 const zoneData = zones.find(z => z.name === zoneName);
                                 if (!zoneData) return;
                                 
                                 let nPrice = 0;
-                                // 依據你的規則：特定營位 $600，其他半價
+                                let baseTents = zoneData.baseTents || 1; // 包區基礎帳數
+                                
                                 if (['grass', 'shelter', 'room'].includes(zoneData.cat) && zoneData.name !== '小木屋 (大)' && zoneData.name !== '小木屋 (小)' && zoneData.name !== '三人頂級露營車' && zoneData.name !== '包棟民宿 (16人)') {
-                                    nPrice = 600;
+                                    nPrice = 600 * baseTents; // 包區依照帳數加乘
                                 } else {
                                     nPrice = zoneData.price / 2;
                                 }
@@ -1868,16 +1870,17 @@ function renderBlogPosts() {
                             if(noRadio) noRadio.checked = true; // 強制重置為否
                         }
 
-                        // ★ 計算夜衝費用
+                       // ★ 計算夜衝費用
                         if (isNightBeforeChecked && nightBeforeDate) {
                             cartEntries.forEach(([zoneName, qty]) => {
                                 const zoneData = zones.find(z => z.name === zoneName);
                                 if (!zoneData) return;
                                 
                                 let nPrice = 0;
-                                // 依據規則：特定營位 $600，其他半價
+                                let baseTents = zoneData.baseTents || 1; // 包區基礎帳數
+                                
                                 if (['grass', 'shelter', 'room'].includes(zoneData.cat) && zoneData.name !== '小木屋 (大)' && zoneData.name !== '小木屋 (小)' && zoneData.name !== '三人頂級露營車' && zoneData.name !== '包棟民宿 (16人)') {
-                                    nPrice = 600;
+                                    nPrice = 600 * baseTents; // 包區依照帳數加乘
                                 } else {
                                     nPrice = zoneData.price / 2;
                                 }
@@ -1914,16 +1917,18 @@ function renderBlogPosts() {
                             
                             let dailyTotal = 0;
                             
-                            cartEntries.forEach(([zoneName, qty]) => {
+                           cartEntries.forEach(([zoneName, qty]) => {
                                 const zoneData = zones.find(z => z.name === zoneName);
                                 if (!zoneData) return;
                                 
                                 let price = zoneData.price;
                                 
                                 if (isSpecialDay) {
-                                    price = getSpecialPrice(zoneData.cat);
+                                    price = zoneData.holidayPrice || getSpecialPrice(zoneData.cat);
                                 } else if (isWeekend) {
-                                    if (['grass', 'shelter', 'room'].includes(zoneData.cat)) {
+                                    if (zoneData.weekendPrice) {
+                                        price = zoneData.weekendPrice;
+                                    } else if (['grass', 'shelter', 'room'].includes(zoneData.cat)) {
                                         price = 1200;
                                     } else {
                                         price = getSpecialPrice(zoneData.cat);
@@ -2102,10 +2107,13 @@ function renderBlogPosts() {
                 let priceClass = "text-green-600";
                 
                 if (isSpecial) {
-                    displayPrice = getSpecialPriceDisplay(zone.cat);
+                    displayPrice = zone.holidayPrice || getSpecialPriceDisplay(zone.cat);
                     priceClass = "text-red-600";
                 } else if (hasWeekend && !isSpecial) {
-                    if (['grass', 'shelter', 'room'].includes(zone.cat)) {
+                    if (zone.weekendPrice) {
+                        displayPrice = zone.weekendPrice;
+                        priceClass = "text-orange-600";
+                    } else if (['grass', 'shelter', 'room'].includes(zone.cat)) {
                         displayPrice = 1200;
                         priceClass = "text-orange-600";
                     } else {
