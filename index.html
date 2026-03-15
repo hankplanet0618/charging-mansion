@@ -1323,10 +1323,24 @@
             if (container.parentElement) container.parentElement.scrollTop = 0;
         }
 
-        async function fetchInventory() {
+       async function fetchInventory() {
             try {
                 const res = await fetch(scriptURL);
                 const data = await res.json();
+                
+                // ★ 解決舊訂單散帳名稱與新包區名稱不匹配的問題
+                for (let date in data) {
+                    if (data[date].zones) {
+                        for (let oldZone in data[date].zones) {
+                            // 只要舊訂單有包含 棚架B1, B2... 就自動把新的 '棚架 B 區' 標記為已訂位
+                            if (oldZone.startsWith('棚架B')) data[date].zones['棚架 B 區'] = 1;
+                            if (oldZone.startsWith('棚架C')) data[date].zones['棚架 C 區'] = 1;
+                            if (oldZone.startsWith('棧板A')) data[date].zones['棧板 A 區'] = 1;
+                            if (oldZone.startsWith('棧板B')) data[date].zones['棧板 B 區'] = 1;
+                        }
+                    }
+                }
+                
                 bookedData = data;
                 
                 if(document.getElementById('checkinDate').value && document.getElementById('checkoutDate').value) {
