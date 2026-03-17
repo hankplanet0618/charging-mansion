@@ -691,9 +691,14 @@
             '愛學館信義校': 0.9
         };
 
+        // 宣告全域變數，確保各函式都能讀取
+        let cart = {};
+        let addonCart = {};
+        let bookedData = {};
         let zones = [];
-        let currentZoneMode = null; // 用來記錄當前是否為包區模式
+        let currentZoneMode = null; 
 
+        // ★ 動態建立營位資料陣列的函數
         function buildZones(dateStr) {
             // 判斷選取的日期是否 >= 6/1
             const isZoneMode = dateStr ? dateStr >= '2026-06-01' : false;
@@ -707,7 +712,6 @@
             const currentOriginalZones = [
                 { id: 'ZA1', name: '棚架 A 區', count: 9, cat: 'shelter', desc: '寬敞遮雨棚車停帳邊', price: 1000, badge: '熱門', images: ['https://i.ibb.co/KjBcKGvt/A-DDcar.jpg', 'https://i.ibb.co/RTypZTzW/A1.jpg', 'https://i.ibb.co/hRNQ84SY/A.jpg'], idx: 0 },
                 
-                // 動態判斷：如果是包區模式(>=6/1)，就吐出包區設定；否則吐出散帳設定
                 isZoneMode ? { id: 'ZA2', name: '棚架 B 區', count: 1, baseTents: 4, cat: 'shelter', desc: '4帳包區 (平日4000/假日4800/連假5600)', price: 4000, weekendPrice: 4800, holidayPrice: 5600, badge: '包區', images: ['https://i.ibb.co/bMQ51htS/B.jpg', 'https://i.ibb.co/7JY7xRYp/B.jpg'], idx: 0 }
                            : { id: 'ZA2', name: '棚架 B 區', count: 4, cat: 'shelter', desc: '適合包區車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/bMQ51htS/B.jpg', 'https://i.ibb.co/7JY7xRYp/B.jpg'], idx: 0 },
                            
@@ -765,46 +769,6 @@
                 }
             });
         }
-        
-        // 預設先建立一次基礎營位
-        buildZones('');
-
-        // ★ 為了解決舊訂單鎖不住新營位的問題，我們加入 originalName 標記
-        const zones = [];
-        originalZones.forEach(zone => {
-            if (zone.count > 1) {
-                for (let i = 1; i <= zone.count; i++) {
-                    let spotName = '';
-                    if (zone.name === '棚架 A 區') spotName = `棚架A${i}`;
-                    else if (zone.name === '棚架 B 區') spotName = `棚架B${i}`;
-                    else if (zone.name === '棚架 C 區') spotName = `棚架C${i}`;
-                    else if (zone.name === '棧板 A 區') spotName = `棧板A${i}`;
-                    else if (zone.name === '棧板 B 區') spotName = `棧板B${i}`;
-                    else if (zone.name === '三人頂級露營車') spotName = `露營車${String.fromCharCode(64 + i)}`;
-                    else if (zone.name === '草地區') spotName = `草地區${i}`;
-                    else if (zone.name === '碎石地區') spotName = `碎石區${i}`;
-                    else if (zone.name === '泰式免搭') spotName = `泰式${String.fromCharCode(64 + i)}`;
-                    else spotName = `${zone.name}${i}`;
-
-                    zones.push({
-                        ...zone,
-                        id: `${zone.id}_${i}`,
-                        name: spotName,
-                        count: 1,
-                        desc: `專屬營位: ${spotName}`,
-                        originalName: zone.name 
-                    });
-                }
-            } else {
-                zones.push({
-                    ...zone,
-                    name: zone.name,
-                    count: 1,
-                    desc: zone.desc,
-                    originalName: zone.name
-                });
-            }
-        });
 
         const rentals = [
             { id: 'R01', name: '月亮椅/休閒椅', price: 100, stock: 3 },
@@ -844,8 +808,9 @@
             { id: 'B03', name: '3099套餐(4-6人含所有烤肉用具，餐具自備)', price: 3099, stock: 5, image: 'https://i.ibb.co/ynJ4BYJC/3099.jpg' },
             { id: 'B04', name: '4999頂級海陸套餐(10-15人含所有烤肉用具，餐具自備)', price: 4999, stock: 5 }
         ];
+
         const blogPosts = [
-{
+            {
                 id: 5,
                 date: "2026-03-17",
                 author: "斜槓露人 Hank",
@@ -856,7 +821,6 @@
                 likes: 139,    
                 comments: 28   
             },
-
             {
                 id: 4,
                 date: "2026-02-23",
@@ -965,12 +929,8 @@
             container.innerHTML = html;
         }
 
-        let cart = {};
-        let addonCart = {};
-        let bookedData = {};
-
         async function init() {
-            // 網頁一載入，先根據瀏覽器目前可能留存的日期生成正確模式
+            // 網頁一載入，先建立營位狀態
             buildZones(document.getElementById('checkinDate').value || '');
             
             await fetchInventory();
@@ -1398,7 +1358,7 @@
             if (container.parentElement) container.parentElement.scrollTop = 0;
         }
 
-       async function fetchInventory() {
+        async function fetchInventory() {
             try {
                 const res = await fetch(scriptURL);
                 const data = await res.json();
