@@ -127,7 +127,7 @@
             </div>
             <div class="mt-4 bg-red-600 text-white p-3 rounded-xl shadow-lg animate-pulse text-center mx-4 border-2 border-yellow-400">
                 <i class="fas fa-star text-yellow-300 mr-2"></i>
-                <span class="font-bold text-sm md:text-base">兒童連假(園遊會及螢火蟲導覽)、5/1連假(全英文體驗營及螢火蟲導覽)、端午連假(火舞表演及夏日水槍大戰)有特殊活動，請訂位者一同參與唷！本營區為車床專案特約棧點: 車床特約一律官網預約並於結帳區折扣碼輸入【普卡】或【VIP卡】【車床備注會員編號! 車床方案僅適用非假日之平日(週日-周四)；車床假日及連續假日限定預定日前一天下單，提早下單者將不接受訂位】</span>
+                <span class="font-bold text-sm md:text-base">兒童連假(園遊會及螢火蟲導覽)、5/1連假(全英文體驗營及螢火蟲導覽)、端午連假(火舞表演及夏日水槍大戰)【端午節為特殊活動價格，且不適用車床】有特殊活動，請訂位者一同參與唷！本營區為車床專案特約棧點: 車床特約一律官網預約並於結帳區折扣碼輸入【普卡】或【VIP卡】【車床備注會員編號! 車床方案僅適用非假日之平日(週日-周四)；車床假日及連續假日限定預定日前一天下單，提早下單者將不接受訂位】</span>
                 <i class="fas fa-star text-yellow-300 ml-2"></i>
             </div>
         </div>
@@ -601,7 +601,7 @@
         
         // ★ 已設定封鎖 2/27-3/1
         const BLOCKED_DATES = ['2026-02-07', '2026-03-07'];
-        
+        const EVENT_DATES = ['2026-06-19', '2026-06-20', '2026-06-21'];
         const SPECIAL_HOLIDAYS = [
             '2026-02-14','2026-02-15','2026-02-16','2026-02-17','2026-02-18','2026-02-19','2026-02-20','2026-02-21','2026-02-22',
             '2026-02-27','2026-02-28','2026-03-01',
@@ -1652,26 +1652,29 @@
                             
                             const isSpecialDay = SPECIAL_HOLIDAYS.includes(dateStr);
                             const isWeekend = (dayOfWeek === 5 || dayOfWeek === 6 || dayOfWeek === 0) && !isSpecialDay;
-                            
+                            const isEventDay = EVENT_DATES.includes(dateStr);
+
                             let dailyTotal = 0;
                             
-                            cartEntries.forEach(([zoneName, qty]) => {
+                           cartEntries.forEach(([zoneName, qty]) => {
                                 const zoneData = zones.find(z => z.name === zoneName);
                                 if (!zoneData) return;
                                 
                                 let price = zoneData.price;
+                                let baseTents = zoneData.baseTents || 1;
                                 
-                                if (isSpecialDay) {
+                                if (isEventDay) {
+                                    switch(zoneData.cat) {
+                                        case 'grass': case 'shelter': case 'room': price = 2000 * baseTents; break;
+                                        case 'cabinL': price = 3100; break;
+                                        case 'cabinS': price = 2700; break;
+                                        case 'villa': price = 22500; break;
+                                        case 'camper': price = 7000; break;
+                                        default: price = 2000 * baseTents;
+                                    }
+                                } else if (isSpecialDay) {
                                     price = zoneData.holidayPrice || getSpecialPrice(zoneData.cat);
                                 } else if (isWeekend) {
-                                    if (zoneData.weekendPrice) {
-                                        price = zoneData.weekendPrice;
-                                    } else if (['grass', 'shelter', 'room'].includes(zoneData.cat)) {
-                                        price = 1200;
-                                    } else {
-                                        price = getSpecialPrice(zoneData.cat);
-                                    }
-                                }
                                 
                                 dailyTotal += price * qty;
                             });
@@ -1782,6 +1785,15 @@
             return false;
         }
 
+        function isEventDateSpan(startStr, endStr) {
+            if(!startStr || !endStr) return false;
+            let s = new Date(startStr);
+            let e = new Date(endStr);
+            for (let d = new Date(s); d < e; d.setDate(d.getDate() + 1)) {
+                if (EVENT_DATES.includes(d.toISOString().split('T')[0])) return true;
+            }
+            return false;
+        }
         function getSpecialPriceDisplay(cat) {
              switch(cat) {
                 case 'grass': case 'shelter': case 'room': return 1400;
@@ -1798,6 +1810,7 @@
             const inDate = document.getElementById('checkinDate').value; 
             const outDate = document.getElementById('checkoutDate').value;
             const isSpecial = hasSpecialHoliday(inDate, outDate);
+            const isEvent = isEventDateSpan(inDate, outDate);
             let hasWeekend = false;
             if (inDate && outDate) {
                 const s = new Date(inDate); const e = new Date(outDate);
@@ -1845,13 +1858,25 @@
                 const div = document.createElement('div');
                 div.className = `zone-card bg-white rounded-xl p-3 relative flex items-center h-32 md:h-36 ${isFull ? 'disabled-card' : ''} ${currentQty > 0 ? 'selected' : ''}`;
                 
-                let displayPrice = zone.price;
+               let displayPrice = zone.price;
                 let priceClass = "text-green-600";
                 
-                if (isSpecial) {
+                if (isEvent) {
+                    // 自動抓取該區是幾帳包區 (若無則預設為 1 帳)
+                    let baseTents = zone.baseTents || 1;
+                    switch(zone.cat) {
+                        case 'grass': case 'shelter': case 'room': displayPrice = 2000 * baseTents; break;
+                        case 'cabinL': displayPrice = 3100; break;
+                        case 'cabinS': displayPrice = 2700; break;
+                        case 'villa': displayPrice = 22500; break;
+                        case 'camper': displayPrice = 7000; break;
+                        default: displayPrice = 2000 * baseTents;
+                    }
+                    priceClass = "text-purple-600"; // 活動日用紫色凸顯
+                } else if (isSpecial) {
                     displayPrice = zone.holidayPrice || getSpecialPriceDisplay(zone.cat);
                     priceClass = "text-red-600";
-                } else if (hasWeekend && !isSpecial) {
+                } else if (hasWeekend && !isSpecial && !isEvent) {
                     if (zone.weekendPrice) {
                         displayPrice = zone.weekendPrice;
                         priceClass = "text-orange-600";
