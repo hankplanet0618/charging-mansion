@@ -1675,6 +1675,15 @@
                                 } else if (isSpecialDay) {
                                     price = zoneData.holidayPrice || getSpecialPrice(zoneData.cat);
                                 } else if (isWeekend) {
+                                    // 補回被遺漏的週末計價邏輯
+                                    if (zoneData.weekendPrice) {
+                                        price = zoneData.weekendPrice;
+                                    } else if (['grass', 'shelter', 'room'].includes(zoneData.cat)) {
+                                        price = 1200;
+                                    } else {
+                                        price = getSpecialPrice(zoneData.cat);
+                                    }
+                                }
                                 
                                 dailyTotal += price * qty;
                             });
