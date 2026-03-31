@@ -607,13 +607,14 @@
             
             <div class="bg-orange-50 p-4 rounded-xl mb-6 border border-orange-200 text-sm text-stone-700 space-y-3 shadow-sm">
                 <p class="flex items-start"><i class="fas fa-check-circle text-orange-500 mt-1 mr-2"></i> <span><strong>服務內容：</strong>帳篷擦拭清潔、曬乾、檜木精油薰香、帳篷簡易檢查</span></p>
-                <p class="flex items-start"><i class="fas fa-clock text-orange-500 mt-1 mr-2"></i> <span><strong>作業時間：</strong>收到帳棚後 3 個工作天後寄回</span></p>
-                <p class="flex items-start"><i class="fas fa-dollar-sign text-orange-500 mt-1 mr-2"></i> <span><strong>服務費用：</strong>$650 / 每個帳篷 / 每次 <br><span class="text-xs text-orange-600 font-bold">(費用已包含回寄郵資)</span></span></p>
+                <p class="flex items-start"><i class="fas fa-clock text-orange-500 mt-1 mr-2"></i> <span><strong>作業時間：</strong>收到帳棚後 3 個工作天後寄回</span></p></i> <span><strong>寄件地址：</strong>262宜蘭縣礁溪鄉匏杓崙路150之8號(充電莊收)，電話: 0975020425</span></p>
+
+                <p class="flex items-start"><i class="fas fa-dollar-sign text-orange-500 mt-1 mr-2"></i> <span><strong>服務費用：</strong>$850 / 每個帳篷 / 每次 <br><span class="text-xs text-orange-600 font-bold">(費用已包含回寄郵資)</span></span></p>
             </div>
 
             <form id="tentDryingForm" class="space-y-4">
                 <input type="hidden" name="sheetName" value="曬帳訂單">
-                <input type="hidden" name="總金額" id="tentDryingTotalInput" value="650">
+                <input type="hidden" name="總金額" id="tentDryingTotalInput" value="850">
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
@@ -1716,21 +1717,27 @@
                             }
                         }
                         
-                        for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
+                       for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
                             let dateStr = d.toISOString().split('T')[0];
-                            let dayOfWeek = d.getDay();
+                            
+                            // 取得「明天」的日期與星期
+                            let tomorrow = new Date(d);
+                            tomorrow.setDate(tomorrow.getDate() + 1);
+                            let tomorrowStr = tomorrow.toISOString().split('T')[0];
+                            let tomorrowDw = tomorrow.getDay();
+                            
+                            // 核心判斷：明天是否為放假日 (週六、週日 或 特殊連假紅字)
+                            const isTomorrowRed = (tomorrowDw === 0 || tomorrowDw === 6) || SPECIAL_HOLIDAYS.includes(tomorrowStr);
                             
                             if (BLOCKED_DATES.includes(dateStr)) {
                                 blocked = true; blockMsg = `【當天已包場滿額】${dateStr}，請重新預定選擇日期`; break;
                             }
                             
-                            const isSpecialDay = SPECIAL_HOLIDAYS.includes(dateStr);
-                            const isWeekend = (dayOfWeek === 5 || dayOfWeek === 6 || dayOfWeek === 0) && !isSpecialDay;
                             const isEventDay = EVENT_DATES.includes(dateStr);
 
                             let dailyTotal = 0;
                             
-                           cartEntries.forEach(([zoneName, qty]) => {
+                            cartEntries.forEach(([zoneName, qty]) => {
                                 const zoneData = zones.find(z => z.name === zoneName);
                                 if (!zoneData) return;
                                 
@@ -1746,10 +1753,11 @@
                                         case 'camper': price = 7000; break;
                                         default: price = 2000 * baseTents;
                                     }
-                                } else if (isSpecialDay) {
+                                } else if (SPECIAL_HOLIDAYS.includes(dateStr) && isTomorrowRed) {
+                                    // 連假期間 (今天紅字、明天也是紅字)
                                     price = zoneData.holidayPrice || getSpecialPrice(zoneData.cat);
-                                } else if (isWeekend) {
-                                    // 補回被遺漏的週末計價邏輯
+                                } else if (isTomorrowRed) {
+                                    // 一般假日 (明天放假，包含週五、週六、連假前一天)
                                     if (zoneData.weekendPrice) {
                                         price = zoneData.weekendPrice;
                                     } else if (['grass', 'shelter', 'room'].includes(zoneData.cat)) {
@@ -1757,6 +1765,9 @@
                                     } else {
                                         price = getSpecialPrice(zoneData.cat);
                                     }
+                                } else {
+                                    // 平日 (明天要上班，包含週日、連假最後一天、一般平日)
+                                    price = zoneData.price;
                                 }
                                 
                                 dailyTotal += price * qty;
@@ -1888,22 +1899,32 @@
             }
         }
 
-        function renderZones(filter) {
+       function renderZones(filter) {
             const container = document.getElementById('zoneContainer'); container.innerHTML = '';
             const inDate = document.getElementById('checkinDate').value; 
             const outDate = document.getElementById('checkoutDate').value;
-            const isSpecial = hasSpecialHoliday(inDate, outDate);
-            const isEvent = isEventDateSpan(inDate, outDate);
+            
+            let hasEvent = false;
+            let hasSpecial = false;
             let hasWeekend = false;
+
             if (inDate && outDate) {
                 const s = new Date(inDate); const e = new Date(outDate);
                 for (let d = new Date(s); d < e; d.setDate(d.getDate() + 1)) {
-                    let dw = d.getDay();
-                    if (dw === 5 || dw === 6 || dw === 0) { hasWeekend = true; break; }
+                    let dateStr = d.toISOString().split('T')[0];
+                    let tomorrow = new Date(d); tomorrow.setDate(tomorrow.getDate() + 1);
+                    let tomorrowStr = tomorrow.toISOString().split('T')[0];
+                    let tomorrowDw = tomorrow.getDay();
+                    
+                    let isTomorrowRed = (tomorrowDw === 0 || tomorrowDw === 6) || SPECIAL_HOLIDAYS.includes(tomorrowStr);
+                    
+                    if (EVENT_DATES.includes(dateStr)) { hasEvent = true; }
+                    else if (SPECIAL_HOLIDAYS.includes(dateStr) && isTomorrowRed) { hasSpecial = true; }
+                    else if (isTomorrowRed) { hasWeekend = true; }
                 }
             }
             
-            let bookedMap = {}; 
+            let bookedMap = {};
             let consumedOld = {}; 
             
             if (inDate && outDate && bookedData) {
@@ -1944,8 +1965,7 @@
                let displayPrice = zone.price;
                 let priceClass = "text-green-600";
                 
-                if (isEvent) {
-                    // 自動抓取該區是幾帳包區 (若無則預設為 1 帳)
+                if (hasEvent) {
                     let baseTents = zone.baseTents || 1;
                     switch(zone.cat) {
                         case 'grass': case 'shelter': case 'room': displayPrice = 2000 * baseTents; break;
@@ -1955,11 +1975,11 @@
                         case 'camper': displayPrice = 7000; break;
                         default: displayPrice = 2000 * baseTents;
                     }
-                    priceClass = "text-purple-600"; // 活動日用紫色凸顯
-                } else if (isSpecial) {
+                    priceClass = "text-purple-600"; 
+                } else if (hasSpecial) {
                     displayPrice = zone.holidayPrice || getSpecialPriceDisplay(zone.cat);
                     priceClass = "text-red-600";
-                } else if (hasWeekend && !isSpecial && !isEvent) {
+                } else if (hasWeekend) {
                     if (zone.weekendPrice) {
                         displayPrice = zone.weekendPrice;
                         priceClass = "text-orange-600";
