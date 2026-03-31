@@ -113,6 +113,7 @@
             <a href="#" onclick="showModal('modal-bbq')" class="flex items-center px-6 py-4 hover:bg-green-50 text-stone-600 border-b border-gray-100"><i class="fas fa-fire w-8 text-orange-600"></i> 烤肉菜單</a>
             <a href="#" onclick="showModal('modal-gear')" class="flex items-center px-6 py-4 hover:bg-green-50 text-stone-600 border-b border-gray-100"><i class="fas fa-toolbox w-8 text-blue-600"></i> 裝備清單</a>
             <a href="#" onclick="showModal('modal-tent')" class="flex items-center px-6 py-4 hover:bg-green-50 text-stone-600 border-b border-gray-100"><i class="fas fa-campground w-8 text-purple-600"></i> 免搭帳服務</a>
+            <a href="#" onclick="showModal('modal-tent-drying')" class="flex items-center px-6 py-4 hover:bg-orange-50 text-stone-600 border-b border-gray-100"><i class="fas fa-sun w-8 text-orange-500"></i> 曬帳專區</a>
         </div>
     </div>
 
@@ -131,10 +132,10 @@
                 <i class="fas fa-star text-yellow-300 ml-2"></i>
             </div>
         </div>
-    </header>
+   </header>
 
     <main class="container mx-auto px-4 pb-12 -mt-2 relative z-10" id="booking-section">
-        <div class="grid grid-cols-3 gap-2 md:gap-4 mb-4 fade-in">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mb-4 fade-in">
             <div onclick="showModal('modal-about')" class="bg-white p-4 rounded-xl shadow-md text-center cursor-pointer hover:bg-green-50 transition border-b-4 border-green-600">
                 <i class="fas fa-seedling text-2xl text-green-600 mb-2"></i>
                 <div class="text-xs md:text-sm font-bold text-gray-700">關於我們</div>
@@ -147,8 +148,11 @@
                 <i class="fas fa-university text-2xl text-yellow-500 mb-2"></i>
                 <div class="text-xs md:text-sm font-bold text-gray-700">匯款資訊</div>
             </div>
-        </div>
-        
+            <div onclick="showModal('modal-tent-drying')" class="bg-white p-4 rounded-xl shadow-md text-center cursor-pointer hover:bg-orange-50 transition border-b-4 border-orange-500">
+                <i class="fas fa-sun text-2xl text-orange-500 mb-2"></i>
+                <div class="text-xs md:text-sm font-bold text-gray-700">曬帳專區</div>
+            </div>
+        </div>        
         <div class="mb-8 fade-in" style="animation-delay: 0.05s;">
              <div onclick="showModal('modal-gallery')" class="bg-gradient-to-r from-orange-400 to-yellow-400 p-4 rounded-xl shadow-lg text-center cursor-pointer hover:scale-[1.01] transition transform border-b-4 border-orange-600 text-white relative overflow-hidden group">
                  <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition"></div>
@@ -593,6 +597,71 @@
     <div id="modal-tent" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl z-10 p-6 relative max-h-[85vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-2xl"></i></button><h3 class="text-xl font-bold mb-4 text-purple-600">免搭帳服務專區</h3><div class="space-y-6"></div></div></div>
     <div id="modal-reviews" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-yellow-600 text-center">顧客五星好評</h3><div id="reviews-container" class="space-y-4"></div><p class="text-center text-xs text-gray-400 mt-6 pt-4 border-t">(以上為精選評論，歡迎留言)</p></div></div>
     <div id="modal-feedback" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-center text-blue-600">意見回饋</h3><form id="feedbackForm" class="space-y-4"><input type="hidden" name="sheetName" value="意見回饋"><div><label class="block text-xs font-bold text-gray-500 mb-1">入住日期</label><input type="date" name="入住日期" required class="w-full border rounded p-2"></div><div><label class="block text-xs font-bold text-gray-500 mb-1">住客姓名</label><input type="text" name="住客姓名" required class="w-full border rounded p-2"></div><div class="text-center"><label class="block text-sm font-bold text-gray-500 mb-2">請給予我們評分</label><div class="star-rating"><input type="radio" id="star5" name="滿意度回饋" value="5" checked><label for="star5" title="5星">★</label><input type="radio" id="star4" name="滿意度回饋" value="4"><label for="star4" title="4星">★</label><input type="radio" id="star3" name="滿意度回饋" value="3"><label for="star3" title="3星">★</label><input type="radio" id="star2" name="滿意度回饋" value="2"><label for="star2" title="2星">★</label><input type="radio" id="star1" name="滿意度回饋" value="1"><label for="star1" title="1星">★</label></div></div><div><label class="block text-xs font-bold text-gray-500 mb-1">內容</label><textarea name="內容" required class="w-full border rounded p-2 h-24 resize-none"></textarea></div><button type="submit" id="feedbackBtn" class="w-full bg-blue-500 text-white font-bold py-3 rounded-lg hover:bg-blue-600">送出回饋</button></form></div></div>
+     <div id="modal-tent-drying" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onclick="closeAll()"></div>
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[90vh] overflow-y-auto border-t-8 border-orange-400">
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            <h3 class="text-2xl font-bold mb-4 text-center text-orange-600">☀️ 專屬曬帳服務</h3>
+            
+            <div class="bg-orange-50 p-4 rounded-xl mb-6 border border-orange-200 text-sm text-stone-700 space-y-3 shadow-sm">
+                <p class="flex items-start"><i class="fas fa-check-circle text-orange-500 mt-1 mr-2"></i> <span><strong>服務內容：</strong>帳篷擦拭清潔、曬乾、檜木精油薰香、帳篷簡易檢查</span></p>
+                <p class="flex items-start"><i class="fas fa-clock text-orange-500 mt-1 mr-2"></i> <span><strong>作業時間：</strong>收到帳棚後 3 個工作天後寄回</span></p>
+                <p class="flex items-start"><i class="fas fa-dollar-sign text-orange-500 mt-1 mr-2"></i> <span><strong>服務費用：</strong>$650 / 每個帳篷 / 每次 <br><span class="text-xs text-orange-600 font-bold">(費用已包含回寄郵資)</span></span></p>
+            </div>
+
+            <form id="tentDryingForm" class="space-y-4">
+                <input type="hidden" name="sheetName" value="曬帳訂單">
+                <input type="hidden" name="總金額" id="tentDryingTotalInput" value="650">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">姓名</label>
+                        <input type="text" name="姓名" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-orange-500 outline-none" placeholder="請填寫真實姓名">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">電話</label>
+                        <input type="tel" name="電話" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-orange-500 outline-none" placeholder="聯絡電話">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-xs font-bold text-gray-500 mb-1">Email (接收訂單與匯款通知)</label>
+                        <input type="email" name="Email" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-orange-500 outline-none" placeholder="example@gmail.com">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-xs font-bold text-gray-500 mb-1">寄回地址</label>
+                        <input type="text" name="地址" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-orange-500 outline-none" placeholder="請填寫帳篷洗淨後的寄回地址">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">帳篷型號</label>
+                        <input type="text" name="帳篷型號" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-orange-500 outline-none" placeholder="例如: KZM-T250">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">預計寄出日期</label>
+                        <input type="date" name="寄出日期" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-orange-500 outline-none">
+                    </div>
+                    
+                    <div class="md:col-span-2 flex justify-between items-center bg-stone-50 p-3 rounded-lg border border-gray-200 mt-2">
+                        <label class="font-bold text-gray-700">選擇帳篷數量</label>
+                        <div class="flex items-center gap-3">
+                            <button type="button" class="w-8 h-8 rounded-full bg-stone-200 text-stone-700 font-bold hover:bg-stone-300 transition" onclick="updateTentDryingQty(-1)">-</button>
+                            <input type="number" name="數量" id="tentDryingQty" value="1" min="1" readonly class="w-12 text-center border-none bg-transparent font-bold text-lg text-stone-800 outline-none">
+                            <button type="button" class="w-8 h-8 rounded-full bg-stone-800 text-white font-bold hover:bg-stone-700 transition" onclick="updateTentDryingQty(1)">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-red-50 p-4 rounded-xl border border-red-100 flex justify-between items-center mt-4">
+                    <span class="text-red-800 font-bold text-sm">總金額明細 (含回寄郵資)</span>
+                    <span class="text-3xl font-black text-red-600" id="tentDryingTotalDisplay">$650</span>
+                </div>
+
+                <button type="submit" id="tentDryingBtn" class="w-full bg-orange-500 text-white font-bold py-4 rounded-xl text-lg shadow-lg hover:bg-orange-600 transition transform hover:scale-[1.01] active:scale-95 mt-4">
+                    確認送出曬帳訂單
+                </button>
+            </form>
+        </div>
+    </div>
 <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxgcBUWexk4xIGjgq6_PBug3TBdPtlEg1lXBAcQh3DLogkiU3BzrIgFTrXM7oeLXLuL/exec';
         const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=0#gid=0';
@@ -2171,7 +2240,45 @@
             if(btn.textContent === '住宿/懶人') btn.setAttribute('data-filter', 'room');
             if(btn.textContent === '草地/碎石') btn.setAttribute('data-filter', 'grass');
         });
-        
+        // --- 曬帳專區邏輯開始 ---
+        // 1. 動態計算金額與數量
+        window.updateTentDryingQty = (delta) => {
+            const qtyInput = document.getElementById('tentDryingQty');
+            let current = parseInt(qtyInput.value) || 1;
+            let newQty = current + delta;
+            
+            if (newQty < 1) newQty = 1; // 數量不能小於 1
+            qtyInput.value = newQty;
+            
+            const total = newQty * 650;
+            document.getElementById('tentDryingTotalDisplay').innerText = `$${total.toLocaleString()}`;
+            document.getElementById('tentDryingTotalInput').value = total;
+        };
+
+        // 2. 攔截表單送出，傳送資料至 Google Apps Script
+        const tentDryingForm = document.getElementById('tentDryingForm');
+        if(tentDryingForm) {
+            tentDryingForm.addEventListener('submit', e => {
+                e.preventDefault();
+                const btn = document.getElementById('tentDryingBtn');
+                const originalText = btn.innerText;
+                btn.disabled = true; 
+                btn.innerText = '訂單處理中...';
+                
+                fetch(scriptURL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
+                    .then(() => {
+                        showSuccessModal(); // 沿用你原本寫好的漂亮打勾動畫視窗
+                        e.target.reset();
+                        updateTentDryingQty(0); // 數量與金額重置回預設值 1
+                    })
+                    .catch(() => alert('發生錯誤，請稍後再試或聯繫營主'))
+                    .finally(() => { 
+                        btn.disabled = false; 
+                        btn.innerText = originalText; 
+                    });
+            });
+        }
+        // --- 曬帳專區邏輯結束 ---
         init();
     </script>
 </body>
