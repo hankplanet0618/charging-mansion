@@ -607,7 +607,7 @@
             
             <div class="bg-orange-50 p-4 rounded-xl mb-6 border border-orange-200 text-sm text-stone-700 space-y-3 shadow-sm">
                 <p class="flex items-start"><i class="fas fa-check-circle text-orange-500 mt-1 mr-2"></i> <span><strong>服務內容：</strong>帳篷擦拭清潔、曬乾、檜木精油薰香、帳篷簡易檢查</span></p>
-                <p class="flex items-start"><i class="fas fa-clock text-orange-500 mt-1 mr-2"></i> <span><strong>作業時間：</strong>收到帳棚後 3 個工作天後寄回</span></p></i> <span><strong>寄件地址：</strong>262宜蘭縣礁溪鄉匏杓崙路150之8號(充電莊收)，電話: 0975020425</span></p>
+                <p class="flex items-start"><i class="fas fa-clock text-orange-500 mt-1 mr-2"></i> <span><strong>作業時間：</strong>收到帳棚後 3 個工作天後寄回(不含例假日)</span></p></i> <span><strong>寄件地址：</strong>262宜蘭縣礁溪鄉匏杓崙路150之8號(充電莊收)，電話: 0975020425</span></p>
 
                 <p class="flex items-start"><i class="fas fa-dollar-sign text-orange-500 mt-1 mr-2"></i> <span><strong>服務費用：</strong>$850 / 每個帳篷 / 每次 <br><span class="text-xs text-orange-600 font-bold">(費用已包含回寄郵資)</span></span></p>
             </div>
@@ -654,7 +654,7 @@
 
                 <div class="bg-red-50 p-4 rounded-xl border border-red-100 flex justify-between items-center mt-4">
                     <span class="text-red-800 font-bold text-sm">總金額明細 (含回寄郵資)</span>
-                    <span class="text-3xl font-black text-red-600" id="tentDryingTotalDisplay">$650</span>
+                    <span class="text-3xl font-black text-red-600" id="tentDryingTotalDisplay">$850</span>
                 </div>
 
                 <button type="submit" id="tentDryingBtn" class="w-full bg-orange-500 text-white font-bold py-4 rounded-xl text-lg shadow-lg hover:bg-orange-600 transition transform hover:scale-[1.01] active:scale-95 mt-4">
@@ -2270,7 +2270,7 @@
             if (newQty < 1) newQty = 1; // 數量不能小於 1
             qtyInput.value = newQty;
             
-            const total = newQty * 650;
+            const total = newQty * 850;
             document.getElementById('tentDryingTotalDisplay').innerText = `$${total.toLocaleString()}`;
             document.getElementById('tentDryingTotalInput').value = total;
         };
