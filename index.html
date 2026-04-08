@@ -1638,10 +1638,9 @@ for (let date in data) {
                 const addonEntries = Object.entries(addonCart);
                 
                 if (cartEntries.length === 0 && addonEntries.length === 0) {
-                    resultDiv.classList.add('hidden');
-                    zoneInput.value = "";
-                    return;
+                    resultDiv.classList.add('hidden'); 
                 }
+            } // <--- ★ 新增這一個大括號，用來關閉 calculate() 函式
                 
                 let zoneStr = cartEntries.map(([name, qty]) => `${name} * ${qty}`).join(', ');
                 let addonStr = addonEntries.map(([name, qty]) => `${name} * ${qty}`).join(', ');
