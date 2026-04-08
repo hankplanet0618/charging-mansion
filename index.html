@@ -1577,7 +1577,7 @@ for (let date in data) {
             container.innerHTML = html;
         }
 
-        function setupCalculator() {
+      function setupCalculator() {
             const inDate = document.getElementById('checkinDate');
             const outDate = document.getElementById('checkoutDate');
             const qtySelect = document.getElementById('quantitySelect');
@@ -1638,9 +1638,10 @@ for (let date in data) {
                 const addonEntries = Object.entries(addonCart);
                 
                 if (cartEntries.length === 0 && addonEntries.length === 0) {
-                    resultDiv.classList.add('hidden'); 
+                    resultDiv.classList.add('hidden');
+                    zoneInput.value = "";
+                    return;
                 }
-            } // <--- ★ 新增這一個大括號，用來關閉 calculate() 函式
                 
                 let zoneStr = cartEntries.map(([name, qty]) => `${name} * ${qty}`).join(', ');
                 let addonStr = addonEntries.map(([name, qty]) => `${name} * ${qty}`).join(', ');
@@ -1723,13 +1724,11 @@ for (let date in data) {
                        for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
                             let dateStr = d.toISOString().split('T')[0];
                             
-                            // 取得「明天」的日期與星期
                             let tomorrow = new Date(d);
                             tomorrow.setDate(tomorrow.getDate() + 1);
                             let tomorrowStr = tomorrow.toISOString().split('T')[0];
                             let tomorrowDw = tomorrow.getDay();
                             
-                            // 核心判斷：明天是否為放假日 (週六、週日 或 特殊連假紅字)
                             const isTomorrowRed = (tomorrowDw === 0 || tomorrowDw === 6) || SPECIAL_HOLIDAYS.includes(tomorrowStr);
                             
                             if (BLOCKED_DATES.includes(dateStr)) {
@@ -1757,10 +1756,8 @@ for (let date in data) {
                                         default: price = 2000 * baseTents;
                                     }
                                 } else if (SPECIAL_HOLIDAYS.includes(dateStr) && isTomorrowRed) {
-                                    // 連假期間 (今天紅字、明天也是紅字)
                                     price = zoneData.holidayPrice || getSpecialPrice(zoneData.cat);
                                 } else if (isTomorrowRed) {
-                                    // 一般假日 (明天放假，包含週五、週六、連假前一天)
                                     if (zoneData.weekendPrice) {
                                         price = zoneData.weekendPrice;
                                     } else if (['grass', 'shelter', 'room'].includes(zoneData.cat)) {
@@ -1769,7 +1766,6 @@ for (let date in data) {
                                         price = getSpecialPrice(zoneData.cat);
                                     }
                                 } else {
-                                    // 平日 (明天要上班，包含週日、連假最後一天、一般平日)
                                     price = zoneData.price;
                                 }
                                 
@@ -1794,7 +1790,7 @@ for (let date in data) {
                     return;
                 }
                 
-let basePrice = totalPrice + nightBeforePriceTotal; // 營位費 + 夜衝費 (適用折扣)
+                let basePrice = totalPrice + nightBeforePriceTotal; // 營位費 + 夜衝費 (適用折扣)
 
                 let addonTotal = 0; // 加購費 (不適用折扣)
                 addonEntries.forEach(([name, qty]) => {
@@ -1810,26 +1806,23 @@ let basePrice = totalPrice + nightBeforePriceTotal; // 營位費 + 夜衝費 (�
                     const discountVal = getDiscountAmount();
                     let finalTotal = overallSubtotal;
                     let displayDiscount = "";
-                    let actualDiscountAmt = 0; // 紀錄實際折抵了多少錢
+                    let actualDiscountAmt = 0;
 
                     if (discountVal > 0) {
                         if (basePrice > 0) {
-                            if (discountVal < 1) { // 處理打折 (例如 0.9)
+                            if (discountVal < 1) { 
                                 actualDiscountAmt = Math.round(basePrice * (1 - discountVal));
                                 displayDiscount = `<div class="text-green-600">折扣優惠：打 ${discountVal * 10} 折 (-$${actualDiscountAmt})</div>`;
-                            } else { // 處理現折 (例如 100)
-                                // 限制折抵上限不能超過營位費本身
+                            } else { 
                                 actualDiscountAmt = Math.min(basePrice, discountVal);
                                 displayDiscount = `<div class="text-green-600">折扣優惠：-$${actualDiscountAmt}</div>`;
                             }
                             finalTotal = basePrice - actualDiscountAmt + addonTotal;
                         } else {
-                            // 只有加購，沒有營位費，不給折抵
                             displayDiscount = `<div class="text-xs text-orange-500 mt-1 font-bold">※ 折扣碼僅適用於營位與夜衝費</div>`;
                         }
                     }
 
-                    // ★ 動態建立一個隱藏欄位，把實際折抵金額存起來，讓送出表單時可以抓到
                     let discountInput = document.getElementById('actualDiscountAmount');
                     if (!discountInput) {
                         discountInput = document.createElement('input');
@@ -1856,6 +1849,7 @@ let basePrice = totalPrice + nightBeforePriceTotal; // 營位費 + 夜衝費 (�
                 } else { 
                     resultDiv.classList.add('hidden'); 
                 }
+            } // ★ 就是這個括號！現在已經補好了！
 
             inDate.addEventListener('change', () => {
                 if (inDate.value) {
@@ -1869,7 +1863,6 @@ let basePrice = totalPrice + nightBeforePriceTotal; // 營位費 + 夜衝費 (�
                     }
                 }
                 
-                // ★ 新增這行：日期改變時，動態判斷是否切換為包區！
                 buildZones(inDate.value);
                 
                 calculate();
