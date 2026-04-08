@@ -607,7 +607,8 @@
             
             <div class="bg-orange-50 p-4 rounded-xl mb-6 border border-orange-200 text-sm text-stone-700 space-y-3 shadow-sm">
                 <p class="flex items-start"><i class="fas fa-check-circle text-orange-500 mt-1 mr-2"></i> <span><strong>服務內容：</strong>帳篷擦拭清潔、曬乾、檜木精油薰香、帳篷簡易檢查</span></p>
-                <p class="flex items-start"><i class="fas fa-clock text-orange-500 mt-1 mr-2"></i> <span><strong>作業時間：</strong>收到帳棚後 3 個工作天後寄回(不含例假日)</span></p></i> <span><strong>寄件地址：</strong>262宜蘭縣礁溪鄉匏杓崙路150之8號(充電莊收)，電話: 0975020425</span></p>
+                <p class="flex items-start"><i class="fas fa-clock text-orange-500 mt-1 mr-2"></i> <span><strong>作業時間：</strong>收到帳棚後 3 個工作天後寄回(不含例假日)</span></p>
+<p class="flex items-start"><i class="fas fa-map-marker-alt text-orange-500 mt-1 mr-2"></i> <span><strong>寄件地址：</strong>262宜蘭縣礁溪鄉匏杓崙路150之8號(充電莊收)，電話: 0975020425</span></p>
 
                 <p class="flex items-start"><i class="fas fa-dollar-sign text-orange-500 mt-1 mr-2"></i> <span><strong>服務費用：</strong>$850 / 每個帳篷 / 每次 <br><span class="text-xs text-orange-600 font-bold">(費用已包含回寄郵資)</span></span></p>
             </div>
@@ -861,7 +862,7 @@
             { id: 'R13', name: '電暖器', price: 200, stock: 2 },
             { id: 'R14', name: '焚火台(純鈦)', price: 350, stock: 1 },
             { id: 'R15', name: '木柴(2公斤)', price: 120, stock: 20 },
-            { id: 'R15', name: '木柴(6公斤)', price: 260, stock: 20 },
+            { id: 'R15B', name: '木柴(6公斤)', price: 260, stock: 20 },
             { id: 'R16', name: '雙人床墊不挑款', price: 500, stock: 3 },
             { id: 'R17', name: '4人床墊不挑款', price: 800, stock: 3 },
             { id: 'R18', name: '電動車車床方案', price: 150, stock: 50 }
@@ -872,7 +873,7 @@
             { id: 'T05', name: '迪卡儂 4.2 充氣帳', price: 800, stock: 1 },
             { id: 'T06', name: 'IF充氣帳篷6.0', price: 800, stock: 1 },
             { id: 'T04', name: '杜邦鯤9車尾帳', price: 1000, stock: 1 },
-            { id: 'T04', name: 'Prado 7.5 小屋', price: 1200, stock: 3 },
+            { id: 'T07', name: 'Prado 7.5 小屋', price: 1200, stock: 3 },
             { id: 'T02', name: 'KZM-T250', price: 2000, stock: 1 },
             { id: 'T03', name: 'Coody8', price: 2000, stock: 1 }
         ];
@@ -1438,18 +1439,21 @@
                 const res = await fetch(scriptURL);
                 const data = await res.json();
                 
-                // ★ 解決舊訂單散帳名稱與新包區名稱不匹配的問題
-                for (let date in data) {
-                    if (data[date].zones) {
-                        for (let oldZone in data[date].zones) {
-                            // 只要舊訂單有包含 棚架B1, B2... 就自動把新的 '棚架 B 區' 標記為已訂位
-                            if (oldZone.startsWith('棚架B')) data[date].zones['棚架 B 區'] = 1;
-                            if (oldZone.startsWith('棚架C')) data[date].zones['棚架 C 區'] = 1;
-                            if (oldZone.startsWith('棧板A')) data[date].zones['棧板 A 區'] = 1;
-                            if (oldZone.startsWith('棧板B')) data[date].zones['棧板 B 區'] = 1;
-                        }
-                    }
-                }
+               // ★ 解決舊訂單散帳名稱與新包區名稱不匹配的問題
+for (let date in data) {
+    if (data[date].zones) {
+        // 新增判斷：只有 6/1 以後的日期（包區模式）才需要做舊資料母區相容轉換
+        if (date >= '2026-06-01') {
+            for (let oldZone in data[date].zones) {
+                if (oldZone.startsWith('棚架B')) data[date].zones['棚架 B 區'] = 1;
+                if (oldZone.startsWith('棚架C')) data[date].zones['棚架 C 區'] = 1;
+                // 建議把棧板區也補上，避免有人退訂或修改時發生一樣的狀況
+                if (oldZone.startsWith('棧板A')) data[date].zones['棧板 A 區'] = 1;
+                if (oldZone.startsWith('棧板B')) data[date].zones['棧板 B 區'] = 1;
+            }
+        }
+    }
+}
                 
                 bookedData = data;
                 
@@ -1791,41 +1795,58 @@
                     return;
                 }
                 
-                totalPrice += nightBeforePriceTotal;
+let basePrice = totalPrice + nightBeforePriceTotal; // 營位費 + 夜衝費 (適用折扣)
 
-                let addonTotal = 0;
+                let addonTotal = 0; // 加購費 (不適用折扣)
                 addonEntries.forEach(([name, qty]) => {
                     let item = rentals.find(r => r.name === name) || tents.find(t => t.name === name) || bbqs.find(b => b.name === name);
                     if (item) {
                         addonTotal += item.price * qty;
                     }
                 });
-                totalPrice += addonTotal;
 
-                if ((days > 0 || addonTotal > 0 || nightBeforePriceTotal > 0) && totalPrice > 0) {
+                let overallSubtotal = basePrice + addonTotal; // 尚未打折的整體總計
+
+                if (overallSubtotal > 0) {
                     const discountVal = getDiscountAmount();
-                    let finalTotal = 0;
+                    let finalTotal = overallSubtotal;
                     let displayDiscount = "";
+                    let actualDiscountAmt = 0; // 紀錄實際折抵了多少錢
+
                     if (discountVal > 0) {
-                        if (discountVal < 1) {
-                            const discountAmt = Math.round(totalPrice * (1 - discountVal));
-                            finalTotal = totalPrice - discountAmt;
-                            displayDiscount = `<div class="text-green-600">折扣優惠：打 ${discountVal * 10} 折 (-$${discountAmt})</div>`;
+                        if (basePrice > 0) {
+                            if (discountVal < 1) { // 處理打折 (例如 0.9)
+                                actualDiscountAmt = Math.round(basePrice * (1 - discountVal));
+                                displayDiscount = `<div class="text-green-600">折扣優惠：打 ${discountVal * 10} 折 (-$${actualDiscountAmt})</div>`;
+                            } else { // 處理現折 (例如 100)
+                                // 限制折抵上限不能超過營位費本身
+                                actualDiscountAmt = Math.min(basePrice, discountVal);
+                                displayDiscount = `<div class="text-green-600">折扣優惠：-$${actualDiscountAmt}</div>`;
+                            }
+                            finalTotal = basePrice - actualDiscountAmt + addonTotal;
                         } else {
-                            finalTotal = Math.max(0, totalPrice - discountVal);
-                            displayDiscount = `<div class="text-green-600">折扣優惠：- $${discountVal}</div>`;
+                            // 只有加購，沒有營位費，不給折抵
+                            displayDiscount = `<div class="text-xs text-orange-500 mt-1 font-bold">※ 折扣碼僅適用於營位與夜衝費</div>`;
                         }
-                    } else {
-                        finalTotal = totalPrice;
                     }
-                    
+
+                    // ★ 動態建立一個隱藏欄位，把實際折抵金額存起來，讓送出表單時可以抓到
+                    let discountInput = document.getElementById('actualDiscountAmount');
+                    if (!discountInput) {
+                        discountInput = document.createElement('input');
+                        discountInput.type = 'hidden';
+                        discountInput.id = 'actualDiscountAmount';
+                        document.getElementById('bookingForm').appendChild(discountInput);
+                    }
+                    discountInput.value = actualDiscountAmt;
+
                     resultDiv.classList.remove('hidden');
                     
                     let html = '';
                     if (zoneStr) html += `<div>營位：${zoneStr}</div>`;
                     if (addonStr) html += `<div>加購：${addonStr}</div>`;
-                    if (days > 0) html += `<div>入住 ${days} 晚 (含加購) 小計：$${(totalPrice - nightBeforePriceTotal).toLocaleString()}</div>`;
-                    else html += `<div>小計：$${(totalPrice - nightBeforePriceTotal).toLocaleString()}</div>`;
+                    if (days > 0) html += `<div>營位與加購小計：$${overallSubtotal.toLocaleString()}</div>`;
+                    else html += `<div>小計：$${overallSubtotal.toLocaleString()}</div>`;
                     
                     html += nightBeforeDetails; 
                     html += displayDiscount;
@@ -1833,8 +1854,9 @@
                     formulaSpan.innerHTML = html;
                     totalDisplay.textContent = `$${finalTotal.toLocaleString()}`;
                     if (zonePriceInput) zonePriceInput.value = finalTotal;
-                } else { resultDiv.classList.add('hidden'); }
-            }
+                } else { 
+                    resultDiv.classList.add('hidden'); 
+                }
 
             inDate.addEventListener('change', () => {
                 if (inDate.value) {
@@ -2178,12 +2200,11 @@
                     if (discountCodes.hasOwnProperty(code)) discountVal = discountCodes[code];
                     else if (discountCodes.hasOwnProperty(originalCode)) discountVal = discountCodes[originalCode];
                     
+                   // 直接從第一步產生的隱藏欄位中抓取精準的折抵金額
                     let discountAmount = 0;
-                    if (discountVal > 0 && discountVal < 1) {
-                          let originalPrice = Math.round(finalTotal / discountVal);
-                          discountAmount = originalPrice - finalTotal;
-                    } else {
-                          discountAmount = discountVal;
+                    const appliedDiscountEl = document.getElementById('actualDiscountAmount');
+                    if (appliedDiscountEl) {
+                        discountAmount = parseInt(appliedDiscountEl.value, 10) || 0;
                     }
                     
                     formData.append('總金額', finalTotal);
