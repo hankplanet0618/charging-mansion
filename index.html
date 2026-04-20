@@ -1488,38 +1488,52 @@
             if (container.parentElement) container.parentElement.scrollTop = 0;
         }
 
-        async function fetchInventory() {
-            try {
-                const res = await fetch(scriptURL);
-                const data = await res.json();
-                
-               // ★ 解決舊訂單散帳名稱與新包區名稱不匹配的問題
-for (let date in data) {
-    if (data[date].zones) {
-        // 新增判斷：只有 6/1 以後的日期（包區模式）才需要做舊資料母區相容轉換
-        if (date >= '2026-06-01') {
-            for (let oldZone in data[date].zones) {
-                if (oldZone.startsWith('棚架B')) data[date].zones['棚架 B 區'] = 1;
-                if (oldZone.startsWith('棚架C')) data[date].zones['棚架 C 區'] = 1;
-                // 建議把棧板區也補上，避免有人退訂或修改時發生一樣的狀況
-                if (oldZone.startsWith('棧板A')) data[date].zones['棧板 A 區'] = 1;
-                if (oldZone.startsWith('棧板B')) data[date].zones['棧板 B 區'] = 1;
+       // ==========================================
+// ★★★ 庫存抓取（已優化版） ★★★
+async function fetchInventory() {
+    try {
+        console.log("🚀 正在從 GAS 抓取最新庫存...");
+        
+        // 加 timestamp 強制不走快取
+        const url = scriptURL + '?t=' + new Date().getTime();
+        
+        const res = await fetch(url, {
+            method: 'GET',
+            // mode: 'no-cors'   // 先不要加，如果之後有 CORS 錯誤再試
+        });
+
+        if (!res.ok) {
+            throw new Error(`HTTP 錯誤！狀態碼: ${res.status}`);
+        }
+
+        const data = await res.json();
+        
+        // ★ 保留你原本的舊資料相容處理（很重要）
+        for (let date in data) {
+            if (data[date].zones && date >= '2026-06-01') {
+                for (let oldZone in data[date].zones) {
+                    if (oldZone.startsWith('棚架B')) data[date].zones['棚架 B 區'] = 1;
+                    if (oldZone.startsWith('棚架C')) data[date].zones['棚架 C 區'] = 1;
+                    if (oldZone.startsWith('棧板A')) data[date].zones['棧板 A 區'] = 1;
+                    if (oldZone.startsWith('棧板B')) data[date].zones['棧板 B 區'] = 1;
+                }
             }
         }
+
+        bookedData = data;
+        console.log("✅ 庫存載入成功！共", Object.keys(data).length, "天資料", data);
+
+        // 載入完立即渲染
+        const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
+        renderZones(activeFilter);
+        renderAddons();
+
+    } catch (err) {
+        console.error('❌ 抓取庫存失敗：', err);
+        // 可選：給使用者提示
+        // if (confirm('庫存載入失敗，是否重新整理頁面？')) location.reload();
     }
 }
-                
-                bookedData = data;
-                
-                if(document.getElementById('checkinDate').value && document.getElementById('checkoutDate').value) {
-                      const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
-                      renderZones(activeFilter);
-                      renderAddons();
-                }
-            } catch (err) {
-                console.error('無法取得庫存資料:', err);
-            }
-        }
 
         async function initializeLiff() {
             try {
