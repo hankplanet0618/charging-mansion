@@ -244,11 +244,7 @@
         </form>
     </div>
 </div>
-            <div class="w-full md:w-1/2 bg-white rounded-3xl shadow-xl overflow-hidden fade-in" style="animation-delay: 0.2s;">
-                <div class="bg-green-700 p-4 text-white text-center">
-                    <h3 class="font-bold text-lg">線上預訂單</h3>
-                </div>
-                <form id="bookingForm" class="p-6 space-y-8">
+                            <form id="bookingForm" class="p-6 space-y-8">
                     <input type="hidden" name="sheetName" value="訂單資料">
                     <input type="hidden" id="lineUserId" name="Line_User_ID">
                     <input type="hidden" id="lineDisplayName" name="Line_Display_Name">
@@ -1120,7 +1116,7 @@
 
             items.forEach(item => {
                 const div = document.createElement('div');
-               div.className = `zone-card bg-white rounded-2xl p-4 relative flex items-center min-h-[150px] ${isFull ? 'disabled-card' : ''} ${currentQty > 0 ? 'selected' : ''}`;
+               div.className = `zone-card bg-white rounded-2xl p-4 relative flex items-center min-h-[148px] ${isFull ? 'disabled-card' : ''} ${currentQty > 0 ? 'selected' : ''}`;
                 
                 const bookedCount = bookedMap[item.name] || 0;
                 const remaining = Math.max(0, item.stock - bookedCount);
@@ -2070,11 +2066,11 @@ for (let date in data) {
     `
     <div class="flex items-center bg-stone-100 rounded-3xl border border-stone-200 shadow-sm flex-shrink-0">
         <button type="button" 
-                class="w-9 h-9 text-stone-700 font-bold text-xl hover:bg-stone-200 active:bg-stone-300 transition flex items-center justify-center rounded-l-3xl border-r border-stone-200" 
+                class="w-8 h-8 text-stone-700 font-bold text-lg hover:bg-stone-200 active:bg-stone-300 transition flex items-center justify-center rounded-l-3xl border-r border-stone-200" 
                 onclick="updateZoneQty(event, '${zone.name}', -1, 1)">−</button>
-        <div class="w-10 text-center font-bold text-base text-stone-800">${currentQty}</div>
+        <div class="w-9 text-center font-bold text-base text-stone-800">${currentQty}</div>
         <button type="button" 
-                class="w-9 h-9 bg-stone-800 text-white font-bold text-xl hover:bg-stone-700 active:bg-stone-900 transition flex items-center justify-center rounded-r-3xl" 
+                class="w-8 h-8 bg-stone-800 text-white font-bold text-lg hover:bg-stone-700 active:bg-stone-900 transition flex items-center justify-center rounded-r-3xl" 
                 onclick="updateZoneQty(event, '${zone.name}', 1, 1)">+</button>
     </div>`;
 
