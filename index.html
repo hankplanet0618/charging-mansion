@@ -181,47 +181,59 @@
             </div>
         </div>
 
-        <div class="mb-8 fade-in flex flex-col md:flex-row gap-4 justify-center items-start" style="animation-delay: 0.15s;">
-            <div class="w-full md:w-1/2 flex flex-col gap-4">
-    <!-- ★★★ 保留原本的 FB embed ★★★ -->
-    <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100083289610242&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" 
-            width="100%" height="350" 
-            style="border:none;overflow:hidden;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);" 
-            scrolling="no" frameborder="0" allowfullscreen="true" 
-            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-
-   <!-- YT 高流量影片區 + 觀看更多按鈕（已調小高度） -->
-<div class="bg-white rounded-3xl shadow-xl p-5">
-    <h3 class="text-xl font-bold text-stone-800 mb-4 flex items-center gap-2">
-        <i class="fab fa-youtube text-red-600"></i>
-        斜槓露人Hank × 充電莊真實日常
-    </h3>
+        <div class="mb-8 fade-in flex flex-col lg:flex-row gap-6 justify-center items-start" style="animation-delay: 0.15s;">
     
-    <div class="space-y-4">   <!-- 改小間距 -->
-        <div>
-            <iframe width="100%" height="200" src="https://www.youtube.com/embed/JeoQf0x6wag" 
-                    title="充電莊電動車露營開箱" frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    allowfullscreen class="rounded-2xl shadow-md"></iframe>
-            <p class="text-xs text-gray-500 mt-2 text-center">電動車車主必看！充電莊車宿全流程</p>
-        </div>
+    <!-- 左側：FB + YT 影片（保持不變，但給固定最大寬度） -->
+    <div class="w-full lg:w-5/12 flex flex-col gap-4">
+        <!-- FB embed -->
+        <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100083289610242&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" 
+                width="100%" height="350" 
+                style="border:none;overflow:hidden;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);" 
+                scrolling="no" frameborder="0" allowfullscreen="true" 
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
 
-        <div>
-            <iframe width="100%" height="200" src="https://www.youtube.com/embed/D4kzXeqfQKs" 
-                    title="充電莊出事啦" frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    allowfullscreen class="rounded-2xl shadow-md"></iframe>
-            <p class="text-xs text-gray-500 mt-2 text-center">充電莊出事啦！總監跑去看TWICE？</p>
-        </div>
+        <!-- YT 影片區（高度已調適中） -->
+        <div class="bg-white rounded-3xl shadow-xl p-5">
+            <h3 class="text-xl font-bold text-stone-800 mb-4 flex items-center gap-2">
+                <i class="fab fa-youtube text-red-600"></i>
+                斜槓露人Hank × 充電莊真實日常
+            </h3>
+            
+            <div class="space-y-5">
+                <div>
+                    <iframe width="100%" height="205" src="https://www.youtube.com/embed/JeoQf0x6wag" title="充電莊電動車露營開箱" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-2xl shadow-md"></iframe>
+                    <p class="text-xs text-gray-500 mt-2 text-center">電動車車主必看！充電莊車宿全流程</p>
+                </div>
+                <div>
+                    <iframe width="100%" height="205" src="https://www.youtube.com/embed/D4kzXeqfQKs" title="充電莊出事啦" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-2xl shadow-md"></iframe>
+                    <p class="text-xs text-gray-500 mt-2 text-center">充電莊出事啦！總監跑去看TWICE？</p>
+                </div>
+                <div>
+                    <iframe width="100%" height="205" src="https://www.youtube.com/embed/3Vlowt7r5Bk" title="Hank的親子趴踢救火團" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-2xl shadow-md"></iframe>
+                    <p class="text-xs text-gray-500 mt-2 text-center">親子趴踢史上最硬救火團！3萬現金+暴雨大反轉</p>
+                </div>
+            </div>
 
-        <div>
-            <iframe width="100%" height="200" src="https://www.youtube.com/embed/3Vlowt7r5Bk" 
-                    title="Hank的親子趴踢救火團" frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    allowfullscreen class="rounded-2xl shadow-md"></iframe>
-            <p class="text-xs text-gray-500 mt-2 text-center">親子趴踢史上最硬救火團！3萬現金+暴雨大反轉</p>
+            <div class="mt-6 pt-4 border-t border-gray-100">
+                <a href="https://www.youtube.com/@SohocampingHank" target="_blank" 
+                   class="block w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-2xl text-center transition-all flex items-center justify-center gap-2 shadow-md">
+                    <i class="fab fa-youtube"></i> 觀看更多影片 →
+                </a>
+            </div>
         </div>
     </div>
+
+    <!-- 右側：訂位表單（加大寬度，讓營位卡片更清楚） -->
+    <div class="w-full lg:w-7/12 bg-white rounded-3xl shadow-xl overflow-hidden fade-in" style="animation-delay: 0.2s;">
+        <div class="bg-green-700 p-4 text-white text-center">
+            <h3 class="font-bold text-lg">線上預訂單</h3>
+        </div>
+        <form id="bookingForm" class="p-6 space-y-8">
+            <!-- 你原本的表單內容全部保留，從這裡開始貼你原本的 form 內容即可 -->
+            <!-- ... (你的第一步、第二步、第三步、特殊需求、送出按鈕等全部保持不變) ... -->
+        </form>
+    </div>
+</div>
 
     <div class="mt-6 pt-4 border-t border-gray-100">
         <a href="https://www.youtube.com/@SohocampingHank" target="_blank" 
