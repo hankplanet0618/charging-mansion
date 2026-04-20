@@ -11,12 +11,14 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
 .zone-card {
-    min-height: 140px;   /* 卡片最低高度加大 */
-    padding: 14px;
+    min-height: 155px;
+    padding: 16px;
+    transition: all 0.3s ease;
 }
-
-.zone-card .flex-1 {
-    gap: 8px;
+.zone-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    border-color: #15803d;
 }
         :root { --forest-green: #15803d; --sunny-yellow: #eab308; }
         .glass-effect { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
@@ -1118,7 +1120,7 @@
 
             items.forEach(item => {
                 const div = document.createElement('div');
-                div.className = "bg-white p-3 rounded-lg border border-gray-200 flex justify-between items-center shadow-sm";
+               div.className = `zone-card bg-white rounded-2xl p-4 relative flex items-center min-h-[155px] ${isFull ? 'disabled-card' : ''} ${currentQty > 0 ? 'selected' : ''}`;
                 
                 const bookedCount = bookedMap[item.name] || 0;
                 const remaining = Math.max(0, item.stock - bookedCount);
@@ -2064,15 +2066,15 @@ for (let date in data) {
                 let blockText = isFull ? '<span class="text-xs text-red-500 font-bold block">已額滿</span>' : (inDate && outDate ? `<span class="text-[10px] text-blue-600 font-bold block">剩餘 1 帳</span>` : "");
                 
                 let actionBtn = isFull ? 
-    `<span class="bg-gray-200 text-gray-400 px-5 py-2.5 rounded-2xl text-sm font-bold">已額滿</span>` : 
+    `<span class="bg-gray-200 text-gray-400 px-5 py-3 rounded-2xl text-sm font-bold">已額滿</span>` : 
     `
     <div class="flex items-center bg-stone-100 rounded-3xl border border-stone-200 shadow-sm flex-shrink-0">
         <button type="button" 
-                class="w-11 h-11 text-stone-700 font-bold text-2xl hover:bg-stone-200 active:bg-stone-300 transition flex items-center justify-center rounded-l-3xl border-r border-stone-200" 
+                class="w-10 h-10 text-stone-700 font-bold text-2xl hover:bg-stone-200 active:bg-stone-300 transition flex items-center justify-center rounded-l-3xl border-r border-stone-200" 
                 onclick="updateZoneQty(event, '${zone.name}', -1, 1)">−</button>
-        <div class="w-10 text-center font-bold text-lg text-stone-800">${currentQty}</div>
+        <div class="w-11 text-center font-bold text-lg text-stone-800">${currentQty}</div>
         <button type="button" 
-                class="w-11 h-11 bg-stone-800 text-white font-bold text-2xl hover:bg-stone-700 active:bg-stone-900 transition flex items-center justify-center rounded-r-3xl" 
+                class="w-10 h-10 bg-stone-800 text-white font-bold text-2xl hover:bg-stone-700 active:bg-stone-900 transition flex items-center justify-center rounded-r-3xl" 
                 onclick="updateZoneQty(event, '${zone.name}', 1, 1)">+</button>
     </div>`;
 
