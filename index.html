@@ -1120,7 +1120,7 @@
 
             items.forEach(item => {
                 const div = document.createElement('div');
-               div.className = `zone-card bg-white rounded-2xl p-4 relative flex items-center min-h-[155px] ${isFull ? 'disabled-card' : ''} ${currentQty > 0 ? 'selected' : ''}`;
+               div.className = `zone-card bg-white rounded-2xl p-4 relative flex items-center min-h-[150px] ${isFull ? 'disabled-card' : ''} ${currentQty > 0 ? 'selected' : ''}`;
                 
                 const bookedCount = bookedMap[item.name] || 0;
                 const remaining = Math.max(0, item.stock - bookedCount);
@@ -2065,16 +2065,16 @@ for (let date in data) {
 
                 let blockText = isFull ? '<span class="text-xs text-red-500 font-bold block">已額滿</span>' : (inDate && outDate ? `<span class="text-[10px] text-blue-600 font-bold block">剩餘 1 帳</span>` : "");
                 
-                let actionBtn = isFull ? 
+               let actionBtn = isFull ? 
     `<span class="bg-gray-200 text-gray-400 px-5 py-3 rounded-2xl text-sm font-bold">已額滿</span>` : 
     `
     <div class="flex items-center bg-stone-100 rounded-3xl border border-stone-200 shadow-sm flex-shrink-0">
         <button type="button" 
-                class="w-10 h-10 text-stone-700 font-bold text-2xl hover:bg-stone-200 active:bg-stone-300 transition flex items-center justify-center rounded-l-3xl border-r border-stone-200" 
+                class="w-9 h-9 text-stone-700 font-bold text-xl hover:bg-stone-200 active:bg-stone-300 transition flex items-center justify-center rounded-l-3xl border-r border-stone-200" 
                 onclick="updateZoneQty(event, '${zone.name}', -1, 1)">−</button>
-        <div class="w-11 text-center font-bold text-lg text-stone-800">${currentQty}</div>
+        <div class="w-10 text-center font-bold text-base text-stone-800">${currentQty}</div>
         <button type="button" 
-                class="w-10 h-10 bg-stone-800 text-white font-bold text-2xl hover:bg-stone-700 active:bg-stone-900 transition flex items-center justify-center rounded-r-3xl" 
+                class="w-9 h-9 bg-stone-800 text-white font-bold text-xl hover:bg-stone-700 active:bg-stone-900 transition flex items-center justify-center rounded-r-3xl" 
                 onclick="updateZoneQty(event, '${zone.name}', 1, 1)">+</button>
     </div>`;
 
