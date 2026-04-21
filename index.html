@@ -1701,6 +1701,70 @@ async function fetchInventory() {
                 }
             }
             
+        function setupCalculator() {
+            const inDate = document.getElementById('checkinDate');
+            const outDate = document.getElementById('checkoutDate');
+            const qtySelect = document.getElementById('quantitySelect');
+            const zoneInput = document.getElementById('selectedZoneInput');
+            const zonePriceInput = document.getElementById('selectedZonePrice');
+            const resultDiv = document.getElementById('priceCalcResult');
+            const formulaSpan = document.getElementById('priceFormula');
+            const totalDisplay = document.getElementById('totalPriceDisplay');
+            const stayDaysSpan = document.getElementById('stayDays');
+            const discountInput = document.getElementById('discountCodeInput');
+            const discountMsg = document.getElementById('discountMessage');
+            const applyBtn = document.getElementById('applyDiscountBtn');
+
+            // ★ 關鍵修復：安全獲取當地日期的 YYYY-MM-DD 格式 (避免 toISOString 的時區偏移 bug)
+            function getLocalISODate(dateObj) {
+                const y = dateObj.getFullYear();
+                const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+                const d = String(dateObj.getDate()).padStart(2, '0');
+                return `${y}-${m}-${d}`;
+            }
+
+            function getDiscountAmount() {
+                const code = discountInput.value.trim().toUpperCase();
+                const originalCode = discountInput.value.trim();
+                if (discountCodes.hasOwnProperty(code)) return discountCodes[code];
+                else if (discountCodes.hasOwnProperty(originalCode)) return discountCodes[originalCode];
+                return 0;
+            }
+
+            function validateDiscount() {
+                const val = getDiscountAmount();
+                const code = discountInput.value.trim();
+                if (code === "") { 
+                    discountMsg.classList.add('hidden'); 
+                    calculate(); 
+                    return; 
+                }
+                
+                if (val > 0) {
+                    if (val < 1) {
+                        discountMsg.textContent = `✅ 已套用折扣：打 ${val * 10} 折`;
+                    } else {
+                        discountMsg.textContent = `✅ 已套用折扣：折抵 $${val}`;
+                    }
+                    discountMsg.className = "text-xs mt-1 pl-1 font-bold text-green-600 block";
+                } else {
+                    discountMsg.textContent = `❌ 無效的折扣碼`;
+                    discountMsg.className = "text-xs mt-1 pl-1 font-bold text-red-500 block";
+                }
+                calculate();
+            }
+
+            function getSpecialPrice(cat) {
+                switch(cat) {
+                    case 'grass': case 'shelter': case 'room': return 1400;
+                    case 'cabinL': return 3000;
+                    case 'cabinS': return 2600;
+                    case 'villa': return 22000;
+                    case 'camper': return 3600;
+                    default: return 1400;
+                }
+            }
+            
             function calculate() {
                 const cartEntries = Object.entries(cart);
                 const addonEntries = Object.entries(addonCart);
@@ -1715,7 +1779,6 @@ async function fetchInventory() {
                 let nightBeforePriceTotal = 0;
                 let nightBeforeDetails = "";
                 
-                // ★ 修正1：先把日期、天數與夜衝的判斷移到最前面 (不管有沒有選營位都要顯示)
                 if (inDate.value && outDate.value) {
                     const start = new Date(inDate.value);
                     const end = new Date(outDate.value);
@@ -1727,15 +1790,19 @@ async function fetchInventory() {
                         stayDaysSpan.classList.remove('hidden');
                         
                         const checkinDayOfWeek = start.getDay();
-                        const dateStrForCheck = start.toISOString().split('T')[0];
-                        const isHolidayStart = SPECIAL_HOLIDAYS.includes(dateStrForCheck) && !SPECIAL_HOLIDAYS.includes(new Date(start.getTime() - 86400000).toISOString().split('T')[0]);
+                        const dateStrForCheck = getLocalISODate(start);
+                        
+                        let prevDay = new Date(start.getTime() - 86400000);
+                        const prevDayStr = getLocalISODate(prevDay);
+                        
+                        const isHolidayStart = SPECIAL_HOLIDAYS.includes(dateStrForCheck) && !SPECIAL_HOLIDAYS.includes(prevDayStr);
                         
                         const nbSection = document.getElementById('nightBeforeSection');
                         if (checkinDayOfWeek === 6 || isHolidayStart) {
                             if (nbSection) nbSection.classList.remove('hidden');
-                            nightBeforeDate = new Date(start.getTime() - 86400000); 
+                            nightBeforeDate = prevDay; 
                             const nbDisplay = document.getElementById('nightBeforeDateDisplay');
-                            if (nbDisplay) nbDisplay.innerText = `(${nightBeforeDate.toISOString().split('T')[0]})`;
+                            if (nbDisplay) nbDisplay.innerText = `(${prevDayStr})`;
                         } else {
                             if (nbSection) nbSection.classList.add('hidden');
                             const noRadio = document.querySelector('input[name="夜衝選項"][value="否"]');
@@ -1744,7 +1811,7 @@ async function fetchInventory() {
 
                         // 檢查包場日期
                         for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
-                            let dateStr = d.toISOString().split('T')[0];
+                            let dateStr = getLocalISODate(d);
                             if (BLOCKED_DATES.includes(dateStr)) {
                                 blocked = true; blockMsg = `【當天已包場滿額】${dateStr}，請重新預定選擇日期`; break;
                             }
@@ -1753,6 +1820,8 @@ async function fetchInventory() {
                         stayDaysSpan.classList.add('hidden'); 
                         days = 0; 
                     }
+                } else {
+                    stayDaysSpan.classList.add('hidden');
                 }
                 
                 if (blocked) {
@@ -1767,7 +1836,7 @@ async function fetchInventory() {
                     return;
                 }
 
-                // ★ 修正2：如果還沒選營位/加購，在這裡退出即可 (此時「共X晚」已經正常顯示了)
+                // 如果還沒選營位/加購，計算結束，等待點擊卡片
                 if (cartEntries.length === 0 && addonEntries.length === 0) {
                     resultDiv.classList.add('hidden');
                     zoneInput.value = "";
@@ -1802,9 +1871,9 @@ async function fetchInventory() {
                     });
                     
                     if(nightBeforePriceTotal > 0){
-                        nightBeforeDetails = `<div class="text-blue-600 mt-1">含夜衝 (${nightBeforeDate.toISOString().split('T')[0]}): +$${nightBeforePriceTotal.toLocaleString()}</div>`;
+                        let nbDateStr = getLocalISODate(nightBeforeDate);
+                        nightBeforeDetails = `<div class="text-blue-600 mt-1">含夜衝 (${nbDateStr}): +$${nightBeforePriceTotal.toLocaleString()}</div>`;
                         
-                        let nbDateStr = nightBeforeDate.toISOString().split('T')[0];
                         if (bookedData[nbDateStr] && bookedData[nbDateStr].zones) {
                              cartEntries.forEach(([zoneName, qty]) => {
                                  if(bookedData[nbDateStr].zones[zoneName]) {
@@ -1833,15 +1902,14 @@ async function fetchInventory() {
                     const end = new Date(outDate.value);
                     
                     for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
-                        let dateStr = d.toISOString().split('T')[0];
+                        let dateStr = getLocalISODate(d);
                         
                         let tomorrow = new Date(d);
                         tomorrow.setDate(tomorrow.getDate() + 1);
-                        let tomorrowStr = tomorrow.toISOString().split('T')[0];
+                        let tomorrowStr = getLocalISODate(tomorrow);
                         let tomorrowDw = tomorrow.getDay();
                         
                         const isTomorrowRed = (tomorrowDw === 0 || tomorrowDw === 6) || SPECIAL_HOLIDAYS.includes(tomorrowStr);
-                        
                         const isEventDay = EVENT_DATES.includes(dateStr);
 
                         let dailyTotal = 0;
@@ -1944,38 +2012,37 @@ async function fetchInventory() {
                 }
             }
 
-            // ★ 修正3：加入 'input' 監聽，解決手機版 DatePicker 需要點擊旁邊才會觸發的痛點
-            ['change', 'input'].forEach(evt => {
-                inDate.addEventListener(evt, () => {
-                    if (inDate.value) {
-                        const startDate = new Date(inDate.value);
-                        startDate.setDate(startDate.getDate() + 1);
-                        const nextDayStr = startDate.toISOString().split('T')[0];
-                        outDate.min = nextDayStr;
-                        
-                        if(outDate.value && outDate.value < nextDayStr) {
-                            outDate.value = "";
-                        }
-                    }
+            // ★ 關鍵修復2：回歸穩定的 change 事件，確保選擇日期後必定重新渲染庫存畫面
+            inDate.addEventListener('change', () => {
+                if (inDate.value) {
+                    const startDate = new Date(inDate.value);
+                    startDate.setDate(startDate.getDate() + 1);
+                    const nextDayStr = getLocalISODate(startDate);
+                    outDate.min = nextDayStr;
                     
-                    buildZones(inDate.value);
-                    calculate();
-                    const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
-                    renderZones(activeFilter);
-                    renderAddons();
-                });
+                    if(outDate.value && outDate.value < nextDayStr) {
+                        outDate.value = "";
+                    }
+                }
+                
+                buildZones(inDate.value);
+                calculate();
+                const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
+                renderZones(activeFilter);
+                renderAddons();
+            });
 
-                outDate.addEventListener(evt, () => {
-                    calculate();
-                    const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
-                    renderZones(activeFilter);
-                    renderAddons();
-                });
+            outDate.addEventListener('change', () => {
+                calculate();
+                const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
+                renderZones(activeFilter);
+                renderAddons();
             });
 
             applyBtn.addEventListener('click', validateDiscount);
             discountInput.addEventListener('change', validateDiscount);
             window.reCalculate = calculate;
+        }
         }
         function hasSpecialHoliday(startStr, endStr) {
             if(!startStr || !endStr) return false;
