@@ -798,6 +798,7 @@
             '2031-12-25','2031-12-26','2031-12-27','2031-12-28'
         ];
         
+        // ★ 修復：所有字典的鍵值（英文部分）全部轉為大寫，防呆解決大小寫錯亂問題
         const discountCodes = {
             'CHUNHUNGLINONLY': 99999999, 'LINE100': 100, '首次加入好友優惠券': 100, '首次加入好友禮': 100,
             'TESLA400': 400, 'CM100': 100, '竹科臻邦': 500, '蓓蓓團': 0.5, '芮蒂': 500,
@@ -812,7 +813,7 @@
         let zones = [];
         let currentZoneMode = null; 
 
-        // ★ 關鍵修復1：全域日期安全轉換函式 (解決 toISOString 減 8 小時的問題)
+        // ★ 關鍵修復：將此函數移到全域，確保網頁上所有功能都能呼叫它！
         function getLocalISODate(dateObj) {
             const y = dateObj.getFullYear();
             const m = String(dateObj.getMonth() + 1).padStart(2, '0');
@@ -1042,7 +1043,7 @@
                  const start = new Date(inDateVal);
                  const end = new Date(outDateVal);
                  for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
-                    let dateStr = getLocalISODate(d); // ★ 全面修正為安全日期格式
+                    let dateStr = getLocalISODate(d);
                     if (bookedData[dateStr]) {
                         const mixedItems = { 
                             ...(bookedData[dateStr].zones || {}), 
@@ -1428,491 +1429,43 @@
             if (container.parentElement) container.parentElement.scrollTop = 0;
         }
 
-async function fetchInventory() {
-    try {
-        console.log("🚀 正在從 GAS 抓取最新庫存...");
-        const url = scriptURL + '?t=' + new Date().getTime();
-        
-        const res = await fetch(url, {
-            method: 'GET'
-        });
-
-        if (!res.ok) {
-            throw new Error(`HTTP 錯誤！狀態碼: ${res.status}`);
-        }
-
-        const data = await res.json();
-        
-        for (let date in data) {
-            if (data[date].zones && date >= '2026-06-01') {
-                for (let oldZone in data[date].zones) {
-                    if (oldZone.startsWith('棚架B')) data[date].zones['棚架 B 區'] = 1;
-                    if (oldZone.startsWith('棚架C')) data[date].zones['棚架 C 區'] = 1;
-                    if (oldZone.startsWith('棧板A')) data[date].zones['棧板 A 區'] = 1;
-                    if (oldZone.startsWith('棧板B')) data[date].zones['棧板 B 區'] = 1;
-                }
-            }
-        }
-
-        bookedData = data;
-        console.log("✅ 庫存載入成功！共", Object.keys(data).length, "天資料", data);
-
-        const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
-        renderZones(activeFilter);
-        renderAddons();
-
-    } catch (err) {
-        console.error('❌ 抓取庫存失敗：', err);
-    }
-}
-
-        async function initializeLiff() {
+        async function fetchInventory() {
             try {
-                await liff.init({ liffId: myLiffId });
-                if (!liff.isLoggedIn()) {
-                    if (liff.isInClient()) {
-                        liff.login();
-                    }
-                } else {
-                    const profile = await liff.getProfile();
-                    const nameInput = document.getElementById('inputName');
-                    if(nameInput && !nameInput.value) nameInput.value = profile.displayName;
-                    document.getElementById('lineUserId').value = profile.userId;
-                    document.getElementById('lineDisplayName').value = profile.displayName;
-                    document.getElementById('linePictureUrl').value = profile.pictureUrl;
-                }
-            } catch (err) {
-                console.error('LIFF Initialization failed', err);
-            }
-        }
-
-        function renderBlogPosts() {
-            const container = document.getElementById('blog-feed-container');
-            if (!container) return;
-            let html = '';
-            const sortedPosts = blogPosts;
-
-            sortedPosts.forEach(post => {
-                let imagesHtml = '';
-                if (post.images && post.images.length > 0) {
-                    const gridClass = post.images.length === 1 ? 'grid-cols-1' : 'grid-cols-2';
-                    imagesHtml = `<div class="grid ${gridClass} gap-1 mt-3 rounded-xl overflow-hidden border border-gray-100">`;
-                    post.images.forEach(img => {
-                        imagesHtml += `<img src="${img}" class="w-full h-48 md:h-64 object-cover cursor-pointer hover:opacity-90 transition" onclick="showImage('${img}')" referrerpolicy="no-referrer">`;
-                    });
-                    imagesHtml += `</div>`;
-                }
-
-                let tagsHtml = '';
-                if (post.tags && post.tags.length > 0) {
-                    tagsHtml = `<div class="mt-2 flex flex-wrap gap-x-2 gap-y-1">`;
-                    post.tags.forEach(tag => {
-                        tagsHtml += `<span class="text-[13px] text-blue-600 cursor-pointer hover:underline font-medium">${tag}</span>`;
-                    });
-                    tagsHtml += `</div>`;
-                }
-
-                html += `
-                    <div class="bg-white rounded-2xl p-4 md:p-5 shadow-sm border border-gray-200">
-                        <div class="flex items-center gap-3 mb-3">
-                            <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden flex-shrink-0 border border-gray-100">
-                                ${post.avatar ? `<img src="${post.avatar}" class="w-full h-full object-cover">` : `<i class="fas fa-user text-gray-400 mt-2 ml-2.5 text-xl"></i>`}
-                            </div>
-                            <div class="flex flex-col">
-                                <span class="font-bold text-[15px] text-gray-900 leading-none">${post.author}</span>
-                                <span class="text-xs text-gray-500 mt-1">${post.date}</span>
-                            </div>
-                            <div class="ml-auto text-gray-400 hover:text-gray-600 cursor-pointer p-2">
-                                <i class="fas fa-ellipsis-h"></i>
-                            </div>
-                        </div>
-                        
-                        <div class="text-[15px] text-gray-800 whitespace-pre-wrap leading-relaxed font-sans">${post.content}</div>
-                        
-                        ${tagsHtml}
-                        ${imagesHtml}
-
-                        <div class="flex items-center gap-6 mt-4 pt-3 border-t border-gray-100 text-gray-500">
-                            <button class="flex items-center gap-1.5 hover:text-red-500 transition text-sm font-medium focus:outline-none">
-                                <i class="far fa-heart text-lg"></i>
-                                <span>${post.likes}</span>
-                            </button>
-                            <button class="flex items-center gap-1.5 hover:text-blue-500 transition text-sm font-medium focus:outline-none">
-                                <i class="far fa-comment text-lg"></i>
-                                <span>${post.comments}</span>
-                            </button>
-                            <button class="flex items-center gap-1.5 ml-auto hover:text-green-500 transition text-sm font-medium focus:outline-none">
-                                <i class="far fa-paper-plane text-lg"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-            });
-
-            html += `
-                <div class="py-6 text-center">
-                    <i class="fas fa-check-circle text-gray-300 text-3xl mb-2 block"></i>
-                    <span class="text-sm text-gray-400 font-medium">已經到底囉！期待營主更新。</span>
-                </div>
-            `;
-            container.innerHTML = html;
-        }
-
-        function renderReviews() {
-            const container = document.getElementById('reviews-container');
-            const shuffled = reviews.sort(() => 0.5 - Math.random()).slice(0, 3);
-            let html = '';
-            shuffled.forEach(r => {
-                html += `
-                    <div class="bg-stone-50 p-4 rounded-lg border border-stone-200">
-                        <div class="flex items-center mb-2">
-                            <span class="font-bold text-stone-800 mr-2">${r.n}</span>
-                            <span class="text-yellow-400 text-xs">★★★★★</span>
-                        </div>
-                        <p class="text-sm text-gray-600">${r.c}</p>
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
-        }
-
-      function setupCalculator() {
-            const inDate = document.getElementById('checkinDate');
-            const outDate = document.getElementById('checkoutDate');
-            const qtySelect = document.getElementById('quantitySelect');
-            const zoneInput = document.getElementById('selectedZoneInput');
-            const zonePriceInput = document.getElementById('selectedZonePrice');
-            const resultDiv = document.getElementById('priceCalcResult');
-            const formulaSpan = document.getElementById('priceFormula');
-            const totalDisplay = document.getElementById('totalPriceDisplay');
-            const stayDaysSpan = document.getElementById('stayDays');
-            const discountInput = document.getElementById('discountCodeInput');
-            const discountMsg = document.getElementById('discountMessage');
-            const applyBtn = document.getElementById('applyDiscountBtn');
-
-            function getDiscountAmount() {
-                const code = discountInput.value.trim().toUpperCase();
-                const originalCode = discountInput.value.trim();
-                if (discountCodes.hasOwnProperty(code)) return discountCodes[code];
-                else if (discountCodes.hasOwnProperty(originalCode)) return discountCodes[originalCode];
-                return 0;
-            }
-
-            function validateDiscount() {
-                const val = getDiscountAmount();
-                const code = discountInput.value.trim();
-                if (code === "") { 
-                    discountMsg.classList.add('hidden'); 
-                    calculate(); 
-                    return; 
-                }
+                console.log("🚀 正在從 GAS 抓取最新庫存...");
+                const url = scriptURL + '?t=' + new Date().getTime();
                 
-                if (val > 0) {
-                    if (val < 1) {
-                        discountMsg.textContent = `✅ 已套用折扣：打 ${val * 10} 折`;
-                    } else {
-                        discountMsg.textContent = `✅ 已套用折扣：折抵 $${val}`;
-                    }
-                    discountMsg.className = "text-xs mt-1 pl-1 font-bold text-green-600 block";
-                } else {
-                    discountMsg.textContent = `❌ 無效的折扣碼`;
-                    discountMsg.className = "text-xs mt-1 pl-1 font-bold text-red-500 block";
-                }
-                calculate();
-            }
-
-            function getSpecialPrice(cat) {
-                switch(cat) {
-                    case 'grass': case 'shelter': case 'room': return 1400;
-                    case 'cabinL': return 3000;
-                    case 'cabinS': return 2600;
-                    case 'villa': return 22000;
-                    case 'camper': return 3600;
-                    default: return 1400;
-                }
-            }
-            
-            function calculate() {
-                const cartEntries = Object.entries(cart);
-                const addonEntries = Object.entries(addonCart);
-                
-                let days = 0;
-                let totalPrice = 0;
-                let blocked = false;
-                let blockMsg = "";
-                
-                const isNightBeforeChecked = document.querySelector('input[name="夜衝選項"]:checked')?.value === '是';
-                let nightBeforeDate = null;
-                let nightBeforePriceTotal = 0;
-                let nightBeforeDetails = "";
-                
-                if (inDate.value && outDate.value) {
-                    const start = new Date(inDate.value);
-                    const end = new Date(outDate.value);
-                    const diffTime = end - start;
-                    days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                    
-                    if (days > 0) {
-                        stayDaysSpan.textContent = `共 ${days} 晚`;
-                        stayDaysSpan.classList.remove('hidden');
-                        
-                        const checkinDayOfWeek = start.getDay();
-                        const dateStrForCheck = getLocalISODate(start);
-                        
-                        let prevDay = new Date(start.getTime() - 86400000);
-                        const prevDayStr = getLocalISODate(prevDay);
-                        
-                        const isHolidayStart = SPECIAL_HOLIDAYS.includes(dateStrForCheck) && !SPECIAL_HOLIDAYS.includes(prevDayStr);
-                        
-                        const nbSection = document.getElementById('nightBeforeSection');
-                        if (checkinDayOfWeek === 6 || isHolidayStart) {
-                            if (nbSection) nbSection.classList.remove('hidden');
-                            nightBeforeDate = prevDay; 
-                            const nbDisplay = document.getElementById('nightBeforeDateDisplay');
-                            if (nbDisplay) nbDisplay.innerText = `(${prevDayStr})`;
-                        } else {
-                            if (nbSection) nbSection.classList.add('hidden');
-                            const noRadio = document.querySelector('input[name="夜衝選項"][value="否"]');
-                            if(noRadio) noRadio.checked = true; 
-                        }
-
-                        // 檢查包場日期
-                        for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
-                            let dateStr = getLocalISODate(d);
-                            if (BLOCKED_DATES.includes(dateStr)) {
-                                blocked = true; blockMsg = `【當天已包場滿額】${dateStr}，請重新預定選擇日期`; break;
-                            }
-                        }
-                    } else { 
-                        stayDaysSpan.classList.add('hidden'); 
-                        days = 0; 
-                    }
-                } else {
-                    stayDaysSpan.classList.add('hidden');
-                }
-                
-                if (blocked) {
-                    alert(blockMsg);
-                    inDate.value = ''; outDate.value = '';
-                    resultDiv.classList.add('hidden');
-                    cart = {};
-                    zoneInput.value = '';
-                    const activeFilterBtn = document.querySelector('.filter-btn.active');
-                    if(activeFilterBtn) renderZones(activeFilterBtn.getAttribute('data-filter'));
-                    renderAddons();
-                    return;
-                }
-
-                // 如果還沒選營位/加購，計算結束，等待點擊卡片
-                if (cartEntries.length === 0 && addonEntries.length === 0) {
-                    resultDiv.classList.add('hidden');
-                    zoneInput.value = "";
-                    return;
-                }
-                
-                let zoneStr = cartEntries.map(([name, qty]) => `${name} * ${qty}`).join(', ');
-                let addonStr = addonEntries.map(([name, qty]) => `${name} * ${qty}`).join(', ');
-                
-                let fullDetails = zoneStr;
-                if (zoneStr && addonStr) fullDetails += ', ' + addonStr;
-                else if (!zoneStr && addonStr) fullDetails = addonStr;
-                
-                zoneInput.value = fullDetails;
-                const totalQty = Object.values(cart).reduce((a, b) => a + b, 0);
-                if (qtySelect) qtySelect.value = totalQty > 0 ? totalQty : 1;
-                
-                if (isNightBeforeChecked && nightBeforeDate) {
-                    cartEntries.forEach(([zoneName, qty]) => {
-                        const zoneData = zones.find(z => z.name === zoneName);
-                        if (!zoneData) return;
-                        
-                        let nPrice = 0;
-                        let baseTents = zoneData.baseTents || 1; 
-                        
-                        if (['grass', 'shelter', 'room'].includes(zoneData.cat) && zoneData.name !== '小木屋 (大)' && zoneData.name !== '小木屋 (小)' && zoneData.name !== '三人頂級露營車' && zoneData.name !== '包棟民宿 (16人)') {
-                            nPrice = 600 * baseTents; 
-                        } else {
-                            nPrice = zoneData.price / 2;
-                        }
-                        nightBeforePriceTotal += nPrice * qty;
-                    });
-                    
-                    if(nightBeforePriceTotal > 0){
-                        let nbDateStr = getLocalISODate(nightBeforeDate);
-                        nightBeforeDetails = `<div class="text-blue-600 mt-1">含夜衝 (${nbDateStr}): +$${nightBeforePriceTotal.toLocaleString()}</div>`;
-                        
-                        if (bookedData[nbDateStr] && bookedData[nbDateStr].zones) {
-                             cartEntries.forEach(([zoneName, qty]) => {
-                                 if(bookedData[nbDateStr].zones[zoneName]) {
-                                     blocked = true; 
-                                     blockMsg = `您選擇的營位在夜衝日 (${nbDateStr}) 已被預訂，無法夜衝。`;
-                                 }
-                             });
-                        }
-                    }
-                }
-                
-                if (blocked) {
-                    alert(blockMsg);
-                    inDate.value = ''; outDate.value = '';
-                    resultDiv.classList.add('hidden');
-                    cart = {};
-                    zoneInput.value = '';
-                    const activeFilterBtn = document.querySelector('.filter-btn.active');
-                    if(activeFilterBtn) renderZones(activeFilterBtn.getAttribute('data-filter'));
-                    renderAddons();
-                    return;
-                }
-
-                if (inDate.value && outDate.value && days > 0) {
-                    const start = new Date(inDate.value);
-                    const end = new Date(outDate.value);
-                    
-                    for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
-                        let dateStr = getLocalISODate(d);
-                        
-                        let tomorrow = new Date(d);
-                        tomorrow.setDate(tomorrow.getDate() + 1);
-                        let tomorrowStr = getLocalISODate(tomorrow);
-                        let tomorrowDw = tomorrow.getDay();
-                        
-                        const isTomorrowRed = (tomorrowDw === 0 || tomorrowDw === 6) || SPECIAL_HOLIDAYS.includes(tomorrowStr);
-                        const isEventDay = EVENT_DATES.includes(dateStr);
-
-                        let dailyTotal = 0;
-                        
-                        cartEntries.forEach(([zoneName, qty]) => {
-                            const zoneData = zones.find(z => z.name === zoneName);
-                            if (!zoneData) return;
-                            
-                            let price = zoneData.price;
-                            let baseTents = zoneData.baseTents || 1;
-                            
-                            if (isEventDay) {
-                                switch(zoneData.cat) {
-                                    case 'grass': case 'shelter': case 'room': price = 2000 * baseTents; break;
-                                    case 'cabinL': price = 3100; break;
-                                    case 'cabinS': price = 2700; break;
-                                    case 'villa': price = 22500; break;
-                                    case 'camper': price = 7000; break;
-                                    default: price = 2000 * baseTents;
-                                }
-                            } else if (SPECIAL_HOLIDAYS.includes(dateStr) && isTomorrowRed) {
-                                price = zoneData.holidayPrice || getSpecialPrice(zoneData.cat);
-                            } else if (isTomorrowRed) {
-                                if (zoneData.weekendPrice) {
-                                    price = zoneData.weekendPrice;
-                                } else if (['grass', 'shelter', 'room'].includes(zoneData.cat)) {
-                                    price = 1200;
-                                } else {
-                                    price = getSpecialPrice(zoneData.cat);
-                                }
-                            } else {
-                                price = zoneData.price;
-                            }
-                            
-                            dailyTotal += price * qty;
-                        });
-                        
-                        totalPrice += dailyTotal;
-                    }
-                }
-                
-                let basePrice = totalPrice + nightBeforePriceTotal;
-
-                let addonTotal = 0; 
-                addonEntries.forEach(([name, qty]) => {
-                    let item = rentals.find(r => r.name === name) || tents.find(t => t.name === name) || bbqs.find(b => b.name === name);
-                    if (item) {
-                        addonTotal += item.price * qty;
-                    }
+                const res = await fetch(url, {
+                    method: 'GET'
                 });
 
-                let overallSubtotal = basePrice + addonTotal;
+                if (!res.ok) {
+                    throw new Error(`HTTP 錯誤！狀態碼: ${res.status}`);
+                }
 
-                if (overallSubtotal > 0) {
-                    const discountVal = getDiscountAmount();
-                    let finalTotal = overallSubtotal;
-                    let displayDiscount = "";
-                    let actualDiscountAmt = 0;
-
-                    if (discountVal > 0) {
-                        if (basePrice > 0) {
-                            if (discountVal < 1) { 
-                                actualDiscountAmt = Math.round(basePrice * (1 - discountVal));
-                                displayDiscount = `<div class="text-green-600">折扣優惠：打 ${discountVal * 10} 折 (-$${actualDiscountAmt})</div>`;
-                            } else { 
-                                actualDiscountAmt = Math.min(basePrice, discountVal);
-                                displayDiscount = `<div class="text-green-600">折扣優惠：-$${actualDiscountAmt}</div>`;
-                            }
-                            finalTotal = basePrice - actualDiscountAmt + addonTotal;
-                        } else {
-                            displayDiscount = `<div class="text-xs text-orange-500 mt-1 font-bold">※ 折扣碼僅適用於營位與夜衝費</div>`;
+                const data = await res.json();
+                
+                for (let date in data) {
+                    if (data[date].zones && date >= '2026-06-01') {
+                        for (let oldZone in data[date].zones) {
+                            if (oldZone.startsWith('棚架B')) data[date].zones['棚架 B 區'] = 1;
+                            if (oldZone.startsWith('棚架C')) data[date].zones['棚架 C 區'] = 1;
+                            if (oldZone.startsWith('棧板A')) data[date].zones['棧板 A 區'] = 1;
+                            if (oldZone.startsWith('棧板B')) data[date].zones['棧板 B 區'] = 1;
                         }
                     }
-
-                    let discountInput = document.getElementById('actualDiscountAmount');
-                    if (!discountInput) {
-                        discountInput = document.createElement('input');
-                        discountInput.type = 'hidden';
-                        discountInput.id = 'actualDiscountAmount';
-                        document.getElementById('bookingForm').appendChild(discountInput);
-                    }
-                    discountInput.value = actualDiscountAmt;
-
-                    resultDiv.classList.remove('hidden');
-                    
-                    let html = '';
-                    if (zoneStr) html += `<div>營位：${zoneStr}</div>`;
-                    if (addonStr) html += `<div>加購：${addonStr}</div>`;
-                    if (days > 0) html += `<div>營位與加購小計：$${overallSubtotal.toLocaleString()}</div>`;
-                    else html += `<div>小計：$${overallSubtotal.toLocaleString()}</div>`;
-                    
-                    html += nightBeforeDetails; 
-                    html += displayDiscount;
-                    
-                    formulaSpan.innerHTML = html;
-                    totalDisplay.textContent = `$${finalTotal.toLocaleString()}`;
-                    if (zonePriceInput) zonePriceInput.value = finalTotal;
-                } else { 
-                    resultDiv.classList.add('hidden'); 
                 }
+
+                bookedData = data;
+                console.log("✅ 庫存載入成功！共", Object.keys(data).length, "天資料", data);
+
+                const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
+                renderZones(activeFilter);
+                renderAddons();
+
+            } catch (err) {
+                console.error('❌ 抓取庫存失敗：', err);
             }
-
-            inDate.addEventListener('change', () => {
-                if (inDate.value) {
-                    const startDate = new Date(inDate.value);
-                    startDate.setDate(startDate.getDate() + 1);
-                    const nextDayStr = getLocalISODate(startDate);
-                    outDate.min = nextDayStr;
-                    
-                    if(outDate.value && outDate.value < nextDayStr) {
-                        outDate.value = "";
-                    }
-                }
-                
-                buildZones(inDate.value);
-                calculate();
-                const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
-                renderZones(activeFilter);
-                renderAddons();
-            });
-
-            outDate.addEventListener('change', () => {
-                calculate();
-                const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
-                renderZones(activeFilter);
-                renderAddons();
-            });
-
-            applyBtn.addEventListener('click', validateDiscount);
-            discountInput.addEventListener('change', validateDiscount);
-            window.reCalculate = calculate;
         }
-
-        // ==========================================
-        // 下方的 hasSpecialHoliday、isEventDateSpan、renderZones... 
-        // 以及所有按鈕與表單送出的程式碼，都維持你原本的樣子即可！完全不用改！
 
         async function initializeLiff() {
             try {
@@ -2024,62 +1577,6 @@ async function fetchInventory() {
             container.innerHTML = html;
         }
 
-     function setupCalculator() {
-            const inDate = document.getElementById('checkinDate');
-            const outDate = document.getElementById('checkoutDate');
-            const qtySelect = document.getElementById('quantitySelect');
-            const zoneInput = document.getElementById('selectedZoneInput');
-            const zonePriceInput = document.getElementById('selectedZonePrice');
-            const resultDiv = document.getElementById('priceCalcResult');
-            const formulaSpan = document.getElementById('priceFormula');
-            const totalDisplay = document.getElementById('totalPriceDisplay');
-            const stayDaysSpan = document.getElementById('stayDays');
-            const discountInput = document.getElementById('discountCodeInput');
-            const discountMsg = document.getElementById('discountMessage');
-            const applyBtn = document.getElementById('applyDiscountBtn');
-
-            function getDiscountAmount() {
-                const code = discountInput.value.trim().toUpperCase();
-                const originalCode = discountInput.value.trim();
-                if (discountCodes.hasOwnProperty(code)) return discountCodes[code];
-                else if (discountCodes.hasOwnProperty(originalCode)) return discountCodes[originalCode];
-                return 0;
-            }
-
-            function validateDiscount() {
-                const val = getDiscountAmount();
-                const code = discountInput.value.trim();
-                if (code === "") { 
-                    discountMsg.classList.add('hidden'); 
-                    calculate(); 
-                    return; 
-                }
-                
-                if (val > 0) {
-                    if (val < 1) {
-                        discountMsg.textContent = `✅ 已套用折扣：打 ${val * 10} 折`;
-                    } else {
-                        discountMsg.textContent = `✅ 已套用折扣：折抵 $${val}`;
-                    }
-                    discountMsg.className = "text-xs mt-1 pl-1 font-bold text-green-600 block";
-                } else {
-                    discountMsg.textContent = `❌ 無效的折扣碼`;
-                    discountMsg.className = "text-xs mt-1 pl-1 font-bold text-red-500 block";
-                }
-                calculate();
-            }
-
-            function getSpecialPrice(cat) {
-                switch(cat) {
-                    case 'grass': case 'shelter': case 'room': return 1400;
-                    case 'cabinL': return 3000;
-                    case 'cabinS': return 2600;
-                    case 'villa': return 22000;
-                    case 'camper': return 3600;
-                    default: return 1400;
-                }
-            }
-            
         function setupCalculator() {
             const inDate = document.getElementById('checkinDate');
             const outDate = document.getElementById('checkoutDate');
@@ -2094,14 +1591,6 @@ async function fetchInventory() {
             const discountMsg = document.getElementById('discountMessage');
             const applyBtn = document.getElementById('applyDiscountBtn');
 
-            // ★ 關鍵修復：安全獲取當地日期的 YYYY-MM-DD 格式 (避免 toISOString 的時區偏移 bug)
-            function getLocalISODate(dateObj) {
-                const y = dateObj.getFullYear();
-                const m = String(dateObj.getMonth() + 1).padStart(2, '0');
-                const d = String(dateObj.getDate()).padStart(2, '0');
-                return `${y}-${m}-${d}`;
-            }
-
             function getDiscountAmount() {
                 const code = discountInput.value.trim().toUpperCase();
                 const originalCode = discountInput.value.trim();
@@ -2363,6 +1852,7 @@ async function fetchInventory() {
                         }
                     }
 
+                    // ★ 確保能準確被抓取的隱藏總金額欄位
                     let discountInput = document.getElementById('actualDiscountAmount');
                     if (!discountInput) {
                         discountInput = document.createElement('input');
@@ -2391,7 +1881,6 @@ async function fetchInventory() {
                 }
             }
 
-            // ★ 關鍵修復2：回歸穩定的 change 事件，確保選擇日期後必定重新渲染庫存畫面
             inDate.addEventListener('change', () => {
                 if (inDate.value) {
                     const startDate = new Date(inDate.value);
@@ -2422,13 +1911,13 @@ async function fetchInventory() {
             discountInput.addEventListener('change', validateDiscount);
             window.reCalculate = calculate;
         }
-        }
-        function hasSpecialHoliday(startStr, endStr) {
+
+       function hasSpecialHoliday(startStr, endStr) {
             if(!startStr || !endStr) return false;
             let s = new Date(startStr);
             let e = new Date(endStr);
             for (let d = new Date(s); d < e; d.setDate(d.getDate() + 1)) {
-                if (SPECIAL_HOLIDAYS.includes(d.toISOString().split('T')[0])) return true;
+                if (SPECIAL_HOLIDAYS.includes(getLocalISODate(d))) return true;
             }
             return false;
         }
@@ -2438,10 +1927,11 @@ async function fetchInventory() {
             let s = new Date(startStr);
             let e = new Date(endStr);
             for (let d = new Date(s); d < e; d.setDate(d.getDate() + 1)) {
-                if (EVENT_DATES.includes(d.toISOString().split('T')[0])) return true;
+                if (EVENT_DATES.includes(getLocalISODate(d))) return true;
             }
             return false;
         }
+
         function getSpecialPriceDisplay(cat) {
              switch(cat) {
                 case 'grass': case 'shelter': case 'room': return 1400;
@@ -2453,7 +1943,7 @@ async function fetchInventory() {
             }
         }
 
-       function renderZones(filter) {
+        function renderZones(filter) {
             const container = document.getElementById('zoneContainer'); container.innerHTML = '';
             const inDate = document.getElementById('checkinDate').value; 
             const outDate = document.getElementById('checkoutDate').value;
@@ -2465,9 +1955,9 @@ async function fetchInventory() {
             if (inDate && outDate) {
                 const s = new Date(inDate); const e = new Date(outDate);
                 for (let d = new Date(s); d < e; d.setDate(d.getDate() + 1)) {
-                    let dateStr = d.toISOString().split('T')[0];
+                    let dateStr = getLocalISODate(d);
                     let tomorrow = new Date(d); tomorrow.setDate(tomorrow.getDate() + 1);
-                    let tomorrowStr = tomorrow.toISOString().split('T')[0];
+                    let tomorrowStr = getLocalISODate(tomorrow);
                     let tomorrowDw = tomorrow.getDay();
                     
                     let isTomorrowRed = (tomorrowDw === 0 || tomorrowDw === 6) || SPECIAL_HOLIDAYS.includes(tomorrowStr);
@@ -2484,7 +1974,7 @@ async function fetchInventory() {
             if (inDate && outDate && bookedData) {
                 const start = new Date(inDate); const end = new Date(outDate);
                 for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
-                    let dateStr = d.toISOString().split('T')[0];
+                    let dateStr = getLocalISODate(d);
                     if (bookedData[dateStr] && bookedData[dateStr].zones) {
                         for (let [zName, qty] of Object.entries(bookedData[dateStr].zones)) {
                             bookedMap[zName] = Math.max(bookedMap[zName] || 0, qty);
@@ -2516,7 +2006,7 @@ async function fetchInventory() {
                 const div = document.createElement('div');
                 div.className = `zone-card bg-white rounded-xl p-3 relative flex items-center h-32 md:h-36 ${isFull ? 'disabled-card' : ''} ${currentQty > 0 ? 'selected' : ''}`;
                 
-               let displayPrice = zone.price;
+                let displayPrice = zone.price;
                 let priceClass = "text-green-600";
                 
                 if (hasEvent) {
@@ -2548,36 +2038,35 @@ async function fetchInventory() {
 
                 let blockText = isFull ? '<span class="text-xs text-red-500 font-bold block">已額滿</span>' : (inDate && outDate ? `<span class="text-[10px] text-blue-600 font-bold block">剩餘 1 帳</span>` : "");
                 
-               let actionBtn = isFull ? 
-    `<span class="bg-gray-200 text-gray-400 px-5 py-3 rounded-2xl text-sm font-bold">已額滿</span>` : 
-    `
-    <div class="flex items-center bg-stone-100 rounded-3xl border border-stone-200 shadow-sm flex-shrink-0">
-        <button type="button" 
-                class="w-8 h-8 text-stone-700 font-bold text-lg hover:bg-stone-200 active:bg-stone-300 transition flex items-center justify-center rounded-l-3xl border-r border-stone-200" 
-                onclick="updateZoneQty(event, '${zone.name}', -1, 1)">−</button>
-        <div class="w-9 text-center font-bold text-base text-stone-800">${currentQty}</div>
-        <button type="button" 
-                class="w-8 h-8 bg-stone-800 text-white font-bold text-lg hover:bg-stone-700 active:bg-stone-900 transition flex items-center justify-center rounded-r-3xl" 
-                onclick="updateZoneQty(event, '${zone.name}', 1, 1)">+</button>
-    </div>`;
+                let actionBtn = isFull ? 
+                `<span class="bg-gray-200 text-gray-400 px-5 py-3 rounded-2xl text-sm font-bold">已額滿</span>` : 
+                `
+                <div class="flex items-center bg-stone-100 rounded-3xl border border-stone-200 shadow-sm flex-shrink-0">
+                    <button type="button" 
+                            class="w-8 h-8 text-stone-700 font-bold text-lg hover:bg-stone-200 active:bg-stone-300 transition flex items-center justify-center rounded-l-3xl border-r border-stone-200" 
+                            onclick="updateZoneQty(event, '${zone.name}', -1, 1)">−</button>
+                    <div class="w-9 text-center font-bold text-base text-stone-800">${currentQty}</div>
+                    <button type="button" 
+                            class="w-8 h-8 bg-stone-800 text-white font-bold text-lg hover:bg-stone-700 active:bg-stone-900 transition flex items-center justify-center rounded-r-3xl" 
+                            onclick="updateZoneQty(event, '${zone.name}', 1, 1)">+</button>
+                </div>`;
 
-               div.innerHTML = `
-    <div class="w-28 h-full md:w-36 flex-shrink-0 rounded-xl overflow-hidden relative mr-4 shadow-sm">
-        <img src="${zone.images[0]}" class="w-full h-full object-cover">
-    </div>
-    <div class="flex-1 flex flex-col justify-between h-full py-2 min-w-0">
-        <div>
-            <h3 class="font-bold text-stone-800 text-base leading-tight truncate">${zone.name}</h3>
-            <p class="text-[11px] text-gray-500 truncate">${zone.desc}</p>
-            ${blockText}
-            <p class="${priceClass} font-bold text-base mt-1 truncate">$${displayPrice.toLocaleString()} <span class="text-xs text-gray-400 font-normal">/晚</span></p>
-        </div>
-        
-        <!-- 加大後的 + / - 按鈕 -->
-        <div class="flex items-center justify-end select-none flex-shrink-0 mt-3">
-            ${actionBtn}
-        </div>
-    </div>`;
+                div.innerHTML = `
+                <div class="w-28 h-full md:w-36 flex-shrink-0 rounded-xl overflow-hidden relative mr-4 shadow-sm">
+                    <img src="${zone.images[0]}" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-1 flex flex-col justify-between h-full py-2 min-w-0">
+                    <div>
+                        <h3 class="font-bold text-stone-800 text-base leading-tight truncate">${zone.name}</h3>
+                        <p class="text-[11px] text-gray-500 truncate">${zone.desc}</p>
+                        ${blockText}
+                        <p class="${priceClass} font-bold text-base mt-1 truncate">$${displayPrice.toLocaleString()} <span class="text-xs text-gray-400 font-normal">/晚</span></p>
+                    </div>
+                    
+                    <div class="flex items-center justify-end select-none flex-shrink-0 mt-3">
+                        ${actionBtn}
+                    </div>
+                </div>`;
                 
                 div.onclick = (e) => {
                     if (e.target.closest('button')) return;
@@ -2716,8 +2205,10 @@ async function fetchInventory() {
                 btn.innerText = '處理中...';
                 const formData = new FormData(e.target);
                 
-                const totalText = document.getElementById('totalPriceDisplay').innerText.replace('$','').replace(/,/g,'');
-                const finalTotal = parseInt(totalText) || 0;
+                // ★ 修正：確保不管怎樣都抓得到總金額，不依賴顯示用的文字欄位
+                const zonePriceInput = document.getElementById('selectedZonePrice');
+                const finalTotal = parseInt(zonePriceInput.value) || 0;
+
                 const inDateStr = document.getElementById('checkinDate').value;
                 const outDateStr = document.getElementById('checkoutDate').value;
                 
@@ -2742,7 +2233,6 @@ async function fetchInventory() {
                     if (discountCodes.hasOwnProperty(code)) discountVal = discountCodes[code];
                     else if (discountCodes.hasOwnProperty(originalCode)) discountVal = discountCodes[originalCode];
                     
-                   // 直接從第一步產生的隱藏欄位中抓取精準的折抵金額
                     let discountAmount = 0;
                     const appliedDiscountEl = document.getElementById('actualDiscountAmount');
                     if (appliedDiscountEl) {
@@ -2764,10 +2254,10 @@ async function fetchInventory() {
                     
                     const isNightBeforeChecked = document.querySelector('input[name="夜衝選項"]:checked')?.value === '是';
                     if(isNightBeforeChecked) {
-                         const nbDate = new Date(new Date(inDateStr).getTime() - 86400000).toISOString().split('T')[0];
-                         note += ` [含夜衝: ${nbDate}]`;
+                         const nbDate = new Date(new Date(inDateStr).getTime() - 86400000);
+                         note += ` [含夜衝: ${getLocalISODate(nbDate)}]`;
                          
-                         formData.set('入住日期', nbDate);
+                         formData.set('入住日期', getLocalISODate(nbDate));
                          formData.set('入住天數', days + 1);
                     }
                     formData.set('備註需求', note);
@@ -2823,6 +2313,7 @@ async function fetchInventory() {
             if(btn.textContent === '住宿/懶人') btn.setAttribute('data-filter', 'room');
             if(btn.textContent === '草地/碎石') btn.setAttribute('data-filter', 'grass');
         });
+
         // --- 曬帳專區邏輯開始 ---
         // 1. 動態計算金額與數量
         window.updateTentDryingQty = (delta) => {
@@ -2862,6 +2353,7 @@ async function fetchInventory() {
             });
         }
         // --- 曬帳專區邏輯結束 ---
+        
         init();
     </script>
 </body>
