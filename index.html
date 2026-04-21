@@ -1645,7 +1645,7 @@ async function fetchInventory() {
             container.innerHTML = html;
         }
 
-      function setupCalculator() {
+     function setupCalculator() {
             const inDate = document.getElementById('checkinDate');
             const outDate = document.getElementById('checkoutDate');
             const qtySelect = document.getElementById('quantitySelect');
@@ -1705,23 +1705,6 @@ async function fetchInventory() {
                 const cartEntries = Object.entries(cart);
                 const addonEntries = Object.entries(addonCart);
                 
-                if (cartEntries.length === 0 && addonEntries.length === 0) {
-                    resultDiv.classList.add('hidden');
-                    zoneInput.value = "";
-                    return;
-                }
-                
-                let zoneStr = cartEntries.map(([name, qty]) => `${name} * ${qty}`).join(', ');
-                let addonStr = addonEntries.map(([name, qty]) => `${name} * ${qty}`).join(', ');
-                
-                let fullDetails = zoneStr;
-                if (zoneStr && addonStr) fullDetails += ', ' + addonStr;
-                else if (!zoneStr && addonStr) fullDetails = addonStr;
-                
-                zoneInput.value = fullDetails;
-                const totalQty = Object.values(cart).reduce((a, b) => a + b, 0);
-                if (qtySelect) qtySelect.value = totalQty > 0 ? totalQty : 1;
-                
                 let days = 0;
                 let totalPrice = 0;
                 let blocked = false;
@@ -1732,6 +1715,7 @@ async function fetchInventory() {
                 let nightBeforePriceTotal = 0;
                 let nightBeforeDetails = "";
                 
+                // ★ 修正1：先把日期、天數與夜衝的判斷移到最前面 (不管有沒有選營位都要顯示)
                 if (inDate.value && outDate.value) {
                     const start = new Date(inDate.value);
                     const end = new Date(outDate.value);
@@ -1758,92 +1742,17 @@ async function fetchInventory() {
                             if(noRadio) noRadio.checked = true; 
                         }
 
-                        if (isNightBeforeChecked && nightBeforeDate) {
-                            cartEntries.forEach(([zoneName, qty]) => {
-                                const zoneData = zones.find(z => z.name === zoneName);
-                                if (!zoneData) return;
-                                
-                                let nPrice = 0;
-                                let baseTents = zoneData.baseTents || 1; 
-                                
-                                if (['grass', 'shelter', 'room'].includes(zoneData.cat) && zoneData.name !== '小木屋 (大)' && zoneData.name !== '小木屋 (小)' && zoneData.name !== '三人頂級露營車' && zoneData.name !== '包棟民宿 (16人)') {
-                                    nPrice = 600 * baseTents; 
-                                } else {
-                                    nPrice = zoneData.price / 2;
-                                }
-                                nightBeforePriceTotal += nPrice * qty;
-                            });
-                            
-                            if(nightBeforePriceTotal > 0){
-                                nightBeforeDetails = `<div class="text-blue-600 mt-1">含夜衝 (${nightBeforeDate.toISOString().split('T')[0]}): +$${nightBeforePriceTotal.toLocaleString()}</div>`;
-                                
-                                let nbDateStr = nightBeforeDate.toISOString().split('T')[0];
-                                if (bookedData[nbDateStr] && bookedData[nbDateStr].zones) {
-                                     cartEntries.forEach(([zoneName, qty]) => {
-                                         if(bookedData[nbDateStr].zones[zoneName]) {
-                                             blocked = true; 
-                                             blockMsg = `您選擇的營位在夜衝日 (${nbDateStr}) 已被預訂，無法夜衝。`;
-                                         }
-                                     });
-                                }
-                            }
-                        }
-                        
-                       for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
+                        // 檢查包場日期
+                        for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
                             let dateStr = d.toISOString().split('T')[0];
-                            
-                            let tomorrow = new Date(d);
-                            tomorrow.setDate(tomorrow.getDate() + 1);
-                            let tomorrowStr = tomorrow.toISOString().split('T')[0];
-                            let tomorrowDw = tomorrow.getDay();
-                            
-                            const isTomorrowRed = (tomorrowDw === 0 || tomorrowDw === 6) || SPECIAL_HOLIDAYS.includes(tomorrowStr);
-                            
                             if (BLOCKED_DATES.includes(dateStr)) {
                                 blocked = true; blockMsg = `【當天已包場滿額】${dateStr}，請重新預定選擇日期`; break;
                             }
-                            
-                            const isEventDay = EVENT_DATES.includes(dateStr);
-
-                            let dailyTotal = 0;
-                            
-                            cartEntries.forEach(([zoneName, qty]) => {
-                                const zoneData = zones.find(z => z.name === zoneName);
-                                if (!zoneData) return;
-                                
-                                let price = zoneData.price;
-                                let baseTents = zoneData.baseTents || 1;
-                                
-                                if (isEventDay) {
-                                    switch(zoneData.cat) {
-                                        case 'grass': case 'shelter': case 'room': price = 2000 * baseTents; break;
-                                        case 'cabinL': price = 3100; break;
-                                        case 'cabinS': price = 2700; break;
-                                        case 'villa': price = 22500; break;
-                                        case 'camper': price = 7000; break;
-                                        default: price = 2000 * baseTents;
-                                    }
-                                } else if (SPECIAL_HOLIDAYS.includes(dateStr) && isTomorrowRed) {
-                                    price = zoneData.holidayPrice || getSpecialPrice(zoneData.cat);
-                                } else if (isTomorrowRed) {
-                                    if (zoneData.weekendPrice) {
-                                        price = zoneData.weekendPrice;
-                                    } else if (['grass', 'shelter', 'room'].includes(zoneData.cat)) {
-                                        price = 1200;
-                                    } else {
-                                        price = getSpecialPrice(zoneData.cat);
-                                    }
-                                } else {
-                                    price = zoneData.price;
-                                }
-                                
-                                dailyTotal += price * qty;
-                            });
-                            
-                            if (blocked) break;
-                            totalPrice += dailyTotal;
                         }
-                    } else { stayDaysSpan.classList.add('hidden'); days = 0; }
+                    } else { 
+                        stayDaysSpan.classList.add('hidden'); 
+                        days = 0; 
+                    }
                 }
                 
                 if (blocked) {
@@ -1857,10 +1766,126 @@ async function fetchInventory() {
                     renderAddons();
                     return;
                 }
-                
-                let basePrice = totalPrice + nightBeforePriceTotal; // 營位費 + 夜衝費 (適用折扣)
 
-                let addonTotal = 0; // 加購費 (不適用折扣)
+                // ★ 修正2：如果還沒選營位/加購，在這裡退出即可 (此時「共X晚」已經正常顯示了)
+                if (cartEntries.length === 0 && addonEntries.length === 0) {
+                    resultDiv.classList.add('hidden');
+                    zoneInput.value = "";
+                    return;
+                }
+                
+                let zoneStr = cartEntries.map(([name, qty]) => `${name} * ${qty}`).join(', ');
+                let addonStr = addonEntries.map(([name, qty]) => `${name} * ${qty}`).join(', ');
+                
+                let fullDetails = zoneStr;
+                if (zoneStr && addonStr) fullDetails += ', ' + addonStr;
+                else if (!zoneStr && addonStr) fullDetails = addonStr;
+                
+                zoneInput.value = fullDetails;
+                const totalQty = Object.values(cart).reduce((a, b) => a + b, 0);
+                if (qtySelect) qtySelect.value = totalQty > 0 ? totalQty : 1;
+                
+                if (isNightBeforeChecked && nightBeforeDate) {
+                    cartEntries.forEach(([zoneName, qty]) => {
+                        const zoneData = zones.find(z => z.name === zoneName);
+                        if (!zoneData) return;
+                        
+                        let nPrice = 0;
+                        let baseTents = zoneData.baseTents || 1; 
+                        
+                        if (['grass', 'shelter', 'room'].includes(zoneData.cat) && zoneData.name !== '小木屋 (大)' && zoneData.name !== '小木屋 (小)' && zoneData.name !== '三人頂級露營車' && zoneData.name !== '包棟民宿 (16人)') {
+                            nPrice = 600 * baseTents; 
+                        } else {
+                            nPrice = zoneData.price / 2;
+                        }
+                        nightBeforePriceTotal += nPrice * qty;
+                    });
+                    
+                    if(nightBeforePriceTotal > 0){
+                        nightBeforeDetails = `<div class="text-blue-600 mt-1">含夜衝 (${nightBeforeDate.toISOString().split('T')[0]}): +$${nightBeforePriceTotal.toLocaleString()}</div>`;
+                        
+                        let nbDateStr = nightBeforeDate.toISOString().split('T')[0];
+                        if (bookedData[nbDateStr] && bookedData[nbDateStr].zones) {
+                             cartEntries.forEach(([zoneName, qty]) => {
+                                 if(bookedData[nbDateStr].zones[zoneName]) {
+                                     blocked = true; 
+                                     blockMsg = `您選擇的營位在夜衝日 (${nbDateStr}) 已被預訂，無法夜衝。`;
+                                 }
+                             });
+                        }
+                    }
+                }
+                
+                if (blocked) {
+                    alert(blockMsg);
+                    inDate.value = ''; outDate.value = '';
+                    resultDiv.classList.add('hidden');
+                    cart = {};
+                    zoneInput.value = '';
+                    const activeFilterBtn = document.querySelector('.filter-btn.active');
+                    if(activeFilterBtn) renderZones(activeFilterBtn.getAttribute('data-filter'));
+                    renderAddons();
+                    return;
+                }
+
+                if (inDate.value && outDate.value && days > 0) {
+                    const start = new Date(inDate.value);
+                    const end = new Date(outDate.value);
+                    
+                    for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
+                        let dateStr = d.toISOString().split('T')[0];
+                        
+                        let tomorrow = new Date(d);
+                        tomorrow.setDate(tomorrow.getDate() + 1);
+                        let tomorrowStr = tomorrow.toISOString().split('T')[0];
+                        let tomorrowDw = tomorrow.getDay();
+                        
+                        const isTomorrowRed = (tomorrowDw === 0 || tomorrowDw === 6) || SPECIAL_HOLIDAYS.includes(tomorrowStr);
+                        
+                        const isEventDay = EVENT_DATES.includes(dateStr);
+
+                        let dailyTotal = 0;
+                        
+                        cartEntries.forEach(([zoneName, qty]) => {
+                            const zoneData = zones.find(z => z.name === zoneName);
+                            if (!zoneData) return;
+                            
+                            let price = zoneData.price;
+                            let baseTents = zoneData.baseTents || 1;
+                            
+                            if (isEventDay) {
+                                switch(zoneData.cat) {
+                                    case 'grass': case 'shelter': case 'room': price = 2000 * baseTents; break;
+                                    case 'cabinL': price = 3100; break;
+                                    case 'cabinS': price = 2700; break;
+                                    case 'villa': price = 22500; break;
+                                    case 'camper': price = 7000; break;
+                                    default: price = 2000 * baseTents;
+                                }
+                            } else if (SPECIAL_HOLIDAYS.includes(dateStr) && isTomorrowRed) {
+                                price = zoneData.holidayPrice || getSpecialPrice(zoneData.cat);
+                            } else if (isTomorrowRed) {
+                                if (zoneData.weekendPrice) {
+                                    price = zoneData.weekendPrice;
+                                } else if (['grass', 'shelter', 'room'].includes(zoneData.cat)) {
+                                    price = 1200;
+                                } else {
+                                    price = getSpecialPrice(zoneData.cat);
+                                }
+                            } else {
+                                price = zoneData.price;
+                            }
+                            
+                            dailyTotal += price * qty;
+                        });
+                        
+                        totalPrice += dailyTotal;
+                    }
+                }
+                
+                let basePrice = totalPrice + nightBeforePriceTotal;
+
+                let addonTotal = 0; 
                 addonEntries.forEach(([name, qty]) => {
                     let item = rentals.find(r => r.name === name) || tents.find(t => t.name === name) || bbqs.find(b => b.name === name);
                     if (item) {
@@ -1868,7 +1893,7 @@ async function fetchInventory() {
                     }
                 });
 
-                let overallSubtotal = basePrice + addonTotal; // 尚未打折的整體總計
+                let overallSubtotal = basePrice + addonTotal;
 
                 if (overallSubtotal > 0) {
                     const discountVal = getDiscountAmount();
@@ -1917,40 +1942,41 @@ async function fetchInventory() {
                 } else { 
                     resultDiv.classList.add('hidden'); 
                 }
-            } // ★ 就是這個括號！現在已經補好了！
+            }
 
-            inDate.addEventListener('change', () => {
-                if (inDate.value) {
-                    const startDate = new Date(inDate.value);
-                    startDate.setDate(startDate.getDate() + 1);
-                    const nextDayStr = startDate.toISOString().split('T')[0];
-                    outDate.min = nextDayStr;
-                    
-                    if(outDate.value && outDate.value < nextDayStr) {
-                        outDate.value = "";
+            // ★ 修正3：加入 'input' 監聽，解決手機版 DatePicker 需要點擊旁邊才會觸發的痛點
+            ['change', 'input'].forEach(evt => {
+                inDate.addEventListener(evt, () => {
+                    if (inDate.value) {
+                        const startDate = new Date(inDate.value);
+                        startDate.setDate(startDate.getDate() + 1);
+                        const nextDayStr = startDate.toISOString().split('T')[0];
+                        outDate.min = nextDayStr;
+                        
+                        if(outDate.value && outDate.value < nextDayStr) {
+                            outDate.value = "";
+                        }
                     }
-                }
-                
-                buildZones(inDate.value);
-                
-                calculate();
-                const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
-                renderZones(activeFilter);
-                renderAddons();
-            });
+                    
+                    buildZones(inDate.value);
+                    calculate();
+                    const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
+                    renderZones(activeFilter);
+                    renderAddons();
+                });
 
-            outDate.addEventListener('change', () => {
-                calculate();
-                const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
-                renderZones(activeFilter);
-                renderAddons();
+                outDate.addEventListener(evt, () => {
+                    calculate();
+                    const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
+                    renderZones(activeFilter);
+                    renderAddons();
+                });
             });
 
             applyBtn.addEventListener('click', validateDiscount);
             discountInput.addEventListener('change', validateDiscount);
             window.reCalculate = calculate;
         }
-
         function hasSpecialHoliday(startStr, endStr) {
             if(!startStr || !endStr) return false;
             let s = new Date(startStr);
