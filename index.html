@@ -1645,6 +1645,7 @@
             function getSpecialPrice(cat) {
                 switch(cat) {
                     case 'grass': case 'shelter': case 'room': return 1400;
+                    case 'room': return 1600;
                     case 'cabinL': return 3000;
                     case 'cabinS': return 2600;
                     case 'villa': return 16000;
@@ -1814,7 +1815,7 @@
                                     case 'grass': case 'shelter': case 'room': price = 2000 * baseTents; break;
                                     case 'cabinL': price = 3100; break;
                                     case 'cabinS': price = 2700; break;
-                                    case 'villa': price = 22500; break;
+                                    case 'villa': price = 17400; break;
                                     case 'camper': price = 7000; break;
                                     default: price = 2000 * baseTents;
                                 }
@@ -1823,8 +1824,10 @@
                             } else if (isTomorrowRed) {
                                 if (zoneData.weekendPrice) {
                                     price = zoneData.weekendPrice;
-                                } else if (['grass', 'shelter', 'room'].includes(zoneData.cat)) {
+                                } else if (['grass', 'shelter'].includes(zoneData.cat)) {
                                     price = 1200;
+} else if (['room'].includes(zoneData.cat)) {
+                                    price = 1400;
                                 } else {
                                     price = getSpecialPrice(zoneData.cat);
                                 }
@@ -1954,7 +1957,8 @@
 
         function getSpecialPriceDisplay(cat) {
              switch(cat) {
-                case 'grass': case 'shelter': case 'room': return 1400;
+                case 'grass': case 'shelter': return 1400;
+                case 'room': return 1600;
                 case 'cabinL': return 3000;
                 case 'cabinS': return 2600;
                 case 'villa': return 16000;
@@ -2047,8 +2051,10 @@
                     if (zone.weekendPrice) {
                         displayPrice = zone.weekendPrice;
                         priceClass = "text-orange-600";
-                    } else if (['grass', 'shelter', 'room'].includes(zone.cat)) {
+                    } else if (['grass', 'shelter'].includes(zone.cat)) {
                         displayPrice = 1200;
+} else if (['room'].includes(zone.cat)) {
+                        displayPrice = 1400;
                         priceClass = "text-orange-600";
                     } else {
                         displayPrice = getSpecialPriceDisplay(zone.cat);
