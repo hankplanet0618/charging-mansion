@@ -818,7 +818,7 @@
         const discountCodes = {
             'CHUNHUNGLINONLY': 99999999, 'LINE100': 100, '首次加入好友優惠券': 100, '首次加入好友禮': 100,
             'TESLA400': 400, 'CM100': 100, '竹科臻邦': 500, '蓓蓓團': 0.5, '芮蒂': 500,
-            '普卡': 0.55, 'VIP卡': 0.45, '特惠': 300, 'CNY': 100, '包場': 0.85, 'VIP': 0.9,
+            '普卡': 0.55, 'VIP卡': 0.45, '特惠': 200, 'CNY': 100, '包場': 0.85, 'VIP': 0.9,
             'CHILL孩': 0.95, 'T9VM4XKP': 999999999, 'RC7L2YQW': 999999999, '愛學館信義校': 0.9,
         };
 
@@ -828,7 +828,32 @@
         let bookedData = {};
         let zones = [];
         let currentZoneMode = null; 
+// 宣告全域變數
+        let cart = {};
+        let addonCart = {};
+        let bookedData = {};
+        let zones = [];
+        let currentZoneMode = null; 
 
+        // ==========================================
+        // ★ 新增：營位尺寸對照表
+        // ==========================================
+        function getCampSize(name) {
+            if (name === '棚架A1') return '4m*6m';
+            if (name.startsWith('棚架A') && name !== '棚架A1') return '6m*7m';
+            if (name.startsWith('棚架B')) return '4.5m*6m';
+            if (name.startsWith('棚架C')) return '內4.5m*2.5m、外4.5m*2.5m(半雨棚)';
+            if (name.startsWith('棧板A')) return '4m*8m';
+            if (name.startsWith('棧板B')) return '3.5m*4m';
+            if (name.startsWith('泰式')) return '3m*2.5m';
+            if (name === '草地區1') return '4m*6m';
+            if (name === '草地區2') return '8m*10m';
+            if (name === '草地區3') return '5m*8m(部分水泥地)';
+            if (name === '草地區4' || name === '草地區5' || name === '草地區6') return '4m*8m';
+            if (name === '碎石區1') return '4m*8m(部分水泥地)';
+            if (name === '碎石區2') return '4m*8m';
+            return '';
+        }
         // ★ 關鍵修復：將此函數移到全域，確保網頁上所有功能都能呼叫它！
         function getLocalISODate(dateObj) {
             const y = dateObj.getFullYear();
@@ -884,26 +909,28 @@
                         else if (zone.name === '泰式免搭') spotName = `泰式${String.fromCharCode(64 + i)}`;
                         else spotName = `${zone.name}${i}`;
 
-                        zones.push({
-                            ...zone,
-                            id: `${zone.id}_${i}`,
-                            name: spotName,
-                            count: 1,
-                            desc: `專屬營位: ${spotName}`,
-                            originalName: zone.name 
-                        });
-                    }
-                } else {
+                        // 修改第一個 zones.push (針對有多個數量的營區)
+                    zones.push({
+                        ...zone,
+                        id: `${zone.id}_${i}`,
+                        name: spotName,
+                        count: 1,
+                        desc: `專屬營位: ${spotName}`,
+                        originalName: zone.name,
+                        sizeText: getCampSize(spotName) // <== 新增這一行
+                    });
+                }
+            } else {
+                    // 修改第二個 zones.push (針對包區或單一數量的營區)
                     zones.push({
                         ...zone,
                         name: zone.name,
                         count: 1,
                         desc: zone.desc,
-                        originalName: zone.name
+                        originalName: zone.name,
+                        sizeText: getCampSize(zone.name) // <== 新增這一行
                     });
-                }
-            });
-        }
+            }
 
         const rentals = [
             { id: 'R01', name: '月亮椅/休閒椅', price: 100, stock: 3 },
