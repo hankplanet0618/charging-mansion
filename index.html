@@ -1876,7 +1876,7 @@
 
                 let overallSubtotal = basePrice + addonTotal;
 
-               if (overallSubtotal > 0) {
+              if (overallSubtotal > 0) {
                     const discountVal = getDiscountAmount();
                     // 取得使用者輸入的原始折扣碼，用來判斷是否為 VIP卡
                     const enteredCode = document.getElementById('discountCodeInput').value.trim().toUpperCase();
@@ -1905,7 +1905,8 @@
                         // 計算距離入住日還有幾天
                         const today = new Date();
                         today.setHours(0, 0, 0, 0);
-                        const checkinD = new Date(inDateStr);
+                        // 修正：使用 inDate.value 取代未定義的 inDateStr
+                        const checkinD = new Date(inDate.value);
                         checkinD.setHours(0, 0, 0, 0);
                         const diffDaysCheckin = Math.ceil((checkinD.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
 
