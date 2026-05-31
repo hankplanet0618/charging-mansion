@@ -573,7 +573,7 @@
                     <li>
                         <span class="font-bold text-purple-600">夜衝優惠：</span>
                         <ul class="list-circle pl-4 mt-1 text-gray-600">
-                            <li>時間：17:00 - 22:00 入場。</li>
+                            <li>時間：17:00後入場。</li>
                             <li>自搭帳及車泊：每帳 <span class="font-bold">$600</span>。</li>
                             <li>民宿、小木屋、露營車及代搭系列：享 <span class="font-bold">5 折優惠</span>。</li>
                         </ul>
@@ -642,7 +642,7 @@
                 <div class="bg-stone-50 p-4 rounded-lg border border-stone-100">
                     <h4 class="font-bold text-stone-800 text-sm mb-2"><i class="fas fa-moon text-yellow-500 mr-2"></i>Q: 夜衝時間與計費方式？</h4>
                     <p class="text-gray-600 text-xs leading-relaxed">
-                        A: 夜衝時間為 17:00 - 22:00 之間入場。2026/04/01-2026/5/31為螢火蟲管制時間，管制時間為每日17:00-20:00，夜衝提早至15:00<br>
+                        A: 夜衝時間為 17:00 後入場。<br>
                         自搭帳及車泊：每帳 <span class="font-bold">$600</span>。<br>
                         民宿、小木屋、露營車及代搭系列：享 <span class="font-bold">5 折優惠</span>。
                     </p>
@@ -1876,26 +1876,64 @@
 
                 let overallSubtotal = basePrice + addonTotal;
 
-                if (overallSubtotal > 0) {
+               if (overallSubtotal > 0) {
                     const discountVal = getDiscountAmount();
+                    // 取得使用者輸入的原始折扣碼，用來判斷是否為 VIP卡
+                    const enteredCode = document.getElementById('discountCodeInput').value.trim().toUpperCase();
+
                     let finalTotal = overallSubtotal;
                     let displayDiscount = "";
                     let actualDiscountAmt = 0;
 
+                    // 1. 一般折扣碼計算
                     if (discountVal > 0) {
                         if (basePrice > 0) {
-                            if (discountVal < 1) { 
+                            if (discountVal < 1) {
                                 actualDiscountAmt = Math.round(basePrice * (1 - discountVal));
-                                displayDiscount = `<div class="text-green-600">折扣優惠：打 ${discountVal * 10} 折 (-$${actualDiscountAmt})</div>`;
-                            } else { 
+                                displayDiscount += `<div class="text-green-600">折扣優惠：打 ${discountVal * 10} 折 (-$${actualDiscountAmt})</div>`;
+                            } else {
                                 actualDiscountAmt = Math.min(basePrice, discountVal);
-                                displayDiscount = `<div class="text-green-600">折扣優惠：-$${actualDiscountAmt}</div>`;
+                                displayDiscount += `<div class="text-green-600">折扣優惠：-$${actualDiscountAmt}</div>`;
                             }
-                            finalTotal = basePrice - actualDiscountAmt + addonTotal;
                         } else {
-                            displayDiscount = `<div class="text-xs text-orange-500 mt-1 font-bold">※ 折扣碼僅適用於營位與夜衝費</div>`;
+                            displayDiscount += `<div class="text-xs text-orange-500 mt-1 font-bold">※ 折扣碼僅適用於營位與夜衝費</div>`;
                         }
                     }
+
+                    // 2. 晚鳥/小晚鳥優惠計算 (排除 VIP卡)
+                    if (basePrice > 0 && enteredCode !== 'VIP卡' && enteredCode !== '【VIP卡】') {
+                        // 計算距離入住日還有幾天
+                        const today = new Date();
+                        today.setHours(0, 0, 0, 0);
+                        const checkinD = new Date(inDateStr);
+                        checkinD.setHours(0, 0, 0, 0);
+                        const diffDaysCheckin = Math.ceil((checkinD.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+
+                        let lateBirdDiscount = 0;
+                        let lateBirdName = "";
+
+                        if (diffDaysCheckin >= 0 && diffDaysCheckin <= 7) { // 當周 (7天內)
+                            lateBirdDiscount = 200;
+                            lateBirdName = "【晚鳥優惠】";
+                        } else if (diffDaysCheckin >= 8 && diffDaysCheckin <= 14) { // 前一周 (8~14天內)
+                            lateBirdDiscount = 100;
+                            lateBirdName = "【小晚鳥優惠】";
+                        }
+
+                        // 若有晚鳥優惠，則加總到總折扣中並顯示
+                        if (lateBirdDiscount > 0) {
+                            // 確保折抵後營位費不為負數 (避免折扣大於訂單金額)
+                            const remainingBasePrice = basePrice - actualDiscountAmt;
+                            if (remainingBasePrice > 0) {
+                                const appliedLateBird = Math.min(remainingBasePrice, lateBirdDiscount);
+                                actualDiscountAmt += appliedLateBird;
+                                displayDiscount += `<div class="text-green-600 font-bold">${lateBirdName}：-$${appliedLateBird}</div>`;
+                            }
+                        }
+                    }
+
+                    // 3. 結算最終總金額
+                    finalTotal = basePrice - actualDiscountAmt + addonTotal;
 
                     // ★ 確保能準確被抓取的隱藏總金額欄位
                     let discountInput = document.getElementById('actualDiscountAmount');
