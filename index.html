@@ -1900,12 +1900,11 @@
                         }
                     }
 
-                    // 2. 晚鳥/小晚鳥優惠計算 (排除 VIP卡)
+// 2. 晚鳥/小晚鳥優惠計算 (排除 VIP卡)
                     if (basePrice > 0 && enteredCode !== 'VIP卡' && enteredCode !== '【VIP卡】') {
                         // 計算距離入住日還有幾天
                         const today = new Date();
                         today.setHours(0, 0, 0, 0);
-                        // 修正：使用 inDate.value 取代未定義的 inDateStr
                         const checkinD = new Date(inDate.value);
                         checkinD.setHours(0, 0, 0, 0);
                         const diffDaysCheckin = Math.ceil((checkinD.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
@@ -1914,26 +1913,34 @@
                         let lateBirdName = "";
 
                         if (diffDaysCheckin >= 0 && diffDaysCheckin <= 7) { // 當周 (7天內)
-                            lateBirdDiscount = 200;
+                            lateBirdDiscount = 0.9; // 代表打 9 折
                             lateBirdName = "【晚鳥優惠】";
                         } else if (diffDaysCheckin >= 8 && diffDaysCheckin <= 14) { // 前一周 (8~14天內)
-                            lateBirdDiscount = 100;
+                            lateBirdDiscount = 0.95; // 代表打 95 折
                             lateBirdName = "【小晚鳥優惠】";
                         }
 
                         // 若有晚鳥優惠，則加總到總折扣中並顯示
                         if (lateBirdDiscount > 0) {
-                            // 確保折抵後營位費不為負數 (避免折扣大於訂單金額)
                             const remainingBasePrice = basePrice - actualDiscountAmt;
                             if (remainingBasePrice > 0) {
-                                const appliedLateBird = Math.min(remainingBasePrice, lateBirdDiscount);
+                                let appliedLateBird = 0;
+                                
+                                // 判斷是「打折」還是「固定金額」
+                                if (lateBirdDiscount < 1) {
+                                    // 小數點處理：計算要扣除的金額 (例如 0.9，就是扣除 10% 的錢)
+                                    appliedLateBird = Math.round(remainingBasePrice * (1 - lateBirdDiscount));
+                                    displayDiscount += `<div class="text-green-600 font-bold">${lateBirdName} (打${lateBirdDiscount * 10}折)：-$${appliedLateBird}</div>`;
+                                } else {
+                                    // 固定金額處理
+                                    appliedLateBird = Math.min(remainingBasePrice, lateBirdDiscount);
+                                    displayDiscount += `<div class="text-green-600 font-bold">${lateBirdName}：-$${appliedLateBird}</div>`;
+                                }
+                                
                                 actualDiscountAmt += appliedLateBird;
-                                displayDiscount += `<div class="text-green-600 font-bold">${lateBirdName}：-$${appliedLateBird}</div>`;
                             }
                         }
-                    }
-
-                    // 3. 結算最終總金額
+                    }                    // 3. 結算最終總金額
                     finalTotal = basePrice - actualDiscountAmt + addonTotal;
 
                     // ★ 確保能準確被抓取的隱藏總金額欄位
