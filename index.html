@@ -743,48 +743,82 @@ const gears = [
     {n:'樂活不露二代風扇',p:'400'},{n:'移動式冷氣',p:'800'},{n:'電動車車床方案',p:'150'}
 ];
     function buildZones(dateStr) {
-        const isZoneMode = dateStr ? dateStr >= '2026-06-01' : false;
-        if (currentZoneMode !== isZoneMode) { cart = {}; currentZoneMode = isZoneMode; }
-
-        const baseZones = [
-            { id: 'ZA1', name: '棚架 A 區', count: 9, cat: 'shelter', desc: '寬敞遮雨棚車停帳邊', price: 1000, badge: '熱門', images: ['https://i.ibb.co/KjBcKGvt/A-DDcar.jpg', 'https://i.ibb.co/RTypZTzW/A1.jpg', 'https://i.ibb.co/hRNQ84SY/A.jpg'] },
-            { id: 'ZA2', name: '棚架 B 區', count: 4, cat: 'shelter', desc: '適合包區車停帳邊', price: 1000, images: ['https://i.ibb.co/bMQ51htS/B.jpg', 'https://i.ibb.co/7JY7xRYp/B.jpg'] },
-            { id: 'ZA3', name: '棚架 C 區', count: 3, cat: 'shelter', desc: '安靜舒適獨立區車停帳邊', price: 1000, images: ['https://i.ibb.co/c70KNkJ/C1.jpg', 'https://i.ibb.co/zTRCxcwq/2.jpg'] },
-            { id: 'ZB1', name: '棧板 A 區', count: 2, cat: 'grass', desc: '架高防潮+遊戲區', price: 1000, images: ['https://i.ibb.co/XrMggq46/1.jpg'] },
-            { id: 'ZB2', name: '棧板 B 區', count: 2, cat: 'grass', desc: '棚架車停帳邊', price: 1000, images: ['https://i.ibb.co/JRmcf3bw/B.jpg'] },
-            { id: 'ZC1', name: '三人頂級露營車', count: 2, cat: 'camper', desc: '最有溫度的一晚車停帳邊', price: 3600, badge: '最高級的懶人享受', images: ['https://i.ibb.co/jvXBxJWw/4.jpg'] },
-            { id: 'ZC2', name: '小木屋 (大)', count: 1, cat: 'cabinL', desc: '家庭首選', price: 2600, images: ['https://i.ibb.co/4n2CPt5X/image.jpg', 'https://i.ibb.co/VYpvt7NF/image.jpg'] },
-            { id: 'ZC3', name: '小木屋 (小)', count: 1, cat: 'cabinS', desc: '溫馨三人', price: 2200, images: ['https://i.ibb.co/CpNgsKHw/image.jpg', 'https://i.ibb.co/VW4t8GH4/image.jpg'] },
-            { id: 'ZD1', name: '草地區', count: 6, cat: 'grass', desc: '親近自然的美好車停帳邊', price: 1000, images: ['https://i.ibb.co/7xsg5nfv/1.jpg', 'https://i.ibb.co/DDLBdhNk/3.jpg', 'https://i.ibb.co/S73TLHJR/2.jpg'] },
-            { id: 'ZD2', name: '碎石地區', count: 2, cat: 'grass', desc: '充電紮營首選車停帳邊', price: 1000, images: ['https://i.ibb.co/k6D740Ht/image.jpg'] },
-            { id: 'ZE1', name: '包棟民宿 (16人)', count: 1, cat: 'villa', desc: '4房一起K歌最開心', price: 15000, badge: '獨享', images: ['https://i.ibb.co/6RyZYPVy/7-KW.jpg'] },
-            { id: 'ZF1', name: '泰式免搭', count: 8, cat: 'room', desc: '懶人新福音', price: 1200, badge: '最新', images: ['https://i.ibb.co/60bXNB57/image.jpg', 'https://i.ibb.co/DHhm1sWR/2.jpg'] }
-        ];
-
-        zones = [];
-        baseZones.forEach(zone => {
-            if (zone.count > 1) {
-                for (let i = 1; i <= zone.count; i++) {
-                    let spotName = '';
-                    if (zone.name === '棚架 A 區') spotName = `棚架A${i}`;
-                    else if (zone.name === '棚架 B 區') spotName = `棚架B${i}`;
-                    else if (zone.name === '棚架 C 區') spotName = `棚架C${i}`;
-                    else if (zone.name === '棧板 A 區') spotName = `棧板A${i}`;
-                    else if (zone.name === '棧板 B 區') spotName = `棧板B${i}`;
-                    else if (zone.name === '三人頂級露營車') spotName = `露營車${String.fromCharCode(64 + i)}`;
-                    else if (zone.name === '草地區') spotName = `草地區${i}`;
-                    else if (zone.name === '碎石地區') spotName = `碎石區${i}`;
-                    else if (zone.name === '泰式免搭') spotName = `泰式${String.fromCharCode(64 + i)}`;
-                    else spotName = `${zone.name}${i}`;
-
-                    zones.push({ ...zone, id: `${zone.id}_${i}`, name: spotName, count: 1, desc: `專屬營位: ${spotName}`, originalName: zone.name, sizeText: getCampSize(spotName) });
-                }
-            } else {
-                zones.push({ ...zone, name: zone.name, count: 1, desc: zone.desc, originalName: zone.name, sizeText: getCampSize(zone.name) });
-            }
-        });
+    const isZoneMode = dateStr ? dateStr >= '2026-06-01' : false;
+    
+    if (currentZoneMode !== isZoneMode) { 
+        cart = {}; 
+        currentZoneMode = isZoneMode; 
     }
 
+    const baseZones = [
+        { id: 'ZA1', name: '棚架 A 區', count: 9, cat: 'shelter', desc: '寬敞遮雨棚車停帳邊', price: 1000, badge: '熱門', images: ['https://i.ibb.co/KjBcKGvt/A-DDcar.jpg', 'https://i.ibb.co/RTypZTzW/A1.jpg', 'https://i.ibb.co/hRNQ84SY/A.jpg'] },
+        { id: 'ZA2', name: '棚架 B 區', count: 4, cat: 'shelter', desc: '適合包區車停帳邊', price: 1000, images: ['https://i.ibb.co/bMQ51htS/B.jpg', 'https://i.ibb.co/7JY7xRYp/B.jpg'] },
+        { id: 'ZA3', name: '棚架 C 區', count: 3, cat: 'shelter', desc: '安靜舒適獨立區車停帳邊', price: 1000, images: ['https://i.ibb.co/c70KNkJ/C1.jpg', 'https://i.ibb.co/zTRCxcwq/2.jpg'] },
+        { id: 'ZB1', name: '棧板 A 區', count: 2, cat: 'grass', desc: '架高防潮+遊戲區', price: 1000, images: ['https://i.ibb.co/XrMggq46/1.jpg'] },
+        { id: 'ZB2', name: '棧板 B 區', count: 2, cat: 'grass', desc: '棚架車停帳邊', price: 1000, images: ['https://i.ibb.co/JRmcf3bw/B.jpg'] },
+        { id: 'ZC1', name: '三人頂級露營車', count: 2, cat: 'camper', desc: '最有溫度的一晚車停帳邊', price: 3600, badge: '最高級的懶人享受', images: ['https://i.ibb.co/jvXBxJWw/4.jpg'] },
+        { id: 'ZC2', name: '小木屋 (大)', count: 1, cat: 'cabinL', desc: '家庭首選', price: 2600, images: ['https://i.ibb.co/4n2CPt5X/image.jpg', 'https://i.ibb.co/VYpvt7NF/image.jpg'] },
+        { id: 'ZC3', name: '小木屋 (小)', count: 1, cat: 'cabinS', desc: '溫馨三人', price: 2200, images: ['https://i.ibb.co/CpNgsKHw/image.jpg', 'https://i.ibb.co/VW4t8GH4/image.jpg'] },
+        { id: 'ZD1', name: '草地區', count: 6, cat: 'grass', desc: '親近自然的美好車停帳邊', price: 1000, images: ['https://i.ibb.co/7xsg5nfv/1.jpg', 'https://i.ibb.co/DDLBdhNk/3.jpg', 'https://i.ibb.co/S73TLHJR/2.jpg'] },
+        { id: 'ZD2', name: '碎石地區', count: 2, cat: 'grass', desc: '充電紮營首選車停帳邊', price: 1000, images: ['https://i.ibb.co/k6D740Ht/image.jpg'] },
+        { id: 'ZE1', name: '包棟民宿 (16人)', count: 1, cat: 'villa', desc: '4房一起K歌最開心', price: 15000, badge: '獨享', images: ['https://i.ibb.co/6RyZYPVy/7-KW.jpg'] },
+        { id: 'ZF1', name: '泰式免搭', count: 8, cat: 'room', desc: '懶人新福音', price: 1200, badge: '最新', images: ['https://i.ibb.co/60bXNB57/image.jpg', 'https://i.ibb.co/DHhm1sWR/2.jpg'] }
+    ];
+
+    zones = [];
+
+    baseZones.forEach(zone => {
+        // === 6月1號之後的包區模式 ===
+        if (isZoneMode && ['棚架 B 區', '棧板 A 區', '棧板 B 區', '棚架 C 區'].includes(zone.name)) {
+            // 這些改成單一包區項目
+            const packageName = zone.name.replace(' 區', ''); // 變成 棚架B、棧板A、棧板B、棚架C
+            zones.push({
+                ...zone,
+                id: zone.id + '_PKG',
+                name: packageName,
+                count: 1,
+                desc: `${zone.desc}（包區）`,
+                originalName: zone.name,
+                sizeText: getCampSize(packageName)
+            });
+        } 
+        // === 一般模式（個別營位）===
+        else if (zone.count > 1) {
+            for (let i = 1; i <= zone.count; i++) {
+                let spotName = '';
+                if (zone.name === '棚架 A 區') spotName = `棚架A${i}`;
+                else if (zone.name === '棚架 B 區') spotName = `棚架B${i}`;
+                else if (zone.name === '棚架 C 區') spotName = `棚架C${i}`;
+                else if (zone.name === '棧板 A 區') spotName = `棧板A${i}`;
+                else if (zone.name === '棧板 B 區') spotName = `棧板B${i}`;
+                else if (zone.name === '三人頂級露營車') spotName = `露營車${String.fromCharCode(64 + i)}`;
+                else if (zone.name === '草地區') spotName = `草地區${i}`;
+                else if (zone.name === '碎石地區') spotName = `碎石區${i}`;
+                else if (zone.name === '泰式免搭') spotName = `泰式${String.fromCharCode(64 + i)}`;
+                else spotName = `${zone.name}${i}`;
+
+                zones.push({ 
+                    ...zone, 
+                    id: `${zone.id}_${i}`, 
+                    name: spotName, 
+                    count: 1, 
+                    desc: `專屬營位: ${spotName}`, 
+                    originalName: zone.name, 
+                    sizeText: getCampSize(spotName) 
+                });
+            }
+        } else {
+            zones.push({ 
+                ...zone, 
+                name: zone.name, 
+                count: 1, 
+                desc: zone.desc, 
+                originalName: zone.name, 
+                sizeText: getCampSize(zone.name) 
+            });
+        }
+    });
+}
     const rentals = [
         { id: 'R01', name: '月亮椅/休閒椅', price: 100, stock: 3 }, { id: 'R02', name: '平躺椅', price: 150, stock: 2 }, { id: 'R03', name: '卡式爐/蜘蛛爐(含瓦斯)', price: 200, stock: 3 },
         { id: 'R04', name: '五星爐(含瓦斯)', price: 300, stock: 1 }, { id: 'R05', name: 'IGT桌全套', price: 700, stock: 2 }, { id: 'R06', name: '天幕 3*3+桿', price: 250, stock: 2 },
