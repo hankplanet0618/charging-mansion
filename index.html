@@ -1466,9 +1466,9 @@ const gears = [
                     }
                 });
 
-                let overallSubtotal = basePrice + addonTotal;
+               let overallSubtotal = basePrice + addonTotal;
 
-            // ==================== 價格顯示最終加強版 ====================
+// ==================== 價格顯示最終版 ====================
 if (overallSubtotal > 0 || cartEntries.length > 0 || addonEntries.length > 0) {
     const discountVal = getDiscountAmount();
     const enteredCode = document.getElementById('discountCodeInput').value.trim().toUpperCase();
@@ -1550,23 +1550,6 @@ if (overallSubtotal > 0 || cartEntries.length > 0 || addonEntries.length > 0) {
     resultDiv.classList.add('hidden');
 }
 // ==================== 價格顯示結束 ====================
-
-                    let html = '';
-                    if (zoneStr) html += `<div>營位：${zoneStr}</div>`;
-                    if (addonStr) html += `<div>加購：${addonStr}</div>`;
-                    if (days > 0) html += `<div>營位與加購小計：$${overallSubtotal.toLocaleString()}</div>`;
-                    else html += `<div>小計：$${overallSubtotal.toLocaleString()}</div>`;
-
-                    html += nightBeforeDetails;
-                    html += displayDiscount;
-
-                    formulaSpan.innerHTML = html;
-                    totalDisplay.textContent = `$${finalTotal.toLocaleString()}`;
-                    if (zonePriceInput) zonePriceInput.value = finalTotal;
-                } else {
-                    resultDiv.classList.add('hidden');
-                }
-            }
 
             inDate.addEventListener('change', () => {
                 if (inDate.value) {
@@ -1793,7 +1776,114 @@ if (overallSubtotal > 0 || cartEntries.length > 0 || addonEntries.length > 0) {
             tbody.innerHTML = html;
         }
 
+        // ==================== 在這裡插入 renderAddons() ====================
+        function renderAddons() {
+            const container = document.getElementById('addons-container');
+            if (!container) return;
+
+            container.innerHTML = `
+                <div>
+                    <h4 class="text-lg font-bold text-stone-800 border-l-4 border-green-600 pl-3 mb-4">加購項目（選填）</h4>
+                    
+                    <div class="mb-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <i class="fas fa-toolbox text-blue-600"></i>
+                            <span class="font-bold text-stone-700">裝備租借</span>
+                        </div>
+                        <div id="rentals-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <i class="fas fa-campground text-purple-600"></i>
+                            <span class="font-bold text-stone-700">帳篷租借 / 代搭服務</span>
+                        </div>
+                        <div id="tents-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
+                    </div>
+
+                    <div>
+                        <div class="flex items-center gap-2 mb-3">
+                            <i class="fas fa-fire text-orange-600"></i>
+                            <span class="font-bold text-stone-700">烤肉套餐</span>
+                        </div>
+                        <div id="bbq-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
+                    </div>
+                </div>
+            `;
+
+            renderAddonCategory('rentals-grid', rentals, 'rental');
+            renderAddonCategory('tents-grid', tents, 'tent');
+            renderAddonCategory('bbq-grid', bbqs, 'bbq');
+        }
+
+        function renderAddonCategory(gridId, items, type) {
+            const grid = document.getElementById(gridId);
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            items.forEach(item => {
+                const currentQty = addonCart[item.name] || 0;
+
+                const div = document.createElement('div');
+                div.className = `flex items-center justify-between bg-white border border-gray-200 rounded-2xl p-3 hover:border-green-300 transition ${currentQty > 0 ? 'ring-2 ring-green-500' : ''}`;
+
+                div.innerHTML = `
+                    <div class="flex-1 min-w-0 pr-3">
+                        <div class="font-bold text-sm text-stone-800 truncate">${item.name}</div>
+                        <div class="text-xs text-gray-500">點選日期後顯示庫存</div>
+                        <div class="text-orange-600 font-bold text-sm mt-0.5">$${item.price}</div>
+                    </div>
+                    <div class="flex items-center gap-2 flex-shrink-0">
+                        <button type="button" 
+                                class="w-8 h-8 flex items-center justify-center bg-stone-100 hover:bg-stone-200 active:bg-stone-300 rounded-full text-lg font-bold text-stone-600 border border-stone-200"
+                                onclick="updateAddonQty('${item.name}', -1, ${item.stock || 99}, ${item.price}, event)">−</button>
+                        <span class="w-6 text-center font-bold text-base" id="qty-${item.name}">${currentQty}</span>
+                        <button type="button" 
+                                class="w-8 h-8 flex items-center justify-center bg-stone-800 hover:bg-stone-700 active:bg-stone-900 text-white rounded-full text-lg font-bold"
+                                onclick="updateAddonQty('${item.name}', 1, ${item.stock || 99}, ${item.price}, event)">+</button>
+                    </div>
+                `;
+
+                grid.appendChild(div);
+            });
+        }
+
+        window.updateAddonQty = (name, delta, maxStock, price, e) => {
+            if (e) { e.preventDefault(); e.stopPropagation(); }
+
+            const inDate = document.getElementById('checkinDate').value;
+            const outDate = document.getElementById('checkoutDate').value;
+
+            if (!inDate || !outDate) {
+                alert('請先選擇入住與退房日期，才能加購項目');
+                return;
+            }
+
+            let current = addonCart[name] || 0;
+            let newQty = current + delta;
+
+            if (newQty < 0) newQty = 0;
+            if (newQty > maxStock) {
+                alert(`庫存不足，剩餘數量：${maxStock}`);
+                newQty = maxStock;
+            }
+
+            if (newQty === 0) {
+                delete addonCart[name];
+            } else {
+                addonCart[name] = newQty;
+            }
+
+            const span = document.getElementById(`qty-${name}`);
+            if (span) span.innerText = newQty;
+
+            if (window.reCalculate) window.reCalculate();
+        };
+        // ==================== renderAddons 結束 ====================
+
+
         window.toggleSidebar = () => {
+            // ...原本的程式碼
             const sb = document.getElementById('sidebar');
             const ov = document.getElementById('overlay');
             if(sb.classList.contains('-translate-x-full')) {
@@ -2021,22 +2111,27 @@ if (overallSubtotal > 0 || cartEntries.length > 0 || addonEntries.length > 0) {
                     });
             });
         }
-       async function init() {
+async function init() {
     try {
         console.log("🚀 網站初始化開始...");
         
         buildZones(null);
         
-        if (typeof renderAddons === 'function') renderAddons();
+        if (typeof renderAddons === 'function') {
+            renderAddons();
+        }
         
         await fetchInventory();
         
         renderZones('all');
         
+        // === 重要！加上這一行 ===
+        if (typeof setupCalculator === 'function') {
+            setupCalculator();
+        }
+        
         if (typeof renderGears === 'function') renderGears();
         if (typeof renderBlogPosts === 'function') renderBlogPosts();
-        if (typeof renderTentInfo === 'function') renderTentInfo();
-        if (typeof setupCalculator === 'function') setupCalculator();
         if (typeof renderReviews === 'function') renderReviews();
         if (typeof renderGalleryFolders === 'function') renderGalleryFolders();
         
@@ -2050,6 +2145,16 @@ if (overallSubtotal > 0 || cartEntries.length > 0 || addonEntries.length > 0) {
     }
 }
 
+// ==================== 設定 filter 按鈕的 data-filter 屬性 ====================
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    const text = btn.textContent.trim();
+    if (text === '全部') btn.setAttribute('data-filter', 'all');
+    if (text === '雨棚區') btn.setAttribute('data-filter', 'shelter');
+    if (text === '住宿/懶人') btn.setAttribute('data-filter', 'room');
+    if (text === '草地/碎石') btn.setAttribute('data-filter', 'grass');
+});
+
+// ==================== 執行初始化 ====================
 init();
     </script>
 </body>
