@@ -241,7 +241,7 @@
                         <h4 class="text-lg font-bold text-stone-800 mb-4 border-l-4 border-green-600 pl-3">第一步：選擇預訂日期</h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-gray-500 mb-1">入住日期 <span class="text-red-500 text-[10px]">(限2026/1/19後)</span></label>
+                                <label class="block text-xs font-bold text-gray-500 mb-1">入住日期 <span class="text-red-500 text-[10px]">(限2026/6/01後)</span></label>
                                 <input type="date" id="checkinDate" name="入住日期" min="2026-01-19" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none">
                             </div>
                             <div>
@@ -663,6 +663,7 @@
 
 <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxgcBUWexk4xIGjgq6_PBug3TBdPtlEg1lXBAcQh3DLogkiU3BzrIgFTrXM7oeLXLuL/exec';
+    const adminSheetURL = 'https://docs.google.com/spreadsheets/d/1frnxcFu6ZvYjUaSRpbq84ROjWYIY4mrHLDyjR1InyXg/edit?gid=0#gid=0';
     const myLiffId = "2008643307-nbPNvd20";
     const MIN_DATE = '2026-01-19';
     
@@ -755,32 +756,22 @@
         return name;
     }
 
-   function buildZones(dateStr) {
-        // 確保 dateStr 是有效的字串，而且格式正確才能比較
+    function buildZones(dateStr) {
         const isZoneMode = dateStr ? new Date(dateStr) >= new Date('2026-06-01') : false;
+        if (currentZoneMode !== isZoneMode) { cart = {}; currentZoneMode = isZoneMode; }
 
-        if (currentZoneMode !== isZoneMode) {
-            cart = {};
-            currentZoneMode = isZoneMode;
-        }
-
-        // 把包區的設定直接寫死在這裡，根據 isZoneMode 動態切換
         const baseZones = [
             { id: 'ZA1', name: '棚架 A 區', count: 9, cat: 'shelter', desc: '寬敞遮雨棚車停帳邊', price: 1000, badge: '熱門', images: ['https://i.ibb.co/KjBcKGvt/A-DDcar.jpg', 'https://i.ibb.co/RTypZTzW/A1.jpg', 'https://i.ibb.co/hRNQ84SY/A.jpg'] },
             
-            // 6/1 後變成包區 (count=1, baseTents=4)，否則是散帳 (count=4)
             isZoneMode ? { id: 'ZA2_PKG', name: '棚架B', count: 1, baseTents: 4, cat: 'shelter', desc: '4帳包區 (平日4000/假日4800/連假5600)', price: 4000, weekendPrice: 4800, holidayPrice: 5600, badge: '包區', images: ['https://i.ibb.co/bMQ51htS/B.jpg', 'https://i.ibb.co/7JY7xRYp/B.jpg'] }
                        : { id: 'ZA2', name: '棚架 B 區', count: 4, cat: 'shelter', desc: '適合包區車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/bMQ51htS/B.jpg', 'https://i.ibb.co/7JY7xRYp/B.jpg'] },
 
-            // 6/1 後變成包區
             isZoneMode ? { id: 'ZA3_PKG', name: '棚架C', count: 1, baseTents: 3, cat: 'shelter', desc: '3帳包區 (平日3000/假日3600/連假4200)', price: 3000, weekendPrice: 3600, holidayPrice: 4200, badge: '包區', images: ['https://i.ibb.co/c70KNkJ/C1.jpg', 'https://i.ibb.co/zTRCxcwq/2.jpg'] }
                        : { id: 'ZA3', name: '棚架 C 區', count: 3, cat: 'shelter', desc: '安靜舒適獨立區車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/c70KNkJ/C1.jpg', 'https://i.ibb.co/zTRCxcwq/2.jpg'] },
 
-            // 6/1 後變成包區
             isZoneMode ? { id: 'ZB1_PKG', name: '棧板A', count: 1, baseTents: 2, cat: 'grass', desc: '2帳包區 (平日2000/假日2400/連假2800)', price: 2000, weekendPrice: 2400, holidayPrice: 2800, badge: '包區', images: ['https://i.ibb.co/XrMggq46/1.jpg'] }
                        : { id: 'ZB1', name: '棧板 A 區', count: 2, cat: 'grass', desc: '架高防潮+遊戲區', price: 1000, badge: '', images: ['https://i.ibb.co/XrMggq46/1.jpg'] },
 
-            // 6/1 後變成包區
             isZoneMode ? { id: 'ZB2_PKG', name: '棧板B', count: 1, baseTents: 2, cat: 'grass', desc: '2帳包區 (平日2000/假日2400/連假2800)', price: 2000, weekendPrice: 2400, holidayPrice: 2800, badge: '包區', images: ['https://i.ibb.co/JRmcf3bw/B.jpg'] }
                        : { id: 'ZB2', name: '棧板 B 區', count: 2, cat: 'grass', desc: '棚架車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/JRmcf3bw/B.jpg'] },
 
@@ -795,7 +786,6 @@
 
         zones = [];
         baseZones.forEach(zone => {
-            // 只要 count > 1，就代表它是散帳，需要被拆成 1, 2, 3...
             if (zone.count > 1) {
                 for (let i = 1; i <= zone.count; i++) {
                     let spotName = '';
@@ -810,36 +800,22 @@
                     else if (zone.name === '泰式免搭') spotName = `泰式${String.fromCharCode(64 + i)}`;
                     else spotName = `${zone.name}${i}`;
 
-                    zones.push({ 
-                        ...zone, 
-                        id: `${zone.id}_${i}`, 
-                        name: spotName, 
-                        count: 1, 
-                        desc: `專屬營位: ${spotName}`, 
-                        originalName: zone.name, 
-                        sizeText: getCampSize(spotName) 
-                    });
+                    zones.push({ ...zone, id: `${zone.id}_${i}`, name: spotName, count: 1, desc: `專屬營位: ${spotName}`, originalName: zone.name, sizeText: getCampSize(spotName) });
                 }
             } else {
-                // count = 1 的情況（包含包區、小木屋等單一營位）
-                zones.push({ 
-                    ...zone, 
-                    name: zone.name, 
-                    count: 1, 
-                    desc: zone.desc, 
-                    originalName: zone.name, 
-                    sizeText: getCampSize(zone.name) 
-                });
+                zones.push({ ...zone, name: zone.name, count: 1, desc: zone.desc, originalName: zone.name, sizeText: getCampSize(zone.name) });
             }
         });
     }
+
     const gears = [
-        {n:'月亮椅/休閒椅',p:'100'},{n:'平躺椅',p:'150'},{n:'卡式爐/蜘蛛爐(含瓦斯)',p:'200'},{n:'五星爐(含瓦斯)',p:'300'},
-        {n:'IGT桌全套',p:'600'},{n:'天幕 3*3+桿',p:'250'},{n:'天幕 3*5+桿',p:'350'},{n:'超聲波地墊 3*3',p:'150'},
-        {n:'野餐地墊 2*2/燈具',p:'100'},{n:'落地頂級四葉燈',p:'350'},{n:'杜邦鯤9車尾帳',p:'1000'},{n:'代搭帳服務',p:'500'},
-        {n:'投影機',p:'300'},{n:'投影布幕',p:'100'},{n:'電暖器',p:'200'},{n:'焚火台(小)',p:'350'},{n:'焚火台(大)',p:'550'},
-        {n:'木柴',p:'260'},{n:'小擺頭風扇',p:'150'},{n:'大擺頭風扇',p:'250'},{n:'樂活不露二代風扇',p:'400'},
-        {n:'移動式冷氣',p:'800'},{n:'電動車車床方案',p:'150'}
+        {n:'月亮椅/休閒椅',p:'100'},{n:'平躺椅',p:'150'},{n:'卡式爐/蜘蛛爐(含瓦斯)',p:'200'},
+        {n:'五星爐(含瓦斯)',p:'300'},{n:'IGT桌全套',p:'600'},{n:'天幕 3*3+桿',p:'250'},
+        {n:'天幕 3*5+桿',p:'350'},{n:'超聲波地墊 3*3',p:'150'},{n:'野餐地墊 2*2/燈具',p:'100'},
+        {n:'落地頂級四葉燈',p:'350'},{n:'杜邦鯤9車尾帳',p:'1000'},{n:'代搭帳服務',p:'500'},
+        {n:'投影機',p:'300'},{n:'投影布幕',p:'100'},{n:'電暖器',p:'200'},{n:'焚火台(小)',p:'350'},
+        {n:'焚火台(大)',p:'550'},{n:'木柴',p:'260'},{n:'小擺頭風扇',p:'150'},{n:'大擺頭風扇',p:'250'},
+        {n:'樂活不露二代風扇',p:'400'},{n:'移動式冷氣',p:'800'},{n:'電動車車床方案',p:'150'}
     ];
 
     const rentals = [
@@ -1083,74 +1059,32 @@
             if (container.parentElement) container.parentElement.scrollTop = 0;
         }
 
-async function fetchInventory() {
+        async function fetchInventory() {
             try {
-                console.log("🚀 [1] 準備連線到 Google Apps Script (GAS)...");
+                console.log("🚀 正在從 GAS 抓取最新庫存...");
                 const url = scriptURL + '?t=' + new Date().getTime();
-                
                 const res = await fetch(url, { method: 'GET' });
-                
-                if (!res.ok) {
-                    console.error(`🚨 HTTP 連線失敗，狀態碼: ${res.status}`);
-                    throw new Error(`HTTP 錯誤！狀態碼: ${res.status}`);
-                }
-
-                console.log("⏳ [2] 連線成功，正在解析 GAS 回傳的資料...");
-                // 故意先拿純文字，避免 GAS 傳回 Google 登入網頁導致直接死當
-                const text = await res.text();
-                console.log("📦 [3] GAS 原始回傳內容字串長度：", text.length);
-                
-                let data;
-                try {
-                    data = JSON.parse(text);
-                    console.log("✅ [4] JSON 解析成功！原始資料：", data);
-                } catch (e) {
-                    console.error("🚨 致命錯誤：GAS 回傳的不是正確的 JSON 格式！");
-                    console.error("👉 GAS 實際回傳的內容是：\n", text.substring(0, 500) + "...");
-                    throw new Error("API 回傳格式錯誤 (可能是權限不足，回傳了登入畫面)");
-                }
+                if (!res.ok) throw new Error(`HTTP 錯誤！狀態碼: ${res.status}`);
+                let data = await res.json();
 
                 const normalizedData = {};
                 for (let date in data) {
                     if (!data[date].zones) continue;
-                    
-                    // 保留營位與加購品
-                    normalizedData[date] = { 
-                        zones: {}, 
-                        addons: data[date].addons || {} 
-                    };
-                    
+                    normalizedData[date] = { zones: {} };
                     for (let zoneName in data[date].zones) {
                         let qty = data[date].zones[zoneName];
                         let normalizedName = normalizeZoneName(zoneName);
-                        
-                        // 雙重保險存入
                         normalizedData[date].zones[normalizedName] = qty;
-                        normalizedData[date].zones[zoneName] = qty;
                     }
                 }
-
                 bookedData = normalizedData;
-                console.log("🎯 [5] 庫存載入完成，開始重新渲染畫面！");
-
-                const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
-                renderZones(activeFilter);
-                if (typeof renderAddons === 'function') renderAddons();
-
-            } catch (err) {
-                console.error('❌ [終點] 抓取庫存失敗流程結束，詳細原因：', err);
-                const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
-                renderZones(activeFilter);
-            }
-        }
-                if (typeof renderAddons === 'function') renderAddons();
-
+                console.log("✅ 庫存載入成功！");
             } catch (err) {
                 console.error('❌ 抓取庫存失敗：', err);
-                const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
-                renderZones(activeFilter);
             }
-        }        function initializeLiff() {
+        }
+
+        function initializeLiff() {
             try {
                 liff.init({ liffId: myLiffId }).then(() => {
                     if (!liff.isLoggedIn()) {
@@ -1850,7 +1784,7 @@ async function fetchInventory() {
                 const input = document.getElementById('selectedZoneInput');
                 if(Object.keys(cart).length === 0 && Object.keys(addonCart).length === 0) { alert('請至少選擇一個營位或加購商品！'); return; }
                 const inDateVal = document.getElementById('checkinDate').value;
-                if (inDateVal < MIN_DATE) { alert("目前僅提供 2026/6/01 以後的訂位！"); return; }
+                if (inDateVal < MIN_DATE) { alert("目前僅提供 2026/1/19 以後的訂位！"); return; }
                 
                 const btn = document.getElementById('submitBtn'); const originalText = btn.innerText; btn.disabled = true; btn.innerText = '處理中...';
                 const formData = new FormData(e.target);
