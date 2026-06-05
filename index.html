@@ -732,429 +732,261 @@
             </form>        </div>
     </div>
 <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbxgcBUWexk4xIGjgq6_PBug3TBdPtlEg1lXBAcQh3DLogkiU3BzrIgFTrXM7oeLXLuL/exec';
-        const myLiffId = "2008643307-nbPNvd20";
-        const MIN_DATE = '2026-01-19';
-        
-        const BLOCKED_DATES = ['2026-02-07', '2026-03-07'];
-        const EVENT_DATES = [
-            '2026-06-19', '2026-06-20', '2026-06-21', 
-            '2026-12-25', '2026-12-26', '2026-12-27', 
-        ];
-        const SPECIAL_HOLIDAYS = [
-            '2026-02-14','2026-02-15','2026-02-16','2026-02-17','2026-02-18','2026-02-19','2026-02-20','2026-02-21','2026-02-22',
-            '2026-02-27','2026-02-28','2026-03-01',
-            '2026-04-03','2026-04-04','2026-04-05','2026-04-06',
-            '2026-05-01','2026-05-02','2026-05-03',
-            '2026-06-19','2026-06-20','2026-06-21',
-            '2026-09-25','2026-09-26','2026-09-27','2026-09-28',
-            '2026-10-09','2026-10-10','2026-10-11',
-            '2026-10-24','2026-10-25','2026-10-26',
-            '2026-12-25','2026-12-26','2026-12-27',
-            '2027-01-01','2027-01-02','2027-01-03',
-            '2027-02-04','2027-02-05','2027-02-06','2027-02-07','2027-02-08','2027-02-09','2027-02-10',
-            '2027-02-27','2027-02-28','2027-03-01',
-            '2027-04-03','2027-04-04','2027-04-05','2027-04-06',
-            '2027-04-30','2027-05-01','2027-05-02',
-            '2027-06-09',
-            '2027-09-15',
-            '2027-09-25','2027-09-26','2027-09-27','2027-09-28',
-            '2027-10-09','2027-10-10','2027-10-11',
-            '2027-10-23','2027-10-24','2027-10-25',
-            '2027-12-24','2027-12-25','2027-12-26',
-            '2027-12-31',
-            '2028-01-01','2028-01-02',
-            '2028-01-22','2028-01-23','2028-01-24','2028-01-25','2028-01-26','2028-01-27','2028-01-28','2028-01-29','2028-01-30',
-            '2028-02-26','2028-02-27','2028-02-28',
-            '2028-04-01','2028-04-02','2028-04-03','2028-04-04',
-            '2028-04-29','2028-04-30','2028-05-01',
-            '2028-05-27','2028-05-28','2028-05-29',
-            '2028-09-28','2028-09-29','2028-09-30','2028-10-01','2028-10-02','2028-10-03',
-            '2028-10-07','2028-10-08','2028-10-09','2028-10-10',
-            '2028-10-25',
-            '2028-12-23','2028-12-24','2028-12-25',
-            '2028-12-30','2028-12-31',
-            '2029-01-01',
-            '2029-02-10','2029-02-11','2029-02-12','2029-02-13','2029-02-14','2029-02-15','2029-02-16','2029-02-17','2029-02-18',
-            '2029-02-28',
-            '2029-04-04',
-            '2029-04-28','2029-04-29','2029-04-30','2029-05-01',
-            '2029-06-15','2029-06-16','2029-06-17',
-            '2029-09-21','2029-09-22','2029-09-23',
-            '2029-09-28','2029-09-29','2029-09-30',
-            '2029-10-10',
-            '2029-10-25','2029-10-26','2029-10-27','2029-10-28',
-            '2029-12-22','2029-12-23','2029-12-24','2029-12-25',
-            '2029-12-29','2029-12-30','2029-12-31',
-            '2030-01-01',
-            '2030-02-01','2030-02-02','2030-02-03','2030-02-04','2030-02-05','2030-02-06','2030-02-07',
-            '2030-02-28','2030-03-01','2030-03-02','2030-03-03',
-            '2030-04-04','2030-04-05','2030-04-06','2030-04-07',
-            '2030-05-01',
-            '2030-06-05',
-            '2030-09-12','2030-09-13','2030-09-14','2030-09-15',
-            '2030-09-27','2030-09-28','2030-09-29',
-            '2030-10-10','2030-10-11','2030-10-12','2030-10-13',
-            '2030-10-25','2030-10-26','2030-10-27',
-            '2030-12-25',
-            '2031-01-01',
-            '2031-01-18','2031-01-19','2031-01-20','2031-01-21','2031-01-22','2031-01-23','2031-01-24','2031-01-25','2031-01-26',
-            '2031-02-28','2031-03-01','2031-03-02',
-            '2031-04-03','2031-04-04','2031-04-05','2031-04-06',
-            '2031-05-01','2031-05-02','2031-05-03','2031-05-04',
-            '2031-06-21','2031-06-22','2031-06-23','2031-06-24',
-            '2031-09-27','2031-09-28','2031-09-29',
-            '2031-10-01',
-            '2031-10-10','2031-10-11','2031-10-12',
-            '2031-10-24','2031-10-25','2031-10-26',
-            '2031-12-25','2031-12-26','2031-12-27','2031-12-28'
-        ];
-        
-        // ★ 修復：所有字典的鍵值（英文部分）全部轉為大寫，防呆解決大小寫錯亂問題
-        const discountCodes = {
-            'CHUNHUNGLINONLY': 99999999, 'LINE100': 100, '首次加入好友優惠券': 100, '首次加入好友禮': 100,
-            'TESLA400': 400, 'CM100': 100, '竹科臻邦': 500, '蓓蓓團': 0.5, '芮蒂': 500,
-            '普卡': 0.55, 'VIP卡': 0.45, '特惠': 200, 'CNY': 100, '包場': 0.85, 'VIP': 0.9,
-            'CHILL孩': 0.95, 'T9VM4XKP': 999999999, 'RC7L2YQW': 999999999, '愛學館信義校': 0.9,
-        };
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxgcBUWexk4xIGjgq6_PBug3TBdPtlEg1lXBAcQh3DLogkiU3BzrIgFTrXM7oeLXLuL/exec';
+    const myLiffId = "2008643307-nbPNvd20";
+    const MIN_DATE = '2026-01-19';
+    
+    const BLOCKED_DATES = ['2026-02-07', '2026-03-07'];
+    const EVENT_DATES = [
+        '2026-06-19', '2026-06-20', '2026-06-21', 
+        '2026-12-25', '2026-12-26', '2026-12-27', 
+    ];
+    const SPECIAL_HOLIDAYS = [
+        '2026-02-14','2026-02-15','2026-02-16','2026-02-17','2026-02-18','2026-02-19','2026-02-20','2026-02-21','2026-02-22',
+        '2026-02-27','2026-02-28','2026-03-01',
+        '2026-04-03','2026-04-04','2026-04-05','2026-04-06',
+        '2026-05-01','2026-05-02','2026-05-03',
+        '2026-06-19','2026-06-20','2026-06-21',
+        '2026-09-25','2026-09-26','2026-09-27','2026-09-28',
+        '2026-10-09','2026-10-10','2026-10-11',
+        '2026-10-24','2026-10-25','2026-10-26',
+        '2026-12-25','2026-12-26','2026-12-27',
+        '2027-01-01','2027-01-02','2027-01-03',
+        '2027-02-04','2027-02-05','2027-02-06','2027-02-07','2027-02-08','2027-02-09','2027-02-10',
+        '2027-02-27','2027-02-28','2027-03-01',
+        '2027-04-03','2027-04-04','2027-04-05','2027-04-06',
+        '2027-04-30','2027-05-01','2027-05-02',
+        '2027-06-09',
+        '2027-09-15',
+        '2027-09-25','2027-09-26','2027-09-27','2027-09-28',
+        '2027-10-09','2027-10-10','2027-10-11',
+        '2027-10-23','2027-10-24','2027-10-25',
+        '2027-12-24','2027-12-25','2027-12-26',
+        '2027-12-31',
+        '2028-01-01','2028-01-02',
+        '2028-01-22','2028-01-23','2028-01-24','2028-01-25','2028-01-26','2028-01-27','2028-01-28','2028-01-29','2028-01-30',
+        '2028-02-26','2028-02-27','2028-02-28',
+        '2028-04-01','2028-04-02','2028-04-03','2028-04-04',
+        '2028-04-29','2028-04-30','2028-05-01',
+        '2028-05-27','2028-05-28','2028-05-29',
+        '2028-09-28','2028-09-29','2028-09-30','2028-10-01','2028-10-02','2028-10-03',
+        '2028-10-07','2028-10-08','2028-10-09','2028-10-10',
+        '2028-10-25',
+        '2028-12-23','2028-12-24','2028-12-25',
+        '2028-12-30','2028-12-31',
+        '2029-01-01',
+        '2029-02-10','2029-02-11','2029-02-12','2029-02-13','2029-02-14','2029-02-15','2029-02-16','2029-02-17','2029-02-18',
+        '2029-02-28',
+        '2029-04-04',
+        '2029-04-28','2029-04-29','2029-04-30','2029-05-01',
+        '2029-06-15','2029-06-16','2029-06-17',
+        '2029-09-21','2029-09-22','2029-09-23',
+        '2029-09-28','2029-09-29','2029-09-30',
+        '2029-10-10',
+        '2029-10-25','2029-10-26','2029-10-27','2029-10-28',
+        '2029-12-22','2029-12-23','2029-12-24','2029-12-25',
+        '2029-12-29','2029-12-30','2029-12-31',
+        '2030-01-01',
+        '2030-02-01','2030-02-02','2030-02-03','2030-02-04','2030-02-05','2030-02-06','2030-02-07',
+        '2030-02-28','2030-03-01','2030-03-02','2030-03-03',
+        '2030-04-04','2030-04-05','2030-04-06','2030-04-07',
+        '2030-05-01',
+        '2030-06-05',
+        '2030-09-12','2030-09-13','2030-09-14','2030-09-15',
+        '2030-09-27','2030-09-28','2030-09-29',
+        '2030-10-10','2030-10-11','2030-10-12','2030-10-13',
+        '2030-10-25','2030-10-26','2030-10-27',
+        '2030-12-25',
+        '2031-01-01',
+        '2031-01-18','2031-01-19','2031-01-20','2031-01-21','2031-01-22','2031-01-23','2031-01-24','2031-01-25','2031-01-26',
+        '2031-02-28','2031-03-01','2031-03-02',
+        '2031-04-03','2031-04-04','2031-04-05','2031-04-06',
+        '2031-05-01','2031-05-02','2031-05-03','2031-05-04',
+        '2031-06-21','2031-06-22','2031-06-23','2031-06-24',
+        '2031-09-27','2031-09-28','2031-09-29',
+        '2031-10-01',
+        '2031-10-10','2031-10-11','2031-10-12',
+        '2031-10-24','2031-10-25','2031-10-26',
+        '2031-12-25','2031-12-26','2031-12-27','2031-12-28'
+    ];
+    
+    const discountCodes = {
+        'CHUNHUNGLINONLY': 99999999, 'LINE100': 100, '首次加入好友優惠券': 100, '首次加入好友禮': 100,
+        'TESLA400': 400, 'CM100': 100, '竹科臻邦': 500, '蓓蓓團': 0.5, '芮蒂': 500,
+        '普卡': 0.55, 'VIP卡': 0.45, '特惠': 200, 'CNY': 100, '包場': 0.85, 'VIP': 0.9,
+        'CHILL孩': 0.95, 'T9VM4XKP': 999999999, 'RC7L2YQW': 999999999, '愛學館信義校': 0.9,
+    };
 
-       // 宣告全域變數
-        let cart = {};
-        let addonCart = {};
-        let bookedData = {};
-        let zones = [];
-        let currentZoneMode = null; 
+    let cart = {};
+    let addonCart = {};
+    let bookedData = {};
+    let zones = [];
+    let currentZoneMode = null; 
 
-        // ==========================================
-        // ★ 新增：營位尺寸對照表
-        // ==========================================
-        function getCampSize(name) {
-            if (name === '棚架A1') return '4m*6m';
-            if (name.startsWith('棚架A') && name !== '棚架A1') return '6m*7m';
-            if (name.startsWith('棚架B')) return '4.5m*6m';
-            if (name.startsWith('棚架C')) return '內4.5m*2.5m、外4.5m*2.5m(半雨棚)';
-            if (name.startsWith('棧板A')) return '4m*8m';
-            if (name.startsWith('棧板B')) return '3.5m*4m';
-            if (name.startsWith('泰式')) return '3m*2.5m';
-            if (name === '草地區1') return '4m*6m';
-            if (name === '草地區2') return '8m*10m';
-            if (name === '草地區3') return '5m*8m(部分水泥地)';
-            if (name === '草地區4' || name === '草地區5' || name === '草地區6') return '4m*8m';
-            if (name === '碎石區1') return '4m*8m(部分水泥地)';
-            if (name === '碎石區2') return '4m*8m';
-            return '';
-        }
-        // ★ 關鍵修復：將此函數移到全域，確保網頁上所有功能都能呼叫它！
-        function getLocalISODate(dateObj) {
-            const y = dateObj.getFullYear();
-            const m = String(dateObj.getMonth() + 1).padStart(2, '0');
-            const d = String(dateObj.getDate()).padStart(2, '0');
-            return `${y}-${m}-${d}`;
-        }
-
-function buildZones(dateStr) {
-    const isZoneMode = dateStr ? dateStr >= '2026-06-01' : false;
-
-    if (currentZoneMode !== isZoneMode) {
-        cart = {};
-        currentZoneMode = isZoneMode;
+    function getCampSize(name) {
+        if (name === '棚架A1') return '4m*6m';
+        if (name.startsWith('棚架A') && name !== '棚架A1') return '6m*7m';
+        if (name.startsWith('棚架B')) return '4.5m*6m';
+        if (name.startsWith('棚架C')) return '內4.5m*2.5m、外4.5m*2.5m(半雨棚)';
+        if (name.startsWith('棧板A')) return '4m*8m';
+        if (name.startsWith('棧板B')) return '3.5m*4m';
+        if (name.startsWith('泰式')) return '3m*2.5m';
+        if (name === '草地區1') return '4m*6m';
+        if (name === '草地區2') return '8m*10m';
+        if (name === '草地區3') return '5m*8m(部分水泥地)';
+        if (name === '草地區4' || name === '草地區5' || name === '草地區6') return '4m*8m';
+        if (name === '碎石區1') return '4m*8m(部分水泥地)';
+        if (name === '碎石區2') return '4m*8m';
+        return '';
     }
 
-    const baseZones = [
-        { id: 'ZA1', name: '棚架 A 區', count: 9, cat: 'shelter', desc: '寬敞遮雨棚車停帳邊', price: 1000, badge: '熱門', images: ['https://i.ibb.co/KjBcKGvt/A-DDcar.jpg', 'https://i.ibb.co/RTypZTzW/A1.jpg', 'https://i.ibb.co/hRNQ84SY/A.jpg'] },
-        { id: 'ZA2', name: '棚架 B 區', count: 4, cat: 'shelter', desc: '適合包區車停帳邊', price: 1000, images: ['https://i.ibb.co/bMQ51htS/B.jpg', 'https://i.ibb.co/7JY7xRYp/B.jpg'] },
-        { id: 'ZA3', name: '棚架 C 區', count: 3, cat: 'shelter', desc: '安靜舒適獨立區車停帳邊', price: 1000, images: ['https://i.ibb.co/c70KNkJ/C1.jpg', 'https://i.ibb.co/zTRCxcwq/2.jpg'] },
-        { id: 'ZB1', name: '棧板 A 區', count: 2, cat: 'grass', desc: '架高防潮+遊戲區', price: 1000, images: ['https://i.ibb.co/XrMggq46/1.jpg'] },
-        { id: 'ZB2', name: '棧板 B 區', count: 2, cat: 'grass', desc: '棚架車停帳邊', price: 1000, images: ['https://i.ibb.co/JRmcf3bw/B.jpg'] },
-        { id: 'ZC1', name: '三人頂級露營車', count: 2, cat: 'camper', desc: '最有溫度的一晚車停帳邊', price: 3600, badge: '最高級的懶人享受', images: ['https://i.ibb.co/jvXBxJWw/4.jpg'] },
-        { id: 'ZC2', name: '小木屋 (大)', count: 1, cat: 'cabinL', desc: '家庭首選', price: 2600, images: ['https://i.ibb.co/4n2CPt5X/image.jpg', 'https://i.ibb.co/VYpvt7NF/image.jpg'] },
-        { id: 'ZC3', name: '小木屋 (小)', count: 1, cat: 'cabinS', desc: '溫馨三人', price: 2200, images: ['https://i.ibb.co/CpNgsKHw/image.jpg', 'https://i.ibb.co/VW4t8GH4/image.jpg'] },
-        { id: 'ZD1', name: '草地區', count: 6, cat: 'grass', desc: '親近自然的美好車停帳邊', price: 1000, images: ['https://i.ibb.co/7xsg5nfv/1.jpg', 'https://i.ibb.co/DDLBdhNk/3.jpg', 'https://i.ibb.co/S73TLHJR/2.jpg'] },
-        { id: 'ZD2', name: '碎石地區', count: 2, cat: 'grass', desc: '充電紮營首選車停帳邊', price: 1000, images: ['https://i.ibb.co/k6D740Ht/image.jpg'] },
-        { id: 'ZE1', name: '包棟民宿 (16人)', count: 1, cat: 'villa', desc: '4房一起K歌最開心', price: 15000, badge: '獨享', images: ['https://i.ibb.co/6RyZYPVy/7-KW.jpg'] },
-        { id: 'ZF1', name: '泰式免搭', count: 8, cat: 'room', desc: '懶人新福音', price: 1200, badge: '最新', images: ['https://i.ibb.co/60bXNB57/image.jpg', 'https://i.ibb.co/DHhm1sWR/2.jpg'] }
-    ];
+    function getLocalISODate(dateObj) {
+        const y = dateObj.getFullYear();
+        const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const d = String(dateObj.getDate()).padStart(2, '0');
+        return `${y}-${m}-${d}`;
+    }
 
-    zones = [];
+    function buildZones(dateStr) {
+        const isZoneMode = dateStr ? dateStr >= '2026-06-01' : false;
 
-    baseZones.forEach(zone => {
-        if (zone.count > 1) {
-            for (let i = 1; i <= zone.count; i++) {
-                let spotName = '';
-                if (zone.name === '棚架 A 區') spotName = `棚架A${i}`;
-                else if (zone.name === '棚架 B 區') spotName = `棚架B${i}`;
-                else if (zone.name === '棚架 C 區') spotName = `棚架C${i}`;
-                else if (zone.name === '棧板 A 區') spotName = `棧板A${i}`;
-                else if (zone.name === '棧板 B 區') spotName = `棧板B${i}`;
-                else if (zone.name === '三人頂級露營車') spotName = `露營車${String.fromCharCode(64 + i)}`;
-                else if (zone.name === '草地區') spotName = `草地區${i}`;
-                else if (zone.name === '碎石地區') spotName = `碎石區${i}`;
-                else if (zone.name === '泰式免搭') spotName = `泰式${String.fromCharCode(64 + i)}`;
-                else spotName = `${zone.name}${i}`;
+        if (currentZoneMode !== isZoneMode) {
+            cart = {};
+            currentZoneMode = isZoneMode;
+        }
 
+        const baseZones = [
+            { id: 'ZA1', name: '棚架 A 區', count: 9, cat: 'shelter', desc: '寬敞遮雨棚車停帳邊', price: 1000, badge: '熱門', images: ['https://i.ibb.co/KjBcKGvt/A-DDcar.jpg', 'https://i.ibb.co/RTypZTzW/A1.jpg', 'https://i.ibb.co/hRNQ84SY/A.jpg'] },
+            { id: 'ZA2', name: '棚架 B 區', count: 4, cat: 'shelter', desc: '適合包區車停帳邊', price: 1000, images: ['https://i.ibb.co/bMQ51htS/B.jpg', 'https://i.ibb.co/7JY7xRYp/B.jpg'] },
+            { id: 'ZA3', name: '棚架 C 區', count: 3, cat: 'shelter', desc: '安靜舒適獨立區車停帳邊', price: 1000, images: ['https://i.ibb.co/c70KNkJ/C1.jpg', 'https://i.ibb.co/zTRCxcwq/2.jpg'] },
+            { id: 'ZB1', name: '棧板 A 區', count: 2, cat: 'grass', desc: '架高防潮+遊戲區', price: 1000, images: ['https://i.ibb.co/XrMggq46/1.jpg'] },
+            { id: 'ZB2', name: '棧板 B 區', count: 2, cat: 'grass', desc: '棚架車停帳邊', price: 1000, images: ['https://i.ibb.co/JRmcf3bw/B.jpg'] },
+            { id: 'ZC1', name: '三人頂級露營車', count: 2, cat: 'camper', desc: '最有溫度的一晚車停帳邊', price: 3600, badge: '最高級的懶人享受', images: ['https://i.ibb.co/jvXBxJWw/4.jpg'] },
+            { id: 'ZC2', name: '小木屋 (大)', count: 1, cat: 'cabinL', desc: '家庭首選', price: 2600, images: ['https://i.ibb.co/4n2CPt5X/image.jpg', 'https://i.ibb.co/VYpvt7NF/image.jpg'] },
+            { id: 'ZC3', name: '小木屋 (小)', count: 1, cat: 'cabinS', desc: '溫馨三人', price: 2200, images: ['https://i.ibb.co/CpNgsKHw/image.jpg', 'https://i.ibb.co/VW4t8GH4/image.jpg'] },
+            { id: 'ZD1', name: '草地區', count: 6, cat: 'grass', desc: '親近自然的美好車停帳邊', price: 1000, images: ['https://i.ibb.co/7xsg5nfv/1.jpg', 'https://i.ibb.co/DDLBdhNk/3.jpg', 'https://i.ibb.co/S73TLHJR/2.jpg'] },
+            { id: 'ZD2', name: '碎石地區', count: 2, cat: 'grass', desc: '充電紮營首選車停帳邊', price: 1000, images: ['https://i.ibb.co/k6D740Ht/image.jpg'] },
+            { id: 'ZE1', name: '包棟民宿 (16人)', count: 1, cat: 'villa', desc: '4房一起K歌最開心', price: 15000, badge: '獨享', images: ['https://i.ibb.co/6RyZYPVy/7-KW.jpg'] },
+            { id: 'ZF1', name: '泰式免搭', count: 8, cat: 'room', desc: '懶人新福音', price: 1200, badge: '最新', images: ['https://i.ibb.co/60bXNB57/image.jpg', 'https://i.ibb.co/DHhm1sWR/2.jpg'] }
+        ];
+
+        zones = [];
+
+        baseZones.forEach(zone => {
+            if (zone.count > 1) {
+                for (let i = 1; i <= zone.count; i++) {
+                    let spotName = '';
+                    if (zone.name === '棚架 A 區') spotName = `棚架A${i}`;
+                    else if (zone.name === '棚架 B 區') spotName = `棚架B${i}`;
+                    else if (zone.name === '棚架 C 區') spotName = `棚架C${i}`;
+                    else if (zone.name === '棧板 A 區') spotName = `棧板A${i}`;
+                    else if (zone.name === '棧板 B 區') spotName = `棧板B${i}`;
+                    else if (zone.name === '三人頂級露營車') spotName = `露營車${String.fromCharCode(64 + i)}`;
+                    else if (zone.name === '草地區') spotName = `草地區${i}`;
+                    else if (zone.name === '碎石地區') spotName = `碎石區${i}`;
+                    else if (zone.name === '泰式免搭') spotName = `泰式${String.fromCharCode(64 + i)}`;
+                    else spotName = `${zone.name}${i}`;
+
+                    zones.push({
+                        ...zone,
+                        id: `${zone.id}_${i}`,
+                        name: spotName,
+                        count: 1,
+                        desc: `專屬營位: ${spotName}`,
+                        originalName: zone.name,
+                        sizeText: getCampSize(spotName)
+                    });
+                }
+            } else {
                 zones.push({
                     ...zone,
-                    id: `${zone.id}_${i}`,
-                    name: spotName,
+                    name: zone.name,
                     count: 1,
-                    desc: `專屬營位: ${spotName}`,
+                    desc: zone.desc,
                     originalName: zone.name,
-                    sizeText: getCampSize(spotName)
+                    sizeText: getCampSize(zone.name)
                 });
             }
-        } else {
-            zones.push({
-                ...zone,
-                name: zone.name,
-                count: 1,
-                desc: zone.desc,
-                originalName: zone.name,
-                sizeText: getCampSize(zone.name)
-            });
-        }
-    });
-}
-           const rentals = [
-            { id: 'R01', name: '月亮椅/休閒椅', price: 100, stock: 3 },
-            { id: 'R02', name: '平躺椅', price: 150, stock: 2 },
-            { id: 'R03', name: '卡式爐/蜘蛛爐(含瓦斯)', price: 200, stock: 3 },
-            { id: 'R04', name: '五星爐(含瓦斯)', price: 300, stock: 1 },
-            { id: 'R05', name: 'IGT桌全套', price: 700, stock: 2 },
-            { id: 'R06', name: '天幕 3*3+桿', price: 250, stock: 2 },
-            { id: 'R07', name: '天幕 3*5+桿', price: 350, stock: 1 },
-            { id: 'R08', name: '超聲波地墊 3*3', price: 150, stock: 1 },
-            { id: 'R09', name: '野餐地墊 2*2/燈具', price: 100, stock: 2 },
-            { id: 'R10', name: '落地頂級四葉燈', price: 350, stock: 1 },
-            { id: 'R11', name: '投影機', price: 300, stock: 1 },
-            { id: 'R12', name: '投影布幕', price: 100, stock: 1 },
-            { id: 'R13', name: '電暖器', price: 200, stock: 2 },
-            { id: 'R14', name: '焚火台(小)', price: 350, stock: 4 },
-            { id: 'R14B', name: '焚火台(大)', price: 550, stock: 2 },
-            { id: 'R15', name: '木柴(6公斤)', price: 260, stock: 20 },
-            { id: 'R16', name: '雙人床墊不挑款', price: 500, stock: 3 },
-            { id: 'R17', name: '3-4人床墊不挑款', price: 800, stock: 3 },
-            { id: 'R18', name: '電動車車床方案', price: 150, stock: 50 },
-            { id: 'R19', name: '小擺頭風扇', price: 150, stock: 3 },
-            { id: 'R20', name: '大擺頭風扇', price: 250, stock: 2 },
-            { id: 'R21', name: '樂活不露二代大風扇', price: 400, stock: 1 },
-            { id: 'R22', name: '移動式冷氣', price: 800, stock: 2 }
-        ];
+        });
+    }
 
-        const tents = [
-            { id: 'T00', name: '代收搭服務', price: 500, stock: 50 },
-            { id: 'T05', name: '迪卡儂 4.2 充氣帳', price: 800, stock: 1 },
-            { id: 'T06', name: 'IF充氣帳篷6.0', price: 800, stock: 1 },
-            { id: 'T04', name: '杜邦鯤9車尾帳', price: 1000, stock: 1 },
-            { id: 'T07', name: 'Prado 7.5 小屋', price: 1200, stock: 3 },
-            { id: 'T02', name: 'KZM-T250', price: 2000, stock: 1 },
-            { id: 'T03', name: 'Coody8', price: 2000, stock: 1 }
-        ];
+    const rentals = [
+        { id: 'R01', name: '月亮椅/休閒椅', price: 100, stock: 3 },
+        { id: 'R02', name: '平躺椅', price: 150, stock: 2 },
+        { id: 'R03', name: '卡式爐/蜘蛛爐(含瓦斯)', price: 200, stock: 3 },
+        { id: 'R04', name: '五星爐(含瓦斯)', price: 300, stock: 1 },
+        { id: 'R05', name: 'IGT桌全套', price: 700, stock: 2 },
+        { id: 'R06', name: '天幕 3*3+桿', price: 250, stock: 2 },
+        { id: 'R07', name: '天幕 3*5+桿', price: 350, stock: 1 },
+        { id: 'R08', name: '超聲波地墊 3*3', price: 150, stock: 1 },
+        { id: 'R09', name: '野餐地墊 2*2/燈具', price: 100, stock: 2 },
+        { id: 'R10', name: '落地頂級四葉燈', price: 350, stock: 1 },
+        { id: 'R11', name: '投影機', price: 300, stock: 1 },
+        { id: 'R12', name: '投影布幕', price: 100, stock: 1 },
+        { id: 'R13', name: '電暖器', price: 200, stock: 2 },
+        { id: 'R14', name: '焚火台(小)', price: 350, stock: 4 },
+        { id: 'R14B', name: '焚火台(大)', price: 550, stock: 2 },
+        { id: 'R15', name: '木柴(6公斤)', price: 260, stock: 20 },
+        { id: 'R16', name: '雙人床墊不挑款', price: 500, stock: 3 },
+        { id: 'R17', name: '3-4人床墊不挑款', price: 800, stock: 3 },
+        { id: 'R18', name: '電動車車床方案', price: 150, stock: 50 },
+        { id: 'R19', name: '小擺頭風扇', price: 150, stock: 3 },
+        { id: 'R20', name: '大擺頭風扇', price: 250, stock: 2 },
+        { id: 'R21', name: '樂活不露二代大風扇', price: 400, stock: 1 },
+        { id: 'R22', name: '移動式冷氣', price: 800, stock: 2 }
+    ];
 
-        const bbqs = [
-            { id: 'B01', name: '1299套餐(2-3人含所有烤肉用具，餐具自備)', price: 1299, stock: 5, image: 'https://i.ibb.co/N623cTjr/1299.png'},
-            { id: 'B02', name: '2299套餐(3-4人含所有烤肉用具，餐具自備)', price: 2299, stock: 5, image: 'https://i.ibb.co/Lz8v5BBj/2599.jpg' },
-            { id: 'B03', name: '3099套餐(4-6人含所有烤肉用具，餐具自備)', price: 3099, stock: 5, image: 'https://i.ibb.co/ynJ4BYJC/3099.jpg' },
-            { id: 'B04', name: '4999頂級海陸套餐(10-15人含所有烤肉用具，餐具自備)', price: 4999, stock: 5 }
-        ];
+    const tents = [
+        { id: 'T00', name: '代收搭服務', price: 500, stock: 50 },
+        { id: 'T05', name: '迪卡儂 4.2 充氣帳', price: 800, stock: 1 },
+        { id: 'T06', name: 'IF充氣帳篷6.0', price: 800, stock: 1 },
+        { id: 'T04', name: '杜邦鯤9車尾帳', price: 1000, stock: 1 },
+        { id: 'T07', name: 'Prado 7.5 小屋', price: 1200, stock: 4 },
+        { id: 'T02', name: 'KZM-T250', price: 2000, stock: 1 },
+        { id: 'T03', name: 'Coody8', price: 2000, stock: 1 }
+    ];
 
-        const blogPosts = [
-            { id: 5, date: "2026-03-17", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/wZH2y8Fq/image.jpg", content: "端午連假熱烈訂位中，歡迎一同參與火舞秀及美妙的山林時光吧~", images: [], tags: ["#Hank碎碎念", "#端午連假", "#滿帳日常", "#充電莊"], likes: 139, comments: 28 },
-            { id: 4, date: "2026-02-23", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/wZH2y8Fq/image.jpg", content: "終於結束了過年的惡魔週，接下來準備迎接連續三週的滿帳周末QAQ！\n\n草皮跟設施都已經重新整理過了，趁著今天有短暫的空檔喝杯茶回個血。期待大家週末來享受好天氣與櫻花季！記得提早預約喔～目前還有兒童跟5/1連假~", images: [], tags: ["#Hank碎碎念", "#過年地獄", "#滿帳日常", "#充電莊"], likes: 128, comments: 15 },
-            { id: 3, date: "2026-02-12", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/6cx1xrVR/image.jpg", content: "營區多了兩位新嬌客！🦆🦆\n\n最近我們迎來了兩隻超級可愛的柯爾鴨，走起路來有夠療癒。這幾天已經變成小露友們的目光焦點了，大家來露營的時候歡迎來找牠們玩，但記得要溫柔對待，不要追著牠們跑喔！", images: ["https://i.ibb.co/8LQbwPjQ/image.jpg"], tags: ["#柯爾鴨", "#營區日常", "#寵物友善", "#親子露營"], likes: 245, comments: 32 },
-            { id: 2, date: "2026-01-29", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/6cx1xrVR/image.jpg", content: "狂賀！專屬小露友的快樂基地完工啦！🎉\n\n為了讓爸媽能更安心地在帳篷放空，我們花了好幾天，終於打造出這個 3公尺 x 2公尺 的「室內專屬沙坑」。不受天氣影響，下雨也能玩得超開心！\n\n珵已經幫大家嚴格「實測」過了，玩到根本不想起來😆。下次來充電莊，小孩放電、車子充電、大人身心靈也跟著充電！", images: ["https://i.ibb.co/FfSfyfP/image.jpg"], tags: ["#室內沙坑", "#小孩放電神器", "#雨天備案", "#懶人露營"], likes: 312, comments: 48 },
-            { id: 1, date: "2026-01-18", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/HLW7rx8W/image.jpg", content: "夜衝的浪漫，就是一把吉他配上滿滿的電量。🎸⚡\n\n身為 Model Y 車主，真的太懂開電車上山那種「看著電量掉」的焦慮感。這也是為什麼我們營區堅持要拉好充沛的充電樁 (J1772/TPC/Type2通通有)。\n\n昨晚點起焚火台，拿出陪了我 20 年的手工吉他，接上 Bose S1 Pro 彈唱了幾首。看著愛車在旁邊悠悠地充著電，這種沒有里程焦慮的露營，才是真正的放鬆啊！", images: ["https://i.ibb.co/KjBcKGvt/A-DDcar.jpg"], tags: ["#電車露營", "#TeslaModelY", "#夜衝", "#吉他彈唱"], likes: 456, comments: 55 }
-        ];
-        
-        const gears = [{n:'月亮椅/休閒椅',p:'100'},{n:'平躺椅',p:'150'},{n:'卡式爐/蜘蛛爐(含瓦斯)',p:'200'},{n:'五星爐(含瓦斯)',p:'300'},{n:'IGT桌全套',p:'600'},{n:'天幕 3*3+桿',p:'250'},{n:'天幕 3*5+桿',p:'350'},{n:'超聲波地墊 3*3',p:'150'},{n:'野餐地墊 2*2/燈具',p:'100'},{n:'落地頂級四葉燈',p:'350'},{n:'杜邦鯤9車尾帳',p:'1000'},{n:'代搭帳服務',p:'500'},{n:'投影機',p:'300'},{n:'投影布幕',p:'100'},{n:'電暖器',p:'200'},{n:'焚火台(小)',p:'350'},{n:'焚火台(大)',p:'550'},{n:'木柴',p:'260'},{n:'小擺頭風扇',p:'150'},{n:'大擺頭風扇',p:'250'},{n:'樂活不露二代風扇',p:'400'},{n:'移動式冷氣',p:'800'},{n:'電動車車床方案',p:'150'}];
-        
-        const reviews = [
-            {n:"Tesla車主陳先生", c:"充電樁真的太方便了！不用怕開電車來山上會沒電，環境也很清幽。"},
-            {n:"林小姐一家", c:"帶小朋友來這裡放電真的很適合，雨棚區下雨也不怕，營主很熱情！"},
-            {n:"露營新手小張", c:"第一次露營選擇了泰式免搭，裝備都很乾淨，晚上還有蟲鳴聲，很棒的體驗。"},
-            {n:"李媽媽", c:"小木屋很溫馨，適合長輩一起來，風景優美，空氣很好。"},
-            {n:"王先生", c:"夜衝價格很佛心，老闆人很好，還送了我們一些木柴，下次一定再來。"},
-            {n:"Model Y 車友", c:"專門為了充電來的，位置安排得很好，可以直接停在帳篷旁邊充電，大推！"},
-            {n:"Jason", c:"這裡的落羽松季節真的超美，隨便拍都好看，很適合網美來打卡。"},
-            {n:"吳先生", c:"包棟民宿設備很齊全，KTV音響效果不錯，大家玩得很盡興。"},
-            {n:"Emily", c:"廁所跟浴室都保持得很乾淨，熱水也很穩，這點對露營來說太重要了。"},
-            {n:"阿豪", c:"草地區的草皮維護得很好，很軟很舒服，赤腳走也沒問題。"}
-        ];
-        
-        const tentInfoData = [
-            { name: "代收搭服務 (自備帳篷)", price: "500", desc: "專人為您搭設與撤收帳篷，讓您輕鬆享受露營樂趣 (不含帳篷，僅服務)。", img: "https://i.ibb.co/C3kqHQBG/DSC00043.jpg", tag: "頂級懶人服務", highlight: true },
-            { name: "迪卡儂 4.2 充氣帳 (租借)", price: "800", img: "https://i.ibb.co/5WGjJV0Y/4-2.jpg", desc: "兩房一廳設計，適合兩對情侶或家庭，CP值最高的選擇。" },
-            { name: "IF 充氣帳篷 6.0 (租借)", price: "800", img: "https://i.ibb.co/bgdggSG1/IF-6-0.jpg", desc: "CP值充氣帳，搭建容易。" },
-            { name: "杜邦鯤 9 車尾帳 (租借)", price: "1,000", img: "https://i.ibb.co/JRQtGCS7/9.jpg", desc: "專為車宿設計，密合度99%，延伸車內空間，通風良好，防蚊防蟲。" },
-            { name: "Prado 7.5 小屋 充氣帳 (租借)", price: "1,200", img: "https://i.ibb.co/cdFnFZd/Prado.jpg", desc: "台灣原創品牌，高品質帳篷。" },
-            { name: "KZM-T250 充氣帳 (租借)", price: "2,000", img: "https://i.ibb.co/G4zSJ98h/tw-11134208-81ztg-meterwxf57gmfa.jpg", desc: "韓國知名品牌，缺貨，一房一廳大空間。" },
-            { name: "Coody 8.0 充氣帳 (租借)", price: "2,000", img: "https://i.ibb.co/0yRncf2r/coody-8.jpg", desc: "充氣帳中的豪宅，空間寬敞，結構穩固，提供最舒適的露營體驗。" }
-        ];
+    const bbqs = [
+        { id: 'B01', name: '1299套餐(2-3人含所有烤肉用具，餐具自備)', price: 1299, stock: 5, image: 'https://i.ibb.co/N623cTjr/1299.png'},
+        { id: 'B02', name: '2299套餐(3-4人含所有烤肉用具，餐具自備)', price: 2299, stock: 5, image: 'https://i.ibb.co/Lz8v5BBj/2599.jpg' },
+        { id: 'B03', name: '3099套餐(4-6人含所有烤肉用具，餐具自備)', price: 3099, stock: 5, image: 'https://i.ibb.co/ynJ4BYJC/3099.jpg' },
+        { id: 'B04', name: '4999頂級海陸套餐(10-15人含所有烤肉用具，餐具自備)', price: 4999, stock: 5 }
+    ];
 
-        function renderTentInfo() {
-            const container = document.querySelector('#modal-tent .space-y-6');
-            if (!container) return;
-            let html = '';
-            tentInfoData.forEach((item, index) => {
-                const isHighlight = item.highlight || index === 0;
-                const borderClass = isHighlight ? "border-4 border-purple-500 shadow-xl transform scale-[1.02]" : "border border-gray-100 shadow-md";
-                const titleClass = isHighlight ? "text-3xl font-extrabold text-purple-700 tracking-tight" : "text-lg font-bold text-stone-800";
-                const priceClass = isHighlight ? "text-3xl font-black text-purple-600" : "text-xl font-bold text-purple-600";
-                const bgClass = isHighlight ? "bg-purple-50" : "bg-white";
+    const blogPosts = [
+        { id: 5, date: "2026-03-17", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/wZH2y8Fq/image.jpg", content: "端午連假熱烈訂位中，歡迎一同參與火舞秀及美妙的山林時光吧~", images: [], tags: ["#Hank碎碎念", "#端午連假", "#滿帳日常", "#充電莊"], likes: 139, comments: 28 },
+        { id: 4, date: "2026-02-23", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/wZH2y8Fq/image.jpg", content: "終於結束了過年的惡魔週，接下來準備迎接連續三週的滿帳周末QAQ！\n\n草皮跟設施都已經重新整理過了，趁著今天有短暫的空檔喝杯茶回個血。期待大家週末來享受好天氣與櫻花季！記得提早預約喔～目前還有兒童跟5/1連假~", images: [], tags: ["#Hank碎碎念", "#過年地獄", "#滿帳日常", "#充電莊"], likes: 128, comments: 15 },
+        { id: 3, date: "2026-02-12", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/6cx1xrVR/image.jpg", content: "營區多了兩位新嬌客！🦆🦆\n\n最近我們迎來了兩隻超級可愛的柯爾鴨，走起路來有夠療癒。這幾天已經變成小露友們的目光焦點了，大家來露營的時候歡迎來找牠們玩，但記得要溫柔對待，不要追著牠們跑喔！", images: ["https://i.ibb.co/8LQbwPjQ/image.jpg"], tags: ["#柯爾鴨", "#營區日常", "#寵物友善", "#親子露營"], likes: 245, comments: 32 },
+        { id: 2, date: "2026-01-29", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/6cx1xrVR/image.jpg", content: "狂賀！專屬小露友的快樂基地完工啦！🎉\n\n為了讓爸媽能更安心地在帳篷放空，我們花了好幾天，終於打造出這個 3公尺 x 2公尺 的「室內專屬沙坑」。不受天氣影響，下雨也能玩得超開心！\n\n珵已經幫大家嚴格「實測」過了，玩到根本不想起來😆。下次來充電莊，小孩放電、車子充電、大人身心靈也跟著充電！", images: ["https://i.ibb.co/FfSfyfP/image.jpg"], tags: ["#室內沙坑", "#小孩放電神器", "#雨天備案", "#懶人露營"], likes: 312, comments: 48 },
+        { id: 1, date: "2026-01-18", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/HLW7rx8W/image.jpg", content: "夜衝的浪漫，就是一把吉他配上滿滿的電量。🎸⚡\n\n身為 Model Y 車主，真的太懂開電車上山那種「看著電量掉」的焦慮感。這也是為什麼我們營區堅持要拉好充沛的充電樁 (J1772/TPC/Type2通通有)。\n\n昨晚點起焚火台，拿出陪了我 20 年的手工吉他，接上 Bose S1 Pro 彈唱了幾首。看著愛車在旁邊悠悠地充著電，這種沒有里程焦慮的露營，才是真正的放鬆啊！", images: ["https://i.ibb.co/KjBcKGvt/A-DDcar.jpg"], tags: ["#電車露營", "#TeslaModelY", "#夜衝", "#吉他彈唱"], likes: 456, comments: 55 }
+    ];
 
-                html += `
-                    <div class="${bgClass} rounded-xl ${borderClass} overflow-hidden flex flex-col md:flex-row transition-all relative">
-                        <div class="w-full md:w-48 h-48 bg-gray-200 relative flex-shrink-0 cursor-pointer" onclick="showImage('${item.img}')">
-                            <img src="${item.img}" class="w-full h-full object-cover" referrerpolicy="no-referrer">
-                            ${item.tag ? `<span class="absolute top-2 left-2 bg-purple-600 text-white text-xs px-2 py-1 rounded shadow font-bold tracking-wider whitespace-nowrap">${item.tag}</span>` : ''}
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col justify-between">
-                            <div>
-                                <div class="flex justify-between items-start mb-2">
-                                     <h4 class="${titleClass} flex-1 pr-4">${item.name}</h4>
-                                     ${item.tag && !isHighlight ? `<span class="bg-purple-600 text-white text-xs px-2 py-1 rounded shadow font-bold tracking-wider whitespace-nowrap md:hidden">${item.tag}</span>` : ''}
-                                </div>
-                                <p class="text-sm text-gray-500 leading-relaxed mb-4">${item.desc}</p>
-                            </div>
-                            <div class="flex justify-between items-end border-t border-gray-200 pt-3 mt-auto">
-                                <span class="text-xs text-gray-400 font-bold bg-gray-100 px-2 py-1 rounded">不含營位費</span>
-                                <span class="${priceClass}">$${item.price} <span class="text-xs text-gray-500 font-normal">/次</span></span>
-                            </div>
-                        </div>
-                        ${isHighlight ? '<div class="absolute top-0 right-0 bg-yellow-400 text-purple-900 text-xs font-bold px-3 py-1 rounded-bl-xl z-20 shadow">推薦</div>' : ''}
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
-        }
+    const gears = [{n:'月亮椅/休閒椅',p:'100'},{n:'平躺椅',p:'150'},{n:'卡式爐/蜘蛛爐(含瓦斯)',p:'200'},{n:'五星爐(含瓦斯)',p:'300'},{n:'IGT桌全套',p:'600'},{n:'天幕 3*3+桿',p:'250'},{n:'天幕 3*5+桿',p:'350'},{n:'超聲波地墊 3*3',p:'150'},{n:'野餐地墊 2*2/燈具',p:'100'},{n:'落地頂級四葉燈',p:'350'},{n:'杜邦鯤9車尾帳',p:'1000'},{n:'代搭帳服務',p:'500'},{n:'投影機',p:'300'},{n:'投影布幕',p:'100'},{n:'電暖器',p:'200'},{n:'焚火台(小)',p:'350'},{n:'焚火台(大)',p:'550'},{n:'木柴',p:'260'},{n:'小擺頭風扇',p:'150'},{n:'大擺頭風扇',p:'250'},{n:'樂活不露二代風扇',p:'400'},{n:'移動式冷氣',p:'800'},{n:'電動車車床方案',p:'150'}];
 
-        async function init() {
-            buildZones(document.getElementById('checkinDate').value || '');
-            await fetchInventory();
-            renderZones('all');
-            renderGears();
-            renderAddons();
-            renderBlogPosts();
-            renderTentInfo();
-            setupCalculator();
-            renderReviews();
-            renderGalleryFolders();
-            if (myLiffId !== "C268dc45e60850ae22e3e040f0e58a3e5") await initializeLiff();
-        }
+    const reviews = [
+        {n:"Tesla車主陳先生", c:"充電樁真的太方便了！不用怕開電車來山上會沒電，環境也很清幽。"},
+        {n:"林小姐一家", c:"帶小朋友來這裡放電真的很適合，雨棚區下雨也不怕，營主很熱情！"},
+        {n:"露營新手小張", c:"第一次露營選擇了泰式免搭，裝備都很乾淨，晚上還有蟲鳴聲，很棒的體驗。"},
+        {n:"李媽媽", c:"小木屋很溫馨，適合長輩一起來，風景優美，空氣很好。"},
+        {n:"王先生", c:"夜衝價格很佛心，老闆人很好，還送了我們一些木柴，下次一定再來。"},
+        {n:"Model Y 車友", c:"專門為了充電來的，位置安排得很好，可以直接停在帳篷旁邊充電，大推！"},
+        {n:"Jason", c:"這裡的落羽松季節真的超美，隨便拍都好看，很適合網美來打卡。"},
+        {n:"吳先生", c:"包棟民宿設備很齊全，KTV音響效果不錯，大家玩得很盡興。"},
+        {n:"Emily", c:"廁所跟浴室都保持得很乾淨，熱水也很穩，這點對露營來說太重要了。"},
+        {n:"阿豪", c:"草地區的草皮維護得很好，很軟很舒服，赤腳走也沒問題。"}
+    ];
 
-        function renderAddons() {
-            const container = document.getElementById('addons-container');
-            if (!container) return;
-            container.innerHTML = '';
-            
-            container.appendChild(createAddonSection('【裝備租借區】(計次收費)', rentals, 'blue'));
-            container.appendChild(createAddonSection('【帳篷租借區】(計次收費)', tents, 'purple'));
-            container.appendChild(createAddonSection('【烤肉預定區】(計次收費)', bbqs, 'orange'));
-        }
+    const tentInfoData = [
+        { name: "代收搭服務 (限營區帳篷)", price: "500", desc: "專人為您搭設與撤收帳篷，讓您輕鬆享受露營樂趣 (僅服務)。", img: "https://i.ibb.co/C3kqHQBG/DSC00043.jpg", tag: "頂級懶人服務", highlight: true },
+        { name: "迪卡儂 4.2 充氣帳 (租借)", price: "800", img: "https://i.ibb.co/5WGjJV0Y/4-2.jpg", desc: "兩房一廳設計，適合兩對情侶或家庭，CP值最高的選擇。" },
+        { name: "IF 充氣帳篷 6.0 (租借)", price: "800", img: "https://i.ibb.co/bgdggSG1/IF-6-0.jpg", desc: "CP值充氣帳，搭建容易。" },
+        { name: "杜邦鯤 9 車尾帳 (租借)", price: "1,000", img: "https://i.ibb.co/JRQtGCS7/9.jpg", desc: "專為車宿設計，密合度99%，延伸車內空間，通風良好，防蚊防蟲。" },
+        { name: "Prado 7.5 小屋 充氣帳 (租借)", price: "1,200", img: "https://i.ibb.co/cdFnFZd/Prado.jpg", desc: "台灣原創品牌，高品質帳篷。" },
+        { name: "KZM-T250 充氣帳 (租借)", price: "2,000", img: "https://i.ibb.co/G4zSJ98h/tw-11134208-81ztg-meterwxf57gmfa.jpg", desc: "韓國知名品牌，缺貨，一房一廳大空間。" },
+        { name: "Coody 8.0 充氣帳 (租借)", price: "2,000", img: "https://i.ibb.co/0yRncf2r/coody-8.jpg", desc: "充氣帳中的豪宅，空間寬敞，結構穩固，提供最舒適的露營體驗。" }
+    ];
 
-        function createAddonSection(title, items, color) {
-            const wrapper = document.createElement('div');
-            wrapper.className = "mb-6";
-            
-            let borderColor = `border-${color}-600`;
-            if(color==='purple') borderColor = 'border-purple-600';
-            if(color==='orange') borderColor = 'border-orange-600';
-            
-            wrapper.innerHTML = `<h4 class="text-lg font-bold text-stone-800 mb-4 border-l-4 ${borderColor} pl-3">${title}</h4>`;
-            
-            const grid = document.createElement('div');
-            grid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3";
-            
-            const inDateVal = document.getElementById('checkinDate').value;
-            const outDateVal = document.getElementById('checkoutDate').value;
-            
-            let bookedMap = {};
-            if(inDateVal && outDateVal && bookedData) {
-                 const start = new Date(inDateVal);
-                 const end = new Date(outDateVal);
-                 for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
-                    let dateStr = getLocalISODate(d);
-                    if (bookedData[dateStr]) {
-                        const mixedItems = { 
-                            ...(bookedData[dateStr].zones || {}), 
-                            ...(bookedData[dateStr].addons || {}) 
-                        };
-                        for (let [itemName, qty] of Object.entries(mixedItems)) {
-                            bookedMap[itemName] = Math.max(bookedMap[itemName] || 0, qty);
-                        }
-                    }
-                 }
-            }
-
-            items.forEach(item => {
-                const div = document.createElement('div');
-                const bookedCount = bookedMap[item.name] || 0;
-                const remaining = Math.max(0, item.stock - bookedCount);
-                const isFull = remaining <= 0;
-                const currentQty = addonCart[item.name] || 0;
-                
-                div.className = `zone-card bg-white rounded-2xl p-4 relative flex items-center min-h-[148px] ${isFull ? 'disabled-card' : ''} ${currentQty > 0 ? 'selected' : ''}`;
-                
-                if (isFull) {
-                    div.classList.add('opacity-50', 'pointer-events-none', 'grayscale');
-                }
-                const imgHtml = item.image ? `<div class="w-16 h-16 mr-3 flex-shrink-0 cursor-pointer" onclick="showImage('${item.image}')"><img src="${item.image}" class="w-full h-full object-cover rounded-md"></div>` : '';
-                let stockText = isFull ? '<span class="text-red-600 font-bold">已租完</span>' : `庫存: ${remaining} | <span class="font-bold text-orange-600">$${item.price}</span>`;
-
-                div.innerHTML = `
-                    ${imgHtml}
-                    <div class="flex-1 min-w-0">
-                        <div class="font-bold text-sm text-gray-800 truncate">${item.name}</div>
-                        <div class="text-xs text-gray-500 truncate">${stockText}</div>
-                    </div>
-                    <div class="flex items-center gap-2 flex-shrink-0" onclick="if(event) event.stopPropagation()">
-                         <button type="button" class="w-7 h-7 flex-shrink-0 bg-stone-100 text-stone-600 font-bold text-sm hover:bg-stone-300 transition flex items-center justify-center border border-stone-200 rounded-full" onclick="updateAddonQty('${item.name}', -1, ${remaining}, ${item.price}, event)">-</button>
-                         <span class="w-4 text-center text-sm font-bold" id="qty-${item.name}">${currentQty}</span>
-                         <button type="button" class="w-7 h-7 flex-shrink-0 bg-stone-800 text-white font-bold text-sm hover:bg-stone-700 transition shadow flex items-center justify-center rounded-full" onclick="updateAddonQty('${item.name}', 1, ${remaining}, ${item.price}, event)">+</button>
-                    </div>
-                `;
-                grid.appendChild(div);
-            });
-            
-            wrapper.appendChild(grid);
-            return wrapper;
-        }
-
-        window.updateAddonQty = (name, delta, maxStock, price, e) => {
-            if(e) { e.preventDefault(); e.stopPropagation(); }
-            const inDate = document.getElementById('checkinDate').value;
-            const outDate = document.getElementById('checkoutDate').value;
-            if (!inDate || !outDate) { alert('請先選擇入住與退房日期，才能查看剩餘裝備數量。'); return; }
-
-            let current = addonCart[name] || 0;
-            let newQty = current + delta;
-            
-            if (newQty < 0) newQty = 0;
-            if (newQty > maxStock) {
-                alert(`庫存不足，該時段剩餘數量: ${maxStock}`);
-                newQty = maxStock;
-            }
-            
-            if (newQty === 0) {
-                delete addonCart[name];
-            } else {
-                addonCart[name] = newQty;
-            }
-            
-            const span = document.getElementById(`qty-${name}`);
-            if (span) span.innerText = newQty;
-            if (window.reCalculate) window.reCalculate();
-        }
-
-        function getSafeImageUrl(url) {
-            if (!url) return '';
-            const match = url.match(/id=([a-zA-Z0-9_-]+)/);
-            if (match && match[1]) {
-                return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1000`;
-            }
-            return url;
-        }
-
-        let galleryData = {
+    let galleryData = {
           "木屋外觀": [
             { "t": "", "u": "https://drive.google.com/thumbnail?id=1BwC53jb9SYJvlXu9Pnef8Ob4NH8ePKpB&sz=w1000" },
             { "t": "", "u": "https://drive.google.com/thumbnail?id=1N_Towiehb0T6B2qR1jyl7oJhy3CQlmkG&sz=w1000" },
