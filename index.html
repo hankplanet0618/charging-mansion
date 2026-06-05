@@ -2222,39 +2222,68 @@ if (overallSubtotal > 0) {
                 </div>`;
                 
                 div.onclick = (e) => {
-                    if (e.target.closest('button')) return;
-                    if (isFull) { alert('此日期區間該營位已額滿。'); return; }
-                    if (!inDate || !outDate) { alert('請先選擇入住與退房日期，才能查看剩餘營位。'); return; }
-                    if (!cart[zone.name]) cart[zone.name] = 1; else delete cart[zone.name];
-                    renderZones(document.querySelector('.filter-btn.active').getAttribute('data-filter'));
-                    window.reCalculate();
-                };
-                container.appendChild(div);
+    if (e.target.closest('button')) return;
+
+    const checkinVal = document.getElementById('checkinDate').value;
+    const checkoutVal = document.getElementById('checkoutDate').value;
+
+    if (!checkinVal) {
+        alert('請先選擇入住日期');
+        return;
+    }
+    if (!checkoutVal) {
+        alert('請選擇退房日期後才能選擇營位');
+        return;
+    }
+
+    if (isFull) {
+        alert('此日期區間該營位已額滿。');
+        return;
+    }
+
+    if (!cart[zone.name]) {
+        cart[zone.name] = 1;
+    } else {
+        delete cart[zone.name];
+    }
+
+    renderZones(document.querySelector('.filter-btn.active').getAttribute('data-filter'));
+    if (window.reCalculate) window.reCalculate();
+};
+container.appendChild(div);
             });
             updateFilterBtns(filter);
         }
 
         window.updateZoneQty = (e, zoneName, delta, maxQty) => {
-            if(e) { e.preventDefault(); e.stopPropagation(); }
-            const inDate = document.getElementById('checkinDate').value;
-            const outDate = document.getElementById('checkoutDate').value;
-            if (!inDate || !outDate) { alert('請先選擇入住與退房日期'); return; }
+    if (e) { 
+        e.preventDefault(); 
+        e.stopPropagation(); 
+    }
 
-            let currentQty = cart[zoneName] || 0; 
-            let newQty = currentQty + delta;
-            
-            if (newQty <= 0) {
-                delete cart[zoneName];
-            } else if (newQty > maxQty) { 
-                alert(`【溫馨提示】此為獨立營位，數量上限為 1 帳。\n👉 如需預訂多帳請點擊下方其他營位的「+」號加入！`); 
-                cart[zoneName] = maxQty; 
-            } else {
-                cart[zoneName] = newQty;
-            }
-            
-            renderZones(document.querySelector('.filter-btn.active').getAttribute('data-filter'));
-            window.reCalculate();
-        }
+    const checkinVal = document.getElementById('checkinDate').value;
+    const checkoutVal = document.getElementById('checkoutDate').value;
+
+    if (!checkinVal || !checkoutVal) {
+        alert('請先選擇入住與退房日期');
+        return;
+    }
+
+    let currentQty = cart[zoneName] || 0;
+    let newQty = currentQty + delta;
+
+    if (newQty <= 0) {
+        delete cart[zoneName];
+    } else if (newQty > maxQty) {
+        alert(`【溫馨提示】此為獨立營位，數量上限為 1 帳。\n👉 如需預訂多帳請點擊下方其他營位的「+」號加入！`);
+        cart[zoneName] = maxQty;
+    } else {
+        cart[zoneName] = newQty;
+    }
+
+    renderZones(document.querySelector('.filter-btn.active').getAttribute('data-filter'));
+    if (window.reCalculate) window.reCalculate();
+}
 
         function updateFilterBtns(filter) {
              document.querySelectorAll('.filter-btn').forEach(btn => {
