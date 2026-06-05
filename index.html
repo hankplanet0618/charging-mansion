@@ -742,9 +742,9 @@ const gears = [
     {n:'焚火台(大)',p:'550'},{n:'木柴',p:'260'},{n:'小擺頭風扇',p:'150'},{n:'大擺頭風扇',p:'250'},
     {n:'樂活不露二代風扇',p:'400'},{n:'移動式冷氣',p:'800'},{n:'電動車車床方案',p:'150'}
 ];
-    function buildZones(dateStr) {
+ function buildZones(dateStr) {
     const isZoneMode = dateStr ? dateStr >= '2026-06-01' : false;
-    
+
     if (currentZoneMode !== isZoneMode) { 
         cart = {}; 
         currentZoneMode = isZoneMode; 
@@ -768,9 +768,8 @@ const gears = [
     zones = [];
 
     baseZones.forEach(zone => {
-        // === 6月1號之後的包區模式 ===
+        // ==================== 6月1號後的包區模式 ====================
         if (isZoneMode && ['棚架 B 區', '棧板 A 區', '棧板 B 區', '棚架 C 區'].includes(zone.name)) {
-            // 這些改成單一包區項目
             const packageName = zone.name.replace(' 區', ''); // 變成 棚架B、棧板A、棧板B、棚架C
             zones.push({
                 ...zone,
@@ -782,7 +781,7 @@ const gears = [
                 sizeText: getCampSize(packageName)
             });
         } 
-        // === 一般模式（個別營位）===
+        // ==================== 其餘維持散帳 / 個別營位 ====================
         else if (zone.count > 1) {
             for (let i = 1; i <= zone.count; i++) {
                 let spotName = '';
@@ -797,29 +796,28 @@ const gears = [
                 else if (zone.name === '泰式免搭') spotName = `泰式${String.fromCharCode(64 + i)}`;
                 else spotName = `${zone.name}${i}`;
 
-                zones.push({ 
-                    ...zone, 
-                    id: `${zone.id}_${i}`, 
-                    name: spotName, 
-                    count: 1, 
-                    desc: `專屬營位: ${spotName}`, 
-                    originalName: zone.name, 
-                    sizeText: getCampSize(spotName) 
+                zones.push({
+                    ...zone,
+                    id: `${zone.id}_${i}`,
+                    name: spotName,
+                    count: 1,
+                    desc: `專屬營位: ${spotName}`,
+                    originalName: zone.name,
+                    sizeText: getCampSize(spotName)
                 });
             }
         } else {
-            zones.push({ 
-                ...zone, 
-                name: zone.name, 
-                count: 1, 
-                desc: zone.desc, 
-                originalName: zone.name, 
-                sizeText: getCampSize(zone.name) 
+            zones.push({
+                ...zone,
+                name: zone.name,
+                count: 1,
+                desc: zone.desc,
+                originalName: zone.name,
+                sizeText: getCampSize(zone.name)
             });
         }
     });
-}
-    const rentals = [
+}    const rentals = [
         { id: 'R01', name: '月亮椅/休閒椅', price: 100, stock: 3 }, { id: 'R02', name: '平躺椅', price: 150, stock: 2 }, { id: 'R03', name: '卡式爐/蜘蛛爐(含瓦斯)', price: 200, stock: 3 },
         { id: 'R04', name: '五星爐(含瓦斯)', price: 300, stock: 1 }, { id: 'R05', name: 'IGT桌全套', price: 700, stock: 2 }, { id: 'R06', name: '天幕 3*3+桿', price: 250, stock: 2 },
         { id: 'R07', name: '天幕 3*5+桿', price: 350, stock: 1 }, { id: 'R08', name: '超聲波地墊 3*3', price: 150, stock: 1 }, { id: 'R09', name: '野餐地墊 2*2/燈具', price: 100, stock: 2 },
