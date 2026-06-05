@@ -668,13 +668,13 @@
     const MIN_DATE = '2026-01-19';
     
     const BLOCKED_DATES = ['2026-02-07', '2026-03-07'];
-    const EVENT_DATES = ['2026-06-19', '2026-06-20', '2026-06-21', '2026-12-25', '2026-12-26', '2026-12-27'];
+    const EVENT_DATES = ['2026-06-19', '2026-06-20', '2026-06-21', '2026-09-25','2026-09-26','2026-09-27','2026-09-28','2026-12-25', '2026-12-26', '2026-12-27'];
     const SPECIAL_HOLIDAYS = [
         '2026-02-14','2026-02-15','2026-02-16','2026-02-17','2026-02-18','2026-02-19','2026-02-20','2026-02-21','2026-02-22',
         '2026-02-27','2026-02-28','2026-03-01', '2026-04-03','2026-04-04','2026-04-05','2026-04-06', '2026-05-01','2026-05-02','2026-05-03',
-        '2026-06-19','2026-06-20','2026-06-21', '2026-09-25','2026-09-26','2026-09-27','2026-09-28', '2026-10-09','2026-10-10','2026-10-11',
+        '2026-06-19','2026-06-20','2026-06-21', '2026-10-09','2026-10-10','2026-10-11',
         '2026-10-24','2026-10-25','2026-10-26', '2026-12-25','2026-12-26','2026-12-27', '2027-01-01','2027-01-02','2027-01-03',
-        '2027-02-04','2027-02-05','2027-02-06','2027-02-07','2027-02-08','2027-02-09','2027-02-10', '2027-02-27','2027-02-28','2027-03-01',
+        '2027-02-04','2027-02-05','2027-02-06','2027-02-07','2027-02-08','2027-02-09','2027-02-10', '2027-02-26','2027-02-27','2027-02-28','2027-03-01',
         '2027-04-03','2027-04-04','2027-04-05','2027-04-06', '2027-04-30','2027-05-01','2027-05-02', '2027-06-09', '2027-09-15',
         '2027-09-25','2027-09-26','2027-09-27','2027-09-28', '2027-10-09','2027-10-10','2027-10-11', '2027-10-23','2027-10-24','2027-10-25',
         '2027-12-24','2027-12-25','2027-12-26', '2027-12-31', '2028-01-01','2028-01-02',
@@ -703,6 +703,19 @@
     };
 
     let cart = {}; let addonCart = {}; let bookedData = {}; let zones = []; let currentZoneMode = null; 
+
+    // ★ 解法核心：把 getSpecialPrice 移到外面，讓大家都看得到它！
+    function getSpecialPrice(cat) {
+        switch(cat) {
+            case 'grass': case 'shelter': return 1400; // 連假草地雨棚
+            case 'room': return 1600;                  // 連假泰式免搭
+            case 'cabinL': return 3000;
+            case 'cabinS': return 2600;
+            case 'villa': return 17000;
+            case 'camper': return 3600;
+            default: return 1400;
+        }
+    }
 
     function getCampSize(name) {
         if (name === '棚架A1') return '4m*6m';
@@ -1223,16 +1236,282 @@
                 calculate();
             }
 
-function getSpecialPrice(cat) {
-            switch(cat) {
-                case 'grass': case 'shelter': return 1400; // 連假草地雨棚
-                case 'room': return 1600;                  // 連假泰式免搭
-                case 'cabinL': return 3000;
-                case 'cabinS': return 2600;
-                case 'villa': return 17000;
-                case 'camper': return 3600;
-                default: return 1400;
+            function calculate() {
+                const cartEntries = Object.entries(cart);
+                const addonEntries = Object.entries(addonCart);
+                
+                let days = 0;
+                let totalPrice = 0;
+                let blocked = false;
+                let blockMsg = "";
+                
+                const isNightBeforeChecked = document.querySelector('input[name="夜衝選項"]:checked')?.value === '是';
+                let nightBeforeDate = null;
+                let nightBeforePriceTotal = 0;
+                let nightBeforeDetails = "";
+                
+                if (inDate.value && outDate.value) {
+                    const start = new Date(inDate.value);
+                    const end = new Date(outDate.value);
+                    const diffTime = end - start;
+                    days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    
+                    if (days > 0) {
+                        stayDaysSpan.textContent = `共 ${days} 晚`;
+                        stayDaysSpan.classList.remove('hidden');
+                        
+                        const checkinDayOfWeek = start.getDay();
+                        const dateStrForCheck = getLocalISODate(start);
+                        let prevDay = new Date(start.getTime() - 86400000);
+                        const prevDayStr = getLocalISODate(prevDay);
+                        
+                        const isHolidayStart = SPECIAL_HOLIDAYS.includes(dateStrForCheck) && !SPECIAL_HOLIDAYS.includes(prevDayStr);
+                        
+                        const nbSection = document.getElementById('nightBeforeSection');
+                        if (checkinDayOfWeek === 6 || isHolidayStart) {
+                            if (nbSection) nbSection.classList.remove('hidden');
+                            nightBeforeDate = prevDay; 
+                            const nbDisplay = document.getElementById('nightBeforeDateDisplay');
+                            if (nbDisplay) nbDisplay.innerText = `(${prevDayStr})`;
+                        } else {
+                            if (nbSection) nbSection.classList.add('hidden');
+                            const noRadio = document.querySelector('input[name="夜衝選項"][value="否"]');
+                            if(noRadio) noRadio.checked = true; 
+                        }
+
+                        for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
+                            let dateStr = getLocalISODate(d);
+                            if (BLOCKED_DATES.includes(dateStr)) {
+                                blocked = true; blockMsg = `【當天已包場滿額】${dateStr}，請重新預定選擇日期`; break;
+                            }
+                        }
+                    } else { 
+                        stayDaysSpan.classList.add('hidden'); 
+                        days = 0; 
+                    }
+                } else {
+                    stayDaysSpan.classList.add('hidden');
+                }
+                
+                if (blocked) {
+                    alert(blockMsg);
+                    inDate.value = ''; outDate.value = '';
+                    resultDiv.classList.add('hidden');
+                    cart = {};
+                    zoneInput.value = '';
+                    const activeFilterBtn = document.querySelector('.filter-btn.active');
+                    if(activeFilterBtn) renderZones(activeFilterBtn.getAttribute('data-filter') || 'all');
+                    renderAddons();
+                    return;
+                }
+
+                if (cartEntries.length === 0 && addonEntries.length === 0) {
+                    resultDiv.classList.add('hidden');
+                    zoneInput.value = "";
+                    return;
+                }
+                
+                let zoneStr = cartEntries.map(([name, qty]) => `${name} * ${qty}`).join(', ');
+                let addonStr = addonEntries.map(([name, qty]) => `${name} * ${qty}`).join(', ');
+                
+                let fullDetails = zoneStr;
+                if (zoneStr && addonStr) fullDetails += ', ' + addonStr;
+                else if (!zoneStr && addonStr) fullDetails = addonStr;
+                
+                zoneInput.value = fullDetails;
+                const totalQty = Object.values(cart).reduce((a, b) => a + b, 0);
+                if (qtySelect) qtySelect.value = totalQty > 0 ? totalQty : 1;
+                
+                if (isNightBeforeChecked && nightBeforeDate) {
+                    cartEntries.forEach(([zoneName, qty]) => {
+                        const zoneData = zones.find(z => z.name === zoneName);
+                        if (!zoneData) return;
+                        let nPrice = 0;
+                        let baseTents = zoneData.baseTents || 1; 
+                        if (['grass', 'shelter', 'room'].includes(zoneData.cat) && !['小木屋 (大)','小木屋 (小)','三人頂級露營車','包棟民宿 (16人)'].includes(zoneData.name)) {
+                            nPrice = 600 * baseTents; 
+                        } else {
+                            nPrice = zoneData.price / 2;
+                        }
+                        nightBeforePriceTotal += nPrice * qty;
+                    });
+                    
+                    if(nightBeforePriceTotal > 0){
+                        let nbDateStr = getLocalISODate(nightBeforeDate);
+                        nightBeforeDetails = `<div class="text-blue-600 mt-1">含夜衝 (${nbDateStr}): +$${nightBeforePriceTotal.toLocaleString()}</div>`;
+                        if (bookedData[nbDateStr] && bookedData[nbDateStr].zones) {
+                             cartEntries.forEach(([zoneName, qty]) => {
+                                 if(bookedData[nbDateStr].zones[zoneName]) {
+                                     blocked = true; blockMsg = `您選擇的營位在夜衝日 (${nbDateStr}) 已被預訂，無法夜衝。`;
+                                 }
+                             });
+                        }
+                    }
+                }
+                
+                if (blocked) {
+                    alert(blockMsg);
+                    inDate.value = ''; outDate.value = '';
+                    resultDiv.classList.add('hidden');
+                    cart = {};
+                    zoneInput.value = '';
+                    const activeFilterBtn = document.querySelector('.filter-btn.active');
+                    if(activeFilterBtn) renderZones(activeFilterBtn.getAttribute('data-filter') || 'all');
+                    renderAddons();
+                    return;
+                }
+
+                if (inDate.value && outDate.value && days > 0) {
+                    const start = new Date(inDate.value);
+                    const end = new Date(outDate.value);
+                    for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
+                        let dateStr = getLocalISODate(d);
+                        let tomorrow = new Date(d);
+                        tomorrow.setDate(tomorrow.getDate() + 1);
+                        let tomorrowStr = getLocalISODate(tomorrow);
+                        let tomorrowDw = tomorrow.getDay();
+                        
+                        const isTomorrowRed = (tomorrowDw === 0 || tomorrowDw === 6) || SPECIAL_HOLIDAYS.includes(tomorrowStr);
+                        const isEventDay = EVENT_DATES.includes(dateStr);
+
+                        let dailyTotal = 0;
+                        cartEntries.forEach(([zoneName, qty]) => {
+                            const zoneData = zones.find(z => z.name === zoneName);
+                            if (!zoneData) return;
+                            let price = zoneData.price;
+                            let baseTents = zoneData.baseTents || 1;
+                            
+                            if (isEventDay) {
+                                switch(zoneData.cat) {
+                                    case 'grass': case 'shelter': case 'room': price = 2000 * baseTents; break;
+                                    case 'cabinL': price = 3100; break;
+                                    case 'cabinS': price = 2700; break;
+                                    case 'villa': price = 17400; break;
+                                    case 'camper': price = 7000; break;
+                                    default: price = 2000 * baseTents;
+                                }
+                            } else if (SPECIAL_HOLIDAYS.includes(dateStr) && isTomorrowRed) {
+                                price = zoneData.holidayPrice || getSpecialPrice(zoneData.cat);
+                            } else if (isTomorrowRed) {
+                                if (zoneData.weekendPrice) { price = zoneData.weekendPrice; } 
+                                else if (['grass', 'shelter'].includes(zoneData.cat)) { price = 1200; } 
+                                else if (['room'].includes(zoneData.cat)) { price = 1400; } 
+                                else { price = getSpecialPrice(zoneData.cat); }
+                            } else {
+                                price = zoneData.price;
+                            }
+                            dailyTotal += price * qty;
+                        });
+                        totalPrice += dailyTotal;
+                    }
+                }
+                
+                let basePrice = totalPrice + nightBeforePriceTotal;
+                let addonTotal = 0; 
+                addonEntries.forEach(([name, qty]) => {
+                    let item = rentals.find(r => r.name === name) || tents.find(t => t.name === name) || bbqs.find(b => b.name === name);
+                    if (item) { addonTotal += item.price * qty; }
+                });
+
+                let overallSubtotal = basePrice + addonTotal;
+
+                if (overallSubtotal > 0 || cartEntries.length > 0 || addonEntries.length > 0) {
+                    const discountVal = getDiscountAmount();
+                    const enteredCode = discountInput.value.trim().toUpperCase();
+                    let basePriceAfterCode = basePrice;
+                    let displayDiscount = "";
+                    let actualDiscountAmt = 0;
+
+                    if (discountVal > 0 && basePrice > 0) {
+                        if (discountVal < 1) {
+                            const codeDiscount = Math.round(basePrice * (1 - discountVal));
+                            actualDiscountAmt += codeDiscount;
+                            displayDiscount += `<div class="text-green-600">折扣優惠：打 ${discountVal * 10} 折 (-$${codeDiscount})</div>`;
+                        } else {
+                            const codeDiscount = Math.min(basePrice, discountVal);
+                            actualDiscountAmt += codeDiscount;
+                            displayDiscount += `<div class="text-green-600">折扣優惠：-$${codeDiscount}</div>`;
+                        }
+                        basePriceAfterCode = basePrice - actualDiscountAmt;
+                    } else if (discountVal > 0) {
+                        displayDiscount += `<div class="text-xs text-orange-500 mt-1 font-bold">※ 折扣碼僅適用於營位與夜衝費</div>`;
+                    }
+
+                    if (basePriceAfterCode > 0 && enteredCode !== 'VIP卡' && enteredCode !== '【VIP卡】') {
+                        const today = new Date(); today.setHours(0, 0, 0, 0);
+                        const checkinD = new Date(inDate.value); checkinD.setHours(0, 0, 0, 0);
+                        const diffDays = Math.ceil((checkinD.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+                        let lateBirdDiscount = 0; let lateBirdName = "";
+
+                        if (diffDays >= 0 && diffDays <= 7) { lateBirdDiscount = 0.9; lateBirdName = "【晚鳥優惠】"; } 
+                        else if (diffDays >= 8 && diffDays <= 14) { lateBirdDiscount = 0.95; lateBirdName = "【小晚鳥優惠】"; }
+
+                        if (lateBirdDiscount > 0) {
+                            let applied = 0;
+                            if (lateBirdDiscount < 1) {
+                                applied = Math.round(basePriceAfterCode * (1 - lateBirdDiscount));
+                                displayDiscount += `<div class="text-green-600 font-bold">${lateBirdName} (打${lateBirdDiscount * 10}折)：-$${applied}</div>`;
+                            } else {
+                                applied = Math.min(basePriceAfterCode, lateBirdDiscount);
+                                displayDiscount += `<div class="text-green-600 font-bold">${lateBirdName}：-$${applied}</div>`;
+                            }
+                            actualDiscountAmt += applied;
+                        }
+                    }
+
+                    const finalTotal = basePrice - actualDiscountAmt + addonTotal;
+
+                    let dInput = document.getElementById('actualDiscountAmount');
+                    if (!dInput) {
+                        dInput = document.createElement('input');
+                        dInput.type = 'hidden'; dInput.id = 'actualDiscountAmount';
+                        document.getElementById('bookingForm').appendChild(dInput);
+                    }
+                    dInput.value = actualDiscountAmt;
+
+                    resultDiv.classList.remove('hidden');
+
+                    let html = '';
+                    if (zoneStr) html += `<div>營位：${zoneStr}</div>`;
+                    if (addonStr) html += `<div>加購：${addonStr}</div>`;
+                    html += `<div>小計：$${overallSubtotal.toLocaleString()}</div>`;
+                    html += nightBeforeDetails;
+                    html += displayDiscount;
+
+                    formulaSpan.innerHTML = html;
+                    totalDisplay.textContent = `$${finalTotal.toLocaleString()}`;
+                    if (zonePriceInput) zonePriceInput.value = finalTotal;
+                } else {
+                    resultDiv.classList.add('hidden');
+                }
             }
+
+            inDate.addEventListener('change', () => {
+                if (inDate.value) {
+                    const startDate = new Date(inDate.value);
+                    startDate.setDate(startDate.getDate() + 1);
+                    const nextDayStr = getLocalISODate(startDate);
+                    outDate.min = nextDayStr;
+                    if(outDate.value && outDate.value < nextDayStr) { outDate.value = ""; }
+                }
+                buildZones(inDate.value);
+                calculate();
+                const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
+                renderZones(activeFilter);
+                renderAddons();
+            });
+
+            outDate.addEventListener('change', () => {
+                calculate();
+                const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
+                renderZones(activeFilter);
+                renderAddons();
+            });
+
+            if (applyBtn) applyBtn.addEventListener('click', validateDiscount);
+            if (discountInput) discountInput.addEventListener('change', validateDiscount);
+            
+            window.reCalculate = calculate;
         }
 
         function renderZones(filter) {
@@ -1256,7 +1535,6 @@ function getSpecialPrice(cat) {
                 }
             }
 
-            // --- 判斷使用者選擇的日期區間，是否有包含假日或特殊節日 ---
             let hasEvent = false;
             let hasSpecial = false;
             let hasWeekend = false;
@@ -1311,7 +1589,6 @@ function getSpecialPrice(cat) {
                 else if (currentQty > 0) cardClass += ` selected border-green-600`;
                 div.className = cardClass;
 
-                // --- 根據日期動態改變卡片顯示的價格與顏色 ---
                 let displayPrice = zone.price;
                 let priceClass = "text-green-600";
                 
