@@ -1550,19 +1550,20 @@ if (overallSubtotal > 0 || cartEntries.length > 0 || addonEntries.length > 0) {
     resultDiv.classList.add('hidden');
 }
 // ==================== 價格顯示結束 ====================
+            }   // ← 這一行很重要！用來結束 calculate() 函數
 
+            // 以下是事件監聽，要放在 calculate() 外面
             inDate.addEventListener('change', () => {
                 if (inDate.value) {
                     const startDate = new Date(inDate.value);
                     startDate.setDate(startDate.getDate() + 1);
                     const nextDayStr = getLocalISODate(startDate);
                     outDate.min = nextDayStr;
-                    
-                    if(outDate.value && outDate.value < nextDayStr) {
+
+                    if (outDate.value && outDate.value < nextDayStr) {
                         outDate.value = "";
                     }
                 }
-                
                 buildZones(inDate.value);
                 calculate();
                 const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
@@ -1583,10 +1584,9 @@ if (overallSubtotal > 0 || cartEntries.length > 0 || addonEntries.length > 0) {
             if (discountInput) {
                 discountInput.addEventListener('change', validateDiscount);
             }
-            
+
             window.reCalculate = calculate;
         }
-
         function hasSpecialHoliday(startStr, endStr) {
             if(!startStr || !endStr) return false;
             let s = new Date(startStr);
