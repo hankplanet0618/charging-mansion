@@ -1280,23 +1280,21 @@
         renderZones(activeFilter);
     }
 }
-        function initializeLiff() {
+        async function initializeLiff() {
             try {
-                liff.init({ liffId: myLiffId }).then(() => {
-                    if (!liff.isLoggedIn()) {
-                        if (liff.isInClient()) {
-                            liff.login();
-                        }
-                    } else {
-                        liff.getProfile().then(profile => {
-                            const nameInput = document.getElementById('inputName');
-                            if(nameInput && !nameInput.value) nameInput.value = profile.displayName;
-                            document.getElementById('lineUserId').value = profile.userId;
-                            document.getElementById('lineDisplayName').value = profile.displayName;
-                            document.getElementById('linePictureUrl').value = profile.pictureUrl;
-                        });
+                await liff.init({ liffId: myLiffId });
+                if (!liff.isLoggedIn()) {
+                    if (liff.isInClient()) {
+                        liff.login();
                     }
-                });
+                } else {
+                    const profile = await liff.getProfile();
+                    const nameInput = document.getElementById('inputName');
+                    if(nameInput && !nameInput.value) nameInput.value = profile.displayName;
+                    document.getElementById('lineUserId').value = profile.userId;
+                    document.getElementById('lineDisplayName').value = profile.displayName;
+                    document.getElementById('linePictureUrl').value = profile.pictureUrl;
+                }
             } catch (err) {
                 console.error('LIFF Initialization failed', err);
             }
