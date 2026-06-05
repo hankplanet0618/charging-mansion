@@ -1756,6 +1756,8 @@
                 renderAddons();
             });
 
+            // ... 前面的 inDate 和 outDate 監聽器 ...
+
             outDate.addEventListener('change', () => {
                 calculate();
                 const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
@@ -1763,10 +1765,16 @@
                 renderAddons();
             });
 
-            applyBtn.addEventListener('click', validateDiscount);
-            discountInput.addEventListener('change', validateDiscount);
+            // 🛡️ 這裡加上安全檢查：如果畫面上找不到這個按鈕，就不要去綁定事件，避免報錯當機
+            if (applyBtn) {
+                applyBtn.addEventListener('click', validateDiscount);
+            }
+            if (discountInput) {
+                discountInput.addEventListener('change', validateDiscount);
+            }
+            
             window.reCalculate = calculate;
-        }
+        } // 👈 setupCalculator 結束
 
         function hasSpecialHoliday(startStr, endStr) {
             if(!startStr || !endStr) return false;
