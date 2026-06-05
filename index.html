@@ -856,77 +856,122 @@
             return `${y}-${m}-${d}`;
         }
 
-        function buildZones(dateStr) {
-            const isZoneMode = dateStr ? dateStr >= '2026-06-01' : false;
-            if (currentZoneMode !== isZoneMode) {
-                cart = {};
-                currentZoneMode = isZoneMode;
+function buildZones(dateStr) {
+    const isZoneMode = dateStr ? dateStr >= '2026-06-01' : false;
+
+    if (currentZoneMode !== isZoneMode) {
+        cart = {};
+        currentZoneMode = isZoneMode;
+    }
+
+    const currentOriginalZones = [
+        { 
+            id: 'ZA1', name: '棚架 A 區', count: 9, cat: 'shelter', 
+            desc: '寬敞遮雨棚車停帳邊', price: 1000, badge: '熱門', 
+            images: ['https://i.ibb.co/KjBcKGvt/A-DDcar.jpg', 'https://i.ibb.co/RTypZTzW/A1.jpg', 'https://i.ibb.co/hRNQ84SY/A.jpg'] 
+        },
+        
+        isZoneMode 
+            ? { 
+                id: 'ZA2', name: '棚架 B 區', count: 1, baseTents: 4, cat: 'shelter', 
+                desc: '4帳包區（平日4000/假日4800/連假5600）', 
+                price: 4000, weekendPrice: 4800, holidayPrice: 5600, badge: '包區', 
+                images: ['https://i.ibb.co/bMQ51htS/B.jpg', 'https://i.ibb.co/7JY7xRYp/B.jpg'] 
+              }
+            : { 
+                id: 'ZA2', name: '棚架 B 區', count: 4, cat: 'shelter', 
+                desc: '適合包區車停帳邊', price: 1000, 
+                images: ['https://i.ibb.co/bMQ51htS/B.jpg', 'https://i.ibb.co/7JY7xRYp/B.jpg'] 
+              },
+        
+        isZoneMode 
+            ? { 
+                id: 'ZA3', name: '棚架 C 區', count: 1, baseTents: 3, cat: 'shelter', 
+                desc: '3帳包區（平日3000/假日3600/連假4200）', 
+                price: 3000, weekendPrice: 3600, holidayPrice: 4200, badge: '包區', 
+                images: ['https://i.ibb.co/c70KNkJ/C1.jpg', 'https://i.ibb.co/zTRCxcwq/2.jpg'] 
+              }
+            : { 
+                id: 'ZA3', name: '棚架 C 區', count: 3, cat: 'shelter', 
+                desc: '安靜舒適獨立區車停帳邊', price: 1000, 
+                images: ['https://i.ibb.co/c70KNkJ/C1.jpg', 'https://i.ibb.co/zTRCxcwq/2.jpg'] 
+              },
+        
+        isZoneMode 
+            ? { 
+                id: 'ZB1', name: '棧板 A 區', count: 1, baseTents: 2, cat: 'grass', 
+                desc: '2帳包區（平日2000/假日2400/連假2800）', 
+                price: 2000, weekendPrice: 2400, holidayPrice: 2800, badge: '包區', 
+                images: ['https://i.ibb.co/XrMggq46/1.jpg'] 
+              }
+            : { 
+                id: 'ZB1', name: '棧板 A 區', count: 2, cat: 'grass', 
+                desc: '架高防潮+遊戲區', price: 1000, 
+                images: ['https://i.ibb.co/XrMggq46/1.jpg'] 
+              },
+        
+        isZoneMode 
+            ? { 
+                id: 'ZB2', name: '棧板 B 區', count: 1, baseTents: 2, cat: 'grass', 
+                desc: '2帳包區（平日2000/假日2400/連假2800）', 
+                price: 2000, weekendPrice: 2400, holidayPrice: 2800, badge: '包區', 
+                images: ['https://i.ibb.co/JRmcf3bw/B.jpg'] 
+              }
+            : { 
+                id: 'ZB2', name: '棧板 B 區', count: 2, cat: 'grass', 
+                desc: '棚架車停帳邊', price: 1000, 
+                images: ['https://i.ibb.co/JRmcf3bw/B.jpg'] 
+              },
+
+        // 其他區域維持原本（有需要再補 images）
+        { id: 'ZC1', name: '三人頂級露營車', count: 2, cat: 'camper', desc: '最有溫度的一晚車停帳邊', price: 3600, badge: '最高級的懶人享受', images: ['https://i.ibb.co/jvXBxJWw/4.jpg'] },
+        { id: 'ZC2', name: '小木屋 (大)', count: 1, cat: 'cabinL', desc: '家庭首選', price: 2600, images: ['https://i.ibb.co/4n2CPt5X/image.jpg', 'https://i.ibb.co/VYpvt7NF/image.jpg'] },
+        { id: 'ZC3', name: '小木屋 (小)', count: 1, cat: 'cabinS', desc: '溫馨三人', price: 2200, images: ['https://i.ibb.co/CpNgsKHw/image.jpg', 'https://i.ibb.co/VW4t8GH4/image.jpg'] },
+        { id: 'ZD1', name: '草地區', count: 6, cat: 'grass', desc: '親近自然的美好車停帳邊', price: 1000, images: ['https://i.ibb.co/7xsg5nfv/1.jpg', 'https://i.ibb.co/DDLBdhNk/3.jpg', 'https://i.ibb.co/S73TLHJR/2.jpg'] },
+        { id: 'ZD2', name: '碎石地區', count: 2, cat: 'grass', desc: '充電紮營首選車停帳邊', price: 1000, images: ['https://i.ibb.co/k6D740Ht/image.jpg'] },
+        { id: 'ZE1', name: '包棟民宿 (16人)', count: 1, cat: 'villa', desc: '4房一起K歌最開心', price: 15000, badge: '獨享', images: ['https://i.ibb.co/6RyZYPVy/7-KW.jpg'] },
+        { id: 'ZF1', name: '泰式免搭', count: 8, cat: 'room', desc: '懶人新福音', price: 1200, badge: '最新', images: ['https://i.ibb.co/60bXNB57/image.jpg', 'https://i.ibb.co/DHhm1sWR/2.jpg'] }
+    ];
+
+    zones = [];
+
+    currentOriginalZones.forEach(zone => {
+        if (zone.count > 1) {
+            for (let i = 1; i <= zone.count; i++) {
+                let spotName = '';
+                if (zone.name === '棚架 A 區') spotName = `棚架A${i}`;
+                else if (zone.name === '棚架 B 區') spotName = `棚架B${i}`;
+                else if (zone.name === '棚架 C 區') spotName = `棚架C${i}`;
+                else if (zone.name === '棧板 A 區') spotName = `棧板A${i}`;
+                else if (zone.name === '棧板 B 區') spotName = `棧板B${i}`;
+                else if (zone.name === '三人頂級露營車') spotName = `露營車${String.fromCharCode(64 + i)}`;
+                else if (zone.name === '草地區') spotName = `草地區${i}`;
+                else if (zone.name === '碎石地區') spotName = `碎石區${i}`;
+                else if (zone.name === '泰式免搭') spotName = `泰式${String.fromCharCode(64 + i)}`;
+                else spotName = `${zone.name}${i}`;
+
+                zones.push({
+                    ...zone,
+                    id: `${zone.id}_${i}`,
+                    name: spotName,
+                    count: 1,
+                    desc: `專屬營位: ${spotName}`,
+                    originalName: zone.name,
+                    sizeText: getCampSize(spotName)
+                });
             }
-
-            const currentOriginalZones = [
-                { id: 'ZA1', name: '棚架 A 區', count: 9, cat: 'shelter', desc: '寬敞遮雨棚車停帳邊', price: 1000, badge: '熱門', images: ['https://i.ibb.co/KjBcKGvt/A-DDcar.jpg', 'https://i.ibb.co/RTypZTzW/A1.jpg', 'https://i.ibb.co/hRNQ84SY/A.jpg'], idx: 0 },
-                
-                isZoneMode ? { id: 'ZA2', name: '棚架 B 區', count: 1, baseTents: 4, cat: 'shelter', desc: '4帳包區 (平日4000/假日4800/連假5600)', price: 4000, weekendPrice: 4800, holidayPrice: 5600, badge: '包區', images: ['https://i.ibb.co/bMQ51htS/B.jpg', 'https://i.ibb.co/7JY7xRYp/B.jpg'], idx: 0 }
-                           : { id: 'ZA2', name: '棚架 B 區', count: 4, cat: 'shelter', desc: '適合包區車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/bMQ51htS/B.jpg', 'https://i.ibb.co/7JY7xRYp/B.jpg'], idx: 0 },
-                           
-                isZoneMode ? { id: 'ZA3', name: '棚架 C 區', count: 1, baseTents: 3, cat: 'shelter', desc: '3帳包區 (平日3000/假日3600/連假4200)', price: 3000, weekendPrice: 3600, holidayPrice: 4200, badge: '包區', images: ['https://i.ibb.co/c70KNkJ/C1.jpg', 'https://i.ibb.co/zTRCxcwq/2.jpg'], idx: 0 }
-                           : { id: 'ZA3', name: '棚架 C 區', count: 3, cat: 'shelter', desc: '安靜舒適獨立區車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/c70KNkJ/C1.jpg', 'https://i.ibb.co/zTRCxcwq/2.jpg'], idx: 0 },
-                           
-                isZoneMode ? { id: 'ZB1', name: '棧板 A 區', count: 1, baseTents: 2, cat: 'grass', desc: '2帳包區 (平日2000/假日2400/連假2800)', price: 2000, weekendPrice: 2400, holidayPrice: 2800, badge: '包區', images: ['https://i.ibb.co/XrMggq46/1.jpg'], idx: 0 }
-                           : { id: 'ZB1', name: '棧板 A 區', count: 2, cat: 'grass', desc: '架高防潮+遊戲區', price: 1000, badge: '', images: ['https://i.ibb.co/XrMggq46/1.jpg'], idx: 0 },
-                           
-                isZoneMode ? { id: 'ZB2', name: '棧板 B 區', count: 1, baseTents: 2, cat: 'grass', desc: '2帳包區 (平日2000/假日2400/連假2800)', price: 2000, weekendPrice: 2400, holidayPrice: 2800, badge: '包區', images: ['https://i.ibb.co/JRmcf3bw/B.jpg'], idx: 0 }
-                           : { id: 'ZB2', name: '棧板 B 區', count: 2, cat: 'grass', desc: '棚架車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/JRmcf3bw/B.jpg'], idx: 0 },
-
-                { id: 'ZC1', name: '三人頂級露營車', count: 2, cat: 'camper', desc: '最有溫度的一晚車停帳邊', price: 3600, badge: '最高級的懶人享受', images: ['https://i.ibb.co/jvXBxJWw/4.jpg'], idx: 0 },
-                { id: 'ZC2', name: '小木屋 (大)', count: 1, cat: 'cabinL', desc: '家庭首選', price: 2600, badge: '', images: ['https://i.ibb.co/4n2CPt5X/image.jpg', 'https://i.ibb.co/VYpvt7NF/image.jpg'], idx: 0 },
-                { id: 'ZC3', name: '小木屋 (小)', count: 1, cat: 'cabinS', desc: '溫馨三人', price: 2200, badge: '', images: ['https://i.ibb.co/CpNgsKHw/image.jpg', 'https://i.ibb.co/VW4t8GH4/image.jpg'], idx: 0 },
-                { id: 'ZD1', name: '草地區', count: 6, cat: 'grass', desc: '親近自然的美好車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/7xsg5nfv/1.jpg', 'https://i.ibb.co/DDLBdhNk/3.jpg', 'https://i.ibb.co/S73TLHJR/2.jpg'], idx: 0 },
-                { id: 'ZD2', name: '碎石地區', count: 2, cat: 'grass', desc: '充電紮營首選車停帳邊', price: 1000, badge: '', images: ['https://i.ibb.co/k6D740Ht/image.jpg'], idx: 0 },
-                { id: 'ZE1', name: '包棟民宿 (16人)', count: 1, cat: 'villa', desc: '4房一起K歌最開心', price: 15000, badge: '獨享', images: ['https://i.ibb.co/6RyZYPVy/7-KW.jpg'], idx: 0 },
-                { id: 'ZF1', name: '泰式免搭', count: 8, cat: 'room', desc: '懶人新福音', price: 1200, badge: '最新', images: ['https://i.ibb.co/60bXNB57/image.jpg', 'https://i.ibb.co/DHhm1sWR/2.jpg'], idx: 0 }
-            ];
-
-            zones = [];
-            currentOriginalZones.forEach(zone => {
-                if (zone.count > 1) {
-                    for (let i = 1; i <= zone.count; i++) {
-                        let spotName = '';
-                        if (zone.name === '棚架 A 區') spotName = `棚架A${i}`;
-                        else if (zone.name === '棚架 B 區') spotName = `棚架B${i}`;
-                        else if (zone.name === '棚架 C 區') spotName = `棚架C${i}`;
-                        else if (zone.name === '棧板 A 區') spotName = `棧板A${i}`;
-                        else if (zone.name === '棧板 B 區') spotName = `棧板B${i}`;
-                        else if (zone.name === '三人頂級露營車') spotName = `露營車${String.fromCharCode(64 + i)}`;
-                        else if (zone.name === '草地區') spotName = `草地區${i}`;
-                        else if (zone.name === '碎石地區') spotName = `碎石區${i}`;
-                        else if (zone.name === '泰式免搭') spotName = `泰式${String.fromCharCode(64 + i)}`;
-                        else spotName = `${zone.name}${i}`;
-
-                        // 修改第一個 zones.push (針對有多個數量的營區)
-                    zones.push({
-                        ...zone,
-                        id: `${zone.id}_${i}`,
-                        name: spotName,
-                        count: 1,
-                        desc: `專屬營位: ${spotName}`,
-                        originalName: zone.name,
-                        sizeText: getCampSize(spotName) // <== 新增這一行
-                    });
-                }
-            } else {
-                    // 修改第二個 zones.push (針對包區或單一數量的營區)
-                    zones.push({
-                        ...zone,
-                        name: zone.name,
-                        count: 1,
-                        desc: zone.desc,
-                        originalName: zone.name,
-                        sizeText: getCampSize(zone.name) // <== 新增這一行
-                    });
-            }
-}); // <== 【補上這個】結束 currentOriginalZones.forEach
-    }       // <== 【補上這個】結束 buildZones 函式
+        } else {
+            zones.push({
+                ...zone,
+                name: zone.name,
+                count: 1,
+                desc: zone.desc,
+                originalName: zone.name,
+                sizeText: getCampSize(zone.name)
+            });
+        }
+    });
+}
         const rentals = [
             { id: 'R01', name: '月亮椅/休閒椅', price: 100, stock: 3 },
             { id: 'R02', name: '平躺椅', price: 150, stock: 2 },
@@ -942,7 +987,7 @@
             { id: 'R12', name: '投影布幕', price: 100, stock: 1 },
             { id: 'R13', name: '電暖器', price: 200, stock: 2 },
             { id: 'R14', name: '焚火台(小)', price: 350, stock: 4 },
-            { id: 'R14', name: '焚火台(大)', price: 550, stock: 2 },
+            { id: 'R14B', name: '焚火台(大)', price: 550, stock: 2 },
             { id: 'R15', name: '木柴(6公斤)', price: 260, stock: 20 },
             { id: 'R16', name: '雙人床墊不挑款', price: 500, stock: 3 },
             { id: 'R17', name: '3-4人床墊不挑款', price: 800, stock: 3 },
@@ -1665,16 +1710,24 @@
             }
 
             function getSpecialPrice(cat) {
-                switch(cat) {
-                    case 'grass': case 'shelter': case 'room': return 1400;
-                    case 'room': return 1600;
-                    case 'cabinL': return 3000;
-                    case 'cabinS': return 2600;
-                    case 'villa': return 17000;
-                    case 'camper': return 3600;
-                    default: return 1400;
-                }
-            }
+    switch(cat) {
+        case 'grass':
+        case 'shelter':
+            return 1400;
+        case 'room':
+            return 1600;
+        case 'cabinL':
+            return 3000;
+        case 'cabinS':
+            return 2600;
+        case 'villa':
+            return 17000;
+        case 'camper':
+            return 3600;
+        default:
+            return 1400;
+    }
+}
             
             function calculate() {
                 const cartEntries = Object.entries(cart);
@@ -1876,101 +1929,92 @@
 
                 let overallSubtotal = basePrice + addonTotal;
 
-              if (overallSubtotal > 0) {
-                    const discountVal = getDiscountAmount();
-                    // 取得使用者輸入的原始折扣碼，用來判斷是否為 VIP卡
-                    const enteredCode = document.getElementById('discountCodeInput').value.trim().toUpperCase();
+if (overallSubtotal > 0) {
+    const discountVal = getDiscountAmount();
+    const enteredCode = document.getElementById('discountCodeInput').value.trim().toUpperCase();
 
-                    let finalTotal = overallSubtotal;
-                    let displayDiscount = "";
-                    let actualDiscountAmt = 0;
+    let basePriceAfterCode = basePrice;
+    let displayDiscount = "";
+    let actualDiscountAmt = 0;
 
-                    // 1. 一般折扣碼計算
-                    if (discountVal > 0) {
-                        if (basePrice > 0) {
-                            if (discountVal < 1) {
-                                actualDiscountAmt = Math.round(basePrice * (1 - discountVal));
-                                displayDiscount += `<div class="text-green-600">折扣優惠：打 ${discountVal * 10} 折 (-$${actualDiscountAmt})</div>`;
-                            } else {
-                                actualDiscountAmt = Math.min(basePrice, discountVal);
-                                displayDiscount += `<div class="text-green-600">折扣優惠：-$${actualDiscountAmt}</div>`;
-                            }
-                        } else {
-                            displayDiscount += `<div class="text-xs text-orange-500 mt-1 font-bold">※ 折扣碼僅適用於營位與夜衝費</div>`;
-                        }
-                    }
+    // === 1. 先處理一般折扣碼 ===
+    if (discountVal > 0 && basePrice > 0) {
+        if (discountVal < 1) {
+            const codeDiscount = Math.round(basePrice * (1 - discountVal));
+            actualDiscountAmt += codeDiscount;
+            displayDiscount += `<div class="text-green-600">折扣優惠：打 ${discountVal * 10} 折 (-$${codeDiscount})</div>`;
+        } else {
+            const codeDiscount = Math.min(basePrice, discountVal);
+            actualDiscountAmt += codeDiscount;
+            displayDiscount += `<div class="text-green-600">折扣優惠：-$${codeDiscount}</div>`;
+        }
+        basePriceAfterCode = basePrice - actualDiscountAmt;
+    } else if (discountVal > 0) {
+        displayDiscount += `<div class="text-xs text-orange-500 mt-1 font-bold">※ 折扣碼僅適用於營位與夜衝費</div>`;
+    }
 
-// 2. 晚鳥/小晚鳥優惠計算 (排除 VIP卡)
-                    if (basePrice > 0 && enteredCode !== 'VIP卡' && enteredCode !== '【VIP卡】') {
-                        // 計算距離入住日還有幾天
-                        const today = new Date();
-                        today.setHours(0, 0, 0, 0);
-                        const checkinD = new Date(inDate.value);
-                        checkinD.setHours(0, 0, 0, 0);
-                        const diffDaysCheckin = Math.ceil((checkinD.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+    // === 2. 再處理晚鳥 / 小晚鳥優惠（排除 VIP卡）===
+    if (basePriceAfterCode > 0 && enteredCode !== 'VIP卡' && enteredCode !== '【VIP卡】') {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const checkinD = new Date(inDate.value);
+        checkinD.setHours(0, 0, 0, 0);
+        const diffDays = Math.ceil((checkinD.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
 
-                        let lateBirdDiscount = 0;
-                        let lateBirdName = "";
+        let lateBirdDiscount = 0;
+        let lateBirdName = "";
 
-                        if (diffDaysCheckin >= 0 && diffDaysCheckin <= 7) { // 當周 (7天內)
-                            lateBirdDiscount = 0.9; // 代表打 9 折
-                            lateBirdName = "【晚鳥優惠】";
-                        } else if (diffDaysCheckin >= 8 && diffDaysCheckin <= 14) { // 前一周 (8~14天內)
-                            lateBirdDiscount = 0.95; // 代表打 95 折
-                            lateBirdName = "【小晚鳥優惠】";
-                        }
+        if (diffDays >= 0 && diffDays <= 7) {
+            lateBirdDiscount = 0.9;
+            lateBirdName = "【晚鳥優惠】";
+        } else if (diffDays >= 8 && diffDays <= 14) {
+            lateBirdDiscount = 0.95;
+            lateBirdName = "【小晚鳥優惠】";
+        }
 
-                        // 若有晚鳥優惠，則加總到總折扣中並顯示
-                        if (lateBirdDiscount > 0) {
-                            const remainingBasePrice = basePrice - actualDiscountAmt;
-                            if (remainingBasePrice > 0) {
-                                let appliedLateBird = 0;
-                                
-                                // 判斷是「打折」還是「固定金額」
-                                if (lateBirdDiscount < 1) {
-                                    // 小數點處理：計算要扣除的金額 (例如 0.9，就是扣除 10% 的錢)
-                                    appliedLateBird = Math.round(remainingBasePrice * (1 - lateBirdDiscount));
-                                    displayDiscount += `<div class="text-green-600 font-bold">${lateBirdName} (打${lateBirdDiscount * 10}折)：-$${appliedLateBird}</div>`;
-                                } else {
-                                    // 固定金額處理
-                                    appliedLateBird = Math.min(remainingBasePrice, lateBirdDiscount);
-                                    displayDiscount += `<div class="text-green-600 font-bold">${lateBirdName}：-$${appliedLateBird}</div>`;
-                                }
-                                
-                                actualDiscountAmt += appliedLateBird;
-                            }
-                        }
-                    }                    // 3. 結算最終總金額
-                    finalTotal = basePrice - actualDiscountAmt + addonTotal;
-
-                    // ★ 確保能準確被抓取的隱藏總金額欄位
-                    let discountInput = document.getElementById('actualDiscountAmount');
-                    if (!discountInput) {
-                        discountInput = document.createElement('input');
-                        discountInput.type = 'hidden';
-                        discountInput.id = 'actualDiscountAmount';
-                        document.getElementById('bookingForm').appendChild(discountInput);
-                    }
-                    discountInput.value = actualDiscountAmt;
-
-                    resultDiv.classList.remove('hidden');
-                    
-                    let html = '';
-                    if (zoneStr) html += `<div>營位：${zoneStr}</div>`;
-                    if (addonStr) html += `<div>加購：${addonStr}</div>`;
-                    if (days > 0) html += `<div>營位與加購小計：$${overallSubtotal.toLocaleString()}</div>`;
-                    else html += `<div>小計：$${overallSubtotal.toLocaleString()}</div>`;
-                    
-                    html += nightBeforeDetails; 
-                    html += displayDiscount;
-                    
-                    formulaSpan.innerHTML = html;
-                    totalDisplay.textContent = `$${finalTotal.toLocaleString()}`;
-                    if (zonePriceInput) zonePriceInput.value = finalTotal;
-                } else { 
-                    resultDiv.classList.add('hidden'); 
-                }
+        if (lateBirdDiscount > 0) {
+            let applied = 0;
+            if (lateBirdDiscount < 1) {
+                applied = Math.round(basePriceAfterCode * (1 - lateBirdDiscount));
+                displayDiscount += `<div class="text-green-600 font-bold">${lateBirdName} (打${lateBirdDiscount * 10}折)：-$${applied}</div>`;
+            } else {
+                applied = Math.min(basePriceAfterCode, lateBirdDiscount);
+                displayDiscount += `<div class="text-green-600 font-bold">${lateBirdName}：-$${applied}</div>`;
             }
+            actualDiscountAmt += applied;
+        }
+    }
+
+    // === 3. 計算最終金額 ===
+    const finalTotal = basePrice - actualDiscountAmt + addonTotal;
+
+    // 隱藏欄位記錄實際折扣金額
+    let discountInput = document.getElementById('actualDiscountAmount');
+    if (!discountInput) {
+        discountInput = document.createElement('input');
+        discountInput.type = 'hidden';
+        discountInput.id = 'actualDiscountAmount';
+        document.getElementById('bookingForm').appendChild(discountInput);
+    }
+    discountInput.value = actualDiscountAmt;
+
+    resultDiv.classList.remove('hidden');
+
+    let html = '';
+    if (zoneStr) html += `<div>營位：${zoneStr}</div>`;
+    if (addonStr) html += `<div>加購：${addonStr}</div>`;
+    if (days > 0) html += `<div>營位與加購小計：$${overallSubtotal.toLocaleString()}</div>`;
+    else html += `<div>小計：$${overallSubtotal.toLocaleString()}</div>`;
+
+    html += nightBeforeDetails;
+    html += displayDiscount;
+
+    formulaSpan.innerHTML = html;
+    totalDisplay.textContent = `$${finalTotal.toLocaleString()}`;
+    if (zonePriceInput) zonePriceInput.value = finalTotal;
+} else {
+    resultDiv.classList.add('hidden');
+}
 
             inDate.addEventListener('change', () => {
                 if (inDate.value) {
@@ -2024,16 +2068,24 @@
         }
 
         function getSpecialPriceDisplay(cat) {
-             switch(cat) {
-                case 'grass': case 'shelter': return 1400;
-                case 'room': return 1600;
-                case 'cabinL': return 3000;
-                case 'cabinS': return 2600;
-                case 'villa': return 16000;
-                case 'camper': return 3600;
-                default: return 1400;
-            }
-        }
+    switch(cat) {
+        case 'grass':
+        case 'shelter':
+            return 1400;
+        case 'room':
+            return 1600;
+        case 'cabinL':
+            return 3000;
+        case 'cabinS':
+            return 2600;
+        case 'villa':
+            return 16000;
+        case 'camper':
+            return 3600;
+        default:
+            return 1400;
+    }
+}
 
         function renderZones(filter) {
             const container = document.getElementById('zoneContainer'); container.innerHTML = '';
@@ -2116,19 +2168,20 @@
                     displayPrice = zone.holidayPrice || getSpecialPriceDisplay(zone.cat);
                     priceClass = "text-red-600";
                 } else if (hasWeekend) {
-                    if (zone.weekendPrice) {
-                        displayPrice = zone.weekendPrice;
-                        priceClass = "text-orange-600";
-                    } else if (['grass', 'shelter'].includes(zone.cat)) {
-                        displayPrice = 1200;
-} else if (['room'].includes(zone.cat)) {
-                        displayPrice = 1400;
-                        priceClass = "text-orange-600";
-                    } else {
-                        displayPrice = getSpecialPriceDisplay(zone.cat);
-                        priceClass = "text-orange-600";
-                    }
-                }
+    if (zone.weekendPrice) {
+        displayPrice = zone.weekendPrice;
+        priceClass = "text-orange-600";
+    } else if (['grass', 'shelter'].includes(zone.cat)) {
+        displayPrice = 1200;
+        priceClass = "text-orange-600";
+    } else if (zone.cat === 'room') {
+        displayPrice = 1400;
+        priceClass = "text-orange-600";
+    } else {
+        displayPrice = getSpecialPriceDisplay(zone.cat);
+        priceClass = "text-orange-600";
+    }
+}
 
                 let blockText = isFull ? '<span class="text-xs text-red-500 font-bold block">已額滿</span>' : (inDate && outDate ? `<span class="text-[10px] text-blue-600 font-bold block">剩餘 1 帳</span>` : "");
                 
