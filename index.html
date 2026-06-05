@@ -724,7 +724,21 @@
         const y = dateObj.getFullYear(); const m = String(dateObj.getMonth() + 1).padStart(2, '0'); const d = String(dateObj.getDate()).padStart(2, '0');
         return `${y}-${m}-${d}`;
     }
+function getSafeImageUrl(url) {
+    if (!url) return '';
+    if (url.includes('drive.google.com')) return url;
+    return url;
+}
 
+const gears = [
+    {n:'月亮椅/休閒椅',p:'100'},{n:'平躺椅',p:'150'},{n:'卡式爐/蜘蛛爐(含瓦斯)',p:'200'},
+    {n:'五星爐(含瓦斯)',p:'300'},{n:'IGT桌全套',p:'600'},{n:'天幕 3*3+桿',p:'250'},
+    {n:'天幕 3*5+桿',p:'350'},{n:'超聲波地墊 3*3',p:'150'},{n:'野餐地墊 2*2/燈具',p:'100'},
+    {n:'落地頂級四葉燈',p:'350'},{n:'杜邦鯤9車尾帳',p:'1000'},{n:'代搭帳服務',p:'500'},
+    {n:'投影機',p:'300'},{n:'投影布幕',p:'100'},{n:'電暖器',p:'200'},{n:'焚火台(小)',p:'350'},
+    {n:'焚火台(大)',p:'550'},{n:'木柴',p:'260'},{n:'小擺頭風扇',p:'150'},{n:'大擺頭風扇',p:'250'},
+    {n:'樂活不露二代風扇',p:'400'},{n:'移動式冷氣',p:'800'},{n:'電動車車床方案',p:'150'}
+];
     function buildZones(dateStr) {
         const isZoneMode = dateStr ? dateStr >= '2026-06-01' : false;
         if (currentZoneMode !== isZoneMode) { cart = {}; currentZoneMode = isZoneMode; }
@@ -1026,7 +1040,7 @@
             if (container.parentElement) container.parentElement.scrollTop = 0;
         }
 
-      async function fetchInventory() {
+ async function fetchInventory() {
     try {
         console.log("🚀 正在從 GAS 抓取最新庫存...");
         const url = scriptURL + '?t=' + new Date().getTime();
@@ -1035,9 +1049,10 @@
         if (!res.ok) throw new Error(`HTTP 錯誤！狀態碼: ${res.status}`);
 
         let data = await res.json();
+        console.log("GAS 原始回傳：", data);
 
-        // 加強版：把 bookedData 的 key 做正規化，盡量對應到目前 zones 的名稱
         const normalizedData = {};
+        
         for (let date in data) {
             if (!data[date].zones) continue;
             
@@ -1047,31 +1062,33 @@
                 let qty = data[date].zones[zoneName];
                 let normalizedName = zoneName;
 
-                // 常見舊名稱轉換（可再補充）
-                if (zoneName.startsWith('棚架A')) normalizedName = zoneName; // 保持原樣
-                if (zoneName.startsWith('棚架B')) normalizedName = zoneName;
-                if (zoneName.startsWith('棚架C')) normalizedName = zoneName;
-                if (zoneName.startsWith('棧板A')) normalizedName = zoneName;
-                if (zoneName.startsWith('棧板B')) normalizedName = zoneName;
-                if (zoneName.startsWith('草地區')) normalizedName = zoneName;
-                if (zoneName.startsWith('碎石區')) normalizedName = zoneName;
-                if (zoneName.startsWith('泰式')) normalizedName = zoneName;
-                if (zoneName.startsWith('露營車')) normalizedName = zoneName;
+                // === 加強正規化（重要！）===
+                if (zoneName.includes('棚架A')) normalizedName = zoneName;
+                else if (zoneName.includes('棚架B')) normalizedName = zoneName;
+                else if (zoneName.includes('棚架C')) normalizedName = zoneName;
+                else if (zoneName.includes('棧板A')) normalizedName = zoneName;
+                else if (zoneName.includes('棧板B')) normalizedName = zoneName;
+                else if (zoneName.includes('草地區')) normalizedName = zoneName;
+                else if (zoneName.includes('碎石區')) normalizedName = zoneName;
+                else if (zoneName.includes('泰式')) normalizedName = zoneName;
+                else if (zoneName.includes('露營車')) normalizedName = zoneName;
+                else if (zoneName.includes('小木屋 (大)')) normalizedName = '小木屋 (大)';
+                else if (zoneName.includes('小木屋 (小)')) normalizedName = '小木屋 (小)';
+                else if (zoneName.includes('包棟民宿')) normalizedName = '包棟民宿 (16人)';
+                else if (zoneName.includes('三人頂級露營車')) normalizedName = '三人頂級露營車';
 
                 normalizedData[date].zones[normalizedName] = qty;
             }
         }
 
         bookedData = normalizedData;
-        console.log("✅ 庫存載入成功！", bookedData);
+        console.log("✅ 正規化後的 bookedData：", bookedData);
 
         const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
         renderZones(activeFilter);
-        renderAddons();
 
     } catch (err) {
         console.error('❌ 抓取庫存失敗：', err);
-        // 失敗時也要繼續跑 render，避免整個網站卡住
         const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
         renderZones(activeFilter);
     }
@@ -1451,72 +1468,88 @@
 
                 let overallSubtotal = basePrice + addonTotal;
 
-                if (overallSubtotal > 0) {
-                    const discountVal = getDiscountAmount();
-                    const enteredCode = document.getElementById('discountCodeInput').value.trim().toUpperCase();
+            // ==================== 價格顯示最終加強版 ====================
+if (overallSubtotal > 0 || cartEntries.length > 0 || addonEntries.length > 0) {
+    const discountVal = getDiscountAmount();
+    const enteredCode = document.getElementById('discountCodeInput').value.trim().toUpperCase();
 
-                    let basePriceAfterCode = basePrice;
-                    let displayDiscount = "";
-                    let actualDiscountAmt = 0;
+    let basePriceAfterCode = basePrice;
+    let displayDiscount = "";
+    let actualDiscountAmt = 0;
 
-                    if (discountVal > 0 && basePrice > 0) {
-                        if (discountVal < 1) {
-                            const codeDiscount = Math.round(basePrice * (1 - discountVal));
-                            actualDiscountAmt += codeDiscount;
-                            displayDiscount += `<div class="text-green-600">折扣優惠：打 ${discountVal * 10} 折 (-$${codeDiscount})</div>`;
-                        } else {
-                            const codeDiscount = Math.min(basePrice, discountVal);
-                            actualDiscountAmt += codeDiscount;
-                            displayDiscount += `<div class="text-green-600">折扣優惠：-$${codeDiscount}</div>`;
-                        }
-                        basePriceAfterCode = basePrice - actualDiscountAmt;
-                    } else if (discountVal > 0) {
-                        displayDiscount += `<div class="text-xs text-orange-500 mt-1 font-bold">※ 折扣碼僅適用於營位與夜衝費</div>`;
-                    }
+    if (discountVal > 0 && basePrice > 0) {
+        if (discountVal < 1) {
+            const codeDiscount = Math.round(basePrice * (1 - discountVal));
+            actualDiscountAmt += codeDiscount;
+            displayDiscount += `<div class="text-green-600">折扣優惠：打 ${discountVal * 10} 折 (-$${codeDiscount})</div>`;
+        } else {
+            const codeDiscount = Math.min(basePrice, discountVal);
+            actualDiscountAmt += codeDiscount;
+            displayDiscount += `<div class="text-green-600">折扣優惠：-$${codeDiscount}</div>`;
+        }
+        basePriceAfterCode = basePrice - actualDiscountAmt;
+    } else if (discountVal > 0) {
+        displayDiscount += `<div class="text-xs text-orange-500 mt-1 font-bold">※ 折扣碼僅適用於營位與夜衝費</div>`;
+    }
 
-                    if (basePriceAfterCode > 0 && enteredCode !== 'VIP卡' && enteredCode !== '【VIP卡】') {
-                        const today = new Date();
-                        today.setHours(0, 0, 0, 0);
-                        const checkinD = new Date(inDate.value);
-                        checkinD.setHours(0, 0, 0, 0);
-                        const diffDays = Math.ceil((checkinD.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+    if (basePriceAfterCode > 0 && enteredCode !== 'VIP卡' && enteredCode !== '【VIP卡】') {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const checkinD = new Date(inDate.value);
+        checkinD.setHours(0, 0, 0, 0);
+        const diffDays = Math.ceil((checkinD.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
 
-                        let lateBirdDiscount = 0;
-                        let lateBirdName = "";
+        let lateBirdDiscount = 0;
+        let lateBirdName = "";
 
-                        if (diffDays >= 0 && diffDays <= 7) {
-                            lateBirdDiscount = 0.9;
-                            lateBirdName = "【晚鳥優惠】";
-                        } else if (diffDays >= 8 && diffDays <= 14) {
-                            lateBirdDiscount = 0.95;
-                            lateBirdName = "【小晚鳥優惠】";
-                        }
+        if (diffDays >= 0 && diffDays <= 7) {
+            lateBirdDiscount = 0.9;
+            lateBirdName = "【晚鳥優惠】";
+        } else if (diffDays >= 8 && diffDays <= 14) {
+            lateBirdDiscount = 0.95;
+            lateBirdName = "【小晚鳥優惠】";
+        }
 
-                        if (lateBirdDiscount > 0) {
-                            let applied = 0;
-                            if (lateBirdDiscount < 1) {
-                                applied = Math.round(basePriceAfterCode * (1 - lateBirdDiscount));
-                                displayDiscount += `<div class="text-green-600 font-bold">${lateBirdName} (打${lateBirdDiscount * 10}折)：-$${applied}</div>`;
-                            } else {
-                                applied = Math.min(basePriceAfterCode, lateBirdDiscount);
-                                displayDiscount += `<div class="text-green-600 font-bold">${lateBirdName}：-$${applied}</div>`;
-                            }
-                            actualDiscountAmt += applied;
-                        }
-                    }
+        if (lateBirdDiscount > 0) {
+            let applied = 0;
+            if (lateBirdDiscount < 1) {
+                applied = Math.round(basePriceAfterCode * (1 - lateBirdDiscount));
+                displayDiscount += `<div class="text-green-600 font-bold">${lateBirdName} (打${lateBirdDiscount * 10}折)：-$${applied}</div>`;
+            } else {
+                applied = Math.min(basePriceAfterCode, lateBirdDiscount);
+                displayDiscount += `<div class="text-green-600 font-bold">${lateBirdName}：-$${applied}</div>`;
+            }
+            actualDiscountAmt += applied;
+        }
+    }
 
-                    const finalTotal = basePrice - actualDiscountAmt + addonTotal;
+    const finalTotal = basePrice - actualDiscountAmt + addonTotal;
 
-                    let discountInput = document.getElementById('actualDiscountAmount');
-                    if (!discountInput) {
-                        discountInput = document.createElement('input');
-                        discountInput.type = 'hidden';
-                        discountInput.id = 'actualDiscountAmount';
-                        document.getElementById('bookingForm').appendChild(discountInput);
-                    }
-                    discountInput.value = actualDiscountAmt;
+    let discountInput = document.getElementById('actualDiscountAmount');
+    if (!discountInput) {
+        discountInput = document.createElement('input');
+        discountInput.type = 'hidden';
+        discountInput.id = 'actualDiscountAmount';
+        document.getElementById('bookingForm').appendChild(discountInput);
+    }
+    discountInput.value = actualDiscountAmt;
 
-                    resultDiv.classList.remove('hidden');
+    resultDiv.classList.remove('hidden');
+
+    let html = '';
+    if (zoneStr) html += `<div>營位：${zoneStr}</div>`;
+    if (addonStr) html += `<div>加購：${addonStr}</div>`;
+    html += `<div>小計：$${overallSubtotal.toLocaleString()}</div>`;
+    html += nightBeforeDetails;
+    html += displayDiscount;
+
+    formulaSpan.innerHTML = html;
+    totalDisplay.textContent = `$${finalTotal.toLocaleString()}`;
+    if (zonePriceInput) zonePriceInput.value = finalTotal;
+} else {
+    resultDiv.classList.add('hidden');
+}
+// ==================== 價格顯示結束 ====================
 
                     let html = '';
                     if (zoneStr) html += `<div>營位：${zoneStr}</div>`;
@@ -1988,8 +2021,36 @@
                     });
             });
         }
+       async function init() {
+    try {
+        console.log("🚀 網站初始化開始...");
         
-        init();
+        buildZones(null);
+        
+        if (typeof renderAddons === 'function') renderAddons();
+        
+        await fetchInventory();
+        
+        renderZones('all');
+        
+        if (typeof renderGears === 'function') renderGears();
+        if (typeof renderBlogPosts === 'function') renderBlogPosts();
+        if (typeof renderTentInfo === 'function') renderTentInfo();
+        if (typeof setupCalculator === 'function') setupCalculator();
+        if (typeof renderReviews === 'function') renderReviews();
+        if (typeof renderGalleryFolders === 'function') renderGalleryFolders();
+        
+        if (typeof initializeLiff === 'function') {
+            initializeLiff();
+        }
+        
+        console.log("✅ 網站初始化完成");
+    } catch (err) {
+        console.error("init 發生錯誤：", err);
+    }
+}
+
+init();
     </script>
 </body>
 </html>
