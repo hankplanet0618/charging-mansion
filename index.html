@@ -832,11 +832,19 @@
     }
 
     function getLocalISODate(dateObj) {
-        const y = dateObj.getFullYear();
-        const m = String(dateObj.getMonth() + 1).padStart(2, '0');
-        const d = String(dateObj.getDate()).padStart(2, '0');
-        return `${y}-${m}-${d}`;
-    }
+    const y = dateObj.getFullYear();
+    const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+    const d = String(dateObj.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+}
+
+// ==================== 請把下面這個函數放在這裡 ====================
+function getSafeImageUrl(url) {
+    if (!url) return '';
+    if (url.includes('drive.google.com')) return url;
+    return url;
+}
+// ============================================================
 
     function buildZones(dateStr) {
         const isZoneMode = dateStr ? dateStr >= '2026-06-01' : false;
@@ -1429,40 +1437,52 @@
         const res = await fetch(url, { method: 'GET' });
         if (!res.ok) throw new Error(`HTTP 錯誤！狀態碼: ${res.status}`);
 
-        let data = await res.json();
+        const rawData = await res.json();
+        console.log("GAS 原始回傳：", rawData);
 
-        // 加強版：把 bookedData 的 key 做正規化，盡量對應到目前 zones 的名稱
+        // 加強正規化：同時處理 zones 和 addons
         const normalizedData = {};
-        for (let date in data) {
-            if (!data[date].zones) continue;
-            
-            normalizedData[date] = { zones: {} };
-            
-            for (let zoneName in data[date].zones) {
-                let qty = data[date].zones[zoneName];
-                let normalizedName = zoneName;
+        for (let date in rawData) {
+            normalizedData[date] = { zones: {}, addons: {} };
 
-                // 常見舊名稱轉換（可再補充）
-                if (zoneName.startsWith('棚架A')) normalizedName = zoneName; // 保持原樣
-                if (zoneName.startsWith('棚架B')) normalizedName = zoneName;
-                if (zoneName.startsWith('棚架C')) normalizedName = zoneName;
-                if (zoneName.startsWith('棧板A')) normalizedName = zoneName;
-                if (zoneName.startsWith('棧板B')) normalizedName = zoneName;
-                if (zoneName.startsWith('草地區')) normalizedName = zoneName;
-                if (zoneName.startsWith('碎石區')) normalizedName = zoneName;
-                if (zoneName.startsWith('泰式')) normalizedName = zoneName;
-                if (zoneName.startsWith('露營車')) normalizedName = zoneName;
+            // 處理 zones
+            if (rawData[date].zones) {
+                for (let zoneName in rawData[date].zones) {
+                    let qty = rawData[date].zones[zoneName];
+                    let normalizedName = zoneName;
 
-                normalizedData[date].zones[normalizedName] = qty;
+                    // 個別營位名稱正規化
+                    if (zoneName.startsWith('棚架A') || zoneName.startsWith('棚架B') || 
+                        zoneName.startsWith('棚架C') || zoneName.startsWith('棧板A') || 
+                        zoneName.startsWith('棧板B') || zoneName.startsWith('草地區') || 
+                        zoneName.startsWith('碎石區') || zoneName.startsWith('泰式') || 
+                        zoneName.startsWith('露營車')) {
+                        normalizedName = zoneName;
+                    }
+                    normalizedData[date].zones[normalizedName] = qty;
+                }
+            }
+
+            // 處理 addons（很重要！）
+            if (rawData[date].addons) {
+                normalizedData[date].addons = rawData[date].addons;
             }
         }
 
         bookedData = normalizedData;
-        console.log("✅ 庫存載入成功！", bookedData);
+        console.log("✅ 正規化後的 bookedData：", bookedData);
 
         const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
         renderZones(activeFilter);
         renderAddons();
+
+    } catch (err) {
+        console.error('❌ 抓取庫存失敗：', err);
+        const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
+        renderZones(activeFilter);
+        renderAddons();
+    }
+}
 
     } catch (err) {
         console.error('❌ 抓取庫存失敗：', err);
@@ -1846,90 +1866,98 @@
 
                 let overallSubtotal = basePrice + addonTotal;
 
-                if (overallSubtotal > 0) {
-                    const discountVal = getDiscountAmount();
-                    const enteredCode = document.getElementById('discountCodeInput').value.trim().toUpperCase();
+                // ==================== 價格計算與顯示（已簡化強化版） ====================
+if (overallSubtotal > 0 || cartEntries.length > 0 || addonEntries.length > 0) {
+    const discountVal = getDiscountAmount();
+    const enteredCode = document.getElementById('discountCodeInput').value.trim().toUpperCase();
 
-                    let basePriceAfterCode = basePrice;
-                    let displayDiscount = "";
-                    let actualDiscountAmt = 0;
+    let basePriceAfterCode = basePrice;
+    let displayDiscount = "";
+    let actualDiscountAmt = 0;
 
-                    if (discountVal > 0 && basePrice > 0) {
-                        if (discountVal < 1) {
-                            const codeDiscount = Math.round(basePrice * (1 - discountVal));
-                            actualDiscountAmt += codeDiscount;
-                            displayDiscount += `<div class="text-green-600">折扣優惠：打 ${discountVal * 10} 折 (-$${codeDiscount})</div>`;
-                        } else {
-                            const codeDiscount = Math.min(basePrice, discountVal);
-                            actualDiscountAmt += codeDiscount;
-                            displayDiscount += `<div class="text-green-600">折扣優惠：-$${codeDiscount}</div>`;
-                        }
-                        basePriceAfterCode = basePrice - actualDiscountAmt;
-                    } else if (discountVal > 0) {
-                        displayDiscount += `<div class="text-xs text-orange-500 mt-1 font-bold">※ 折扣碼僅適用於營位與夜衝費</div>`;
-                    }
+    // === 處理一般折扣碼 ===
+    if (discountVal > 0 && basePrice > 0) {
+        if (discountVal < 1) {
+            const codeDiscount = Math.round(basePrice * (1 - discountVal));
+            actualDiscountAmt += codeDiscount;
+            displayDiscount += `<div class="text-green-600">折扣優惠：打 ${discountVal * 10} 折 (-$${codeDiscount})</div>`;
+        } else {
+            const codeDiscount = Math.min(basePrice, discountVal);
+            actualDiscountAmt += codeDiscount;
+            displayDiscount += `<div class="text-green-600">折扣優惠：-$${codeDiscount}</div>`;
+        }
+        basePriceAfterCode = basePrice - actualDiscountAmt;
+    } else if (discountVal > 0) {
+        displayDiscount += `<div class="text-xs text-orange-500 mt-1 font-bold">※ 折扣碼僅適用於營位與夜衝費</div>`;
+    }
 
-                    if (basePriceAfterCode > 0 && enteredCode !== 'VIP卡' && enteredCode !== '【VIP卡】') {
-                        const today = new Date();
-                        today.setHours(0, 0, 0, 0);
-                        const checkinD = new Date(inDate.value);
-                        checkinD.setHours(0, 0, 0, 0);
-                        const diffDays = Math.ceil((checkinD.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+    // === 晚鳥 / 小晚鳥優惠（排除 VIP卡）===
+    if (basePriceAfterCode > 0 && enteredCode !== 'VIP卡' && enteredCode !== '【VIP卡】') {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const checkinD = new Date(inDate.value);
+        checkinD.setHours(0, 0, 0, 0);
+        const diffDays = Math.ceil((checkinD.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
 
-                        let lateBirdDiscount = 0;
-                        let lateBirdName = "";
+        let lateBirdDiscount = 0;
+        let lateBirdName = "";
 
-                        if (diffDays >= 0 && diffDays <= 7) {
-                            lateBirdDiscount = 0.9;
-                            lateBirdName = "【晚鳥優惠】";
-                        } else if (diffDays >= 8 && diffDays <= 14) {
-                            lateBirdDiscount = 0.95;
-                            lateBirdName = "【小晚鳥優惠】";
-                        }
+        if (diffDays >= 0 && diffDays <= 7) {
+            lateBirdDiscount = 0.9;
+            lateBirdName = "【晚鳥優惠】";
+        } else if (diffDays >= 8 && diffDays <= 14) {
+            lateBirdDiscount = 0.95;
+            lateBirdName = "【小晚鳥優惠】";
+        }
 
-                        if (lateBirdDiscount > 0) {
-                            let applied = 0;
-                            if (lateBirdDiscount < 1) {
-                                applied = Math.round(basePriceAfterCode * (1 - lateBirdDiscount));
-                                displayDiscount += `<div class="text-green-600 font-bold">${lateBirdName} (打${lateBirdDiscount * 10}折)：-$${applied}</div>`;
-                            } else {
-                                applied = Math.min(basePriceAfterCode, lateBirdDiscount);
-                                displayDiscount += `<div class="text-green-600 font-bold">${lateBirdName}：-$${applied}</div>`;
-                            }
-                            actualDiscountAmt += applied;
-                        }
-                    }
-
-                    const finalTotal = basePrice - actualDiscountAmt + addonTotal;
-
-                    let discountInput = document.getElementById('actualDiscountAmount');
-                    if (!discountInput) {
-                        discountInput = document.createElement('input');
-                        discountInput.type = 'hidden';
-                        discountInput.id = 'actualDiscountAmount';
-                        document.getElementById('bookingForm').appendChild(discountInput);
-                    }
-                    discountInput.value = actualDiscountAmt;
-
-                    resultDiv.classList.remove('hidden');
-
-                    let html = '';
-                    if (zoneStr) html += `<div>營位：${zoneStr}</div>`;
-                    if (addonStr) html += `<div>加購：${addonStr}</div>`;
-                    if (days > 0) html += `<div>營位與加購小計：$${overallSubtotal.toLocaleString()}</div>`;
-                    else html += `<div>小計：$${overallSubtotal.toLocaleString()}</div>`;
-
-                    html += nightBeforeDetails;
-                    html += displayDiscount;
-
-                    formulaSpan.innerHTML = html;
-                    totalDisplay.textContent = `$${finalTotal.toLocaleString()}`;
-                    if (zonePriceInput) zonePriceInput.value = finalTotal;
-                } else {
-                    resultDiv.classList.add('hidden');
-                }
+        if (lateBirdDiscount > 0) {
+            let applied = 0;
+            if (lateBirdDiscount < 1) {
+                applied = Math.round(basePriceAfterCode * (1 - lateBirdDiscount));
+                displayDiscount += `<div class="text-green-600 font-bold">${lateBirdName} (打${lateBirdDiscount * 10}折)：-$${applied}</div>`;
+            } else {
+                applied = Math.min(basePriceAfterCode, lateBirdDiscount);
+                displayDiscount += `<div class="text-green-600 font-bold">${lateBirdName}：-$${applied}</div>`;
             }
+            actualDiscountAmt += applied;
+        }
+    }
 
+    const finalTotal = basePrice - actualDiscountAmt + addonTotal;
+
+    // 建立隱藏欄位記錄實際折扣金額
+    let discountInput = document.getElementById('actualDiscountAmount');
+    if (!discountInput) {
+        discountInput = document.createElement('input');
+        discountInput.type = 'hidden';
+        discountInput.id = 'actualDiscountAmount';
+        document.getElementById('bookingForm').appendChild(discountInput);
+    }
+    discountInput.value = actualDiscountAmt;
+
+    // 顯示價格區塊
+    resultDiv.classList.remove('hidden');
+
+    let html = '';
+    if (zoneStr) html += `<div>營位：${zoneStr}</div>`;
+    if (addonStr) html += `<div>加購：${addonStr}</div>`;
+    if (days > 0) {
+        html += `<div>營位與加購小計：$${overallSubtotal.toLocaleString()}</div>`;
+    } else {
+        html += `<div>小計：$${overallSubtotal.toLocaleString()}</div>`;
+    }
+
+    html += nightBeforeDetails;
+    html += displayDiscount;
+
+    formulaSpan.innerHTML = html;
+    totalDisplay.textContent = `$${finalTotal.toLocaleString()}`;
+    if (zonePriceInput) zonePriceInput.value = finalTotal;
+
+} else {
+    resultDiv.classList.add('hidden');
+}
+// ==================== 價格計算結束 ====================
             inDate.addEventListener('change', () => {
                 if (inDate.value) {
                     const startDate = new Date(inDate.value);
