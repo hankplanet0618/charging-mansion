@@ -1850,7 +1850,7 @@ async function fetchInventory() {
                 const input = document.getElementById('selectedZoneInput');
                 if(Object.keys(cart).length === 0 && Object.keys(addonCart).length === 0) { alert('請至少選擇一個營位或加購商品！'); return; }
                 const inDateVal = document.getElementById('checkinDate').value;
-                if (inDateVal < MIN_DATE) { alert("目前僅提供 2026/1/19 以後的訂位！"); return; }
+                if (inDateVal < MIN_DATE) { alert("目前僅提供 2026/6/01 以後的訂位！"); return; }
                 
                 const btn = document.getElementById('submitBtn'); const originalText = btn.innerText; btn.disabled = true; btn.innerText = '處理中...';
                 const formData = new FormData(e.target);
