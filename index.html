@@ -241,7 +241,7 @@
                         <h4 class="text-lg font-bold text-stone-800 mb-4 border-l-4 border-green-600 pl-3">第一步：選擇預訂日期</h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-gray-500 mb-1">入住日期 <span class="text-red-500 text-[10px]"></span></label>
+                                <label class="block text-xs font-bold text-gray-500 mb-1">入住日期 <span class="text-red-500 text-[10px]">(限2026/6/01後)</span></label>
                                 <input type="date" id="checkinDate" name="入住日期" min="2026-01-19" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none">
                             </div>
                             <div>
@@ -433,7 +433,8 @@
             </div>
         </div>
     </div>
-<div id="modal-report" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    
+    <div id="modal-report" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
         <div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative">
             <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
@@ -448,7 +449,8 @@
             </form>
         </div>
     </div>
-<div id="modal-map" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    
+    <div id="modal-map" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
         <div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl z-10 p-6 relative max-h-[85vh] overflow-y-auto">
             <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
@@ -457,72 +459,33 @@
         </div>
     </div>
 
-   <div id="modal-blog" class="hidden fixed inset-0 z-50 flex items-center justify-center p-0 md:p-4">
-    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onclick="closeAll()"></div>
-    
-    <div class="bg-gray-100 w-full h-full md:h-auto md:max-h-[85vh] max-w-lg md:rounded-3xl shadow-2xl z-10 relative overflow-hidden flex flex-col border border-gray-200">
-        
-        <div class="bg-white/90 backdrop-blur-md px-4 py-3 border-b border-gray-200 flex justify-between items-center sticky top-0 z-20">
-            <h3 class="text-lg font-bold text-gray-900 tracking-wide">營區動態</h3>
-            <button onclick="closeAll()" class="text-gray-400 hover:text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center transition focus:outline-none">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        
-        <div id="blog-feed-container" class="p-3 md:p-4 overflow-y-auto no-scrollbar flex flex-col gap-3 md:gap-4 flex-1">
+    <div id="modal-blog" class="hidden fixed inset-0 z-50 flex items-center justify-center p-0 md:p-4">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onclick="closeAll()"></div>
+        <div class="bg-gray-100 w-full h-full md:h-auto md:max-h-[85vh] max-w-lg md:rounded-3xl shadow-2xl z-10 relative overflow-hidden flex flex-col border border-gray-200">
+            <div class="bg-white/90 backdrop-blur-md px-4 py-3 border-b border-gray-200 flex justify-between items-center sticky top-0 z-20">
+                <h3 class="text-lg font-bold text-gray-900 tracking-wide">營區動態</h3>
+                <button onclick="closeAll()" class="text-gray-400 hover:text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center transition focus:outline-none">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
+            <div id="blog-feed-container" class="p-3 md:p-4 overflow-y-auto no-scrollbar flex flex-col gap-3 md:gap-4 flex-1"></div>
+        </div>
     </div>
-</div>
 
-   <div id="modal-about" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div id="modal-about" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
         <div class="bg-white w-full max-w-3xl rounded-2xl shadow-2xl z-10 p-0 relative max-h-[85vh] overflow-y-auto border-t-8 border-orange-200">
-            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 z-20">
-                <i class="fas fa-times text-xl"></i>
-            </button>
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 z-20"><i class="fas fa-times text-xl"></i></button>
             <div class="about-poetic-container">
                 <div class="camp-name-styled">充電莊露營區</div>
-
-                <div class="poetic-highlight">
-                    隱在宜蘭礁溪深溝的山腰，<br>
-                    像一首還未被唱起的祕密詩。
-                </div>
-
-                <div class="narrative-text">
-                    這裡沒有繁複造景，卻能遠眺四季龜山島的日出日落；<br>
-                    感受秋日落羽松鋪出的一地紅毯；<br>
-                    冬日的櫻花綻放、聆聽夏日蟲鳴、潮聲。
-                </div>
-
+                <div class="poetic-highlight">隱在宜蘭礁溪深溝的山腰，<br>像一首還未被唱起的祕密詩。</div>
+                <div class="narrative-text">這裡沒有繁複造景，卻能遠眺四季龜山島的日出日落；<br>感受秋日落羽松鋪出的一地紅毯；<br>冬日的櫻花綻放、聆聽夏日蟲鳴、潮聲。</div>
                 <div class="leaf-divider">✦</div>
-
-                <div class="narrative-text">
-                    這裡有 <span class="feature-accent">95% 雨棚營位</span>，讓喜愛露營的人下雨不淋、烈日不曬；<br>
-                    懶人能躺平，孩子能放電。在這裡插上充電槍，泡一壺茶，坐進彩色木椅，<br>
-                    看電量悠悠回滿；看光線擁吻山海；看孩子追螢火蟲，追著夏日的童年。
-                </div>
-
-                <div class="narrative-text">
-                    2025 年，我露營了 <span style="font-weight: 500;">七十九次</span>。我知道露營的幸福，<br>
-                    是有風有雨也不狼狽，有星有月也不孤單。<br>
-                    於是我接下了「充電莊」——這裡不是我的營地，是我兒子的王國，<br>
-                    也是為每一個電量歸零的人，準備的一個溫暖避風港。
-                </div>
-
-                <div class="narrative-text">
-                    如果有一天，你開上山路，電量亮紅，請再往前一點點。<br>
-                    你會看見落羽松在搖、燈在亮，茶香飄來，孩子笑著奔跑。
-                </div>
-
-                <div class="poetic-highlight">
-                    那一刻，你就到了。
-                </div>
-
-                <div class="narrative-text">
-                    這裡允許你把電放完，也把心充滿；<br>
-                    允許你懶，也允許你盡情奔跑。
-                </div>
-
+                <div class="narrative-text">這裡有 <span class="feature-accent">95% 雨棚營位</span>，讓喜愛露營的人下雨不淋、烈日不曬；<br>懶人能躺平，孩子能放電。在這裡插上充電槍，泡一壺茶，坐進彩色木椅，<br>看電量悠悠回滿；看光線擁吻山海；看孩子追螢火蟲，追著夏日的童年。</div>
+                <div class="narrative-text">2025 年，我露營了 <span style="font-weight: 500;">七十九次</span>。我知道露營的幸福，<br>是有風有雨也不狼狽，有星有月也不孤單。<br>於是我接下了「充電莊」——這裡不是我的營地，是我兒子的王國，<br>也是為每一個電量歸零的人，準備的一個溫暖避風港。</div>
+                <div class="narrative-text">如果有一天，你開上山路，電量亮紅，請再往前一點點。<br>你會看見落羽松在搖、燈在亮，茶香飄來，孩子笑著奔跑。</div>
+                <div class="poetic-highlight">那一刻，你就到了。</div>
+                <div class="narrative-text">這裡允許你把電放完，也把心充滿；<br>允許你懶，也允許你盡情奔跑。</div>
                 <div class="quote-footer">「山中若有眠，夢裡總是青。」</div>
                 <div class="welcome-msg">歡迎愛露營的你，來這裡充電。</div>
             </div>
@@ -532,53 +495,23 @@
     <div id="modal-rules" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
         <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto">
-            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
-                <i class="fas fa-times text-xl"></i>
-            </button>
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
             <h3 class="text-xl font-bold mb-4 text-red-600 text-center border-b pb-2">營區須知</h3>
-            
             <div class="space-y-4 text-sm text-gray-700 leading-relaxed">
                 <ul class="list-disc pl-5 space-y-2">
-                    <li>
-                        <span class="font-bold text-red-600">寧靜時間：</span>請注意寧靜時間為每天 <span class="font-bold">晚上 10 點後，並於晚上10點準時由營主，總監全區域熄燈</span>，請放低音量，以免影響其他露友休息。
-                    </li>
-                    <li>
-                        <span class="font-bold text-red-600">冰箱管理</span>本營區所提供之冰箱 <span class="font-bold">不負責任何管理責任</span>，請自行保管，請勿找營主吵架，會被驅逐唷~
-                    </li>
-
-                    <li>
-                        <span class="font-bold text-blue-600">電動車優先：</span>電動車車主請務必於表單備註，將優先安排充電位置（全區共 17 台）。
-                    </li>
-                    <li>
-                        <span class="font-bold text-orange-600">焚火規範：</span>請務必自備木柴、防火布及焚火爐，<span class="font-bold">禁止直接在地面生火</span>，以免破壞草皮。
-                    </li>
-                    <li>
-                        <span class="font-bold">吸菸規定：</span>本營區不禁菸，但吸煙者請移步至 <span class="font-bold">接待處附近指定區域</span> 抽煙，請勿在帳棚區吸菸。
-                    </li>
-                    <li>
-                        <span class="font-bold text-green-600">溪邊活動：</span>若進行溪邊活動將分組，可自行帶補蝦籠，有機會抓到溪蝦 (請務必注意自身安全)。
-                    </li>
-                    <li>
-                        <span class="font-bold text-purple-600">夜衝優惠：</span>
-                        <ul class="list-circle pl-4 mt-1 text-gray-600">
-                            <li>時間：17:00後入場。</li>
-                            <li>自搭帳及車泊：每帳 <span class="font-bold">$600</span>。</li>
-                            <li>民宿、小木屋、露營車及代搭系列：享 <span class="font-bold">5 折優惠</span>。</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <span class="font-bold">用電規格：</span>用電設備不特定限制，每座插座規格為 15-20A。
-                    </li>
-                    <li>
-                        <span class="font-bold">裝備租借：</span>營區有各項設備可出租，詳細項目及金額請查看選單中的「裝備清單」。
-                    </li>
+                    <li><span class="font-bold text-red-600">寧靜時間：</span>請注意寧靜時間為每天 <span class="font-bold">晚上 10 點後，並於晚上10點準時由營主，總監全區域熄燈</span>，請放低音量，以免影響其他露友休息。</li>
+                    <li><span class="font-bold text-red-600">冰箱管理</span>本營區所提供之冰箱 <span class="font-bold">不負責任何管理責任</span>，請自行保管，請勿找營主吵架，會被驅逐唷~</li>
+                    <li><span class="font-bold text-blue-600">電動車優先：</span>電動車車主請務必於表單備註，將優先安排充電位置（全區共 17 台）。</li>
+                    <li><span class="font-bold text-orange-600">焚火規範：</span>請務必自備木柴、防火布及焚火爐，<span class="font-bold">禁止直接在地面生火</span>，以免破壞草皮。</li>
+                    <li><span class="font-bold">吸菸規定：</span>本營區不禁菸，但吸煙者請移步至 <span class="font-bold">接待處附近指定區域</span> 抽煙，請勿在帳棚區吸菸。</li>
+                    <li><span class="font-bold text-green-600">溪邊活動：</span>若進行溪邊活動將分組，可自行帶補蝦籠，有機會抓到溪蝦 (請務必注意自身安全)。</li>
+                    <li><span class="font-bold text-purple-600">夜衝優惠：</span><ul class="list-circle pl-4 mt-1 text-gray-600"><li>時間：17:00後入場。</li><li>自搭帳及車泊：每帳 <span class="font-bold">$600</span>。</li><li>民宿、小木屋、露營車及代搭系列：享 <span class="font-bold">5 折優惠</span>。</li></ul></li>
+                    <li><span class="font-bold">用電規格：</span>用電設備不特定限制，每座插座規格為 15-20A。</li>
+                    <li><span class="font-bold">裝備租借：</span>營區有各項設備可出租，詳細項目及金額請查看選單中的「裝備清單」。</li>
                 </ul>
-
                 <div class="mt-4 pt-4 border-t border-gray-200 bg-stone-50 p-2 rounded">
                     <h4 class="font-bold text-stone-800 mb-1 text-xs">取消/延期規則</h4>
-                    <p class="text-[10px] text-gray-500">
-                        14天前退100%；10-13天前退70%；7-9天前退50%；4-6天前退40%；2-3天前退30%；1天前退20%；當日不予退費。(天災依縣府公告為主)
-                    </p>
+                    <p class="text-[10px] text-gray-500">14天前退100%；10-13天前退70%；7-9天前退50%；4-6天前退40%；2-3天前退30%；1天前退20%；當日不予退費。(天災依縣府公告為主)</p>
                 </div>
             </div>
         </div>
@@ -596,103 +529,112 @@
             </div>
         </div>
     </div>
+
     <div id="modal-qa" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
         <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto">
-            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
-                <i class="fas fa-times text-xl"></i>
-            </button>
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
             <h3 class="text-xl font-bold mb-6 text-center text-yellow-600 border-b pb-2">營區常見問題 (Q&A)</h3>
-            
             <div class="space-y-4">
                 <div class="bg-stone-50 p-4 rounded-lg border border-stone-100">
                     <h4 class="font-bold text-stone-800 text-sm mb-2"><i class="fas fa-clock text-yellow-500 mr-2"></i>Q: 入營與拔營時間？</h4>
-                    <p class="text-gray-600 text-xs leading-relaxed">
-                        <span class="font-bold text-green-700">【一般營位】</span> 入營時間為 13:00，拔營時間為隔日 12:00。<br>
-                        <span class="font-bold text-orange-600">【民宿 / 小木屋 / 免搭帳】</span> 入營時間為 15:00，拔營時間為隔日 11:00。
-                    </p>
+                    <p class="text-gray-600 text-xs leading-relaxed"><span class="font-bold text-green-700">【一般營位】</span> 入營時間為 13:00，拔營時間為隔日 12:00。<br><span class="font-bold text-orange-600">【民宿 / 小木屋 / 免搭帳】</span> 入營時間為 15:00，拔營時間為隔日 11:00。</p>
                 </div>
-                
                 <div class="bg-stone-50 p-4 rounded-lg border border-stone-100">
                     <h4 class="font-bold text-stone-800 text-sm mb-2"><i class="fas fa-paw text-yellow-500 mr-2"></i>Q: 營區可以帶寵物嗎？</h4>
-                    <p class="text-gray-600 text-xs leading-relaxed">
-                        A: 營區為寵物友善！毛小孩需繫牽繩並請主人自行清理便溺。寵物可上床喔！如未清潔便溺造成不可修復之髒亂者，將收取$1000清潔費
-                    </p>
+                    <p class="text-gray-600 text-xs leading-relaxed">A: 營區為寵物友善！毛小孩需繫牽繩並請主人自行清理便溺。寵物可上床喔！如未清潔便溺造成不可修復之髒亂者，將收取$1000清潔費</p>
                 </div>
-
                 <div class="bg-stone-50 p-4 rounded-lg border border-stone-100">
                     <h4 class="font-bold text-stone-800 text-sm mb-2"><i class="fas fa-charging-station text-yellow-500 mr-2"></i>Q: 營區提供哪些設施與充電？</h4>
-                    <p class="text-gray-600 text-xs leading-relaxed">
-                        A: 營區提供 24 小時熱水浴室、冷藏/冷凍冰箱、飲水機。<br>電動車車主更享有專屬充電服務 (提供 J1772、TPC、Type2 規格，請於備註提供車號以利安排)。
-                    </p>
+                    <p class="text-gray-600 text-xs leading-relaxed">A: 營區提供 24 小時熱水浴室、冷藏/冷凍冰箱、飲水機。<br>電動車車主更享有專屬充電服務 (提供 J1772、TPC、Type2 規格，請於備註提供車號以利安排)。</p>
                 </div>
-
                 <div class="bg-stone-50 p-4 rounded-lg border border-stone-100">
                     <h4 class="font-bold text-stone-800 text-sm mb-2"><i class="fas fa-moon text-yellow-500 mr-2"></i>Q: 夜衝時間與計費方式？</h4>
-                    <p class="text-gray-600 text-xs leading-relaxed">
-                        A: 夜衝時間為 17:00 後入場。<br>
-                        自搭帳及車泊：每帳 <span class="font-bold">$600</span>。<br>
-                        民宿、小木屋、露營車及代搭系列：享 <span class="font-bold">5 折優惠</span>。
-                    </p>
+                    <p class="text-gray-600 text-xs leading-relaxed">A: 夜衝時間為 17:00 後入場。<br>自搭帳及車泊：每帳 <span class="font-bold">$600</span>。<br>民宿、小木屋、露營車及代搭系列：享 <span class="font-bold">5 折優惠</span>。</p>
                 </div>
             </div>
         </div>
     </div>
+
     <div id="modal-bbq" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl z-10 relative overflow-hidden"><button onclick="closeAll()" class="absolute top-2 right-2 text-white bg-black/50 rounded-full w-8 h-8 z-20"><i class="fas fa-times"></i></button><img src="https://i.ibb.co/N623cTjr/1299.png" class="w-full h-auto object-contain"></div></div>
-    <div id="modal-gear" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-blue-600">裝備出租</h3><table class="w-full text-sm text-left"><tbody id="gearTableBody" class="divide-y"></tbody></table></div></div>
-    <div id="modal-tent" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl z-10 p-6 relative max-h-[85vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-2xl"></i></button><h3 class="text-xl font-bold mb-4 text-purple-600">免搭帳服務專區</h3><div class="space-y-6"></div></div></div>
-    <div id="modal-reviews" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-yellow-600 text-center">顧客五星好評</h3><div id="reviews-container" class="space-y-4"></div><p class="text-center text-xs text-gray-400 mt-6 pt-4 border-t">(以上為精選評論，歡迎留言)</p></div></div>
-    <div id="modal-feedback" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"><div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div><div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative"><button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button><h3 class="text-xl font-bold mb-4 text-center text-blue-600">意見回饋</h3><form id="feedbackForm" class="space-y-4"><input type="hidden" name="sheetName" value="意見回饋"><div><label class="block text-xs font-bold text-gray-500 mb-1">入住日期</label><input type="date" name="入住日期" required class="w-full border rounded p-2"></div><div><label class="block text-xs font-bold text-gray-500 mb-1">住客姓名</label><input type="text" name="住客姓名" required class="w-full border rounded p-2"></div><div class="text-center"><label class="block text-sm font-bold text-gray-500 mb-2">請給予我們評分</label><div class="star-rating"><input type="radio" id="star5" name="滿意度回饋" value="5" checked><label for="star5" title="5星">★</label><input type="radio" id="star4" name="滿意度回饋" value="4"><label for="star4" title="4星">★</label><input type="radio" id="star3" name="滿意度回饋" value="3"><label for="star3" title="3星">★</label><input type="radio" id="star2" name="滿意度回饋" value="2"><label for="star2" title="2星">★</label><input type="radio" id="star1" name="滿意度回饋" value="1"><label for="star1" title="1星">★</label></div></div><div><label class="block text-xs font-bold text-gray-500 mb-1">內容</label><textarea name="內容" required class="w-full border rounded p-2 h-24 resize-none"></textarea></div><button type="submit" id="feedbackBtn" class="w-full bg-blue-500 text-white font-bold py-3 rounded-lg hover:bg-blue-600">送出回饋</button></form></div></div>
-     <div id="modal-tent-drying" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    
+    <div id="modal-gear" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto">
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button>
+            <h3 class="text-xl font-bold mb-4 text-blue-600">裝備出租</h3>
+            <table class="w-full text-sm text-left"><tbody id="gearTableBody" class="divide-y"></tbody></table>
+        </div>
+    </div>
+    
+    <div id="modal-tent" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
+        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl z-10 p-6 relative max-h-[85vh] overflow-y-auto">
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-2xl"></i></button>
+            <h3 class="text-xl font-bold mb-4 text-purple-600">免搭帳服務專區</h3>
+            <div class="space-y-6"></div>
+        </div>
+    </div>
+    
+    <div id="modal-reviews" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto">
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button>
+            <h3 class="text-xl font-bold mb-4 text-yellow-600 text-center">顧客五星好評</h3>
+            <div id="reviews-container" class="space-y-4"></div>
+            <p class="text-center text-xs text-gray-400 mt-6 pt-4 border-t">(以上為精選評論，歡迎留言)</p>
+        </div>
+    </div>
+    
+    <div id="modal-feedback" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative">
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button>
+            <h3 class="text-xl font-bold mb-4 text-center text-blue-600">意見回饋</h3>
+            <form id="feedbackForm" class="space-y-4">
+                <input type="hidden" name="sheetName" value="意見回饋">
+                <div><label class="block text-xs font-bold text-gray-500 mb-1">入住日期</label><input type="date" name="入住日期" required class="w-full border rounded p-2"></div>
+                <div><label class="block text-xs font-bold text-gray-500 mb-1">住客姓名</label><input type="text" name="住客姓名" required class="w-full border rounded p-2"></div>
+                <div class="text-center">
+                    <label class="block text-sm font-bold text-gray-500 mb-2">請給予我們評分</label>
+                    <div class="star-rating">
+                        <input type="radio" id="star5" name="滿意度回饋" value="5" checked><label for="star5" title="5星">★</label>
+                        <input type="radio" id="star4" name="滿意度回饋" value="4"><label for="star4" title="4星">★</label>
+                        <input type="radio" id="star3" name="滿意度回饋" value="3"><label for="star3" title="3星">★</label>
+                        <input type="radio" id="star2" name="滿意度回饋" value="2"><label for="star2" title="2星">★</label>
+                        <input type="radio" id="star1" name="滿意度回饋" value="1"><label for="star1" title="1星">★</label>
+                    </div>
+                </div>
+                <div><label class="block text-xs font-bold text-gray-500 mb-1">內容</label><textarea name="內容" required class="w-full border rounded p-2 h-24 resize-none"></textarea></div>
+                <button type="submit" id="feedbackBtn" class="w-full bg-blue-500 text-white font-bold py-3 rounded-lg hover:bg-blue-600">送出回饋</button>
+            </form>
+        </div>
+    </div>
+    
+    <div id="modal-tent-drying" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onclick="closeAll()"></div>
         <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[90vh] overflow-y-auto border-t-8 border-orange-400">
-            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition">
-                <i class="fas fa-times text-xl"></i>
-            </button>
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition"><i class="fas fa-times text-xl"></i></button>
             <h3 class="text-2xl font-bold mb-4 text-center text-orange-600">☀️ 專屬曬帳服務</h3>
-            
             <div class="bg-orange-50 p-4 rounded-xl mb-6 border border-orange-200 text-sm text-stone-700 space-y-3 shadow-sm">
                 <p class="flex items-start"><i class="fas fa-check-circle text-orange-500 mt-1 mr-2"></i> <span><strong>服務內容：</strong>帳篷擦拭清潔、曬乾、檜木精油薰香、帳篷簡易檢查</span></p>
                 <p class="flex items-start"><i class="fas fa-clock text-orange-500 mt-1 mr-2"></i> <span><strong>作業時間：</strong>收到帳棚後 8 個工作天後寄回(不含例假日)</span></p>
-<p class="flex items-start"><i class="fas fa-map-marker-alt text-orange-500 mt-1 mr-2"></i> <span><strong>寄件地址：</strong>262宜蘭縣礁溪鄉匏杓崙路150之8號(充電莊收)，電話: 0975020425</span></p>
-
+                <p class="flex items-start"><i class="fas fa-map-marker-alt text-orange-500 mt-1 mr-2"></i> <span><strong>寄件地址：</strong>262宜蘭縣礁溪鄉匏杓崙路150之8號(充電莊收)，電話: 0975020425</span></p>
                 <p class="flex items-start"><i class="fas fa-dollar-sign text-orange-500 mt-1 mr-2"></i> <span><strong>服務費用：</strong>$1300 / 每個睡帳/天幕/外帳 / 每次 <br><span class="text-xs text-orange-600 font-bold">(回寄郵資另計)</span></span></p>
                 <p class="flex items-start"><i class="fas fa-dollar-sign text-orange-500 mt-1 mr-2"></i> <span><strong>服務費用：</strong>$1500 / 每個一房一廳帳(骨架) / 每次 <br><span class="text-xs text-orange-600 font-bold">(回寄郵資另計)</span></span></p>
                 <p class="flex items-start"><i class="fas fa-dollar-sign text-orange-500 mt-1 mr-2"></i> <span><strong>服務費用：</strong>$1700 / 每個一房一廳帳(充氣帳) / 每次 <br><span class="text-xs text-orange-600 font-bold">(回寄郵資另計)</span></span></p>
-
             </div>
-
             <form id="tentDryingForm" class="space-y-4">
                 <input type="hidden" name="sheetName" value="曬帳訂單">
                 <input type="hidden" name="總金額" id="tentDryingTotalInput" value="1300">
                 <input type="hidden" name="帳篷種類名稱" id="tentTypeNameInput" value="睡帳/天幕/外帳">
-
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 mb-1">姓名</label>
-                        <input type="text" name="姓名" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-orange-500 outline-none" placeholder="請填寫真實姓名">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 mb-1">電話</label>
-                        <input type="tel" name="電話" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-orange-500 outline-none" placeholder="聯絡電話">
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-xs font-bold text-gray-500 mb-1">Email (接收訂單與匯款通知)</label>
-                        <input type="email" name="Email" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-orange-500 outline-none" placeholder="example@gmail.com">
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-xs font-bold text-gray-500 mb-1">寄回地址</label>
-                        <input type="text" name="地址" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-orange-500 outline-none" placeholder="請填寫帳篷洗淨後的寄回地址">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 mb-1">帳篷品牌與型號</label>
-                        <input type="text" name="帳篷型號" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-orange-500 outline-none" placeholder="例如: KZM-T250">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 mb-1">預計寄出日期</label>
-                        <input type="date" name="寄出日期" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-orange-500 outline-none">
-                    </div>
-                    
+                    <div><label class="block text-xs font-bold text-gray-500 mb-1">姓名</label><input type="text" name="姓名" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-orange-500 outline-none" placeholder="請填寫真實姓名"></div>
+                    <div><label class="block text-xs font-bold text-gray-500 mb-1">電話</label><input type="tel" name="電話" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-orange-500 outline-none" placeholder="聯絡電話"></div>
+                    <div class="md:col-span-2"><label class="block text-xs font-bold text-gray-500 mb-1">Email (接收訂單與匯款通知)</label><input type="email" name="Email" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-orange-500 outline-none" placeholder="example@gmail.com"></div>
+                    <div class="md:col-span-2"><label class="block text-xs font-bold text-gray-500 mb-1">寄回地址</label><input type="text" name="地址" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-orange-500 outline-none" placeholder="請填寫帳篷洗淨後的寄回地址"></div>
+                    <div><label class="block text-xs font-bold text-gray-500 mb-1">帳篷品牌與型號</label><input type="text" name="帳篷型號" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-orange-500 outline-none" placeholder="例如: KZM-T250"></div>
+                    <div><label class="block text-xs font-bold text-gray-500 mb-1">預計寄出日期</label><input type="date" name="寄出日期" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-orange-500 outline-none"></div>
                     <div class="md:col-span-2">
                         <label class="block text-xs font-bold text-gray-500 mb-1">帳篷種類</label>
                         <select id="tentTypeSelect" class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-orange-500 outline-none" onchange="window.calculateTentTotal()">
@@ -701,7 +643,6 @@
                             <option value="1700">一房一廳帳(充氣帳) ($1700)</option>
                         </select>
                     </div>
-                    
                     <div class="md:col-span-2 flex justify-between items-center bg-stone-50 p-3 rounded-lg border border-gray-200 mt-2">
                         <label class="font-bold text-gray-700">選擇帳篷數量</label>
                         <div class="flex items-center gap-3">
@@ -711,94 +652,46 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="bg-red-50 p-4 rounded-xl border border-red-100 flex justify-between items-center mt-4">
                     <span class="text-red-800 font-bold text-sm">總金額明細 (不含回寄郵資)</span>
                     <span class="text-3xl font-black text-red-600" id="tentDryingTotalDisplay">$1300</span>
                 </div>
-
-                <button type="submit" id="tentDryingBtn" class="w-full bg-orange-500 text-white font-bold py-4 rounded-xl text-lg shadow-lg hover:bg-orange-600 transition transform hover:scale-[1.01] active:scale-95 mt-4">
-                    確認送出曬帳訂單
-                </button>
-            </form>        </div>
+                <button type="submit" id="tentDryingBtn" class="w-full bg-orange-500 text-white font-bold py-4 rounded-xl text-lg shadow-lg hover:bg-orange-600 transition transform hover:scale-[1.01] active:scale-95 mt-4">確認送出曬帳訂單</button>
+            </form>
+        </div>
     </div>
+
 <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxgcBUWexk4xIGjgq6_PBug3TBdPtlEg1lXBAcQh3DLogkiU3BzrIgFTrXM7oeLXLuL/exec';
     const myLiffId = "2008643307-nbPNvd20";
     const MIN_DATE = '2026-01-19';
     
     const BLOCKED_DATES = ['2026-02-07', '2026-03-07'];
-    const EVENT_DATES = [
-        '2026-06-19', '2026-06-20', '2026-06-21', 
-        '2026-12-25', '2026-12-26', '2026-12-27', 
-    ];
+    const EVENT_DATES = ['2026-06-19', '2026-06-20', '2026-06-21', '2026-12-25', '2026-12-26', '2026-12-27'];
     const SPECIAL_HOLIDAYS = [
         '2026-02-14','2026-02-15','2026-02-16','2026-02-17','2026-02-18','2026-02-19','2026-02-20','2026-02-21','2026-02-22',
-        '2026-02-27','2026-02-28','2026-03-01',
-        '2026-04-03','2026-04-04','2026-04-05','2026-04-06',
-        '2026-05-01','2026-05-02','2026-05-03',
-        '2026-06-19','2026-06-20','2026-06-21',
-        '2026-09-25','2026-09-26','2026-09-27','2026-09-28',
-        '2026-10-09','2026-10-10','2026-10-11',
-        '2026-10-24','2026-10-25','2026-10-26',
-        '2026-12-25','2026-12-26','2026-12-27',
-        '2027-01-01','2027-01-02','2027-01-03',
-        '2027-02-04','2027-02-05','2027-02-06','2027-02-07','2027-02-08','2027-02-09','2027-02-10',
-        '2027-02-27','2027-02-28','2027-03-01',
-        '2027-04-03','2027-04-04','2027-04-05','2027-04-06',
-        '2027-04-30','2027-05-01','2027-05-02',
-        '2027-06-09',
-        '2027-09-15',
-        '2027-09-25','2027-09-26','2027-09-27','2027-09-28',
-        '2027-10-09','2027-10-10','2027-10-11',
-        '2027-10-23','2027-10-24','2027-10-25',
-        '2027-12-24','2027-12-25','2027-12-26',
-        '2027-12-31',
-        '2028-01-01','2028-01-02',
+        '2026-02-27','2026-02-28','2026-03-01', '2026-04-03','2026-04-04','2026-04-05','2026-04-06', '2026-05-01','2026-05-02','2026-05-03',
+        '2026-06-19','2026-06-20','2026-06-21', '2026-09-25','2026-09-26','2026-09-27','2026-09-28', '2026-10-09','2026-10-10','2026-10-11',
+        '2026-10-24','2026-10-25','2026-10-26', '2026-12-25','2026-12-26','2026-12-27', '2027-01-01','2027-01-02','2027-01-03',
+        '2027-02-04','2027-02-05','2027-02-06','2027-02-07','2027-02-08','2027-02-09','2027-02-10', '2027-02-27','2027-02-28','2027-03-01',
+        '2027-04-03','2027-04-04','2027-04-05','2027-04-06', '2027-04-30','2027-05-01','2027-05-02', '2027-06-09', '2027-09-15',
+        '2027-09-25','2027-09-26','2027-09-27','2027-09-28', '2027-10-09','2027-10-10','2027-10-11', '2027-10-23','2027-10-24','2027-10-25',
+        '2027-12-24','2027-12-25','2027-12-26', '2027-12-31', '2028-01-01','2028-01-02',
         '2028-01-22','2028-01-23','2028-01-24','2028-01-25','2028-01-26','2028-01-27','2028-01-28','2028-01-29','2028-01-30',
-        '2028-02-26','2028-02-27','2028-02-28',
-        '2028-04-01','2028-04-02','2028-04-03','2028-04-04',
-        '2028-04-29','2028-04-30','2028-05-01',
-        '2028-05-27','2028-05-28','2028-05-29',
-        '2028-09-28','2028-09-29','2028-09-30','2028-10-01','2028-10-02','2028-10-03',
-        '2028-10-07','2028-10-08','2028-10-09','2028-10-10',
-        '2028-10-25',
-        '2028-12-23','2028-12-24','2028-12-25',
-        '2028-12-30','2028-12-31',
-        '2029-01-01',
-        '2029-02-10','2029-02-11','2029-02-12','2029-02-13','2029-02-14','2029-02-15','2029-02-16','2029-02-17','2029-02-18',
-        '2029-02-28',
-        '2029-04-04',
-        '2029-04-28','2029-04-29','2029-04-30','2029-05-01',
-        '2029-06-15','2029-06-16','2029-06-17',
-        '2029-09-21','2029-09-22','2029-09-23',
-        '2029-09-28','2029-09-29','2029-09-30',
-        '2029-10-10',
-        '2029-10-25','2029-10-26','2029-10-27','2029-10-28',
-        '2029-12-22','2029-12-23','2029-12-24','2029-12-25',
-        '2029-12-29','2029-12-30','2029-12-31',
-        '2030-01-01',
-        '2030-02-01','2030-02-02','2030-02-03','2030-02-04','2030-02-05','2030-02-06','2030-02-07',
-        '2030-02-28','2030-03-01','2030-03-02','2030-03-03',
-        '2030-04-04','2030-04-05','2030-04-06','2030-04-07',
-        '2030-05-01',
-        '2030-06-05',
-        '2030-09-12','2030-09-13','2030-09-14','2030-09-15',
-        '2030-09-27','2030-09-28','2030-09-29',
-        '2030-10-10','2030-10-11','2030-10-12','2030-10-13',
-        '2030-10-25','2030-10-26','2030-10-27',
-        '2030-12-25',
-        '2031-01-01',
-        '2031-01-18','2031-01-19','2031-01-20','2031-01-21','2031-01-22','2031-01-23','2031-01-24','2031-01-25','2031-01-26',
-        '2031-02-28','2031-03-01','2031-03-02',
-        '2031-04-03','2031-04-04','2031-04-05','2031-04-06',
-        '2031-05-01','2031-05-02','2031-05-03','2031-05-04',
-        '2031-06-21','2031-06-22','2031-06-23','2031-06-24',
-        '2031-09-27','2031-09-28','2031-09-29',
-        '2031-10-01',
-        '2031-10-10','2031-10-11','2031-10-12',
-        '2031-10-24','2031-10-25','2031-10-26',
-        '2031-12-25','2031-12-26','2031-12-27','2031-12-28'
+        '2028-02-26','2028-02-27','2028-02-28', '2028-04-01','2028-04-02','2028-04-03','2028-04-04', '2028-04-29','2028-04-30','2028-05-01',
+        '2028-05-27','2028-05-28','2028-05-29', '2028-09-28','2028-09-29','2028-09-30','2028-10-01','2028-10-02','2028-10-03',
+        '2028-10-07','2028-10-08','2028-10-09','2028-10-10', '2028-10-25', '2028-12-23','2028-12-24','2028-12-25', '2028-12-30','2028-12-31',
+        '2029-01-01', '2029-02-10','2029-02-11','2029-02-12','2029-02-13','2029-02-14','2029-02-15','2029-02-16','2029-02-17','2029-02-18',
+        '2029-02-28', '2029-04-04', '2029-04-28','2029-04-29','2029-04-30','2029-05-01', '2029-06-15','2029-06-16','2029-06-17',
+        '2029-09-21','2029-09-22','2029-09-23', '2029-09-28','2029-09-29','2029-09-30', '2029-10-10', '2029-10-25','2029-10-26','2029-10-27','2029-10-28',
+        '2029-12-22','2029-12-23','2029-12-24','2029-12-25', '2029-12-29','2029-12-30','2029-12-31', '2030-01-01',
+        '2030-02-01','2030-02-02','2030-02-03','2030-02-04','2030-02-05','2030-02-06','2030-02-07', '2030-02-28','2030-03-01','2030-03-02','2030-03-03',
+        '2030-04-04','2030-04-05','2030-04-06','2030-04-07', '2030-05-01', '2030-06-05', '2030-09-12','2030-09-13','2030-09-14','2030-09-15',
+        '2030-09-27','2030-09-28','2030-09-29', '2030-10-10','2030-10-11','2030-10-12','2030-10-13', '2030-10-25','2030-10-26','2030-10-27',
+        '2030-12-25', '2031-01-01', '2031-01-18','2031-01-19','2031-01-20','2031-01-21','2031-01-22','2031-01-23','2031-01-24','2031-01-25','2031-01-26',
+        '2031-02-28','2031-03-01','2031-03-02', '2031-04-03','2031-04-04','2031-04-05','2031-04-06', '2031-05-01','2031-05-02','2031-05-03','2031-05-04',
+        '2031-06-21','2031-06-22','2031-06-23','2031-06-24', '2031-09-27','2031-09-28','2031-09-29', '2031-10-01',
+        '2031-10-10','2031-10-11','2031-10-12', '2031-10-24','2031-10-25','2031-10-26', '2031-12-25','2031-12-26','2031-12-27','2031-12-28'
     ];
     
     const discountCodes = {
@@ -808,11 +701,7 @@
         'CHILL孩': 0.95, 'T9VM4XKP': 999999999, 'RC7L2YQW': 999999999, '愛學館信義校': 0.9,
     };
 
-    let cart = {};
-    let addonCart = {};
-    let bookedData = {};
-    let zones = [];
-    let currentZoneMode = null; 
+    let cart = {}; let addonCart = {}; let bookedData = {}; let zones = []; let currentZoneMode = null; 
 
     function getCampSize(name) {
         if (name === '棚架A1') return '4m*6m';
@@ -832,27 +721,13 @@
     }
 
     function getLocalISODate(dateObj) {
-    const y = dateObj.getFullYear();
-    const m = String(dateObj.getMonth() + 1).padStart(2, '0');
-    const d = String(dateObj.getDate()).padStart(2, '0');
-    return `${y}-${m}-${d}`;
-}
-
-// ==================== 請把下面這個函數放在這裡 ====================
-function getSafeImageUrl(url) {
-    if (!url) return '';
-    if (url.includes('drive.google.com')) return url;
-    return url;
-}
-// ============================================================
+        const y = dateObj.getFullYear(); const m = String(dateObj.getMonth() + 1).padStart(2, '0'); const d = String(dateObj.getDate()).padStart(2, '0');
+        return `${y}-${m}-${d}`;
+    }
 
     function buildZones(dateStr) {
         const isZoneMode = dateStr ? dateStr >= '2026-06-01' : false;
-
-        if (currentZoneMode !== isZoneMode) {
-            cart = {};
-            currentZoneMode = isZoneMode;
-        }
+        if (currentZoneMode !== isZoneMode) { cart = {}; currentZoneMode = isZoneMode; }
 
         const baseZones = [
             { id: 'ZA1', name: '棚架 A 區', count: 9, cat: 'shelter', desc: '寬敞遮雨棚車停帳邊', price: 1000, badge: '熱門', images: ['https://i.ibb.co/KjBcKGvt/A-DDcar.jpg', 'https://i.ibb.co/RTypZTzW/A1.jpg', 'https://i.ibb.co/hRNQ84SY/A.jpg'] },
@@ -870,7 +745,6 @@ function getSafeImageUrl(url) {
         ];
 
         zones = [];
-
         baseZones.forEach(zone => {
             if (zone.count > 1) {
                 for (let i = 1; i <= zone.count; i++) {
@@ -886,217 +760,28 @@ function getSafeImageUrl(url) {
                     else if (zone.name === '泰式免搭') spotName = `泰式${String.fromCharCode(64 + i)}`;
                     else spotName = `${zone.name}${i}`;
 
-                    zones.push({
-                        ...zone,
-                        id: `${zone.id}_${i}`,
-                        name: spotName,
-                        count: 1,
-                        desc: `專屬營位: ${spotName}`,
-                        originalName: zone.name,
-                        sizeText: getCampSize(spotName)
-                    });
+                    zones.push({ ...zone, id: `${zone.id}_${i}`, name: spotName, count: 1, desc: `專屬營位: ${spotName}`, originalName: zone.name, sizeText: getCampSize(spotName) });
                 }
             } else {
-                zones.push({
-                    ...zone,
-                    name: zone.name,
-                    count: 1,
-                    desc: zone.desc,
-                    originalName: zone.name,
-                    sizeText: getCampSize(zone.name)
-                });
+                zones.push({ ...zone, name: zone.name, count: 1, desc: zone.desc, originalName: zone.name, sizeText: getCampSize(zone.name) });
             }
         });
-    }
-
-    function renderTentInfo() {
-        const container = document.querySelector('#modal-tent .space-y-6');
-        if (!container) return;
-        let html = '';
-        tentInfoData.forEach((item, index) => {
-            const isHighlight = item.highlight || index === 0;
-            const borderClass = isHighlight ? "border-4 border-purple-500 shadow-xl transform scale-[1.02]" : "border border-gray-100 shadow-md";
-            const titleClass = isHighlight ? "text-3xl font-extrabold text-purple-700 tracking-tight" : "text-lg font-bold text-stone-800";
-            const priceClass = isHighlight ? "text-3xl font-black text-purple-600" : "text-xl font-bold text-purple-600";
-            const bgClass = isHighlight ? "bg-purple-50" : "bg-white";
-
-            html += `
-                <div class="${bgClass} rounded-xl ${borderClass} overflow-hidden flex flex-col md:flex-row transition-all relative">
-                    <div class="w-full md:w-48 h-48 bg-gray-200 relative flex-shrink-0 cursor-pointer" onclick="showImage('${item.img}')">
-                        <img src="${item.img}" class="w-full h-full object-cover" referrerpolicy="no-referrer">
-                        ${item.tag ? `<span class="absolute top-2 left-2 bg-purple-600 text-white text-xs px-2 py-1 rounded shadow font-bold tracking-wider whitespace-nowrap">${item.tag}</span>` : ''}
-                    </div>
-                    <div class="p-4 flex-1 flex flex-col justify-between">
-                        <div>
-                            <div class="flex justify-between items-start mb-2">
-                                 <h4 class="${titleClass} flex-1 pr-4">${item.name}</h4>
-                                 ${item.tag && !isHighlight ? `<span class="bg-purple-600 text-white text-xs px-2 py-1 rounded shadow font-bold tracking-wider whitespace-nowrap md:hidden">${item.tag}</span>` : ''}
-                            </div>
-                            <p class="text-sm text-gray-500 leading-relaxed mb-4">${item.desc}</p>
-                        </div>
-                        <div class="flex justify-between items-end border-t border-gray-200 pt-3 mt-auto">
-                            <span class="text-xs text-gray-400 font-bold bg-gray-100 px-2 py-1 rounded">不含營位費</span>
-                            <span class="${priceClass}">$${item.price} <span class="text-xs text-gray-500 font-normal">/次</span></span>
-                        </div>
-                    </div>
-                    ${isHighlight ? '<div class="absolute top-0 right-0 bg-yellow-400 text-purple-900 text-xs font-bold px-3 py-1 rounded-bl-xl z-20 shadow">推薦</div>' : ''}
-                </div>
-            `;
-        });
-        container.innerHTML = html;
-    }
-
-    async function init() {
-        buildZones(document.getElementById('checkinDate').value || '');
-        await fetchInventory();
-        renderZones('all');
-        renderGears();
-        renderAddons();
-        renderBlogPosts();
-        renderTentInfo();
-        setupCalculator();
-        renderReviews();
-        renderGalleryFolders();
-        if (typeof liff !== 'undefined') await initializeLiff();
-    }
-
-    function renderAddons() {
-        const container = document.getElementById('addons-container');
-        if (!container) return;
-        container.innerHTML = '';
-        
-        container.appendChild(createAddonSection('【裝備租借區】(計次收費)', rentals, 'blue'));
-        container.appendChild(createAddonSection('【帳篷租借區】(計次收費)', tents, 'purple'));
-        container.appendChild(createAddonSection('【烤肉預定區】(計次收費)', bbqs, 'orange'));
-    }
-
-    function createAddonSection(title, items, color) {
-        const wrapper = document.createElement('div');
-        wrapper.className = "mb-6";
-        
-        let borderColor = `border-${color}-600`;
-        if(color==='purple') borderColor = 'border-purple-600';
-        if(color==='orange') borderColor = 'border-orange-600';
-        
-        wrapper.innerHTML = `<h4 class="text-lg font-bold text-stone-800 mb-4 border-l-4 ${borderColor} pl-3">${title}</h4>`;
-        
-        const grid = document.createElement('div');
-        grid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3";
-        
-        const inDateVal = document.getElementById('checkinDate').value;
-        const outDateVal = document.getElementById('checkoutDate').value;
-        
-        let bookedMap = {};
-        if(inDateVal && outDateVal && bookedData) {
-             const start = new Date(inDateVal);
-             const end = new Date(outDateVal);
-             for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
-                let dateStr = getLocalISODate(d);
-                if (bookedData[dateStr]) {
-                    const mixedItems = { 
-                        ...(bookedData[dateStr].zones || {}), 
-                        ...(bookedData[dateStr].addons || {}) 
-                    };
-                    for (let [itemName, qty] of Object.entries(mixedItems)) {
-                        bookedMap[itemName] = Math.max(bookedMap[itemName] || 0, qty);
-                    }
-                }
-             }
-        }
-
-        items.forEach(item => {
-            const div = document.createElement('div');
-            const bookedCount = bookedMap[item.name] || 0;
-            const remaining = Math.max(0, item.stock - bookedCount);
-            const isFull = remaining <= 0;
-            const currentQty = addonCart[item.name] || 0;
-            
-            div.className = `zone-card bg-white rounded-2xl p-4 relative flex items-center min-h-[148px] ${isFull ? 'disabled-card' : ''} ${currentQty > 0 ? 'selected' : ''}`;
-            
-            if (isFull) {
-                div.classList.add('opacity-50', 'pointer-events-none', 'grayscale');
-            }
-            const imgHtml = item.image ? `<div class="w-16 h-16 mr-3 flex-shrink-0 cursor-pointer" onclick="showImage('${item.image}')"><img src="${item.image}" class="w-full h-full object-cover rounded-md"></div>` : '';
-            let stockText = isFull ? '<span class="text-red-600 font-bold">已租完</span>' : `庫存: ${remaining} | <span class="font-bold text-orange-600">$${item.price}</span>`;
-
-            div.innerHTML = `
-                ${imgHtml}
-                <div class="flex-1 min-w-0">
-                    <div class="font-bold text-sm text-gray-800 truncate">${item.name}</div>
-                    <div class="text-xs text-gray-500 truncate">${stockText}</div>
-                </div>
-                <div class="flex items-center gap-2 flex-shrink-0" onclick="if(event) event.stopPropagation()">
-                     <button type="button" class="w-7 h-7 flex-shrink-0 bg-stone-100 text-stone-600 font-bold text-sm hover:bg-stone-300 transition flex items-center justify-center border border-stone-200 rounded-full" onclick="updateAddonQty('${item.name}', -1, ${remaining}, ${item.price}, event)">-</button>
-                     <span class="w-4 text-center text-sm font-bold" id="qty-${item.name}">${currentQty}</span>
-                     <button type="button" class="w-7 h-7 flex-shrink-0 bg-stone-800 text-white font-bold text-sm hover:bg-stone-700 transition shadow flex items-center justify-center rounded-full" onclick="updateAddonQty('${item.name}', 1, ${remaining}, ${item.price}, event)">+</button>
-                </div>
-            `;
-            grid.appendChild(div);
-        });
-        
-        wrapper.appendChild(grid);
-        return wrapper;
-    }
-
-    window.updateAddonQty = (name, delta, maxStock, price, e) => {
-        if(e) { e.preventDefault(); e.stopPropagation(); }
-        const inDate = document.getElementById('checkinDate').value;
-        const outDate = document.getElementById('checkoutDate').value;
-        if (!inDate || !outDate) { alert('請先選擇入住與退房日期，才能查看剩餘裝備數量。'); return; }
-
-        let current = addonCart[name] || 0;
-        let newQty = current + delta;
-        
-        if (newQty < 0) newQty = 0;
-        if (newQty > maxStock) {
-            alert(`庫存不足，該時段剩餘數量: ${maxStock}`);
-            newQty = maxStock;
-        }
-        
-        if (newQty === 0) {
-            delete addonCart[name];
-        } else {
-            addonCart[name] = newQty;
-        }
-        
-        const span = document.getElementById(`qty-${name}`);
-        if (span) span.innerText = newQty;
-        if (window.reCalculate) window.reCalculate();
     }
 
     const rentals = [
-        { id: 'R01', name: '月亮椅/休閒椅', price: 100, stock: 3 },
-        { id: 'R02', name: '平躺椅', price: 150, stock: 2 },
-        { id: 'R03', name: '卡式爐/蜘蛛爐(含瓦斯)', price: 200, stock: 3 },
-        { id: 'R04', name: '五星爐(含瓦斯)', price: 300, stock: 1 },
-        { id: 'R05', name: 'IGT桌全套', price: 700, stock: 2 },
-        { id: 'R06', name: '天幕 3*3+桿', price: 250, stock: 2 },
-        { id: 'R07', name: '天幕 3*5+桿', price: 350, stock: 1 },
-        { id: 'R08', name: '超聲波地墊 3*3', price: 150, stock: 1 },
-        { id: 'R09', name: '野餐地墊 2*2/燈具', price: 100, stock: 2 },
-        { id: 'R10', name: '落地頂級四葉燈', price: 350, stock: 1 },
-        { id: 'R11', name: '投影機', price: 300, stock: 1 },
-        { id: 'R12', name: '投影布幕', price: 100, stock: 1 },
-        { id: 'R13', name: '電暖器', price: 200, stock: 2 },
-        { id: 'R14', name: '焚火台(小)', price: 350, stock: 4 },
-        { id: 'R14B', name: '焚火台(大)', price: 550, stock: 2 },
-        { id: 'R15', name: '木柴(6公斤)', price: 260, stock: 20 },
-        { id: 'R16', name: '雙人床墊不挑款', price: 500, stock: 3 },
-        { id: 'R17', name: '3-4人床墊不挑款', price: 800, stock: 3 },
-        { id: 'R18', name: '電動車車床方案', price: 150, stock: 50 },
-        { id: 'R19', name: '小擺頭風扇', price: 150, stock: 3 },
-        { id: 'R20', name: '大擺頭風扇', price: 250, stock: 2 },
-        { id: 'R21', name: '樂活不露二代大風扇', price: 400, stock: 1 },
-        { id: 'R22', name: '移動式冷氣', price: 800, stock: 2 }
+        { id: 'R01', name: '月亮椅/休閒椅', price: 100, stock: 3 }, { id: 'R02', name: '平躺椅', price: 150, stock: 2 }, { id: 'R03', name: '卡式爐/蜘蛛爐(含瓦斯)', price: 200, stock: 3 },
+        { id: 'R04', name: '五星爐(含瓦斯)', price: 300, stock: 1 }, { id: 'R05', name: 'IGT桌全套', price: 700, stock: 2 }, { id: 'R06', name: '天幕 3*3+桿', price: 250, stock: 2 },
+        { id: 'R07', name: '天幕 3*5+桿', price: 350, stock: 1 }, { id: 'R08', name: '超聲波地墊 3*3', price: 150, stock: 1 }, { id: 'R09', name: '野餐地墊 2*2/燈具', price: 100, stock: 2 },
+        { id: 'R10', name: '落地頂級四葉燈', price: 350, stock: 1 }, { id: 'R11', name: '投影機', price: 300, stock: 1 }, { id: 'R12', name: '投影布幕', price: 100, stock: 1 },
+        { id: 'R13', name: '電暖器', price: 200, stock: 2 }, { id: 'R14', name: '焚火台(小)', price: 350, stock: 4 }, { id: 'R14B', name: '焚火台(大)', price: 550, stock: 2 },
+        { id: 'R15', name: '木柴(6公斤)', price: 260, stock: 20 }, { id: 'R16', name: '雙人床墊不挑款', price: 500, stock: 3 }, { id: 'R17', name: '3-4人床墊不挑款', price: 800, stock: 3 },
+        { id: 'R18', name: '電動車車床方案', price: 150, stock: 50 }, { id: 'R19', name: '小擺頭風扇', price: 150, stock: 3 }, { id: 'R20', name: '大擺頭風扇', price: 250, stock: 2 },
+        { id: 'R21', name: '樂活不露二代大風扇', price: 400, stock: 1 }, { id: 'R22', name: '移動式冷氣', price: 800, stock: 2 }
     ];
 
     const tents = [
-        { id: 'T00', name: '代收搭服務', price: 500, stock: 50 },
-        { id: 'T05', name: '迪卡儂 4.2 充氣帳', price: 800, stock: 1 },
-        { id: 'T06', name: 'IF充氣帳篷6.0', price: 800, stock: 1 },
-        { id: 'T04', name: '杜邦鯤9車尾帳', price: 1000, stock: 1 },
-        { id: 'T07', name: 'Prado 7.5 小屋', price: 1200, stock: 3 },
-        { id: 'T02', name: 'KZM-T250', price: 2000, stock: 1 },
+        { id: 'T00', name: '代收搭服務', price: 500, stock: 50 }, { id: 'T05', name: '迪卡儂 4.2 充氣帳', price: 800, stock: 1 }, { id: 'T06', name: 'IF充氣帳篷6.0', price: 800, stock: 1 },
+        { id: 'T04', name: '杜邦鯤9車尾帳', price: 1000, stock: 1 }, { id: 'T07', name: 'Prado 7.5 小屋', price: 1200, stock: 3 }, { id: 'T02', name: 'KZM-T250', price: 2000, stock: 1 },
         { id: 'T03', name: 'Coody8', price: 2000, stock: 1 }
     ];
 
@@ -1110,9 +795,22 @@ function getSafeImageUrl(url) {
     const blogPosts = [
         { id: 5, date: "2026-03-17", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/wZH2y8Fq/image.jpg", content: "端午連假熱烈訂位中，歡迎一同參與火舞秀及美妙的山林時光吧~", images: [], tags: ["#Hank碎碎念", "#端午連假", "#滿帳日常", "#充電莊"], likes: 139, comments: 28 },
         { id: 4, date: "2026-02-23", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/wZH2y8Fq/image.jpg", content: "終於結束了過年的惡魔週，接下來準備迎接連續三週的滿帳周末QAQ！\n\n草皮跟設施都已經重新整理過了，趁著今天有短暫的空檔喝杯茶回個血。期待大家週末來享受好天氣與櫻花季！記得提早預約喔～目前還有兒童跟5/1連假~", images: [], tags: ["#Hank碎碎念", "#過年地獄", "#滿帳日常", "#充電莊"], likes: 128, comments: 15 },
-        { id: 3, date: "2026-02-12", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/6cx1xrVR/image.jpg", content: "營區多了兩位新嬌客！🦆🦆\n\n最近我們迎來了兩喝超級可愛的柯爾鴨，走起路來有夠療癒。這幾天已經變成小露友們的目光焦點了，大家來露營的時候歡迎來找牠們玩，但記得要溫柔對待，不要追著牠們跑喔！", images: ["https://i.ibb.co/8LQbwPjQ/image.jpg"], tags: ["#柯爾鴨", "#營區日常", "#寵物友善", "#親子露營"], likes: 245, comments: 32 },
+        { id: 3, date: "2026-02-12", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/6cx1xrVR/image.jpg", content: "營區多了兩位新嬌客！🦆🦆\n\n最近我們迎來了兩隻超級可愛的柯爾鴨，走起路來有夠療癒。這幾天已經變成小露友們的目光焦點了，大家來露營的時候歡迎來找牠們玩，但記得要溫柔對待，不要追著牠們跑喔！", images: ["https://i.ibb.co/8LQbwPjQ/image.jpg"], tags: ["#柯爾鴨", "#營區日常", "#寵物友善", "#親子露營"], likes: 245, comments: 32 },
         { id: 2, date: "2026-01-29", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/6cx1xrVR/image.jpg", content: "狂賀！專屬小露友的快樂基地完工啦！🎉\n\n為了讓爸媽能更安心地在帳篷放空，我們花了好幾天，終於打造出這個 3公尺 x 2公尺 的「室內專屬沙坑」。不受天氣影響，下雨也能玩得超開心！\n\n珵已經幫大家嚴格「實測」過了，玩到根本不想起來😆。下次來充電莊，小孩放電、車子充電、大人身心靈也跟著充電！", images: ["https://i.ibb.co/FfSfyfP/image.jpg"], tags: ["#室內沙坑", "#小孩放電神器", "#雨天備案", "#懶人露營"], likes: 312, comments: 48 },
         { id: 1, date: "2026-01-18", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/HLW7rx8W/image.jpg", content: "夜衝的浪漫，就是一把吉他配上滿滿的電量。🎸⚡\n\n身為 Model Y 車主，真的太懂開電車上山那種「看著電量掉」的焦慮感。這也是為什麼我們營區堅持要拉好充沛的充電樁 (J1772/TPC/Type2通通有)。\n\n昨晚點起焚火台，拿出陪了我 20 年的手工吉他，接上 Bose S1 Pro 彈唱了幾首。看著愛車在旁邊悠悠地充著電，這種沒有里程焦慮的露營，才是真正的放鬆啊！", images: ["https://i.ibb.co/KjBcKGvt/A-DDcar.jpg"], tags: ["#電車露營", "#TeslaModelY", "#夜衝", "#吉他彈唱"], likes: 456, comments: 55 }
+    ];
+
+    const reviews = [
+        {n:"Tesla車主陳先生", c:"充電樁真的太方便了！不用怕開電車來山上會沒電，環境也很清幽。"},
+        {n:"林小姐一家", c:"帶小朋友來這裡放電真的很適合，雨棚區下雨也不怕，營主很熱情！"},
+        {n:"露營新手小張", c:"第一次露營選擇了泰式免搭，裝備都很乾淨，晚上還有蟲鳴聲，很棒的體驗。"},
+        {n:"李媽媽", c:"小木屋很溫馨，適合長輩一起來，風景優美，空氣很好。"},
+        {n:"王先生", c:"夜衝價格很佛心，老闆人很好，還送了我們一些木柴，下次一定再來。"},
+        {n:"Model Y 車友", c:"專門為了充電來的，位置安排得很好，可以直接停在帳篷旁邊充電，大推！"},
+        {n:"Jason", c:"這裡的落羽松季節真的超美，隨便拍都好看，很適合網美來打卡。"},
+        {n:"吳先生", c:"包棟民宿設備很齊全，KTV音響效果不錯，大家玩得很盡興。"},
+        {n:"Emily", c:"廁所跟浴室都保持得很乾淨，熱水也很穩，這點對露營來說太重要了。"},
+        {n:"阿豪", c:"草地區的草皮維護得很好，很軟很舒服，赤腳走也沒問題。"}
     ];
 
     const tentInfoData = [
@@ -1127,245 +825,144 @@ function getSafeImageUrl(url) {
 
     let galleryData = {
           "木屋外觀": [
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1BwC53jb9SYJvlXu9Pnef8Ob4NH8ePKpB&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1N_Towiehb0T6B2qR1jyl7oJhy3CQlmkG&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Oz-pnazylKlS9k8CSTFk0-sgFh2VFu_q&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1fbXcl0riuM7aAvhB4H7uK7rRKJh6YgTK&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=13oCI-TxYW16leH9aPKfLc1LQqXCZE0nC&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1VVbuU77HCxQ0F_KG3ujvuB_U1g9sOFmI&sz=w1000" }
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1BwC53jb9SYJvlXu9Pnef8Ob4NH8ePKpB&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1N_Towiehb0T6B2qR1jyl7oJhy3CQlmkG&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Oz-pnazylKlS9k8CSTFk0-sgFh2VFu_q&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1fbXcl0riuM7aAvhB4H7uK7rRKJh6YgTK&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=13oCI-TxYW16leH9aPKfLc1LQqXCZE0nC&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1VVbuU77HCxQ0F_KG3ujvuB_U1g9sOFmI&sz=w1000" }
           ],
           "碎石區": [
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1vpQh879FC57MB3b2P7fXNKqiRiwSz1q9&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Ej-HLpHmv45v72lqXBTlh1y5PfbKvMbh&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Bl_0Qw3gD6giOJsPFudfreZiEo5MRLaJ&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1gIM8ohIt3y9UqYGHNC_BG2Bj3fq_DPjo&sz=w1000" }
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1vpQh879FC57MB3b2P7fXNKqiRiwSz1q9&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1Ej-HLpHmv45v72lqXBTlh1y5PfbKvMbh&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Bl_0Qw3gD6giOJsPFudfreZiEo5MRLaJ&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1gIM8ohIt3y9UqYGHNC_BG2Bj3fq_DPjo&sz=w1000" }
           ],
          "包棟民宿": [
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1OgiXtPbp4V7Mv_SVAtR-_MQsAEWjSAcT&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1BGyy0Lwv7ABFuL8QXwrnFnpsWITkyMbe&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1UU9bhkQsOEZDTmaC62k6PA8T2uG4yDqc&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1YOMuXXwoPtW7BKM-Of7n7kv3yEcMbl3Y&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1BuGJdTiqWsx4b-K6WfE8BdzT6qoirDl9&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1TGKNjfIKjiGTYwO4pis33VtgFNEfRPQi&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1w8LJD9ZdmpGZJgnUGrMN5DqsUXdUK4l5&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1IiEb-58jtMQvkfBhfdCCS3CziOjfxSnW&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1EGKkt_HJvrItCCNFvvC89ZItH--28j-4&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1DA4kbG7NTNaBVNF30Iw-w2GHs-pwS6M7&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1HYp45BnmxHSDTdYDBPI7MA_UmFTppw_C&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1o1XXqJg-isQNoeidkrop-_KrUZ1boAVt&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1LINb1dXniOCSF92S4MNcx9FEofgtJDe5&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1mUox0SK6_Zc-iSvka_4T9vCouwX9KnOG&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1lYKwk0tQ_-MtUJ_eR1xtN0ilZgC-MwJV&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1q8WFnXFRvS01JrygtBsIKZBj_L9Mon25&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1KBdUQ9xvN57V8LMZlCujbt0k7nXraxaZ&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1_0O4vogaWZnHWMVC2Z8ojasTqtMGLkQK&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=14khDcJuvY0wv4_CsB1mYdERNPVgWDMB1&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1LvjcizL0iwuk1aG4PkMQBrhNDf-wEOGe&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1MqYQxr4P59B3vYxYS6HuM9Qqi6RlWuq1&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1CJqF3mj-EUJkk2uIeuSKV289LRatdTRr&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1q-dbWtXcFMLzepFgBBE8U1w_PE4LpBaZ&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Xwp_xO2OqiJFM809afz6SingWgssxWoG&sz=w1000" }
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1OgiXtPbp4V7Mv_SVAtR-_MQsAEWjSAcT&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1BGyy0Lwv7ABFuL8QXwrnFnpsWITkyMbe&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1UU9bhkQsOEZDTmaC62k6PA8T2uG4yDqc&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1YOMuXXwoPtW7BKM-Of7n7kv3yEcMbl3Y&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1BuGJdTiqWsx4b-K6WfE8BdzT6qoirDl9&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1TGKNjfIKjiGTYwO4pis33VtgFNEfRPQi&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1w8LJD9ZdmpGZJgnUGrMN5DqsUXdUK4l5&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1IiEb-58jtMQvkfBhfdCCS3CziOjfxSnW&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1EGKkt_HJvrItCCNFvvC89ZItH--28j-4&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1DA4kbG7NTNaBVNF30Iw-w2GHs-pwS6M7&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1HYp45BnmxHSDTdYDBPI7MA_UmFTppw_C&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1o1XXqJg-isQNoeidkrop-_KrUZ1boAVt&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1LINb1dXniOCSF92S4MNcx9FEofgtJDe5&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1mUox0SK6_Zc-iSvka_4T9vCouwX9KnOG&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1lYKwk0tQ_-MtUJ_eR1xtN0ilZgC-MwJV&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1q8WFnXFRvS01JrygtBsIKZBj_L9Mon25&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1KBdUQ9xvN57V8LMZlCujbt0k7nXraxaZ&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1_0O4vogaWZnHWMVC2Z8ojasTqtMGLkQK&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=14khDcJuvY0wv4_CsB1mYdERNPVgWDMB1&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1LvjcizL0iwuk1aG4PkMQBrhNDf-wEOGe&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1MqYQxr4P59B3vYxYS6HuM9Qqi6RlWuq1&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1CJqF3mj-EUJkk2uIeuSKV289LRatdTRr&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1q-dbWtXcFMLzepFgBBE8U1w_PE4LpBaZ&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1Xwp_xO2OqiJFM809afz6SingWgssxWoG&sz=w1000" }
           ],
           "棧板A區": [
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=14NsSP7OlY_QvQ9-Nr7bDbSC4qEZN1f-6&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1rK4oLIo-JIy3Mkl7sMtvNMMNL24V7axn&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1yXRd79yL--OZ8rHFtdS4Qm-OKxGgxjkt&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=13j5ch9ApPe1XVQUmHsTmWIVqh2MjawDe&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1BGJg2cxgChuIfeiMc1hoQcSgts95tI4a&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1UQ5pkP7TCNEprQAqSe1htxZ5V_RrwCwu&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1WaGgAXAUDrPH9Dz1WuPlto6Z7soZidWF&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1jZs7PKqP7GoUADMnOFU_c74036uNN-Pt&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1oNNUm47I0cCattl0J-T44iutEonljW_C&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Rqm45SQOvnutx4lZ8V6wW8bHTxs9lK02&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=12eXvtNBYvvVIfmY2WTumYrkcQTgjTddu&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Ao2eyk1zBvqI_yBXUQaAVViYtOUDBYop&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1sJkv-UmclJjLyVOaTH1Ofc7oBTd-LQ3l&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1KxiRpXLHg62HvYVm1rV1HqzVWZ26RGb7&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=14CWJVWzzw_hpeMAaZPB8UPgXhr6F7bJb&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1L2dbf2p9PudRMN4R4binCKgkH9-tJ-wN&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Ls1Ntm3X9DnJlnGUaIL9rfN6ZM-1ZdSm&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1KX-WQCr57MABCDm6c0bf21-TV3ANEROT&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=12wk1nkMnLg_pWxVU7pY5WZJ_TDARIt7B&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1YmvkmLDimfModwrRldWFMC3tDGnhso5I&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1HLYOT6r1YzI986Qc_6Fk9qPwNiCq1dBD&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1SHGiEZ_xfAEUkBw32RYSfBqa5iFb75ew&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=14NsSP7OlY_QvQ9-Nr7bDbSC4qEZN1f-6&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1rK4oLIo-JIy3Mkl7sMtvNMMNL24V7axn&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1yXRd79yL--OZ8rHFtdS4Qm-OKxGgxjkt&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=13j5ch9ApPe1XVQUmHsTmWIVqh2MjawDe&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1BGJg2cxgChuIfeiMc1hoQcSgts95tI4a&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1UQ5pkP7TCNEprQAqSe1htxZ5V_RrwCwu&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1WaGgAXAUDrPH9Dz1WuPlto6Z7soZidWF&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1jZs7PKqP7GoUADMnOFU_c74036uNN-Pt&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1oNNUm47I0cCattl0J-T44iutEonljW_C&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1Rqm45SQOvnutx4lZ8V6wW8bHTxs9lK02&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=12eXvtNBYvvVIfmY2WTumYrkcQTgjTddu&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1Ao2eyk1zBvqI_yBXUQaAVViYtOUDBYop&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1sJkv-UmclJjLyVOaTH1Ofc7oBTd-LQ3l&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1KxiRpXLHg62HvYVm1rV1HqzVWZ26RGb7&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=14CWJVWzzw_hpeMAaZPB8UPgXhr6F7bJb&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1L2dbf2p9PudRMN4R4binCKgkH9-tJ-wN&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Ls1Ntm3X9DnJlnGUaIL9rfN6ZM-1ZdSm&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1KX-WQCr57MABCDm6c0bf21-TV3ANEROT&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=12wk1nkMnLg_pWxVU7pY5WZJ_TDARIt7B&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1YmvkmLDimfModwrRldWFMC3tDGnhso5I&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1HLYOT6r1YzI986Qc_6Fk9qPwNiCq1dBD&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1SHGiEZ_xfAEUkBw32RYSfBqa5iFb75ew&sz=w1000" },
             { "t": "", "u": "https://drive.google.com/thumbnail?id=1iOveALpBr0qNXq_tReNyfClxgnO3HsLy&sz=w1000" }
           ],
           "棚架C區": [
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1t4WElUuzUH5ohScSGDmC4mZKtNu7nRrg&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1OBx6FCpHiD-JvRVDOYVmD6x7MdVA1Ug8&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1izuDFdVJojm56K4UcRBcBe8nZhXAWFwC&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1bKMrMnxMioRjwdJYBt6_6oPyOTuxURcn&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Cw48f3ysm95orMosSJyTnKIN-fUxY1H4&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=19AIqfAVMN4fgsnmHAqFEi8KU_Autzrzf&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1ZMPswau8sPTyJhHKge69b_6XbjTz0Q9n&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1tm7k_T1bgCU_gveCYNH9noCJZ3PZBwBi&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1t4WElUuzUH5ohScSGDmC4mZKtNu7nRrg&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1OBx6FCpHiD-JvRVDOYVmD6x7MdVA1Ug8&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1izuDFdVJojm56K4UcRBcBe8nZhXAWFwC&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1bKMrMnxMioRjwdJYBt6_6oPyOTuxURcn&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Cw48f3ysm95orMosSJyTnKIN-fUxY1H4&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=19AIqfAVMN4fgsnmHAqFEi8KU_Autzrzf&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1ZMPswau8sPTyJhHKge69b_6XbjTz0Q9n&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1tm7k_T1bgCU_gveCYNH9noCJZ3PZBwBi&sz=w1000" },
             { "t": "", "u": "https://drive.google.com/thumbnail?id=1zzAA1WoCF4Qzv_2oCSeVho4CUdypojie&sz=w1000" }
           ],
           "棚架B區": [
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1OkrKNB_YsbPzvDFKiWcNhIpiViMLyxIn&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1WtMbbUTxi99wNH1PHjB8Z75xBvzaKXSt&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=12-MofuZmgRotmKPOtoHUMgXqMg9cLGl2&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1GJYIyrSuk95O34YqBEEJa04QFN4f187o&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=19Ux6Y6fUSrcpagZ3zMOGfp3zCDCngZGR&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1sqgw-gBwi0scUqGQQ5-zCRU9lDjhnO1C&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1XwJGvVzixN7HABKdCugEhMOZlE1q4vu_&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Py0cv6yruEqRysvTjguy1izLc9M-RRdZ&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1wXco9cW9NTPfgTXfJWvr7nGjD_MSpnh2&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1xCB-PlsvyDInfN9OaH_aR_tX4DhWUNu3&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1OkrKNB_YsbPzvDFKiWcNhIpiViMLyxIn&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1WtMbbUTxi99wNH1PHjB8Z75xBvzaKXSt&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=12-MofuZmgRotmKPOtoHUMgXqMg9cLGl2&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1GJYIyrSuk95O34YqBEEJa04QFN4f187o&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=19Ux6Y6fUSrcpagZ3zMOGfp3zCDCngZGR&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1sqgw-gBwi0scUqGQQ5-zCRU9lDjhnO1C&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1XwJGvVzixN7HABKdCugEhMOZlE1q4vu_&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1Py0cv6yruEqRysvTjguy1izLc9M-RRdZ&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1wXco9cW9NTPfgTXfJWvr7nGjD_MSpnh2&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1xCB-PlsvyDInfN9OaH_aR_tX4DhWUNu3&sz=w1000" },
             { "t": "", "u": "https://drive.google.com/thumbnail?id=19zz5_5Kcci90EoQjFED95VR1TzYZj9T9&sz=w1000" }
           ],
           "棚架A區": [
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1uDFLFUZBVo5EjGti7iKGTFyB-gIQplz7&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1_OUevJjfBSGnB_5Yg0eic62AAZnWhBP6&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1jgDLJu2_bu2YPoUCaJ4Xs8l0Segtwgp0&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1NZzcH7RxtlRri_bIh4VduG-K5JTcRghb&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=16ifTgVA-i5anhNxbMnmfucwacVbr2L2Z&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1z7cJQ6KeVQ3tszCcuPDc2e1z4X-8WjLU&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1-zRG9v-pxIjw7pM8ctJKICodOEAaVRH2&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1nCt8y0DIVAPyP3QYUf29jPPpX_KZaZaS&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1GWd-4M3tNx_apqiJAVNLa5dGYkpYE6kr&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1oUNW8efJohIdxZZSLYtvCBAJuX2KM1fQ&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1HnLSthF0Bz2t6aRB3HxvCGcCWBC8Wk1g&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=19aorAQVODQCq4s9h7YNDwKLBfl4rMT8S&sz=w1000" }
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1uDFLFUZBVo5EjGti7iKGTFyB-gIQplz7&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1_OUevJjfBSGnB_5Yg0eic62AAZnWhBP6&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1jgDLJu2_bu2YPoUCaJ4Xs8l0Segtwgp0&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1NZzcH7RxtlRri_bIh4VduG-K5JTcRghb&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=16ifTgVA-i5anhNxbMnmfucwacVbr2L2Z&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1z7cJQ6KeVQ3tszCcuPDc2e1z4X-8WjLU&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1-zRG9v-pxIjw7pM8ctJKICodOEAaVRH2&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1nCt8y0DIVAPyP3QYUf29jPPpX_KZaZaS&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1GWd-4M3tNx_apqiJAVNLa5dGYkpYE6kr&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1oUNW8efJohIdxZZSLYtvCBAJuX2KM1fQ&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1HnLSthF0Bz2t6aRB3HxvCGcCWBC8Wk1g&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=19aorAQVODQCq4s9h7YNDwKLBfl4rMT8S&sz=w1000" }
           ],
           "草地區": [
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1i46pajIVErfy7KX8_pyeJ9OEy0nXgXc3&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1GV0KLtOFsFBvzM2kdiMjw7XA78SzB5si&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1UwjHFZ4I006Kf8-v2FXNPBKGc8xKk4_x&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1yjrNpDUjRI39YGVK5gQMjWo8twdzbhXT&sz=w1000" }
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1i46pajIVErfy7KX8_pyeJ9OEy0nXgXc3&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1GV0KLtOFsFBvzM2kdiMjw7XA78SzB5si&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1UwjHFZ4I006Kf8-v2FXNPBKGc8xKk4_x&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1yjrNpDUjRI39YGVK5gQMjWo8twdzbhXT&sz=w1000" }
           ],
           "泰式免搭": [
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=19rHhewbr6fXAch9wlZfO-9xwt4ynhciu&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=15jZUjk9cNw-HJXLQO_wGf492jQ10FGpJ&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=18eSiqj4UQiJRGgT362a3kD1xJfe4ccpT&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1JSGxQfwwsqpbOgF7fxxp2MCfLDtftdbe&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1MkUA3_cyNA4Jy9WYauhmSpszLP85kZnI&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1mEk3sxFuCXle0HOtaSaAgq-TBhRu8z38&sz=w1000" }
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=19rHhewbr6fXAch9wlZfO-9xwt4ynhciu&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=15jZUjk9cNw-HJXLQO_wGf492jQ10FGpJ&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=18eSiqj4UQiJRGgT362a3kD1xJfe4ccpT&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1JSGxQfwwsqpbOgF7fxxp2MCfLDtftdbe&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1MkUA3_cyNA4Jy9WYauhmSpszLP85kZnI&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1mEk3sxFuCXle0HOtaSaAgq-TBhRu8z38&sz=w1000" }
           ],
           "空拍": [
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=12RReNj8AZPAcJsqmdNPJ-LLKqzUHal-v&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1gJpWwyJfNDXTzivKG7hAkTtwzsuxF7SR&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1lmd6Uw1ulBaeaKkA8gAKKZ3IiGuAr27H&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=10mCg3Y_qg60esLH9MjXaEuD9n-OJltT7&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=14ZbGd7eWdA2aU5q5r1ucjqNmqEpyEQqO&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1H3cm5OQ9dQ17Z-2EoLneOKkyhz93xymY&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1KLmuPfb0RxJIQ67Swvvzcc3RVPrdfqiW&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1qiBnqWMlrVUlmMKcEuZoskaaO34jEvB9&sz=w1000" }
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=12RReNj8AZPAcJsqmdNPJ-LLKqzUHal-v&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1gJpWwyJfNDXTzivKG7hAkTtwzsuxF7SR&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1lmd6Uw1ulBaeaKkA8gAKKZ3IiGuAr27H&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=10mCg3Y_qg60esLH9MjXaEuD9n-OJltT7&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=14ZbGd7eWdA2aU5q5r1ucjqNmqEpyEQqO&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1H3cm5OQ9dQ17Z-2EoLneOKkyhz93xymY&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1KLmuPfb0RxJIQ67Swvvzcc3RVPrdfqiW&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1qiBnqWMlrVUlmMKcEuZoskaaO34jEvB9&sz=w1000" }
           ],
           "其他": [
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1e2oaEx3H1C8qmwidEUFJ3XMY7SlKep9R&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1NIMwYdZI4bimwaiPaImIi4VEmFAmoTNl&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=12ch0IjtcsadYlQeu_3U1WnWs6-nniIaP&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=17etpCFQo8QHcIYFvLyUEhVKIJFscojfS&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1xaSmMRJYzHbhCCWA4WgkFktBXOFbmv1R&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1uU7l47K8stLvzcKCgwnsUij8O_tzLbV0&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1ETAj2gidNt1cb1u04PW6-oX-CW2BKL6H&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1gPEe09CDuPMT0dxLAM3C-NnerzHutyHY&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1avB_J6bTn367Kby6hFCQV0yx5yIEz1Mg&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1B2R_01CNVOQuSn2gAefNVMonJLCyNvqu&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1bHSeyCVyxB-lDZb_nfjD-4TH_dSF86hD&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1RlK2vbsIKlE0gWXXkZkx2tYSfZIsivxu&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1cgy7jxCylJXjT3qFaS55j-AoKfhD8AOG&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Hyxaa388xPjTgr6mjromJhmtZGsW6eUQ&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1PVSCb64gU1zfNuwKDyLXbGL59tVrI8zN&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1qDQsyvErqcWtc9iuRB-HGlO92ZmfKoMC&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1UuyvBjmSSfh3nxJhsb-i4tD8CD-4l3Ks&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Ged6CsK512d_gPAcTEsDH8zwtYBYn-6W&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1FIzDo-aLO5B084J1HnRJYxTcOsBM1YAF&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1y8z1G9N3HNxrZirTSlfVyPnG5w4_KcHm&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1GCdkm7c3iStNVE-EFDUl90QIn2fsEpqk&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1-QFYqqmSfpgS7MuMQf-Y3HrQdqm3l6Oo&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=13uLpGUGrvTWxH-BKx9K_jS32PCrlH8ZS&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=174zL6jEdYJb5Ld_tWTpunTg7Fz7nDz6e&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Rjy2bC_Dm-ThcOLrIETvUTnuTsrERgWR&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1q2_02jRlal4ItCj_S5Nvl1-zFm19Hlqp&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=14xSvMPbCHmo8woP7CjKHScqbvQ3ajHgA&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1x4NguPdbFLtYMHiKVWRRs68WwkayeqKi&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1jLEupXoR2eZFJCH9VwsPg71mm6zZp4Eu&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1_oCHRNok2_2EZJCfcSWLT8gIX9b2NbfY&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1fSO0YdM58TBSIoMulsB3gvqLOeESVd_U&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1pGUyDfHGTbf5qdNmm4jvjefeAU9Rt0ME&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1iC9Fjs4K97PmpqUMcN52fiBVn83Qz8Ld&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1qp7_T1FphfZHKdQY3lUprJtiavnGh5E3&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=15MJivcainFAGb4w6TAWchnnDOxs5v_FT&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1qPzwgWfLLx767KcPpG34A7pXfd5oFZxH&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1PKm7hbJq23Sax9NQSx4nh_u_UVPT1WfJ&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=19SFHVzMaBSY8TB4lX9eZVcwEWwOlSf_P&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=169t4HASUHOs8iDiDQysz-zqsQaAi9UYu&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=13ECfBA0vg2obl45Ht74UYUbwfTXcrzkV&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1gXom_14OJ4Fta5-_dZDItiYxH6ecBfb_&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1d0TttNQY0-Ub1ZgZURczSOwi-ODXugQz&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=155p3hvF3wyhE8-aqj3fA-EfR78hSiyYv&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1W7lio_0sCI_tWJIVsYqba0WdrPDl__Xj&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1IIdoYlqv5XFZ0IYGRu3XfyvLItSsUCp-&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1_wQsA_RuhIX_YOIxCq01r_j95QiU-KVe&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1yVYXzXtSjeyyj5yhxxTq9zSuDfWcvivi&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1wi5xbBMLGl6L1bU_fsyhpPure-gg7-e1&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1QAyWMg1RLLubQmVHTdvo-zpEPb3CRWkP&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1YZEImkfLYikfCpKfGUKXo8R0d9OJcbwz&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1e2oaEx3H1C8qmwidEUFJ3XMY7SlKep9R&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1NIMwYdZI4bimwaiPaImIi4VEmFAmoTNl&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=12ch0IjtcsadYlQeu_3U1WnWs6-nniIaP&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=17etpCFQo8QHcIYFvLyUEhVKIJFscojfS&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1xaSmMRJYzHbhCCWA4WgkFktBXOFbmv1R&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1uU7l47K8stLvzcKCgwnsUij8O_tzLbV0&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1ETAj2gidNt1cb1u04PW6-oX-CW2BKL6H&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1gPEe09CDuPMT0dxLAM3C-NnerzHutyHY&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1avB_J6bTn367Kby6hFCQV0yx5yIEz1Mg&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1B2R_01CNVOQuSn2gAefNVMonJLCyNvqu&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1bHSeyCVyxB-lDZb_nfjD-4TH_dSF86hD&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1RlK2vbsIKlE0gWXXkZkx2tYSfZIsivxu&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1cgy7jxCylJXjT3qFaS55j-AoKfhD8AOG&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1Hyxaa388xPjTgr6mjromJhmtZGsW6eUQ&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1PVSCb64gU1zfNuwKDyLXbGL59tVrI8zN&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1qDQsyvErqcWtc9iuRB-HGlO92ZmfKoMC&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1UuyvBjmSSfh3nxJhsb-i4tD8CD-4l3Ks&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1Ged6CsK512d_gPAcTEsDH8zwtYBYn-6W&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1FIzDo-aLO5B084J1HnRJYxTcOsBM1YAF&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1y8z1G9N3HNxrZirTSlfVyPnG5w4_KcHm&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1GCdkm7c3iStNVE-EFDUl90QIn2fsEpqk&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1-QFYqqmSfpgS7MuMQf-Y3HrQdqm3l6Oo&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=13uLpGUGrvTWxH-BKx9K_jS32PCrlH8ZS&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=174zL6jEdYJb5Ld_tWTpunTg7Fz7nDz6e&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Rjy2bC_Dm-ThcOLrIETvUTnuTsrERgWR&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1q2_02jRlal4ItCj_S5Nvl1-zFm19Hlqp&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=14xSvMPbCHmo8woP7CjKHScqbvQ3ajHgA&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1x4NguPdbFLtYMHiKVWRRs68WwkayeqKi&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1jLEupXoR2eZFJCH9VwsPg71mm6zZp4Eu&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1_oCHRNok2_2EZJCfcSWLT8gIX9b2NbfY&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1fSO0YdM58TBSIoMulsB3gvqLOeESVd_U&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1pGUyDfHGTbf5qdNmm4jvjefeAU9Rt0ME&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1iC9Fjs4K97PmpqUMcN52fiBVn83Qz8Ld&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1qp7_T1FphfZHKdQY3lUprJtiavnGh5E3&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=15MJivcainFAGb4w6TAWchnnDOxs5v_FT&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1qPzwgWfLLx767KcPpG34A7pXfd5oFZxH&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1PKm7hbJq23Sax9NQSx4nh_u_UVPT1WfJ&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=19SFHVzMaBSY8TB4lX9eZVcwEWwOlSf_P&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=169t4HASUHOs8iDiDQysz-zqsQaAi9UYu&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=13ECfBA0vg2obl45Ht74UYUbwfTXcrzkV&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1gXom_14OJ4Fta5-_dZDItiYxH6ecBfb_&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1d0TttNQY0-Ub1ZgZURczSOwi-ODXugQz&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=155p3hvF3wyhE8-aqj3fA-EfR78hSiyYv&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1W7lio_0sCI_tWJIVsYqba0WdrPDl__Xj&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1IIdoYlqv5XFZ0IYGRu3XfyvLItSsUCp-&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1_wQsA_RuhIX_YOIxCq01r_j95QiU-KVe&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1yVYXzXtSjeyyj5yhxxTq9zSuDfWcvivi&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1wi5xbBMLGl6L1bU_fsyhpPure-gg7-e1&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1QAyWMg1RLLubQmVHTdvo-zpEPb3CRWkP&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1YZEImkfLYikfCpKfGUKXo8R0d9OJcbwz&sz=w1000" },
             { "t": "", "u": "https://drive.google.com/thumbnail?id=1IsWZe4RiYmRRhOBtN-5iueZsz9Zv7J43&sz=w1000" }
           ],
           "廁所": [
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=15ootVM8p3XPXzyiMD6VhUSDhShOZxZBd&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1kHLspFKWzbqiRQcZm7mtjiaOoVbFxW4j&sz=w1000" }
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=15ootVM8p3XPXzyiMD6VhUSDhShOZxZBd&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1kHLspFKWzbqiRQcZm7mtjiaOoVbFxW4j&sz=w1000" }
           ],
           "小木屋": [
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1FNgdD14M7pEu7u_lwJV8lKuYApPzItDu&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=186TllxWaZSV__GT0yzebQ227jDxntBRu&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1MBUgPmCXIa-FzXZQCjUoZeexGFParTHo&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1c-2kzswBk-5eK1DmAFlEkDsEI-Wgg10j&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1FNgdD14M7pEu7u_lwJV8lKuYApPzItDu&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=186TllxWaZSV__GT0yzebQ227jDxntBRu&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1MBUgPmCXIa-FzXZQCjUoZeexGFParTHo&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1c-2kzswBk-5eK1DmAFlEkDsEI-Wgg10j&sz=w1000" },
             { "t": "", "u": "https://drive.google.com/thumbnail?id=1896E3A1wMC4JuaPwjc8l_-BFFWHXvBdn&sz=w1000" }
           ],
           "大木屋": [
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=11fldtygegpBoLYtmU-JHUY3WjrT21xfw&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=12-BSeUEi5LPFhdmb2XW8fYrav8pzewWi&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Y-LE5GkEU3FC367l_bwPYXaJ0fMbgaNv&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=18v_GyxiquBNQZgqCYzsazi_gtI4y1gGw&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1QPONyhdKqE7346n9v1icvMPjPjcgN6-h&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1jHw7_fkX_HsDL9X77RMNQ2nkocn665fF&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=11fldtygegpBoLYtmU-JHUY3WjrT21xfw&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=12-BSeUEi5LPFhdmb2XW8fYrav8pzewWi&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Y-LE5GkEU3FC367l_bwPYXaJ0fMbgaNv&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=18v_GyxiquBNQZgqCYzsazi_gtI4y1gGw&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1QPONyhdKqE7346n9v1icvMPjPjcgN6-h&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1jHw7_fkX_HsDL9X77RMNQ2nkocn665fF&sz=w1000" },
             { "t": "", "u": "https://drive.google.com/thumbnail?id=1o3SF2XiJt7AYyb8T8sVI9hwpXn_3o6SZ&sz=w1000" }
           ],
           "三人頂級露營車": [
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1uD-CtO7vkcm3t0wtKEPfU2tEnqO40xAU&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1GiR152DeVm5KHNW9Mm-37XBujZucZ3vW&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1WM3JqgUG0s_jp7sX7LQG5hggaXgz9kvw&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1zVYC0Ym30Jvg9yNcE5NCUbf4XrSLtYEQ&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1SVa50I3LlwFSY6Bwo8y0_3mEAQUnYp7S&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1a_Yrut9r3WRNYH5QOFlfYRZMyzBRmH1F&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1HC8JyrJl7ymIghIVvlWfNvfLtYKDGS8D&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1v5w_tw9eq6reChihGuVAw0H7ocQBb0Gi&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1jUc-clrv0bMtxwqZBKJmMdZr-aNt17HS&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Buj4Gb8QK2PpOaA-U66qcdUJ8pZtl8YC&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=14R2Cpggz9DyiKaOol-fIKTjleLKdgRfv&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1NaZTL4FZ53oiPntVQt7a-q8sPwUHcmuj&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1-G8Y-Od2_6A9p3F6L0sz7rs3YsF_bDy9&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=11EkQnfutsuOyeCGezsByhM2AN-rOL4Mg&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1u6I2bxeeijTtt5E0wKWDDXR8oHcUJa2I&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1LjeFsFZt999OrokSbrlBkQ3f1DzO-Utg&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1h8CUZS-cEH1HcvOdf4TnuE-iThVtiZ_X&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1hhy5-ir_v4WlhXXdg16cq68iR-2TdE1x&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1OJusMxBtKwq03LLohY6DA1oiJSN3F5cY&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1rYlJHe15iVW6yHTP4SqHgfNjAUzL9vrU&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1F-S19cSElgpwDD84KFLnHCpds4OdjEzB&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1HZwEiHT210N6cctzgTH6-h3El-ZbZgaZ&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1k-oyxXiiZSh9byFEBu6ZARQg7r-1bBY-&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1iDQ0g2g8sQKZTwLH04L-1qAzBgcCSCCU&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1-IdxiON4pviabebO4Zx_7O1jylTOX70Y&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1JNiAmdyXqUn4OoVH1-ACaMbzfD8jZDiB&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1uD-CtO7vkcm3t0wtKEPfU2tEnqO40xAU&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1GiR152DeVm5KHNW9Mm-37XBujZucZ3vW&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1WM3JqgUG0s_jp7sX7LQG5hggaXgz9kvw&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1zVYC0Ym30Jvg9yNcE5NCUbf4XrSLtYEQ&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1SVa50I3LlwFSY6Bwo8y0_3mEAQUnYp7S&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1a_Yrut9r3WRNYH5QOFlfYRZMyzBRmH1F&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1HC8JyrJl7ymIghIVvlWfNvfLtYKDGS8D&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1v5w_tw9eq6reChihGuVAw0H7ocQBb0Gi&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1jUc-clrv0bMtxwqZBKJmMdZr-aNt17HS&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1Buj4Gb8QK2PpOaA-U66qcdUJ8pZtl8YC&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=14R2Cpggz9DyiKaOol-fIKTjleLKdgRfv&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1NaZTL4FZ53oiPntVQt7a-q8sPwUHcmuj&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1-G8Y-Od2_6A9p3F6L0sz7rs3YsF_bDy9&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=11EkQnfutsuOyeCGezsByhM2AN-rOL4Mg&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1u6I2bxeeijTtt5E0wKWDDXR8oHcUJa2I&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1LjeFsFZt999OrokSbrlBkQ3f1DzO-Utg&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1h8CUZS-cEH1HcvOdf4TnuE-iThVtiZ_X&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1hhy5-ir_v4WlhXXdg16cq68iR-2TdE1x&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1OJusMxBtKwq03LLohY6DA1oiJSN3F5cY&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1rYlJHe15iVW6yHTP4SqHgfNjAUzL9vrU&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1F-S19cSElgpwDD84KFLnHCpds4OdjEzB&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1HZwEiHT210N6cctzgTH6-h3El-ZbZgaZ&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1k-oyxXiiZSh9byFEBu6ZARQg7r-1bBY-&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1iDQ0g2g8sQKZTwLH04L-1qAzBgcCSCCU&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1-IdxiON4pviabebO4Zx_7O1jylTOX70Y&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1JNiAmdyXqUn4OoVH1-ACaMbzfD8jZDiB&sz=w1000" },
             { "t": "", "u": "https://drive.google.com/thumbnail?id=1GuJDbTCm17kvJgSDdexryb8qQfrzYBX9&sz=w1000" }
           ],
           "棧板B區": [
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1KoVNjdT0b3uJxFyxbdo2W0_hQEr4Zs0o&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1TLVSMkAsmDm-JvABCTV179VY9wrAvVW7&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=10pJ8e5cSxWKxbK_Uq0tOjxlXSGdnVwjG&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1KC0xKg_X8pzLNP6CB9A8_iFnLT3E-BG6&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=18ezF-cWzJ2YcqtDfzpb7qUiynWYlvb6O&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1aFPXDhlrfGfoibgzf1mjfwrFSc2AfULX&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1gLV28sUV4h-hxy4mNVdm8nZoglNFlyGa&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1lWAqggy4aE8sRigGLUbbLP9jvfZceXUZ&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=1WGgu4SN4fNwUvhJzhcrmilXUdN1I18jl&sz=w1000" },
-            { "t": "", "u": "https://drive.google.com/thumbnail?id=138OAQezCmYCxRKrPYdOF89lIdot3P21H&sz=w1000" }
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1KoVNjdT0b3uJxFyxbdo2W0_hQEr4Zs0o&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1TLVSMkAsmDm-JvABCTV179VY9wrAvVW7&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=10pJ8e5cSxWKxbK_Uq0tOjxlXSGdnVwjG&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1KC0xKg_X8pzLNP6CB9A8_iFnLT3E-BG6&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=18ezF-cWzJ2YcqtDfzpb7qUiynWYlvb6O&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1aFPXDhlrfGfoibgzf1mjfwrFSc2AfULX&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1gLV28sUV4h-hxy4mNVdm8nZoglNFlyGa&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=1lWAqggy4aE8sRigGLUbbLP9jvfZceXUZ&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1WGgu4SN4fNwUvhJzhcrmilXUdN1I18jl&sz=w1000" }, { "t": "", "u": "https://drive.google.com/thumbnail?id=138OAQezCmYCxRKrPYdOF89lIdot3P21H&sz=w1000" }
           ]
         };
 
@@ -1437,52 +1034,40 @@ function getSafeImageUrl(url) {
         const res = await fetch(url, { method: 'GET' });
         if (!res.ok) throw new Error(`HTTP 錯誤！狀態碼: ${res.status}`);
 
-        const rawData = await res.json();
-        console.log("GAS 原始回傳：", rawData);
+        let data = await res.json();
 
-        // 加強正規化：同時處理 zones 和 addons
+        // 加強版：把 bookedData 的 key 做正規化，盡量對應到目前 zones 的名稱
         const normalizedData = {};
-        for (let date in rawData) {
-            normalizedData[date] = { zones: {}, addons: {} };
+        for (let date in data) {
+            if (!data[date].zones) continue;
+            
+            normalizedData[date] = { zones: {} };
+            
+            for (let zoneName in data[date].zones) {
+                let qty = data[date].zones[zoneName];
+                let normalizedName = zoneName;
 
-            // 處理 zones
-            if (rawData[date].zones) {
-                for (let zoneName in rawData[date].zones) {
-                    let qty = rawData[date].zones[zoneName];
-                    let normalizedName = zoneName;
+                // 常見舊名稱轉換（可再補充）
+                if (zoneName.startsWith('棚架A')) normalizedName = zoneName; // 保持原樣
+                if (zoneName.startsWith('棚架B')) normalizedName = zoneName;
+                if (zoneName.startsWith('棚架C')) normalizedName = zoneName;
+                if (zoneName.startsWith('棧板A')) normalizedName = zoneName;
+                if (zoneName.startsWith('棧板B')) normalizedName = zoneName;
+                if (zoneName.startsWith('草地區')) normalizedName = zoneName;
+                if (zoneName.startsWith('碎石區')) normalizedName = zoneName;
+                if (zoneName.startsWith('泰式')) normalizedName = zoneName;
+                if (zoneName.startsWith('露營車')) normalizedName = zoneName;
 
-                    // 個別營位名稱正規化
-                    if (zoneName.startsWith('棚架A') || zoneName.startsWith('棚架B') || 
-                        zoneName.startsWith('棚架C') || zoneName.startsWith('棧板A') || 
-                        zoneName.startsWith('棧板B') || zoneName.startsWith('草地區') || 
-                        zoneName.startsWith('碎石區') || zoneName.startsWith('泰式') || 
-                        zoneName.startsWith('露營車')) {
-                        normalizedName = zoneName;
-                    }
-                    normalizedData[date].zones[normalizedName] = qty;
-                }
-            }
-
-            // 處理 addons（很重要！）
-            if (rawData[date].addons) {
-                normalizedData[date].addons = rawData[date].addons;
+                normalizedData[date].zones[normalizedName] = qty;
             }
         }
 
         bookedData = normalizedData;
-        console.log("✅ 正規化後的 bookedData：", bookedData);
+        console.log("✅ 庫存載入成功！", bookedData);
 
         const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
         renderZones(activeFilter);
         renderAddons();
-
-    } catch (err) {
-        console.error('❌ 抓取庫存失敗：', err);
-        const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
-        renderZones(activeFilter);
-        renderAddons();
-    }
-}
 
     } catch (err) {
         console.error('❌ 抓取庫存失敗：', err);
@@ -1866,98 +1451,90 @@ function getSafeImageUrl(url) {
 
                 let overallSubtotal = basePrice + addonTotal;
 
-                // ==================== 價格計算與顯示（已簡化強化版） ====================
-if (overallSubtotal > 0 || cartEntries.length > 0 || addonEntries.length > 0) {
-    const discountVal = getDiscountAmount();
-    const enteredCode = document.getElementById('discountCodeInput').value.trim().toUpperCase();
+                if (overallSubtotal > 0) {
+                    const discountVal = getDiscountAmount();
+                    const enteredCode = document.getElementById('discountCodeInput').value.trim().toUpperCase();
 
-    let basePriceAfterCode = basePrice;
-    let displayDiscount = "";
-    let actualDiscountAmt = 0;
+                    let basePriceAfterCode = basePrice;
+                    let displayDiscount = "";
+                    let actualDiscountAmt = 0;
 
-    // === 處理一般折扣碼 ===
-    if (discountVal > 0 && basePrice > 0) {
-        if (discountVal < 1) {
-            const codeDiscount = Math.round(basePrice * (1 - discountVal));
-            actualDiscountAmt += codeDiscount;
-            displayDiscount += `<div class="text-green-600">折扣優惠：打 ${discountVal * 10} 折 (-$${codeDiscount})</div>`;
-        } else {
-            const codeDiscount = Math.min(basePrice, discountVal);
-            actualDiscountAmt += codeDiscount;
-            displayDiscount += `<div class="text-green-600">折扣優惠：-$${codeDiscount}</div>`;
-        }
-        basePriceAfterCode = basePrice - actualDiscountAmt;
-    } else if (discountVal > 0) {
-        displayDiscount += `<div class="text-xs text-orange-500 mt-1 font-bold">※ 折扣碼僅適用於營位與夜衝費</div>`;
-    }
+                    if (discountVal > 0 && basePrice > 0) {
+                        if (discountVal < 1) {
+                            const codeDiscount = Math.round(basePrice * (1 - discountVal));
+                            actualDiscountAmt += codeDiscount;
+                            displayDiscount += `<div class="text-green-600">折扣優惠：打 ${discountVal * 10} 折 (-$${codeDiscount})</div>`;
+                        } else {
+                            const codeDiscount = Math.min(basePrice, discountVal);
+                            actualDiscountAmt += codeDiscount;
+                            displayDiscount += `<div class="text-green-600">折扣優惠：-$${codeDiscount}</div>`;
+                        }
+                        basePriceAfterCode = basePrice - actualDiscountAmt;
+                    } else if (discountVal > 0) {
+                        displayDiscount += `<div class="text-xs text-orange-500 mt-1 font-bold">※ 折扣碼僅適用於營位與夜衝費</div>`;
+                    }
 
-    // === 晚鳥 / 小晚鳥優惠（排除 VIP卡）===
-    if (basePriceAfterCode > 0 && enteredCode !== 'VIP卡' && enteredCode !== '【VIP卡】') {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const checkinD = new Date(inDate.value);
-        checkinD.setHours(0, 0, 0, 0);
-        const diffDays = Math.ceil((checkinD.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+                    if (basePriceAfterCode > 0 && enteredCode !== 'VIP卡' && enteredCode !== '【VIP卡】') {
+                        const today = new Date();
+                        today.setHours(0, 0, 0, 0);
+                        const checkinD = new Date(inDate.value);
+                        checkinD.setHours(0, 0, 0, 0);
+                        const diffDays = Math.ceil((checkinD.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
 
-        let lateBirdDiscount = 0;
-        let lateBirdName = "";
+                        let lateBirdDiscount = 0;
+                        let lateBirdName = "";
 
-        if (diffDays >= 0 && diffDays <= 7) {
-            lateBirdDiscount = 0.9;
-            lateBirdName = "【晚鳥優惠】";
-        } else if (diffDays >= 8 && diffDays <= 14) {
-            lateBirdDiscount = 0.95;
-            lateBirdName = "【小晚鳥優惠】";
-        }
+                        if (diffDays >= 0 && diffDays <= 7) {
+                            lateBirdDiscount = 0.9;
+                            lateBirdName = "【晚鳥優惠】";
+                        } else if (diffDays >= 8 && diffDays <= 14) {
+                            lateBirdDiscount = 0.95;
+                            lateBirdName = "【小晚鳥優惠】";
+                        }
 
-        if (lateBirdDiscount > 0) {
-            let applied = 0;
-            if (lateBirdDiscount < 1) {
-                applied = Math.round(basePriceAfterCode * (1 - lateBirdDiscount));
-                displayDiscount += `<div class="text-green-600 font-bold">${lateBirdName} (打${lateBirdDiscount * 10}折)：-$${applied}</div>`;
-            } else {
-                applied = Math.min(basePriceAfterCode, lateBirdDiscount);
-                displayDiscount += `<div class="text-green-600 font-bold">${lateBirdName}：-$${applied}</div>`;
+                        if (lateBirdDiscount > 0) {
+                            let applied = 0;
+                            if (lateBirdDiscount < 1) {
+                                applied = Math.round(basePriceAfterCode * (1 - lateBirdDiscount));
+                                displayDiscount += `<div class="text-green-600 font-bold">${lateBirdName} (打${lateBirdDiscount * 10}折)：-$${applied}</div>`;
+                            } else {
+                                applied = Math.min(basePriceAfterCode, lateBirdDiscount);
+                                displayDiscount += `<div class="text-green-600 font-bold">${lateBirdName}：-$${applied}</div>`;
+                            }
+                            actualDiscountAmt += applied;
+                        }
+                    }
+
+                    const finalTotal = basePrice - actualDiscountAmt + addonTotal;
+
+                    let discountInput = document.getElementById('actualDiscountAmount');
+                    if (!discountInput) {
+                        discountInput = document.createElement('input');
+                        discountInput.type = 'hidden';
+                        discountInput.id = 'actualDiscountAmount';
+                        document.getElementById('bookingForm').appendChild(discountInput);
+                    }
+                    discountInput.value = actualDiscountAmt;
+
+                    resultDiv.classList.remove('hidden');
+
+                    let html = '';
+                    if (zoneStr) html += `<div>營位：${zoneStr}</div>`;
+                    if (addonStr) html += `<div>加購：${addonStr}</div>`;
+                    if (days > 0) html += `<div>營位與加購小計：$${overallSubtotal.toLocaleString()}</div>`;
+                    else html += `<div>小計：$${overallSubtotal.toLocaleString()}</div>`;
+
+                    html += nightBeforeDetails;
+                    html += displayDiscount;
+
+                    formulaSpan.innerHTML = html;
+                    totalDisplay.textContent = `$${finalTotal.toLocaleString()}`;
+                    if (zonePriceInput) zonePriceInput.value = finalTotal;
+                } else {
+                    resultDiv.classList.add('hidden');
+                }
             }
-            actualDiscountAmt += applied;
-        }
-    }
 
-    const finalTotal = basePrice - actualDiscountAmt + addonTotal;
-
-    // 建立隱藏欄位記錄實際折扣金額
-    let discountInput = document.getElementById('actualDiscountAmount');
-    if (!discountInput) {
-        discountInput = document.createElement('input');
-        discountInput.type = 'hidden';
-        discountInput.id = 'actualDiscountAmount';
-        document.getElementById('bookingForm').appendChild(discountInput);
-    }
-    discountInput.value = actualDiscountAmt;
-
-    // 顯示價格區塊
-    resultDiv.classList.remove('hidden');
-
-    let html = '';
-    if (zoneStr) html += `<div>營位：${zoneStr}</div>`;
-    if (addonStr) html += `<div>加購：${addonStr}</div>`;
-    if (days > 0) {
-        html += `<div>營位與加購小計：$${overallSubtotal.toLocaleString()}</div>`;
-    } else {
-        html += `<div>小計：$${overallSubtotal.toLocaleString()}</div>`;
-    }
-
-    html += nightBeforeDetails;
-    html += displayDiscount;
-
-    formulaSpan.innerHTML = html;
-    totalDisplay.textContent = `$${finalTotal.toLocaleString()}`;
-    if (zonePriceInput) zonePriceInput.value = finalTotal;
-
-} else {
-    resultDiv.classList.add('hidden');
-}
-// ==================== 價格計算結束 ====================
             inDate.addEventListener('change', () => {
                 if (inDate.value) {
                     const startDate = new Date(inDate.value);
