@@ -1458,37 +1458,56 @@ function buildZones(dateStr) {
             if (container.parentElement) container.parentElement.scrollTop = 0;
         }
 
-        async function fetchInventory() {
-            try {
-                console.log("🚀 正在從 GAS 抓取最新庫存...");
-                const url = scriptURL + '?t=' + new Date().getTime();
-                
-                const res = await fetch(url, {
-                    method: 'GET'
-                });
+      async function fetchInventory() {
+    try {
+        console.log("🚀 正在從 GAS 抓取最新庫存...");
+        const url = scriptURL + '?t=' + new Date().getTime();
+        
+        const res = await fetch(url, { method: 'GET' });
+        if (!res.ok) throw new Error(`HTTP 錯誤！狀態碼: ${res.status}`);
 
-                if (!res.ok) {
-                    throw new Error(`HTTP 錯誤！狀態碼: ${res.status}`);
-                }
+        let data = await res.json();
 
-                const data = await res.json();
-                
-                for (let date in data) {
-                    if (data[date].zones && date >= '2026-06-01') {
-                        for (let oldZone in data[date].zones) {
-                            if (oldZone.startsWith('棚架B')) data[date].zones['棚架 B 區'] = 1;
-                            if (oldZone.startsWith('棚架C')) data[date].zones['棚架 C 區'] = 1;
-                            if (oldZone.startsWith('棧板A')) data[date].zones['棧板 A 區'] = 1;
-                            if (oldZone.startsWith('棧板B')) data[date].zones['棧板 B 區'] = 1;
-                        }
-                    }
-                }
+        // 加強版：把 bookedData 的 key 做正規化，盡量對應到目前 zones 的名稱
+        const normalizedData = {};
+        for (let date in data) {
+            if (!data[date].zones) continue;
+            
+            normalizedData[date] = { zones: {} };
+            
+            for (let zoneName in data[date].zones) {
+                let qty = data[date].zones[zoneName];
+                let normalizedName = zoneName;
 
-                bookedData = data;
-                console.log("✅ 庫存載入成功！共", Object.keys(data).length, "天資料", data);
+                // 常見舊名稱轉換（可再補充）
+                if (zoneName.startsWith('棚架A')) normalizedName = zoneName; // 保持原樣
+                if (zoneName.startsWith('棚架B')) normalizedName = zoneName;
+                if (zoneName.startsWith('棚架C')) normalizedName = zoneName;
+                if (zoneName.startsWith('棧板A')) normalizedName = zoneName;
+                if (zoneName.startsWith('棧板B')) normalizedName = zoneName;
+                if (zoneName.startsWith('草地區')) normalizedName = zoneName;
+                if (zoneName.startsWith('碎石區')) normalizedName = zoneName;
+                if (zoneName.startsWith('泰式')) normalizedName = zoneName;
+                if (zoneName.startsWith('露營車')) normalizedName = zoneName;
 
-                const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
-                renderZones(activeFilter);
+                normalizedData[date].zones[normalizedName] = qty;
+            }
+        }
+
+        bookedData = normalizedData;
+        console.log("✅ 庫存載入成功！", bookedData);
+
+        const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
+        renderZones(activeFilter);
+        renderAddons();
+
+    } catch (err) {
+        console.error('❌ 抓取庫存失敗：', err);
+        // 失敗時也要繼續跑 render，避免整個網站卡住
+        const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
+        renderZones(activeFilter);
+    }
+}
                 renderAddons();
 
             } catch (err) {
@@ -2037,18 +2056,19 @@ function renderZones(filter) {
     const outDate = document.getElementById('checkoutDate').value;
 
     let bookedMap = {};
-    if (inDate && outDate && bookedData) {
-        const start = new Date(inDate);
-        const end = new Date(outDate);
-        for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
-            let dateStr = getLocalISODate(d);
-            if (bookedData[dateStr] && bookedData[dateStr].zones) {
-                for (let [zName, qty] of Object.entries(bookedData[dateStr].zones)) {
-                    bookedMap[zName] = Math.max(bookedMap[zName] || 0, qty);
-                }
+if (inDate && outDate && bookedData) {
+    const start = new Date(inDate);
+    const end = new Date(outDate);
+    for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
+        let dateStr = getLocalISODate(d);
+        if (bookedData[dateStr] && bookedData[dateStr].zones) {
+            for (let [zName, qty] of Object.entries(bookedData[dateStr].zones)) {
+                bookedMap[zName] = Math.max(bookedMap[zName] || 0, qty);
             }
         }
     }
+}
+console.log('目前 bookedMap:', bookedMap);   // ← 測試時看這裡
 
     zones.forEach(zone => {
         // 簡化後的篩選條件
