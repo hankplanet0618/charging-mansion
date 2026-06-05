@@ -1808,7 +1808,8 @@ if (overallSubtotal > 0) {
 } else {
     resultDiv.classList.add('hidden');
 }
-}
+// 👈 注意：原本這裡有一個 }，請把它刪除！
+
             inDate.addEventListener('change', () => {
                 if (inDate.value) {
                     const startDate = new Date(inDate.value);
