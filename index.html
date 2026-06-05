@@ -1223,10 +1223,10 @@
                 calculate();
             }
 
-            function getSpecialPrice(cat) {
+         function getSpecialPrice(cat) {
                 switch(cat) {
-                    case 'grass': case 'shelter': return 1400;
-                    case 'room': return 1600;
+                    case 'grass': case 'shelter': return 1400; // 連假特價維持 1400
+                    case 'room': return 1600;                 // 連假特價維持 1600
                     case 'cabinL': return 3000;
                     case 'cabinS': return 2600;
                     case 'villa': return 17000;
@@ -1391,11 +1391,16 @@
                                 }
                             } else if (SPECIAL_HOLIDAYS.includes(dateStr) && isTomorrowRed) {
                                 price = zoneData.holidayPrice || getSpecialPrice(zoneData.cat);
-                            } else if (isTomorrowRed) {
-                                if (zoneData.weekendPrice) { price = zoneData.weekendPrice; } 
-                                else if (['grass', 'shelter'].includes(zoneData.cat)) { price = 1200; } 
-                                else if (['room'].includes(zoneData.cat)) { price = 1400; } 
-                                else { price = getSpecialPrice(zoneData.cat); }
+                           } else if (isTomorrowRed) {
+                                if (zoneData.weekendPrice) { 
+                                    price = zoneData.weekendPrice; 
+                                } else if (['grass', 'shelter'].includes(zoneData.cat)) { 
+                                    price = 1200; // 一般雨棚/碎石/草地自搭帳假日為 1200
+                                } else if (['room'].includes(zoneData.cat)) { 
+                                    price = 1400; // 泰式免搭假日為 1400
+                                } else { 
+                                    price = getSpecialPrice(zoneData.cat); 
+                                }
                             } else {
                                 price = zoneData.price;
                             }
