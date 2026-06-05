@@ -10,16 +10,16 @@
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-.zone-card {
-    min-height: 155px;
-    padding: 16px;
-    transition: all 0.3s ease;
-}
-.zone-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-    border-color: #15803d;
-}
+        .zone-card {
+            min-height: 155px;
+            padding: 16px;
+            transition: all 0.3s ease;
+        }
+        .zone-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border-color: #15803d;
+        }
         :root { --forest-green: #15803d; --sunny-yellow: #eab308; }
         .glass-effect { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
         .zone-card { transition: all 0.3s ease; border: 1px solid #e5e7eb; }
@@ -190,184 +190,184 @@
 
         <div class="mb-8 fade-in flex flex-col lg:flex-row gap-6 justify-center items-start" style="animation-delay: 0.15s;">
     
-    <div class="w-full lg:w-5/12 flex flex-col gap-4">
-        <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100083289610242&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
-                width="100%" height="350"
-                style="border:none;overflow:hidden;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);"
-                scrolling="no" frameborder="0" allowfullscreen="true"
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+            <div class="w-full lg:w-5/12 flex flex-col gap-4">
+                <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100083289610242&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+                        width="100%" height="350"
+                        style="border:none;overflow:hidden;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);"
+                        scrolling="no" frameborder="0" allowfullscreen="true"
+                        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
 
-        <div class="bg-white rounded-3xl shadow-xl p-5">
-            <h3 class="text-xl font-bold text-stone-800 mb-4 flex items-center gap-2">
-                <i class="fab fa-youtube text-red-600"></i>
-                斜槓露人Hank × 充電莊真實日常
-            </h3>
-            
-            <div class="space-y-5">
-                <div>
-                    <iframe width="100%" height="205" src="https://www.youtube.com/embed/JeoQf0x6wag" title="充電莊電動車露營開箱" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-2xl shadow-md"></iframe>
-                    <p class="text-xs text-gray-500 mt-2 text-center">電動車車主必看！充電莊車宿全流程</p>
-                </div>
-                <div>
-                    <iframe width="100%" height="205" src="https://www.youtube.com/embed/D4kzXeqfQKs" title="充電莊出事啦" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-2xl shadow-md"></iframe>
-                    <p class="text-xs text-gray-500 mt-2 text-center">充電莊出事啦！總監跑去看TWICE？</p>
-                </div>
-                <div>
-                    <iframe width="100%" height="205" src="https://www.youtube.com/embed/3Vlowt7r5Bk" title="Hank的親子趴踢救火團" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-2xl shadow-md"></iframe>
-                    <p class="text-xs text-gray-500 mt-2 text-center">親子趴踢史上最硬救火團！3萬現金+暴雨大反轉</p>
-                </div>
-            </div>
-
-            <div class="mt-6 pt-4 border-t border-gray-100">
-                <a href="https://www.youtube.com/@SohocampingHank" target="_blank" 
-                   class="block w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-2xl text-center transition-all flex items-center justify-center gap-2 shadow-md">
-                    <i class="fab fa-youtube"></i> 觀看更多影片 →
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="w-full lg:w-7/12 bg-white rounded-3xl shadow-xl overflow-hidden fade-in" style="animation-delay: 0.2s;">
-        <div class="bg-green-700 p-4 text-white text-center">
-            <h3 class="font-bold text-lg">線上預訂單</h3>
-        </div>
-        <form id="bookingForm" class="p-6 space-y-8">
-            <input type="hidden" name="sheetName" value="訂單資料">
-            <input type="hidden" id="lineUserId" name="Line_User_ID">
-            <input type="hidden" id="lineDisplayName" name="Line_Display_Name">
-            <input type="hidden" id="linePictureUrl" name="Line_Picture_URL">
-
-            <div>
-                <h4 class="text-lg font-bold text-stone-800 mb-4 border-l-4 border-green-600 pl-3">第一步：選擇預訂日期</h4>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 mb-1">入住日期 <span class="text-red-500 text-[10px]"></span></label>
-                        <input type="date" id="checkinDate" name="入住日期" min="2026-01-19" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 mb-1">退房日期</label>
-                        <div class="flex items-center gap-2">
-                            <input type="date" id="checkoutDate" name="退房日期" min="2026-01-20" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none">
-                            <span id="stayDays" class="text-sm font-bold text-green-600 whitespace-nowrap hidden"></span>
+                <div class="bg-white rounded-3xl shadow-xl p-5">
+                    <h3 class="text-xl font-bold text-stone-800 mb-4 flex items-center gap-2">
+                        <i class="fab fa-youtube text-red-600"></i>
+                        斜槓露人Hank × 充電莊真實日常
+                    </h3>
+                    
+                    <div class="space-y-5">
+                        <div>
+                            <iframe width="100%" height="205" src="https://www.youtube.com/embed/JeoQf0x6wag" title="充電莊電動車露營開箱" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-2xl shadow-md"></iframe>
+                            <p class="text-xs text-gray-500 mt-2 text-center">電動車車主必看！充電莊車宿全流程</p>
+                        </div>
+                        <div>
+                            <iframe width="100%" height="205" src="https://www.youtube.com/embed/D4kzXeqfQKs" title="充電莊出事啦" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-2xl shadow-md"></iframe>
+                            <p class="text-xs text-gray-500 mt-2 text-center">充電莊出事啦！總監跑去看TWICE？</p>
+                        </div>
+                        <div>
+                            <iframe width="100%" height="205" src="https://www.youtube.com/embed/3Vlowt7r5Bk" title="Hank的親子趴踢救火團" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-2xl shadow-md"></iframe>
+                            <p class="text-xs text-gray-500 mt-2 text-center">親子趴踢史上最硬救火團！3萬現金+暴雨大反轉</p>
                         </div>
                     </div>
-                </div>
 
-                <div id="nightBeforeSection" class="hidden mt-4 bg-blue-50 p-4 rounded-xl border border-blue-200">
-                    <label class="block text-sm font-bold text-blue-800 mb-2">是否需要前一天夜衝？(限定週六及連續假日首日)</label>
-                    <div class="flex items-center gap-4">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="夜衝選項" value="否" class="form-radio text-blue-600 h-5 w-5" checked onchange="window.reCalculate()">
-                            <span class="ml-2 text-stone-700">否</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="夜衝選項" value="是" class="form-radio text-blue-600 h-5 w-5" onchange="window.reCalculate()">
-                            <span class="ml-2 text-stone-700 font-bold">是 <span id="nightBeforeDateDisplay" class="text-xs text-blue-500 font-normal"></span></span>
-                        </label>
+                    <div class="mt-6 pt-4 border-t border-gray-100">
+                        <a href="https://www.youtube.com/@SohocampingHank" target="_blank" 
+                           class="block w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-2xl text-center transition-all flex items-center justify-center gap-2 shadow-md">
+                            <i class="fab fa-youtube"></i> 觀看更多影片 →
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <hr class="border-gray-200">
-
-            <div>
-                <div class="flex flex-col md:flex-row justify-between items-center mb-4">
-                    <h4 class="text-lg font-bold text-stone-800 border-l-4 border-green-600 pl-3 mb-2 md:mb-0">第二步：選擇營位 (可多選)</h4>
-                    <div class="flex gap-2 overflow-x-auto no-scrollbar w-full md:w-auto p-1 bg-stone-100 rounded-lg">
-                        <button type="button" onclick="filterZones('all')" class="filter-btn active px-3 py-1 rounded-md text-xs font-bold transition-all text-gray-500 whitespace-nowrap">全部</button>
-                        <button type="button" onclick="filterZones('shelter')" class="filter-btn px-3 py-1 rounded-md text-xs font-bold transition-all text-gray-500 whitespace-nowrap">雨棚區</button>
-                        <button type="button" onclick="filterZones('room')" class="filter-btn px-3 py-1 rounded-md text-xs font-bold transition-all text-gray-500 whitespace-nowrap">住宿/懶人</button>
-                        <button type="button" onclick="filterZones('grass')" class="filter-btn px-3 py-1 rounded-md text-xs font-bold transition-all text-gray-500 whitespace-nowrap">草地/碎石</button>
-                    </div>
+            <div class="w-full lg:w-7/12 bg-white rounded-3xl shadow-xl overflow-hidden fade-in" style="animation-delay: 0.2s;">
+                <div class="bg-green-700 p-4 text-white text-center">
+                    <h3 class="font-bold text-lg">線上預訂單</h3>
                 </div>
-                <input type="hidden" name="預訂區域" id="selectedZoneInput" required>
-                <input type="hidden" id="selectedZonePrice" value="0">
-                
-                <p class="text-xs text-orange-600 mb-2 font-bold"><i class="fas fa-info-circle"></i> 請先選擇日期，方可選取營位數量 (支援多選)</p>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" id="zoneContainer"></div>
-                
-                <div class="mt-6 hidden">
-                    <input type="hidden" name="預訂數量" id="quantitySelect" value="1">
-                </div>
-            </div>
+                <form id="bookingForm" class="p-6 space-y-8">
+                    <input type="hidden" name="sheetName" value="訂單資料">
+                    <input type="hidden" id="lineUserId" name="Line_User_ID">
+                    <input type="hidden" id="lineDisplayName" name="Line_Display_Name">
+                    <input type="hidden" id="linePictureUrl" name="Line_Picture_URL">
 
-            <hr class="border-gray-200">
-
-            <div id="addons-container"></div>
-
-            <hr class="border-gray-200">
-
-            <div>
-                <h4 class="text-lg font-bold text-stone-800 mb-4 border-l-4 border-green-600 pl-3">第三步：訂位資料</h4>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-bold text-gray-500 mb-1">訂位大名</label>
-                        <input type="text" id="inputName" name="訂位大名" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none" placeholder="請確實填寫真實姓名">
+                        <h4 class="text-lg font-bold text-stone-800 mb-4 border-l-4 border-green-600 pl-3">第一步：選擇預訂日期</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 mb-1">入住日期 <span class="text-red-500 text-[10px]"></span></label>
+                                <input type="date" id="checkinDate" name="入住日期" min="2026-01-19" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 mb-1">退房日期</label>
+                                <div class="flex items-center gap-2">
+                                    <input type="date" id="checkoutDate" name="退房日期" min="2026-01-20" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none">
+                                    <span id="stayDays" class="text-sm font-bold text-green-600 whitespace-nowrap hidden"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="nightBeforeSection" class="hidden mt-4 bg-blue-50 p-4 rounded-xl border border-blue-200">
+                            <label class="block text-sm font-bold text-blue-800 mb-2">是否需要前一天夜衝？(限定週六及連續假日首日)</label>
+                            <div class="flex items-center gap-4">
+                                <label class="inline-flex items-center cursor-pointer">
+                                    <input type="radio" name="夜衝選項" value="否" class="form-radio text-blue-600 h-5 w-5" checked onchange="window.reCalculate()">
+                                    <span class="ml-2 text-stone-700">否</span>
+                                </label>
+                                <label class="inline-flex items-center cursor-pointer">
+                                    <input type="radio" name="夜衝選項" value="是" class="form-radio text-blue-600 h-5 w-5" onchange="window.reCalculate()">
+                                    <span class="ml-2 text-stone-700 font-bold">是 <span id="nightBeforeDateDisplay" class="text-xs text-blue-500 font-normal"></span></span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
+
+                    <hr class="border-gray-200">
+
                     <div>
-                        <label class="block text-xs font-bold text-gray-500 mb-1">聯絡電話</label>
-                        <input type="tel" name="聯絡電話" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none">
+                        <div class="flex flex-col md:flex-row justify-between items-center mb-4">
+                            <h4 class="text-lg font-bold text-stone-800 border-l-4 border-green-600 pl-3 mb-2 md:mb-0">第二步：選擇營位 (可多選)</h4>
+                            <div class="flex gap-2 overflow-x-auto no-scrollbar w-full md:w-auto p-1 bg-stone-100 rounded-lg">
+                                <button type="button" onclick="filterZones('all')" class="filter-btn active px-3 py-1 rounded-md text-xs font-bold transition-all text-gray-500 whitespace-nowrap">全部</button>
+                                <button type="button" onclick="filterZones('shelter')" class="filter-btn px-3 py-1 rounded-md text-xs font-bold transition-all text-gray-500 whitespace-nowrap">雨棚區</button>
+                                <button type="button" onclick="filterZones('room')" class="filter-btn px-3 py-1 rounded-md text-xs font-bold transition-all text-gray-500 whitespace-nowrap">住宿/懶人</button>
+                                <button type="button" onclick="filterZones('grass')" class="filter-btn px-3 py-1 rounded-md text-xs font-bold transition-all text-gray-500 whitespace-nowrap">草地/碎石</button>
+                            </div>
+                        </div>
+                        <input type="hidden" name="預訂區域" id="selectedZoneInput" required>
+                        <input type="hidden" id="selectedZonePrice" value="0">
+                        
+                        <p class="text-xs text-orange-600 mb-2 font-bold"><i class="fas fa-info-circle"></i> 請先選擇日期，方可選取營位數量 (支援多選)</p>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" id="zoneContainer"></div>
+                        
+                        <div class="mt-6 hidden">
+                            <input type="hidden" name="預訂數量" id="quantitySelect" value="1">
+                        </div>
                     </div>
+
+                    <hr class="border-gray-200">
+
+                    <div id="addons-container"></div>
+
+                    <hr class="border-gray-200">
+
                     <div>
-                        <label class="block text-xs font-bold text-gray-500 mb-1">身分證字號 / 居留證號碼</label>
-                        <input type="text" name="身分證字號" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none" placeholder="依旅宿法規請確實填寫">
+                        <h4 class="text-lg font-bold text-stone-800 mb-4 border-l-4 border-green-600 pl-3">第三步：訂位資料</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 mb-1">訂位大名</label>
+                                <input type="text" id="inputName" name="訂位大名" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none" placeholder="請確實填寫真實姓名">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 mb-1">聯絡電話</label>
+                                <input type="tel" name="聯絡電話" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 mb-1">身分證字號 / 居留證號碼</label>
+                                <input type="text" name="身分證字號" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none" placeholder="依旅宿法規請確實填寫">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 mb-1">入住人數</label>
+                                <input type="number" name="入住人數" min="1" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none" placeholder="請填寫總人數">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-xs font-bold text-gray-500 mb-1">Email (接收訂位通知)</label>
+                                <input type="email" name="Email" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none" placeholder="例如：example@gmail.com">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-xs font-bold text-gray-500 mb-1">Line ID</label>
+                                <input type="text" name="Line ID" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none" placeholder="方便我們聯繫您">
+                            </div>
+                        </div>
                     </div>
+
+                    <hr class="border-gray-200">
+
                     <div>
-                        <label class="block text-xs font-bold text-gray-500 mb-1">入住人數</label>
-                        <input type="number" name="入住人數" min="1" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none" placeholder="請填寫總人數">
+                        <h4 class="text-lg font-bold text-stone-800 mb-4 border-l-4 border-green-600 pl-3">特殊需求</h4>
+                        
+                        <div class="mb-4 bg-yellow-50 p-4 rounded-xl border border-yellow-200">
+                            <label class="block text-xs font-bold text-gray-500 mb-2"><i class="fas fa-ticket-alt text-yellow-500 mr-1"></i>折扣碼 / 優惠券</label>
+                            <div class="flex gap-2">
+                                <input type="text" id="discountCodeInput" name="折扣碼" class="flex-1 bg-white border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none" placeholder="輸入代碼 (請輸入優惠券【名稱】)">
+                                <button type="button" id="applyDiscountBtn" class="bg-stone-800 text-white px-4 rounded-lg font-bold text-sm hover:bg-stone-700 transition">確認</button>
+                            </div>
+                            <p id="discountMessage" class="text-xs mt-2 hidden font-bold"></p>
+                        </div>
+                        
+                        <label class="block text-xs font-bold text-gray-500 mb-1">備註 / 其他需求</label>
+                        <textarea name="備註需求" placeholder="例如：我是特斯拉車主需要充電 (請提供車號)、用餐時間與車床會員編號以利查核" class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 h-24 focus:ring-2 focus:ring-green-500 outline-none resize-none"></textarea>
                     </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-xs font-bold text-gray-500 mb-1">Email (接收訂位通知)</label>
-                        <input type="email" name="Email" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none" placeholder="例如：example@gmail.com">
+
+                    <div id="priceCalcResult" class="hidden bg-yellow-50 border border-yellow-200 p-4 rounded-xl flex flex-col justify-between">
+                        <div class="mb-2">
+                            <span class="block text-gray-600 font-bold text-sm">預估總金額明細</span>
+                            <div id="priceFormula" class="text-xs text-gray-500 space-y-1"></div>
+                        </div>
+                        <div class="text-right border-t border-yellow-200 pt-2">
+                            <div class="text-2xl font-extrabold text-red-600" id="totalPriceDisplay">$0</div>
+                        </div>
                     </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-xs font-bold text-gray-500 mb-1">Line ID</label>
-                        <input type="text" name="Line ID" required class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none" placeholder="方便我們聯繫您">
+
+                    <div class="text-center mb-2">
+                        <p class="text-red-500 text-xs font-bold cursor-pointer underline" onclick="showModal('modal-rules')">
+                            <i class="fas fa-exclamation-circle"></i> 退訂規則及注意事項請點此查看
+                        </p>
                     </div>
-                </div>
+
+                    <button type="submit" id="submitBtn" class="w-full bg-stone-800 text-white font-bold py-4 rounded-xl text-lg shadow-lg hover:bg-stone-700 transition transform hover:scale-[1.01] active:scale-95">
+                        確認送出預訂
+                    </button>
+                    <p class="text-center text-xs text-gray-400 mt-2">點擊送出即代表同意營區須知</p>
+                </form>
             </div>
-
-            <hr class="border-gray-200">
-
-            <div>
-                <h4 class="text-lg font-bold text-stone-800 mb-4 border-l-4 border-green-600 pl-3">特殊需求</h4>
-                
-                <div class="mb-4 bg-yellow-50 p-4 rounded-xl border border-yellow-200">
-                    <label class="block text-xs font-bold text-gray-500 mb-2"><i class="fas fa-ticket-alt text-yellow-500 mr-1"></i>折扣碼 / 優惠券</label>
-                    <div class="flex gap-2">
-                        <input type="text" id="discountCodeInput" name="折扣碼" class="flex-1 bg-white border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none" placeholder="輸入代碼 (請輸入優惠券【名稱】)">
-                        <button type="button" id="applyDiscountBtn" class="bg-stone-800 text-white px-4 rounded-lg font-bold text-sm hover:bg-stone-700 transition">確認</button>
-                    </div>
-                    <p id="discountMessage" class="text-xs mt-2 hidden font-bold"></p>
-                </div>
-                
-                <label class="block text-xs font-bold text-gray-500 mb-1">備註 / 其他需求</label>
-                <textarea name="備註需求" placeholder="例如：我是特斯拉車主需要充電 (請提供車號)、用餐時間與車床會員編號以利查核" class="w-full bg-stone-50 border border-gray-300 rounded-lg p-3 h-24 focus:ring-2 focus:ring-green-500 outline-none resize-none"></textarea>
-            </div>
-
-            <div id="priceCalcResult" class="hidden bg-yellow-50 border border-yellow-200 p-4 rounded-xl flex flex-col justify-between">
-                <div class="mb-2">
-                    <span class="block text-gray-600 font-bold text-sm">預估總金額明細</span>
-                    <div id="priceFormula" class="text-xs text-gray-500 space-y-1"></div>
-                </div>
-                <div class="text-right border-t border-yellow-200 pt-2">
-                    <div class="text-2xl font-extrabold text-red-600" id="totalPriceDisplay">$0</div>
-                </div>
-            </div>
-
-            <div class="text-center mb-2">
-                <p class="text-red-500 text-xs font-bold cursor-pointer underline" onclick="showModal('modal-rules')">
-                    <i class="fas fa-exclamation-circle"></i> 退訂規則及注意事項請點此查看
-                </p>
-            </div>
-
-            <button type="submit" id="submitBtn" class="w-full bg-stone-800 text-white font-bold py-4 rounded-xl text-lg shadow-lg hover:bg-stone-700 transition transform hover:scale-[1.01] active:scale-95">
-                確認送出預訂
-            </button>
-            <p class="text-center text-xs text-gray-400 mt-2">點擊送出即代表同意營區須知</p>
-        </form>
-    </div>
-</div>
+        </div>
                         
     </main>
     <footer class="bg-gradient-to-r from-yellow-100 to-orange-200 text-stone-600 py-8 text-center text-sm">
@@ -901,6 +901,161 @@
         });
     }
 
+    function renderTentInfo() {
+        const container = document.querySelector('#modal-tent .space-y-6');
+        if (!container) return;
+        let html = '';
+        tentInfoData.forEach((item, index) => {
+            const isHighlight = item.highlight || index === 0;
+            const borderClass = isHighlight ? "border-4 border-purple-500 shadow-xl transform scale-[1.02]" : "border border-gray-100 shadow-md";
+            const titleClass = isHighlight ? "text-3xl font-extrabold text-purple-700 tracking-tight" : "text-lg font-bold text-stone-800";
+            const priceClass = isHighlight ? "text-3xl font-black text-purple-600" : "text-xl font-bold text-purple-600";
+            const bgClass = isHighlight ? "bg-purple-50" : "bg-white";
+
+            html += `
+                <div class="${bgClass} rounded-xl ${borderClass} overflow-hidden flex flex-col md:flex-row transition-all relative">
+                    <div class="w-full md:w-48 h-48 bg-gray-200 relative flex-shrink-0 cursor-pointer" onclick="showImage('${item.img}')">
+                        <img src="${item.img}" class="w-full h-full object-cover" referrerpolicy="no-referrer">
+                        ${item.tag ? `<span class="absolute top-2 left-2 bg-purple-600 text-white text-xs px-2 py-1 rounded shadow font-bold tracking-wider whitespace-nowrap">${item.tag}</span>` : ''}
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                 <h4 class="${titleClass} flex-1 pr-4">${item.name}</h4>
+                                 ${item.tag && !isHighlight ? `<span class="bg-purple-600 text-white text-xs px-2 py-1 rounded shadow font-bold tracking-wider whitespace-nowrap md:hidden">${item.tag}</span>` : ''}
+                            </div>
+                            <p class="text-sm text-gray-500 leading-relaxed mb-4">${item.desc}</p>
+                        </div>
+                        <div class="flex justify-between items-end border-t border-gray-200 pt-3 mt-auto">
+                            <span class="text-xs text-gray-400 font-bold bg-gray-100 px-2 py-1 rounded">不含營位費</span>
+                            <span class="${priceClass}">$${item.price} <span class="text-xs text-gray-500 font-normal">/次</span></span>
+                        </div>
+                    </div>
+                    ${isHighlight ? '<div class="absolute top-0 right-0 bg-yellow-400 text-purple-900 text-xs font-bold px-3 py-1 rounded-bl-xl z-20 shadow">推薦</div>' : ''}
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+    }
+
+    async function init() {
+        buildZones(document.getElementById('checkinDate').value || '');
+        await fetchInventory();
+        renderZones('all');
+        renderGears();
+        renderAddons();
+        renderBlogPosts();
+        renderTentInfo();
+        setupCalculator();
+        renderReviews();
+        renderGalleryFolders();
+        if (typeof liff !== 'undefined') await initializeLiff();
+    }
+
+    function renderAddons() {
+        const container = document.getElementById('addons-container');
+        if (!container) return;
+        container.innerHTML = '';
+        
+        container.appendChild(createAddonSection('【裝備租借區】(計次收費)', rentals, 'blue'));
+        container.appendChild(createAddonSection('【帳篷租借區】(計次收費)', tents, 'purple'));
+        container.appendChild(createAddonSection('【烤肉預定區】(計次收費)', bbqs, 'orange'));
+    }
+
+    function createAddonSection(title, items, color) {
+        const wrapper = document.createElement('div');
+        wrapper.className = "mb-6";
+        
+        let borderColor = `border-${color}-600`;
+        if(color==='purple') borderColor = 'border-purple-600';
+        if(color==='orange') borderColor = 'border-orange-600';
+        
+        wrapper.innerHTML = `<h4 class="text-lg font-bold text-stone-800 mb-4 border-l-4 ${borderColor} pl-3">${title}</h4>`;
+        
+        const grid = document.createElement('div');
+        grid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3";
+        
+        const inDateVal = document.getElementById('checkinDate').value;
+        const outDateVal = document.getElementById('checkoutDate').value;
+        
+        let bookedMap = {};
+        if(inDateVal && outDateVal && bookedData) {
+             const start = new Date(inDateVal);
+             const end = new Date(outDateVal);
+             for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
+                let dateStr = getLocalISODate(d);
+                if (bookedData[dateStr]) {
+                    const mixedItems = { 
+                        ...(bookedData[dateStr].zones || {}), 
+                        ...(bookedData[dateStr].addons || {}) 
+                    };
+                    for (let [itemName, qty] of Object.entries(mixedItems)) {
+                        bookedMap[itemName] = Math.max(bookedMap[itemName] || 0, qty);
+                    }
+                }
+             }
+        }
+
+        items.forEach(item => {
+            const div = document.createElement('div');
+            const bookedCount = bookedMap[item.name] || 0;
+            const remaining = Math.max(0, item.stock - bookedCount);
+            const isFull = remaining <= 0;
+            const currentQty = addonCart[item.name] || 0;
+            
+            div.className = `zone-card bg-white rounded-2xl p-4 relative flex items-center min-h-[148px] ${isFull ? 'disabled-card' : ''} ${currentQty > 0 ? 'selected' : ''}`;
+            
+            if (isFull) {
+                div.classList.add('opacity-50', 'pointer-events-none', 'grayscale');
+            }
+            const imgHtml = item.image ? `<div class="w-16 h-16 mr-3 flex-shrink-0 cursor-pointer" onclick="showImage('${item.image}')"><img src="${item.image}" class="w-full h-full object-cover rounded-md"></div>` : '';
+            let stockText = isFull ? '<span class="text-red-600 font-bold">已租完</span>' : `庫存: ${remaining} | <span class="font-bold text-orange-600">$${item.price}</span>`;
+
+            div.innerHTML = `
+                ${imgHtml}
+                <div class="flex-1 min-w-0">
+                    <div class="font-bold text-sm text-gray-800 truncate">${item.name}</div>
+                    <div class="text-xs text-gray-500 truncate">${stockText}</div>
+                </div>
+                <div class="flex items-center gap-2 flex-shrink-0" onclick="if(event) event.stopPropagation()">
+                     <button type="button" class="w-7 h-7 flex-shrink-0 bg-stone-100 text-stone-600 font-bold text-sm hover:bg-stone-300 transition flex items-center justify-center border border-stone-200 rounded-full" onclick="updateAddonQty('${item.name}', -1, ${remaining}, ${item.price}, event)">-</button>
+                     <span class="w-4 text-center text-sm font-bold" id="qty-${item.name}">${currentQty}</span>
+                     <button type="button" class="w-7 h-7 flex-shrink-0 bg-stone-800 text-white font-bold text-sm hover:bg-stone-700 transition shadow flex items-center justify-center rounded-full" onclick="updateAddonQty('${item.name}', 1, ${remaining}, ${item.price}, event)">+</button>
+                </div>
+            `;
+            grid.appendChild(div);
+        });
+        
+        wrapper.appendChild(grid);
+        return wrapper;
+    }
+
+    window.updateAddonQty = (name, delta, maxStock, price, e) => {
+        if(e) { e.preventDefault(); e.stopPropagation(); }
+        const inDate = document.getElementById('checkinDate').value;
+        const outDate = document.getElementById('checkoutDate').value;
+        if (!inDate || !outDate) { alert('請先選擇入住與退房日期，才能查看剩餘裝備數量。'); return; }
+
+        let current = addonCart[name] || 0;
+        let newQty = current + delta;
+        
+        if (newQty < 0) newQty = 0;
+        if (newQty > maxStock) {
+            alert(`庫存不足，該時段剩餘數量: ${maxStock}`);
+            newQty = maxStock;
+        }
+        
+        if (newQty === 0) {
+            delete addonCart[name];
+        } else {
+            addonCart[name] = newQty;
+        }
+        
+        const span = document.getElementById(`qty-${name}`);
+        if (span) span.innerText = newQty;
+        if (window.reCalculate) window.reCalculate();
+    }
+
     const rentals = [
         { id: 'R01', name: '月亮椅/休閒椅', price: 100, stock: 3 },
         { id: 'R02', name: '平躺椅', price: 150, stock: 2 },
@@ -947,22 +1102,9 @@
     const blogPosts = [
         { id: 5, date: "2026-03-17", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/wZH2y8Fq/image.jpg", content: "端午連假熱烈訂位中，歡迎一同參與火舞秀及美妙的山林時光吧~", images: [], tags: ["#Hank碎碎念", "#端午連假", "#滿帳日常", "#充電莊"], likes: 139, comments: 28 },
         { id: 4, date: "2026-02-23", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/wZH2y8Fq/image.jpg", content: "終於結束了過年的惡魔週，接下來準備迎接連續三週的滿帳周末QAQ！\n\n草皮跟設施都已經重新整理過了，趁著今天有短暫的空檔喝杯茶回個血。期待大家週末來享受好天氣與櫻花季！記得提早預約喔～目前還有兒童跟5/1連假~", images: [], tags: ["#Hank碎碎念", "#過年地獄", "#滿帳日常", "#充電莊"], likes: 128, comments: 15 },
-        { id: 3, date: "2026-02-12", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/6cx1xrVR/image.jpg", content: "營區多了兩位新嬌客！🦆🦆\n\n最近我們迎來了兩隻超級可愛的柯爾鴨，走起路來有夠療癒。這幾天已經變成小露友們的目光焦點了，大家來露營的時候歡迎來找牠們玩，但記得要溫柔對待，不要追著牠們跑喔！", images: ["https://i.ibb.co/8LQbwPjQ/image.jpg"], tags: ["#柯爾鴨", "#營區日常", "#寵物友善", "#親子露營"], likes: 245, comments: 32 },
+        { id: 3, date: "2026-02-12", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/6cx1xrVR/image.jpg", content: "營區多了兩位新嬌客！🦆🦆\n\n最近我們迎來了兩喝超級可愛的柯爾鴨，走起路來有夠療癒。這幾天已經變成小露友們的目光焦點了，大家來露營的時候歡迎來找牠們玩，但記得要溫柔對待，不要追著牠們跑喔！", images: ["https://i.ibb.co/8LQbwPjQ/image.jpg"], tags: ["#柯爾鴨", "#營區日常", "#寵物友善", "#親子露營"], likes: 245, comments: 32 },
         { id: 2, date: "2026-01-29", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/6cx1xrVR/image.jpg", content: "狂賀！專屬小露友的快樂基地完工啦！🎉\n\n為了讓爸媽能更安心地在帳篷放空，我們花了好幾天，終於打造出這個 3公尺 x 2公尺 的「室內專屬沙坑」。不受天氣影響，下雨也能玩得超開心！\n\n珵已經幫大家嚴格「實測」過了，玩到根本不想起來😆。下次來充電莊，小孩放電、車子充電、大人身心靈也跟著充電！", images: ["https://i.ibb.co/FfSfyfP/image.jpg"], tags: ["#室內沙坑", "#小孩放電神器", "#雨天備案", "#懶人露營"], likes: 312, comments: 48 },
         { id: 1, date: "2026-01-18", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/HLW7rx8W/image.jpg", content: "夜衝的浪漫，就是一把吉他配上滿滿的電量。🎸⚡\n\n身為 Model Y 車主，真的太懂開電車上山那種「看著電量掉」的焦慮感。這也是為什麼我們營區堅持要拉好充沛的充電樁 (J1772/TPC/Type2通通有)。\n\n昨晚點起焚火台，拿出陪了我 20 年的手工吉他，接上 Bose S1 Pro 彈唱了幾首。看著愛車在旁邊悠悠地充著電，這種沒有里程焦慮的露營，才是真正的放鬆啊！", images: ["https://i.ibb.co/KjBcKGvt/A-DDcar.jpg"], tags: ["#電車露營", "#TeslaModelY", "#夜衝", "#吉他彈唱"], likes: 456, comments: 55 }
-    ];
-
-    const reviews = [
-        {n:"Tesla車主陳先生", c:"充電樁真的太方便了！不用怕開電車來山上會沒電，環境也很清幽。"},
-        {n:"林小姐一家", c:"帶小朋友來這裡放電真的很適合，雨棚區下雨也不怕，營主很熱情！"},
-        {n:"露營新手小張", c:"第一次露營選擇了泰式免搭，裝備都很乾淨，晚上還有蟲鳴聲，很棒的體驗。"},
-        {n:"李媽媽", c:"小木屋很溫馨，適合長輩一起來，風景優美，空氣很好。"},
-        {n:"王先生", c:"夜衝價格很佛心，老闆人很好，還送了我們一些木柴，下次一定再來。"},
-        {n:"Model Y 車友", c:"專門為了充電來的，位置安排得很好，可以直接停在帳篷旁邊充電，大推！"},
-        {n:"Jason", c:"這裡的落羽松季節真的超美，隨便拍都好看，很適合網美來打卡。"},
-        {n:"吳先生", c:"包棟民宿設備很齊全，KTV音響效果不錯，大家玩得很盡興。"},
-        {n:"Emily", c:"廁所跟浴室都保持得很乾淨，熱水也很穩，這點對露營來說太重要了。"},
-        {n:"阿豪", c:"草地區的草皮維護得很好，很軟很舒服，赤腳走也沒問題。"}
     ];
 
     const tentInfoData = [
@@ -1156,6 +1298,55 @@
             { "t": "", "u": "https://drive.google.com/thumbnail?id=1YZEImkfLYikfCpKfGUKXo8R0d9OJcbwz&sz=w1000" },
             { "t": "", "u": "https://drive.google.com/thumbnail?id=1IsWZe4RiYmRRhOBtN-5iueZsz9Zv7J43&sz=w1000" }
           ],
+          "廁所": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=15ootVM8p3XPXzyiMD6VhUSDhShOZxZBd&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1kHLspFKWzbqiRQcZm7mtjiaOoVbFxW4j&sz=w1000" }
+          ],
+          "小木屋": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1FNgdD14M7pEu7u_lwJV8lKuYApPzItDu&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=186TllxWaZSV__GT0yzebQ227jDxntBRu&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1MBUgPmCXIa-FzXZQCjUoZeexGFParTHo&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1c-2kzswBk-5eK1DmAFlEkDsEI-Wgg10j&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1896E3A1wMC4JuaPwjc8l_-BFFWHXvBdn&sz=w1000" }
+          ],
+          "大木屋": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=11fldtygegpBoLYtmU-JHUY3WjrT21xfw&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=12-BSeUEi5LPFhdmb2XW8fYrav8pzewWi&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Y-LE5GkEU3FC367l_bwPYXaJ0fMbgaNv&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=18v_GyxiquBNQZgqCYzsazi_gtI4y1gGw&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1QPONyhdKqE7346n9v1icvMPjPjcgN6-h&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1jHw7_fkX_HsDL9X77RMNQ2nkocn665fF&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1o3SF2XiJt7AYyb8T8sVI9hwpXn_3o6SZ&sz=w1000" }
+          ],
+          "三人頂級露營車": [
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1uD-CtO7vkcm3t0wtKEPfU2tEnqO40xAU&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1GiR152DeVm5KHNW9Mm-37XBujZucZ3vW&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1WM3JqgUG0s_jp7sX7LQG5hggaXgz9kvw&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1zVYC0Ym30Jvg9yNcE5NCUbf4XrSLtYEQ&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1SVa50I3LlwFSY6Bwo8y0_3mEAQUnYp7S&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1a_Yrut9r3WRNYH5QOFlfYRZMyzBRmH1F&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1HC8JyrJl7ymIghIVvlWfNvfLtYKDGS8D&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1v5w_tw9eq6reChihGuVAw0H7ocQBb0Gi&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1jUc-clrv0bMtxwqZBKJmMdZr-aNt17HS&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1Buj4Gb8QK2PpOaA-U66qcdUJ8pZtl8YC&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=14R2Cpggz9DyiKaOol-fIKTjleLKdgRfv&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1NaZTL4FZ53oiPntVQt7a-q8sPwUHcmuj&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1-G8Y-Od2_6A9p3F6L0sz7rs3YsF_bDy9&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=11EkQnfutsuOyeCGezsByhM2AN-rOL4Mg&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1u6I2bxeeijTtt5E0wKWDDXR8oHcUJa2I&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1LjeFsFZt999OrokSbrlBkQ3f1DzO-Utg&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1h8CUZS-cEH1HcvOdf4TnuE-iThVtiZ_X&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1hhy5-ir_v4WlhXXdg16cq68iR-2TdE1x&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1OJusMxBtKwq03LLohY6DA1oiJSN3F5cY&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1rYlJHe15iVW6yHTP4SqHgfNjAUzL9vrU&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1F-S19cSElgpwDD84KFLnHCpds4OdjEzB&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1HZwEiHT210N6cctzgTH6-h3El-ZbZgaZ&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1k-oyxXiiZSh9byFEBu6ZARQg7r-1bBY-&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1iDQ0g2g8sQKZTwLH04L-1qAzBgcCSCCU&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1-IdxiON4pviabebO4Zx_7O1jylTOX70Y&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1JNiAmdyXqUn4OoVH1-ACaMbzfD8jZDiB&sz=w1000" },
+            { "t": "", "u": "https://drive.google.com/thumbnail?id=1GuJDbTCm17kvJgSDdexryb8qQfrzYBX9&sz=w1000" }
+          ],
           "棧板B區": [
             { "t": "", "u": "https://drive.google.com/thumbnail?id=1KoVNjdT0b3uJxFyxbdo2W0_hQEr4Zs0o&sz=w1000" },
             { "t": "", "u": "https://drive.google.com/thumbnail?id=1TLVSMkAsmDm-JvABCTV179VY9wrAvVW7&sz=w1000" },
@@ -1280,21 +1471,23 @@
         renderZones(activeFilter);
     }
 }
-        async function initializeLiff() {
+        function initializeLiff() {
             try {
-                await liff.init({ liffId: myLiffId });
-                if (!liff.isLoggedIn()) {
-                    if (liff.isInClient()) {
-                        liff.login();
+                liff.init({ liffId: myLiffId }).then(() => {
+                    if (!liff.isLoggedIn()) {
+                        if (liff.isInClient()) {
+                            liff.login();
+                        }
+                    } else {
+                        liff.getProfile().then(profile => {
+                            const nameInput = document.getElementById('inputName');
+                            if(nameInput && !nameInput.value) nameInput.value = profile.displayName;
+                            document.getElementById('lineUserId').value = profile.userId;
+                            document.getElementById('lineDisplayName').value = profile.displayName;
+                            document.getElementById('linePictureUrl').value = profile.pictureUrl;
+                        });
                     }
-                } else {
-                    const profile = await liff.getProfile();
-                    const nameInput = document.getElementById('inputName');
-                    if(nameInput && !nameInput.value) nameInput.value = profile.displayName;
-                    document.getElementById('lineUserId').value = profile.userId;
-                    document.getElementById('lineDisplayName').value = profile.displayName;
-                    document.getElementById('linePictureUrl').value = profile.pictureUrl;
-                }
+                });
             } catch (err) {
                 console.error('LIFF Initialization failed', err);
             }
@@ -1756,8 +1949,6 @@
                 renderAddons();
             });
 
-            // ... 前面的 inDate 和 outDate 監聽器 ...
-
             outDate.addEventListener('change', () => {
                 calculate();
                 const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
@@ -1765,7 +1956,6 @@
                 renderAddons();
             });
 
-            // 🛡️ 這裡加上安全檢查：如果畫面上找不到這個按鈕，就不要去綁定事件，避免報錯當機
             if (applyBtn) {
                 applyBtn.addEventListener('click', validateDiscount);
             }
@@ -1774,7 +1964,7 @@
             }
             
             window.reCalculate = calculate;
-        } // 👈 setupCalculator 結束
+        }
 
         function hasSpecialHoliday(startStr, endStr) {
             if(!startStr || !endStr) return false;
@@ -2147,7 +2337,6 @@
             if(btn.textContent === '草地/碎石') btn.setAttribute('data-filter', 'grass');
         });
 
-        // 1. 動態計算金額與數量
         window.calculateTentTotal = () => {
             const selectElement = document.getElementById('tentTypeSelect');
             const price = parseInt(selectElement.value);
@@ -2166,13 +2355,12 @@
             let current = parseInt(qtyInput.value) || 1;
             let newQty = current + delta;
             
-            if (newQty < 1) newQty = 1; // 數量不能小於 1
+            if (newQty < 1) newQty = 1; 
             qtyInput.value = newQty;
             
             window.calculateTentTotal();
         };
 
-        // 2. 攔截表單送出，傳送資料至 Google Apps Script
         const tentDryingForm = document.getElementById('tentDryingForm');
         if(tentDryingForm) {
             tentDryingForm.addEventListener('submit', e => {
@@ -2195,161 +2383,7 @@
                     });
             });
         }
-        function renderTentInfo() {
-            const container = document.querySelector('#modal-tent .space-y-6');
-            if (!container) return;
-            let html = '';
-            tentInfoData.forEach((item, index) => {
-                const isHighlight = item.highlight || index === 0;
-                const borderClass = isHighlight ? "border-4 border-purple-500 shadow-xl transform scale-[1.02]" : "border border-gray-100 shadow-md";
-                const titleClass = isHighlight ? "text-3xl font-extrabold text-purple-700 tracking-tight" : "text-lg font-bold text-stone-800";
-                const priceClass = isHighlight ? "text-3xl font-black text-purple-600" : "text-xl font-bold text-purple-600";
-                const bgClass = isHighlight ? "bg-purple-50" : "bg-white";
-
-                html += `
-                    <div class="${bgClass} rounded-xl ${borderClass} overflow-hidden flex flex-col md:flex-row transition-all relative">
-                        <div class="w-full md:w-48 h-48 bg-gray-200 relative flex-shrink-0 cursor-pointer" onclick="showImage('${item.img}')">
-                            <img src="${item.img}" class="w-full h-full object-cover" referrerpolicy="no-referrer">
-                            ${item.tag ? `<span class="absolute top-2 left-2 bg-purple-600 text-white text-xs px-2 py-1 rounded shadow font-bold tracking-wider whitespace-nowrap">${item.tag}</span>` : ''}
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col justify-between">
-                            <div>
-                                <div class="flex justify-between items-start mb-2">
-                                     <h4 class="${titleClass} flex-1 pr-4">${item.name}</h4>
-                                     ${item.tag && !isHighlight ? `<span class="bg-purple-600 text-white text-xs px-2 py-1 rounded shadow font-bold tracking-wider whitespace-nowrap md:hidden">${item.tag}</span>` : ''}
-                                </div>
-                                <p class="text-sm text-gray-500 leading-relaxed mb-4">${item.desc}</p>
-                            </div>
-                            <div class="flex justify-between items-end border-t border-gray-200 pt-3 mt-auto">
-                                <span class="text-xs text-gray-400 font-bold bg-gray-100 px-2 py-1 rounded">不含營位費</span>
-                                <span class="${priceClass}">$${item.price} <span class="text-xs text-gray-500 font-normal">/次</span></span>
-                            </div>
-                        </div>
-                        ${isHighlight ? '<div class="absolute top-0 right-0 bg-yellow-400 text-purple-900 text-xs font-bold px-3 py-1 rounded-bl-xl z-20 shadow">推薦</div>' : ''}
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
-        }
-
-        async function init() {
-            buildZones(document.getElementById('checkinDate').value || '');
-            await fetchInventory();
-            renderZones('all');
-            renderGears();
-            renderAddons();
-            renderBlogPosts();
-            renderTentInfo();
-            setupCalculator();
-            renderReviews();
-            renderGalleryFolders();
-            if (typeof liff !== 'undefined') await initializeLiff();
-        }
-
-        function renderAddons() {
-            const container = document.getElementById('addons-container');
-            if (!container) return;
-            container.innerHTML = '';
-            
-            container.appendChild(createAddonSection('【裝備租借區】(計次收費)', rentals, 'blue'));
-            container.appendChild(createAddonSection('【帳篷租借區】(計次收費)', tents, 'purple'));
-            container.appendChild(createAddonSection('【烤肉預定區】(計次收費)', bbqs, 'orange'));
-        }
-
-        function createAddonSection(title, items, color) {
-            const wrapper = document.createElement('div');
-            wrapper.className = "mb-6";
-            
-            let borderColor = `border-${color}-600`;
-            if(color==='purple') borderColor = 'border-purple-600';
-            if(color==='orange') borderColor = 'border-orange-600';
-            
-            wrapper.innerHTML = `<h4 class="text-lg font-bold text-stone-800 mb-4 border-l-4 ${borderColor} pl-3">${title}</h4>`;
-            
-            const grid = document.createElement('div');
-            grid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3";
-            
-            const inDateVal = document.getElementById('checkinDate').value;
-            const outDateVal = document.getElementById('checkoutDate').value;
-            
-            let bookedMap = {};
-            if(inDateVal && outDateVal && bookedData) {
-                 const start = new Date(inDateVal);
-                 const end = new Date(outDateVal);
-                 for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
-                    let dateStr = getLocalISODate(d);
-                    if (bookedData[dateStr]) {
-                        const mixedItems = { 
-                            ...(bookedData[dateStr].zones || {}), 
-                            ...(bookedData[dateStr].addons || {}) 
-                        };
-                        for (let [itemName, qty] of Object.entries(mixedItems)) {
-                            bookedMap[itemName] = Math.max(bookedMap[itemName] || 0, qty);
-                        }
-                    }
-                 }
-            }
-
-            items.forEach(item => {
-                const div = document.createElement('div');
-                const bookedCount = bookedMap[item.name] || 0;
-                const remaining = Math.max(0, item.stock - bookedCount);
-                const isFull = remaining <= 0;
-                const currentQty = addonCart[item.name] || 0;
-                
-                div.className = `zone-card bg-white rounded-2xl p-4 relative flex items-center min-h-[148px] ${isFull ? 'disabled-card' : ''} ${currentQty > 0 ? 'selected' : ''}`;
-                
-                if (isFull) {
-                    div.classList.add('opacity-50', 'pointer-events-none', 'grayscale');
-                }
-                const imgHtml = item.image ? `<div class="w-16 h-16 mr-3 flex-shrink-0 cursor-pointer" onclick="showImage('${item.image}')"><img src="${item.image}" class="w-full h-full object-cover rounded-md"></div>` : '';
-                let stockText = isFull ? '<span class="text-red-600 font-bold">已租完</span>' : `庫存: ${remaining} | <span class="font-bold text-orange-600">$${item.price}</span>`;
-
-                div.innerHTML = `
-                    ${imgHtml}
-                    <div class="flex-1 min-w-0">
-                        <div class="font-bold text-sm text-gray-800 truncate">${item.name}</div>
-                        <div class="text-xs text-gray-500 truncate">${stockText}</div>
-                    </div>
-                    <div class="flex items-center gap-2 flex-shrink-0" onclick="if(event) event.stopPropagation()">
-                         <button type="button" class="w-7 h-7 flex-shrink-0 bg-stone-100 text-stone-600 font-bold text-sm hover:bg-stone-300 transition flex items-center justify-center border border-stone-200 rounded-full" onclick="updateAddonQty('${item.name}', -1, ${remaining}, ${item.price}, event)">-</button>
-                         <span class="w-4 text-center text-sm font-bold" id="qty-${item.name}">${currentQty}</span>
-                         <button type="button" class="w-7 h-7 flex-shrink-0 bg-stone-800 text-white font-bold text-sm hover:bg-stone-700 transition shadow flex items-center justify-center rounded-full" onclick="updateAddonQty('${item.name}', 1, ${remaining}, ${item.price}, event)">+</button>
-                    </div>
-                `;
-                grid.appendChild(div);
-            });
-            
-            wrapper.appendChild(grid);
-            return wrapper;
-        }
-
-        window.updateAddonQty = (name, delta, maxStock, price, e) => {
-            if(e) { e.preventDefault(); e.stopPropagation(); }
-            const inDate = document.getElementById('checkinDate').value;
-            const outDate = document.getElementById('checkoutDate').value;
-            if (!inDate || !outDate) { alert('請先選擇入住與退房日期，才能查看剩餘裝備數量。'); return; }
-
-            let current = addonCart[name] || 0;
-            let newQty = current + delta;
-            
-            if (newQty < 0) newQty = 0;
-            if (newQty > maxStock) {
-                alert(`庫存不足，該時段剩餘數量: ${maxStock}`);
-                newQty = maxStock;
-            }
-            
-            if (newQty === 0) {
-                delete addonCart[name];
-            } else {
-                addonCart[name] = newQty;
-            }
-            
-            const span = document.getElementById(`qty-${name}`);
-            if (span) span.innerText = newQty;
-            if (window.reCalculate) window.reCalculate();
-        }
-
+        
         init();
     </script>
 </body>
