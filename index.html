@@ -1957,7 +1957,7 @@ if (overallSubtotal > 0) {
 } else {
     resultDiv.classList.add('hidden');
 }
-
+}
             inDate.addEventListener('change', () => {
                 if (inDate.value) {
                     const startDate = new Date(inDate.value);
@@ -2124,9 +2124,10 @@ function renderZones(filter) {
             }
 
             // 將 .getAttribute 前面加上 ?，並補上 || 'all' 作為保底
-renderZones(document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all');
-            if (window.reCalculate) window.reCalculate();
-        };
+// 👇 替換成這行即可
+    renderZones(document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all');
+    if (window.reCalculate) window.reCalculate();
+}
 
         container.appendChild(div);
     });
