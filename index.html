@@ -2195,7 +2195,161 @@
                     });
             });
         }
-        
+        function renderTentInfo() {
+            const container = document.querySelector('#modal-tent .space-y-6');
+            if (!container) return;
+            let html = '';
+            tentInfoData.forEach((item, index) => {
+                const isHighlight = item.highlight || index === 0;
+                const borderClass = isHighlight ? "border-4 border-purple-500 shadow-xl transform scale-[1.02]" : "border border-gray-100 shadow-md";
+                const titleClass = isHighlight ? "text-3xl font-extrabold text-purple-700 tracking-tight" : "text-lg font-bold text-stone-800";
+                const priceClass = isHighlight ? "text-3xl font-black text-purple-600" : "text-xl font-bold text-purple-600";
+                const bgClass = isHighlight ? "bg-purple-50" : "bg-white";
+
+                html += `
+                    <div class="${bgClass} rounded-xl ${borderClass} overflow-hidden flex flex-col md:flex-row transition-all relative">
+                        <div class="w-full md:w-48 h-48 bg-gray-200 relative flex-shrink-0 cursor-pointer" onclick="showImage('${item.img}')">
+                            <img src="${item.img}" class="w-full h-full object-cover" referrerpolicy="no-referrer">
+                            ${item.tag ? `<span class="absolute top-2 left-2 bg-purple-600 text-white text-xs px-2 py-1 rounded shadow font-bold tracking-wider whitespace-nowrap">${item.tag}</span>` : ''}
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-2">
+                                     <h4 class="${titleClass} flex-1 pr-4">${item.name}</h4>
+                                     ${item.tag && !isHighlight ? `<span class="bg-purple-600 text-white text-xs px-2 py-1 rounded shadow font-bold tracking-wider whitespace-nowrap md:hidden">${item.tag}</span>` : ''}
+                                </div>
+                                <p class="text-sm text-gray-500 leading-relaxed mb-4">${item.desc}</p>
+                            </div>
+                            <div class="flex justify-between items-end border-t border-gray-200 pt-3 mt-auto">
+                                <span class="text-xs text-gray-400 font-bold bg-gray-100 px-2 py-1 rounded">不含營位費</span>
+                                <span class="${priceClass}">$${item.price} <span class="text-xs text-gray-500 font-normal">/次</span></span>
+                            </div>
+                        </div>
+                        ${isHighlight ? '<div class="absolute top-0 right-0 bg-yellow-400 text-purple-900 text-xs font-bold px-3 py-1 rounded-bl-xl z-20 shadow">推薦</div>' : ''}
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        async function init() {
+            buildZones(document.getElementById('checkinDate').value || '');
+            await fetchInventory();
+            renderZones('all');
+            renderGears();
+            renderAddons();
+            renderBlogPosts();
+            renderTentInfo();
+            setupCalculator();
+            renderReviews();
+            renderGalleryFolders();
+            if (typeof liff !== 'undefined') await initializeLiff();
+        }
+
+        function renderAddons() {
+            const container = document.getElementById('addons-container');
+            if (!container) return;
+            container.innerHTML = '';
+            
+            container.appendChild(createAddonSection('【裝備租借區】(計次收費)', rentals, 'blue'));
+            container.appendChild(createAddonSection('【帳篷租借區】(計次收費)', tents, 'purple'));
+            container.appendChild(createAddonSection('【烤肉預定區】(計次收費)', bbqs, 'orange'));
+        }
+
+        function createAddonSection(title, items, color) {
+            const wrapper = document.createElement('div');
+            wrapper.className = "mb-6";
+            
+            let borderColor = `border-${color}-600`;
+            if(color==='purple') borderColor = 'border-purple-600';
+            if(color==='orange') borderColor = 'border-orange-600';
+            
+            wrapper.innerHTML = `<h4 class="text-lg font-bold text-stone-800 mb-4 border-l-4 ${borderColor} pl-3">${title}</h4>`;
+            
+            const grid = document.createElement('div');
+            grid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3";
+            
+            const inDateVal = document.getElementById('checkinDate').value;
+            const outDateVal = document.getElementById('checkoutDate').value;
+            
+            let bookedMap = {};
+            if(inDateVal && outDateVal && bookedData) {
+                 const start = new Date(inDateVal);
+                 const end = new Date(outDateVal);
+                 for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
+                    let dateStr = getLocalISODate(d);
+                    if (bookedData[dateStr]) {
+                        const mixedItems = { 
+                            ...(bookedData[dateStr].zones || {}), 
+                            ...(bookedData[dateStr].addons || {}) 
+                        };
+                        for (let [itemName, qty] of Object.entries(mixedItems)) {
+                            bookedMap[itemName] = Math.max(bookedMap[itemName] || 0, qty);
+                        }
+                    }
+                 }
+            }
+
+            items.forEach(item => {
+                const div = document.createElement('div');
+                const bookedCount = bookedMap[item.name] || 0;
+                const remaining = Math.max(0, item.stock - bookedCount);
+                const isFull = remaining <= 0;
+                const currentQty = addonCart[item.name] || 0;
+                
+                div.className = `zone-card bg-white rounded-2xl p-4 relative flex items-center min-h-[148px] ${isFull ? 'disabled-card' : ''} ${currentQty > 0 ? 'selected' : ''}`;
+                
+                if (isFull) {
+                    div.classList.add('opacity-50', 'pointer-events-none', 'grayscale');
+                }
+                const imgHtml = item.image ? `<div class="w-16 h-16 mr-3 flex-shrink-0 cursor-pointer" onclick="showImage('${item.image}')"><img src="${item.image}" class="w-full h-full object-cover rounded-md"></div>` : '';
+                let stockText = isFull ? '<span class="text-red-600 font-bold">已租完</span>' : `庫存: ${remaining} | <span class="font-bold text-orange-600">$${item.price}</span>`;
+
+                div.innerHTML = `
+                    ${imgHtml}
+                    <div class="flex-1 min-w-0">
+                        <div class="font-bold text-sm text-gray-800 truncate">${item.name}</div>
+                        <div class="text-xs text-gray-500 truncate">${stockText}</div>
+                    </div>
+                    <div class="flex items-center gap-2 flex-shrink-0" onclick="if(event) event.stopPropagation()">
+                         <button type="button" class="w-7 h-7 flex-shrink-0 bg-stone-100 text-stone-600 font-bold text-sm hover:bg-stone-300 transition flex items-center justify-center border border-stone-200 rounded-full" onclick="updateAddonQty('${item.name}', -1, ${remaining}, ${item.price}, event)">-</button>
+                         <span class="w-4 text-center text-sm font-bold" id="qty-${item.name}">${currentQty}</span>
+                         <button type="button" class="w-7 h-7 flex-shrink-0 bg-stone-800 text-white font-bold text-sm hover:bg-stone-700 transition shadow flex items-center justify-center rounded-full" onclick="updateAddonQty('${item.name}', 1, ${remaining}, ${item.price}, event)">+</button>
+                    </div>
+                `;
+                grid.appendChild(div);
+            });
+            
+            wrapper.appendChild(grid);
+            return wrapper;
+        }
+
+        window.updateAddonQty = (name, delta, maxStock, price, e) => {
+            if(e) { e.preventDefault(); e.stopPropagation(); }
+            const inDate = document.getElementById('checkinDate').value;
+            const outDate = document.getElementById('checkoutDate').value;
+            if (!inDate || !outDate) { alert('請先選擇入住與退房日期，才能查看剩餘裝備數量。'); return; }
+
+            let current = addonCart[name] || 0;
+            let newQty = current + delta;
+            
+            if (newQty < 0) newQty = 0;
+            if (newQty > maxStock) {
+                alert(`庫存不足，該時段剩餘數量: ${maxStock}`);
+                newQty = maxStock;
+            }
+            
+            if (newQty === 0) {
+                delete addonCart[name];
+            } else {
+                addonCart[name] = newQty;
+            }
+            
+            const span = document.getElementById(`qty-${name}`);
+            if (span) span.innerText = newQty;
+            if (window.reCalculate) window.reCalculate();
+        }
+
         init();
     </script>
 </body>
