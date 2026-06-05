@@ -732,7 +732,64 @@ function getSafeImageUrl(url) {
     if (url.includes('drive.google.com')) return url;
     return url;
 }
+// ====================== 在這裡新增 ======================
+function normalizeZoneName(rawName) {
+    if (!rawName) return '';
+   
+    let name = rawName.toString().trim();
+    name = name.replace(/\s+/g, '');
 
+    // 優先處理包區名稱
+    if (name === '棚架B' || name.includes('棚架B區') || name.includes('棚架B包區')) return '棚架B';
+    if (name === '棧板A' || name.includes('棧板A區') || name.includes('棧板A包區')) return '棧板A';
+    if (name === '棧板B' || name.includes('棧板B區') || name.includes('棧板B包區')) return '棧板B';
+    if (name === '棚架C' || name.includes('棚架C區') || name.includes('棚架C包區')) return '棚架C';
+
+    // 個別營位名稱正規化
+    if (name.includes('棚架A')) {
+        const match = name.match(/棚架A(\d+)/);
+        return match ? `棚架A${match[1]}` : name;
+    }
+    if (name.includes('棚架B') && !name.includes('包區')) {
+        const match = name.match(/棚架B(\d+)/);
+        return match ? `棚架B${match[1]}` : name;
+    }
+    if (name.includes('棚架C')) {
+        const match = name.match(/棚架C(\d+)/);
+        return match ? `棚架C${match[1]}` : name;
+    }
+    if (name.includes('棧板A')) {
+        const match = name.match(/棧板A(\d+)/);
+        return match ? `棧板A${match[1]}` : name;
+    }
+    if (name.includes('棧板B')) {
+        const match = name.match(/棧板B(\d+)/);
+        return match ? `棧板B${match[1]}` : name;
+    }
+    if (name.includes('草地')) {
+        const match = name.match(/草地(\d+)/);
+        if (match) return `草地區${match[1]}`;
+        return name.includes('草地區') ? name : name.replace('草地', '草地區');
+    }
+    if (name.includes('碎石')) {
+        const match = name.match(/碎石(\d+)/);
+        return match ? `碎石區${match[1]}` : name.replace('碎石', '碎石區');
+    }
+    if (name.includes('泰式')) {
+        const match = name.match(/泰式([A-H])/);
+        return match ? `泰式${match[1]}` : name;
+    }
+    if (name.includes('露營車')) {
+        const match = name.match(/露營車([A-B])/);
+        return match ? `露營車${match[1]}` : name;
+    }
+    if (name.includes('小木屋') && name.includes('大')) return '小木屋 (大)';
+    if (name.includes('小木屋') && name.includes('小')) return '小木屋 (小)';
+    if (name.includes('包棟') || name.includes('民宿')) return '包棟民宿 (16人)';
+    if (name.includes('三人頂級') || name.includes('頂級露營車')) return '三人頂級露營車';
+
+    return name;
+}
 const gears = [
     {n:'月亮椅/休閒椅',p:'100'},{n:'平躺椅',p:'150'},{n:'卡式爐/蜘蛛爐(含瓦斯)',p:'200'},
     {n:'五星爐(含瓦斯)',p:'300'},{n:'IGT桌全套',p:'600'},{n:'天幕 3*3+桿',p:'250'},
@@ -1094,27 +1151,13 @@ const gears = [
             normalizedData[date] = { zones: {} };
             
             for (let zoneName in data[date].zones) {
-                let qty = data[date].zones[zoneName];
-                let normalizedName = zoneName;
-
-                // === 加強正規化（重要！）===
-                if (zoneName.includes('棚架A')) normalizedName = zoneName;
-                else if (zoneName.includes('棚架B')) normalizedName = zoneName;
-                else if (zoneName.includes('棚架C')) normalizedName = zoneName;
-                else if (zoneName.includes('棧板A')) normalizedName = zoneName;
-                else if (zoneName.includes('棧板B')) normalizedName = zoneName;
-                else if (zoneName.includes('草地區')) normalizedName = zoneName;
-                else if (zoneName.includes('碎石區')) normalizedName = zoneName;
-                else if (zoneName.includes('泰式')) normalizedName = zoneName;
-                else if (zoneName.includes('露營車')) normalizedName = zoneName;
-                else if (zoneName.includes('小木屋 (大)')) normalizedName = '小木屋 (大)';
-                else if (zoneName.includes('小木屋 (小)')) normalizedName = '小木屋 (小)';
-                else if (zoneName.includes('包棟民宿')) normalizedName = '包棟民宿 (16人)';
-                else if (zoneName.includes('三人頂級露營車')) normalizedName = '三人頂級露營車';
-
-                normalizedData[date].zones[normalizedName] = qty;
-            }
-        }
+    let qty = data[date].zones[zoneName];
+    
+    // 使用加強版正規化函數
+    let normalizedName = normalizeZoneName(zoneName);
+    
+    normalizedData[date].zones[normalizedName] = qty;
+}
 
         bookedData = normalizedData;
         console.log("✅ 正規化後的 bookedData：", bookedData);
@@ -1882,36 +1925,46 @@ if (overallSubtotal > 0 || cartEntries.length > 0 || addonEntries.length > 0) {
         }
 
         function renderAddonCategory(gridId, items, type) {
-            const grid = document.getElementById(gridId);
-            if (!grid) return;
-            grid.innerHTML = '';
+    const grid = document.getElementById(gridId);
+    if (!grid) return;
 
-            items.forEach(item => {
-                const currentQty = addonCart[item.name] || 0;
+    const inDate = document.getElementById('checkinDate').value;
+    const outDate = document.getElementById('checkoutDate').value;
+    const hasDate = inDate && outDate;
 
-                const div = document.createElement('div');
-                div.className = `flex items-center justify-between bg-white border border-gray-200 rounded-2xl p-3 hover:border-green-300 transition ${currentQty > 0 ? 'ring-2 ring-green-500' : ''}`;
+    grid.innerHTML = '';
 
-                div.innerHTML = `
-                    <div class="flex-1 min-w-0 pr-3">
-                        <div class="font-bold text-sm text-stone-800 truncate">${item.name}</div>
-                        <div class="text-xs text-gray-500">點選日期後顯示庫存</div>
-                        <div class="text-orange-600 font-bold text-sm mt-0.5">$${item.price}</div>
-                    </div>
-                    <div class="flex items-center gap-2 flex-shrink-0">
-                        <button type="button" 
-                                class="w-8 h-8 flex items-center justify-center bg-stone-100 hover:bg-stone-200 active:bg-stone-300 rounded-full text-lg font-bold text-stone-600 border border-stone-200"
-                                onclick="updateAddonQty('${item.name}', -1, ${item.stock || 99}, ${item.price}, event)">−</button>
-                        <span class="w-6 text-center font-bold text-base" id="qty-${item.name}">${currentQty}</span>
-                        <button type="button" 
-                                class="w-8 h-8 flex items-center justify-center bg-stone-800 hover:bg-stone-700 active:bg-stone-900 text-white rounded-full text-lg font-bold"
-                                onclick="updateAddonQty('${item.name}', 1, ${item.stock || 99}, ${item.price}, event)">+</button>
-                    </div>
-                `;
+    items.forEach(item => {
+        const currentQty = addonCart[item.name] || 0;
 
-                grid.appendChild(div);
-            });
-        }
+        const div = document.createElement('div');
+        div.className = `flex items-center justify-between bg-white border border-gray-200 rounded-2xl p-3 hover:border-green-300 transition ${currentQty > 0 ? 'ring-2 ring-green-500' : ''}`;
+
+        // 動態顯示文字
+        let stockText = hasDate 
+            ? `<div class="text-xs text-green-600">庫存充足，可加購</div>` 
+            : `<div class="text-xs text-gray-500">點選日期後顯示庫存</div>`;
+
+        div.innerHTML = `
+            <div class="flex-1 min-w-0 pr-3">
+                <div class="font-bold text-sm text-stone-800 truncate">${item.name}</div>
+                ${stockText}
+                <div class="text-orange-600 font-bold text-sm mt-0.5">$${item.price}</div>
+            </div>
+            <div class="flex items-center gap-2 flex-shrink-0">
+                <button type="button" 
+                        class="w-8 h-8 flex items-center justify-center bg-stone-100 hover:bg-stone-200 active:bg-stone-300 rounded-full text-lg font-bold text-stone-600 border border-stone-200"
+                        onclick="updateAddonQty('${item.name}', -1, ${item.stock || 99}, ${item.price}, event)">−</button>
+                <span class="w-6 text-center font-bold text-base" id="qty-${item.name}">${currentQty}</span>
+                <button type="button" 
+                        class="w-8 h-8 flex items-center justify-center bg-stone-800 hover:bg-stone-700 active:bg-stone-900 text-white rounded-full text-lg font-bold"
+                        onclick="updateAddonQty('${item.name}', 1, ${item.stock || 99}, ${item.price}, event)">+</button>
+            </div>
+        `;
+
+        grid.appendChild(div);
+    });
+}
 
         window.updateAddonQty = (name, delta, maxStock, price, e) => {
             if (e) { e.preventDefault(); e.stopPropagation(); }
