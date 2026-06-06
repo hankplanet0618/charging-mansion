@@ -1364,7 +1364,9 @@
                     for (let zoneName in data[date].zones) {
                         let qty = data[date].zones[zoneName];
                         let normalizedName = normalizeZoneName(zoneName);
+                        // ★ 雙重防呆：同時存入「被吃掉空白的名字」與「原始名字」
                         normalizedData[date].zones[normalizedName] = qty;
+                        normalizedData[date].zones[zoneName] = qty; 
                     }
                 }
                 bookedData = normalizedData;
@@ -2022,45 +2024,72 @@
             renderAddonCategory('bbq-grid', bbqs, 'bbq');
         }
 
-        function renderAddonCategory(gridId, items, type) {
-        const grid = document.getElementById(gridId);
-        if (!grid) return;
-        const inDate = document.getElementById('checkinDate').value;
-        const outDate = document.getElementById('checkoutDate').value;
-        const hasDate = inDate && outDate;
+       function renderAddonCategory(gridId, items, type) {
+            const grid = document.getElementById(gridId);
+            if (!grid) return;
+            const inDate = document.getElementById('checkinDate').value;
+            const outDate = document.getElementById('checkoutDate').value;
+            const hasDate = inDate && outDate;
 
-        grid.innerHTML = '';
-        items.forEach(item => {
-            const currentQty = addonCart[item.name] || 0;
-            const div = document.createElement('div');
-            div.className = `flex items-center justify-between bg-white border border-gray-200 rounded-2xl p-3 hover:border-green-300 transition ${currentQty > 0 ? 'ring-2 ring-green-500' : ''}`;
+            grid.innerHTML = '';
             
-            let stockText = hasDate 
-                ? `<div class="text-xs text-green-600">庫存充足，可加購</div>` 
-                : `<div class="text-xs text-gray-500">點選日期後顯示庫存</div>`;
+            // ★ 加回遺失的庫存比對邏輯
+            let bookedMap = {};
+            if (hasDate && bookedData) {
+                const start = new Date(inDate);
+                const end = new Date(outDate);
+                for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
+                    let dateStr = getLocalISODate(d);
+                    if (bookedData[dateStr] && bookedData[dateStr].zones) {
+                        for (let [zName, qty] of Object.entries(bookedData[dateStr].zones)) {
+                            bookedMap[zName] = Math.max(bookedMap[zName] || 0, qty);
+                        }
+                    }
+                }
+            }
 
-            // 👈 核心修正 1：補上這行，讓它能動態抓取每項商品的 image 網址
-            const imgHtml = item.image ? `<div class="w-12 h-12 mr-2 flex-shrink-0 cursor-pointer" onclick="showImage('${item.image}')"><img src="${item.image}" class="w-full h-full object-cover rounded-md"></div>` : '';
+            items.forEach(item => {
+                const currentQty = addonCart[item.name] || 0;
+                
+                // 對照原始名稱與去空白名稱，抓出最大的已被預訂數量
+                const strippedName = item.name.replace(/\s+/g, '');
+                const bookedCount = Math.max(bookedMap[item.name] || 0, bookedMap[strippedName] || 0);
+                
+                // 算出真實剩餘庫存
+                const remaining = Math.max(0, (item.stock || 99) - bookedCount);
+                const isFull = remaining <= 0;
 
-            // 👈 核心修正 2：將排版結構加上 flex 佈局，確保圖片與品名正常並排
-            div.innerHTML = `
-                <div class="flex items-center flex-1 min-w-0 pr-2">
-                    ${imgHtml}
-                    <div class="min-w-0 flex-1">
-                        <div class="font-bold text-sm text-stone-800 truncate">${item.name}</div>
-                        ${stockText}
-                        <div class="text-orange-600 font-bold text-sm mt-0.5">$${item.price}</div>
+                const div = document.createElement('div');
+                div.className = `flex items-center justify-between bg-white border border-gray-200 rounded-2xl p-3 hover:border-green-300 transition ${currentQty > 0 ? 'ring-2 ring-green-500' : ''}`;
+                
+                let stockText = hasDate 
+                    ? (isFull ? `<div class="text-xs text-red-600 font-bold">已租完</div>` : `<div class="text-xs text-green-600">剩餘: ${remaining}</div>`)
+                    : `<div class="text-xs text-gray-500">點選日期顯示庫存</div>`;
+
+                if (isFull) {
+                    div.classList.add('opacity-50', 'pointer-events-none', 'grayscale');
+                }
+
+                const imgHtml = item.image ? `<div class="w-12 h-12 mr-2 flex-shrink-0 cursor-pointer" onclick="showImage('${item.image}')"><img src="${item.image}" class="w-full h-full object-cover rounded-md"></div>` : '';
+
+                div.innerHTML = `
+                    <div class="flex items-center flex-1 min-w-0 pr-2">
+                        ${imgHtml}
+                        <div class="min-w-0 flex-1">
+                            <div class="font-bold text-sm text-stone-800 truncate">${item.name}</div>
+                            ${stockText}
+                            <div class="text-orange-600 font-bold text-sm mt-0.5">$${item.price}</div>
+                        </div>
                     </div>
-                </div>
-                <div class="flex items-center gap-2 flex-shrink-0">
-                    <button type="button" class="w-8 h-8 flex items-center justify-center bg-stone-100 hover:bg-stone-200 active:bg-stone-300 rounded-full text-lg font-bold text-stone-600 border border-stone-200" onclick="updateAddonQty('${item.name}', -1, ${item.stock || 99}, ${item.price}, event)">−</button>
-                    <span class="w-6 text-center font-bold text-base" id="qty-${item.name}">${currentQty}</span>
-                    <button type="button" class="w-8 h-8 flex items-center justify-center bg-stone-800 hover:bg-stone-700 active:bg-stone-900 text-white rounded-full text-lg font-bold" onclick="updateAddonQty('${item.name}', 1, ${item.stock || 99}, ${item.price}, event)">+</button>
-                </div>
-            `;
-            grid.appendChild(div);
-        });
-    }
+                    <div class="flex items-center gap-2 flex-shrink-0">
+                        <button type="button" class="w-8 h-8 flex items-center justify-center bg-stone-100 hover:bg-stone-200 active:bg-stone-300 rounded-full text-lg font-bold text-stone-600 border border-stone-200" onclick="updateAddonQty('${item.name}', -1, ${remaining}, ${item.price}, event)">−</button>
+                        <span class="w-6 text-center font-bold text-base" id="qty-${item.name}">${currentQty}</span>
+                        <button type="button" class="w-8 h-8 flex items-center justify-center bg-stone-800 hover:bg-stone-700 active:bg-stone-900 text-white rounded-full text-lg font-bold" onclick="updateAddonQty('${item.name}', 1, ${remaining}, ${item.price}, event)">+</button>
+                    </div>
+                `;
+                grid.appendChild(div);
+            });
+        }
 
         window.updateAddonQty = (name, delta, maxStock, price, e) => {
             if (e) { e.preventDefault(); e.stopPropagation(); }
