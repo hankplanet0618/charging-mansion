@@ -843,9 +843,13 @@
     ];
 
     const tents = [
-        { id: 'T00', name: '代收搭服務', price: 500, stock: 50 }, { id: 'T05', name: '迪卡儂 4.2 充氣帳', price: 800, stock: 1 }, { id: 'T06', name: 'IF充氣帳篷6.0', price: 800, stock: 1 },
-        { id: 'T04', name: '杜邦鯤9車尾帳', price: 1000, stock: 1 }, { id: 'T07', name: 'Prado 7.5 小屋', price: 1200, stock: 3 }, { id: 'T02', name: 'KZM-T250', price: 2000, stock: 1 },
-        { id: 'T03', name: 'Coody8', price: 2000, stock: 1 }
+        { id: 'T00', name: '代收搭服務', price: 500, stock: 50, image: 'https://i.ibb.co/C3kqHQBG/DSC00043.jpg' }, 
+        { id: 'T05', name: '迪卡儂 4.2 充氣帳', price: 800, stock: 1, image: 'https://i.ibb.co/5WGjJV0Y/4-2.jpg' }, 
+        { id: 'T06', name: 'IF充氣帳篷6.0', price: 800, stock: 1, image: 'https://i.ibb.co/bgdggSG1/IF-6-0.jpg' },
+        { id: 'T04', name: '杜邦鯤9車尾帳', price: 1000, stock: 1, image: 'https://i.ibb.co/JRQtGCS7/9.jpg' }, 
+        { id: 'T07', name: 'Prado 7.5 小屋', price: 1200, stock: 3, image: 'https://i.ibb.co/cdFnFZd/Prado.jpg' }, 
+        { id: 'T02', name: 'KZM-T250', price: 2000, stock: 1, image: 'https://i.ibb.co/G4zSJ98h/tw-11134208-81ztg-meterwxf57gmfa.jpg' }, 
+        { id: 'T03', name: 'Coody8', price: 2000, stock: 1, image: 'https://i.ibb.co/0yRncf2r/coody-8.jpg' }
     ];
 
     const bbqs = [
@@ -2019,37 +2023,44 @@
         }
 
         function renderAddonCategory(gridId, items, type) {
-            const grid = document.getElementById(gridId);
-            if (!grid) return;
-            const inDate = document.getElementById('checkinDate').value;
-            const outDate = document.getElementById('checkoutDate').value;
-            const hasDate = inDate && outDate;
+        const grid = document.getElementById(gridId);
+        if (!grid) return;
+        const inDate = document.getElementById('checkinDate').value;
+        const outDate = document.getElementById('checkoutDate').value;
+        const hasDate = inDate && outDate;
 
-            grid.innerHTML = '';
-            items.forEach(item => {
-                const currentQty = addonCart[item.name] || 0;
-                const div = document.createElement('div');
-                div.className = `flex items-center justify-between bg-white border border-gray-200 rounded-2xl p-3 hover:border-green-300 transition ${currentQty > 0 ? 'ring-2 ring-green-500' : ''}`;
-                
-                let stockText = hasDate 
-                    ? `<div class="text-xs text-green-600">庫存充足，可加購</div>` 
-                    : `<div class="text-xs text-gray-500">點選日期後顯示庫存</div>`;
+        grid.innerHTML = '';
+        items.forEach(item => {
+            const currentQty = addonCart[item.name] || 0;
+            const div = document.createElement('div');
+            div.className = `flex items-center justify-between bg-white border border-gray-200 rounded-2xl p-3 hover:border-green-300 transition ${currentQty > 0 ? 'ring-2 ring-green-500' : ''}`;
+            
+            let stockText = hasDate 
+                ? `<div class="text-xs text-green-600">庫存充足，可加購</div>` 
+                : `<div class="text-xs text-gray-500">點選日期後顯示庫存</div>`;
 
-                div.innerHTML = `
-                    <div class="flex-1 min-w-0 pr-3">
+            // 👈 核心修正 1：補上這行，讓它能動態抓取每項商品的 image 網址
+            const imgHtml = item.image ? `<div class="w-12 h-12 mr-2 flex-shrink-0 cursor-pointer" onclick="showImage('${item.image}')"><img src="${item.image}" class="w-full h-full object-cover rounded-md"></div>` : '';
+
+            // 👈 核心修正 2：將排版結構加上 flex 佈局，確保圖片與品名正常並排
+            div.innerHTML = `
+                <div class="flex items-center flex-1 min-w-0 pr-2">
+                    ${imgHtml}
+                    <div class="min-w-0 flex-1">
                         <div class="font-bold text-sm text-stone-800 truncate">${item.name}</div>
                         ${stockText}
                         <div class="text-orange-600 font-bold text-sm mt-0.5">$${item.price}</div>
                     </div>
-                    <div class="flex items-center gap-2 flex-shrink-0">
-                        <button type="button" class="w-8 h-8 flex items-center justify-center bg-stone-100 hover:bg-stone-200 active:bg-stone-300 rounded-full text-lg font-bold text-stone-600 border border-stone-200" onclick="updateAddonQty('${item.name}', -1, ${item.stock || 99}, ${item.price}, event)">−</button>
-                        <span class="w-6 text-center font-bold text-base" id="qty-${item.name}">${currentQty}</span>
-                        <button type="button" class="w-8 h-8 flex items-center justify-center bg-stone-800 hover:bg-stone-700 active:bg-stone-900 text-white rounded-full text-lg font-bold" onclick="updateAddonQty('${item.name}', 1, ${item.stock || 99}, ${item.price}, event)">+</button>
-                    </div>
-                `;
-                grid.appendChild(div);
-            });
-        }
+                </div>
+                <div class="flex items-center gap-2 flex-shrink-0">
+                    <button type="button" class="w-8 h-8 flex items-center justify-center bg-stone-100 hover:bg-stone-200 active:bg-stone-300 rounded-full text-lg font-bold text-stone-600 border border-stone-200" onclick="updateAddonQty('${item.name}', -1, ${item.stock || 99}, ${item.price}, event)">−</button>
+                    <span class="w-6 text-center font-bold text-base" id="qty-${item.name}">${currentQty}</span>
+                    <button type="button" class="w-8 h-8 flex items-center justify-center bg-stone-800 hover:bg-stone-700 active:bg-stone-900 text-white rounded-full text-lg font-bold" onclick="updateAddonQty('${item.name}', 1, ${item.stock || 99}, ${item.price}, event)">+</button>
+                </div>
+            `;
+            grid.appendChild(div);
+        });
+    }
 
         window.updateAddonQty = (name, delta, maxStock, price, e) => {
             if (e) { e.preventDefault(); e.stopPropagation(); }
