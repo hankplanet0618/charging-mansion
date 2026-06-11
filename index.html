@@ -1662,12 +1662,12 @@
                             
                             if (isEventDay) {
                                 switch(zoneData.cat) {
-                                    case 'grass': case 'shelter': case 'room': price = 2000 * baseTents; break;
-                                    case 'cabinL': price = 3100; break;
-                                    case 'cabinS': price = 2700; break;
+                                    case 'grass': case 'shelter': case 'room': price = 1800 * baseTents; break;
+                                    case 'cabinL': price = 3400; break;
+                                    case 'cabinS': price = 3000; break;
                                     case 'villa': price = 17400; break;
-                                    case 'camper': price = 7000; break;
-                                    default: price = 2000 * baseTents;
+                                    case 'camper': price = 5500; break;
+                                    default: price = 1800 * baseTents;
                                 }
                             } else if (SPECIAL_HOLIDAYS.includes(dateStr) && isTomorrowRed) {
                                 price = zoneData.holidayPrice || getSpecialPrice(zoneData.cat);
@@ -1874,12 +1874,12 @@
                 if (hasEvent) {
                     let baseTents = zone.baseTents || 1;
                     switch(zone.cat) {
-                        case 'grass': case 'shelter': case 'room': displayPrice = 2000 * baseTents; break;
-                        case 'cabinL': displayPrice = 3100; break;
-                        case 'cabinS': displayPrice = 2700; break;
+                        case 'grass': case 'shelter': case 'room': displayPrice = 1800 * baseTents; break;
+                        case 'cabinL': displayPrice = 3400; break;
+                        case 'cabinS': displayPrice = 3000; break;
                         case 'villa': displayPrice = 17400; break;
-                        case 'camper': displayPrice = 7000; break;
-                        default: displayPrice = 2000 * baseTents;
+                        case 'camper': displayPrice = 5500; break;
+                        default: displayPrice = 1800 * baseTents;
                     }
                     priceClass = "text-purple-600";
                 } else if (hasSpecial) {
