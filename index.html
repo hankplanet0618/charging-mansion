@@ -1702,7 +1702,7 @@
 
                 let html = '';
                 if (zoneStr) html += `<div>營位基本費：$${totalPrice.toLocaleString()}</div>`;
-                if (addonStr) html += `<div>加購不折價項目：$${addonTotal.toLocaleString()}</div>`;
+if (addonStr) html += `<div class="text-orange-600 font-bold">加購項目（不打折）：$${addonTotal.toLocaleString()} (${addonStr})</div>`;
                 html += nightBeforeDetails;
                 html += displayDiscount;
 
@@ -2122,6 +2122,32 @@
         });
 
         init();
+// ==================== 【加購品修正 - 一定要加這段】 ====================
+window.updateAddonQty = function(itemName, delta, maxRemaining, price, e) {
+    if (e) { e.preventDefault(); e.stopPropagation(); }
+
+    let currentQty = addonCart[itemName] || 0;
+    let newQty = currentQty + delta;
+
+    if (newQty < 0) newQty = 0;
+    if (newQty > maxRemaining) {
+        alert(`【庫存不足】目前只剩 ${maxRemaining} 份`);
+        newQty = maxRemaining;
+    }
+
+    if (newQty === 0) {
+        delete addonCart[itemName];
+    } else {
+        addonCart[itemName] = newQty;
+    }
+
+    // 更新畫面數字
+    const qtySpan = document.getElementById(`qty-${itemName}`);
+    if (qtySpan) qtySpan.textContent = newQty || 0;
+
+    renderAddons();           // 重新畫加購區
+    if (typeof window.reCalculate === 'function') window.reCalculate(); // 重新算錢
+};
 </script>
 </body>
 </html>
