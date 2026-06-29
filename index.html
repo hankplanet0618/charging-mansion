@@ -135,7 +135,7 @@
             </div>
             <div class="mt-4 bg-red-600 text-white p-3 rounded-xl shadow-lg animate-pulse text-center mx-4 border-2 border-yellow-400">
                 <i class="fas fa-star text-yellow-300 mr-2"></i>
-                <span class="font-bold text-sm md:text-base">本營區不歡迎奧客、抽菸請至門口、本營區每天22:00有燈光控管時間、冰箱僅提供放置物品不負保管責任、要找營主及總監吵架前請思考會被驅逐出場，假日固定22:00熄燈! 曬帳服務、端午連假(火舞表演及夏日水槍大戰)【端午節為特殊活動價格，且不適用車床】、中秋連假、雙十連假、聖誕節及跨年有特殊活動，請訂位者一同參與唷！本營區為車床專案特約棧點: 車床特約一律官網預約並於結帳區折扣碼輸入【普卡】或【VIP卡】【車床備注會員編號! 車床方案僅適用非假日之平日(週日-周四)；車床假日及連續假日限定預定日前一天下單，提早下單者將不接受訂位】</span>
+                <span class="font-bold text-sm md:text-base">本營區不歡迎奧客、抽菸請至門口、本營區每天22:00有燈光控管時間、冰箱僅提供放置物品不負保管責任、要找營主及總監吵架前請思考會被驅逐出場，假日固定22:00熄燈! 曬帳服務、端午連假(火舞表演及夏日水槍大戰)【端午節為特殊活動價格，且不適用車床】、中秋連假、雙十連假、聖誕節及跨年有特殊活動，請訂位者一同參與唷！本營區為車床專案特約棧點: 車床特約一律官網預約並於結帳區折扣碼輸入【普卡】或【VIP卡】【車床備注會員編號! 車床方案僅適用非假日之平日(週日-周4)；車床假日及連續假日限定預定日前一天下單，提早下單者將不接受訂位】</span>
                 <i class="fas fa-star text-yellow-300 ml-2"></i>
             </div>
         </div>
@@ -283,7 +283,7 @@
                         <input type="hidden" name="預訂區域" id="selectedZoneInput" required>
                         <input type="hidden" id="selectedZonePrice" value="0">
                         
-                        <p class="text-xs text-orange-600 mb-2 font-bold"><i class="fas fa-info-circle"></i> 請先選擇日期，方可選取營位數量 (支援多選)</p>
+                        <p class="text-xs text-orange-600 mb-2 font-bold" id="zoneHint"><i class="fas fa-info-circle"></i> 請先選擇日期，方可選取營位數量 (支援多選)</p>
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" id="zoneContainer"></div>
                         
                         <div class="mt-6 hidden">
@@ -368,7 +368,7 @@
                 </form>
             </div>
         </div>
-                        
+                            
     </main>
     <footer class="bg-gradient-to-r from-yellow-100 to-orange-200 text-stone-600 py-8 text-center text-sm">
         <p class="mb-2 text-stone-800 font-bold text-lg"><i class="fas fa-bolt text-orange-500 mr-2"></i> 宜蘭礁溪充電莊</p>
@@ -401,8 +401,8 @@
                 <p class="text-stone-500 text-sm mb-4">訂單資料已成功送出<br>請留意 Email 與 LINE 通知</p>
                 
                 <div class="mt-4 mb-6 p-4 border-4 border-red-500 rounded-xl bg-red-50 animate-pulse">
-                    <h4 class="text-red-600 font-black text-xl md:text-2xl leading-relaxed">
-                        本露營區不歡迎奧客及不守營區規則的貴客請三思，請於下訂後 7 日內匯款完成<br>並完成匯款回報，並完成匯款回報，並完成匯款回報
+                    <h4 class="text-red-600 font-black text-xl md:text-2xl leading-relaxed" id="dynamicDepositText">
+                        本露營區不歡迎奧客及不守營區規則的貴客請三思，請於下訂後1日內匯款訂金共X元，並於7 日內匯款完成<br>並完成匯款回報!如果沒回報會被系統取消唷!
                     </h4>
                     <p class="text-red-700 font-bold text-lg mt-2">
                         如逾期7天內未繳費系統自動再發信催繳，如再未匯款則釋出營位<br>歡迎您的蒞臨
@@ -522,7 +522,7 @@
     <div id="modal-bank" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
         <div class="bg-white w-full max-w-md rounded-2xl shadow-xl z-10 p-6 relative">
-            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times"></i></button>
             <h3 class="text-xl font-bold mb-4 text-center text-blue-600">匯款資訊</h3>
             <div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200">
                 <p class="text-sm">銀行：<span class="font-bold">823 將來銀行</span></p>
@@ -535,7 +535,7 @@
     <div id="modal-qa" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60" onclick="closeAll()"></div>
         <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl z-10 p-6 relative max-h-[80vh] overflow-y-auto">
-            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
+            <button onclick="closeAll()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times"></i></button>
             <h3 class="text-xl font-bold mb-6 text-center text-yellow-600 border-b pb-2">營區常見問題 (Q&A)</h3>
             <div class="space-y-4">
                 <div class="bg-stone-50 p-4 rounded-lg border border-stone-100">
@@ -650,7 +650,7 @@
                         <div class="flex items-center gap-3">
                             <button type="button" class="w-8 h-8 rounded-full bg-stone-200 text-stone-700 font-bold hover:bg-stone-300 transition" onclick="updateTentDryingQty(-1)">-</button>
                             <input type="number" name="數量" id="tentDryingQty" value="1" min="1" readonly class="w-12 text-center border-none bg-transparent font-bold text-lg text-stone-800 outline-none">
-                            <button type="button" class="w-8 h-8 rounded-full bg-stone-800 text-white font-bold hover:bg-stone-700 transition" onclick="updateTentDryingQty(1)">+</button>
+                            <button type="button" class="w-8 h-8 bg-stone-800 text-white font-bold hover:bg-stone-700 transition" onclick="updateTentDryingQty(1)">+</button>
                         </div>
                     </div>
                 </div>
@@ -697,19 +697,16 @@
     ];
     
     const discountCodes = {
-        'CHUNHUNGLINONLY': 99999999, 'LINE100': 100, '首次加入好友優惠券': 100, '首次加入好友禮': 100,
-        'TESLA400': 400, 'CM100': 100, '竹科臻邦': 500, '蓓蓓團': 0.5, '芮蒂': 500,
-        '普卡': 0.55, 'VIP卡': 0.45, '特惠': 200, 'CNY': 100, '包場': 0.85, 'VIP': 0.9,
-        'CHILL孩': 0.95, 'T9VM4XKP': 999999999, 'RC7L2YQW': 999999999, '愛學館信義校': 0.9,
+        'CHUNHUNGLINONLY': 99999999, 'TESLA400': 400, 'CM100': 100, '竹科臻邦': 500, '蓓蓓團': 0.5, '芮蒂': 500,
+        '普卡': 0.55, 'VIP卡': 0.45, '特惠': 200, 'CNY': 100, '包場': 0.85,'CHILL孩': 0.95, 'T9VM4XKP': 999999999, 'RC7L2YQW': 999999999, '愛學館信義校': 0.9,
     };
 
     let cart = {}; let addonCart = {}; let bookedData = {}; let zones = []; let currentZoneMode = null; 
 
-    // ★ 解法核心：把 getSpecialPrice 移到外面，讓大家都看得到它！
     function getSpecialPrice(cat) {
         switch(cat) {
-            case 'grass': case 'shelter': return 1400; // 連假草地雨棚
-            case 'room': return 1600;                  // 連假泰式免搭
+            case 'grass': case 'shelter': return 1400; 
+            case 'room': return 1600;                  
             case 'cabinL': return 3000;
             case 'cabinS': return 2600;
             case 'villa': return 17000;
@@ -863,7 +860,7 @@
     const blogPosts = [
         { id: 5, date: "2026-03-17", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/wZH2y8Fq/image.jpg", content: "端午連假熱烈訂位中，歡迎一同參與火舞秀及美妙的山林時光吧~", images: [], tags: ["#Hank碎碎念", "#端午連假", "#滿帳日常", "#充電莊"], likes: 139, comments: 28 },
         { id: 4, date: "2026-02-23", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/wZH2y8Fq/image.jpg", content: "終於結束了過年的惡魔週，接下來準備迎接連續三週的滿帳周末QAQ！\n\n草皮跟設施都已經重新整理過了，趁著今天有短暫的空檔喝杯茶回個血。期待大家週末來享受好天氣與櫻花季！記得提早預約喔～目前還有兒童跟5/1連假~", images: [], tags: ["#Hank碎碎念", "#過年地獄", "#滿帳日常", "#充電莊"], likes: 128, comments: 15 },
-        { id: 3, date: "2026-02-12", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/6cx1xrVR/image.jpg", content: "營區多了兩位新嬌客！🦆🦆\n\n最近我們迎來了兩隻超級可愛的柯爾鴨，走起路來有夠療癒。這幾天已經變成小露友們的目光焦點了，大家來露營的時候歡迎來找牠們玩，但記得要溫柔對待，不要追著牠們跑喔！", images: ["https://i.ibb.co/8LQbwPjQ/image.jpg"], tags: ["#柯爾鴨", "#營區日常", "#寵物友善", "#親子露營"], likes: 245, comments: 32 },
+        { id: 3, date: "2026-02-12", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/6cx1xrVR/image.jpg", content: "營區多了兩位新嬌客！🦆🦆\n\n最近我們迎來了兩隻超級可愛的柯爾鴨，走起路來有夠療癒。這幾天已經變成小露友們的目光焦點了，大家來露營的時候歡迎來找牠們玩，但記得要溫危對待，不要追著牠們跑喔！", images: ["https://i.ibb.co/8LQbwPjQ/image.jpg"], tags: ["#柯爾鴨", "#營區日常", "#寵物友善", "#親子露營"], likes: 245, comments: 32 },
         { id: 2, date: "2026-01-29", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/6cx1xrVR/image.jpg", content: "狂賀！專屬小露友的快樂基地完工啦！🎉\n\n為了讓爸媽能更安心地在帳篷放空，我們花了好幾天，終於打造出這個 3公尺 x 2公尺 的「室內專屬沙坑」。不受天氣影響，下雨也能玩得超開心！\n\n珵已經幫大家嚴格「實測」過了，玩到根本不想起來😆。下次來充電莊，小孩放電、車子充電、大人身心靈也跟著充電！", images: ["https://i.ibb.co/FfSfyfP/image.jpg"], tags: ["#室內沙坑", "#小孩放電神器", "#雨天備案", "#懶人露營"], likes: 312, comments: 48 },
         { id: 1, date: "2026-01-18", author: "斜槓露人 Hank", avatar: "https://i.ibb.co/HLW7rx8W/image.jpg", content: "夜衝的浪漫，就是一把吉他配上滿滿的電量。🎸⚡\n\n身為 Model Y 車主，真的太懂開電車上山那種「看著電量掉」的焦慮感。這也是為什麼我們營區堅持要拉好充沛的充電樁 (J1772/TPC/Type2通通有)。\n\n昨晚點起焚火台，拿出陪了我 20 年的手工吉他，接上 Bose S1 Pro 彈唱了幾首。看著愛車在旁邊悠悠地充著電，這種沒有里程焦慮的露營，才是真正的放鬆啊！", images: ["https://i.ibb.co/KjBcKGvt/A-DDcar.jpg"], tags: ["#電車露營", "#TeslaModelY", "#夜衝", "#吉他彈唱"], likes: 456, comments: 55 }
     ];
@@ -928,28 +925,14 @@
             container.innerHTML = html;
         }
 
-        async function init() {
-            buildZones(document.getElementById('checkinDate').value || '');
-            await fetchInventory();
-            renderZones('all');
-            renderGears();
-            renderAddons();
-            renderBlogPosts();
-            renderTentInfo();
-            setupCalculator();
-            renderReviews();
-            renderGalleryFolders();
-            if (myLiffId !== "C268dc45e60850ae22e3e040f0e58a3e5") await initializeLiff();
-        }
-
         function renderAddons() {
             const container = document.getElementById('addons-container');
             if (!container) return;
             container.innerHTML = '';
 
-            container.appendChild(createAddonSection('【裝備租借區】(計次收費)', rentals, 'blue'));
-            container.appendChild(createAddonSection('【帳篷租借區】(計次收費)', tents, 'purple'));
-            container.appendChild(createAddonSection('【烤肉預定區】(計次收費)', bbqs, 'orange'));
+            container.appendChild(createAddonSection('【裝備租借區】(計次收費、不打折)', rentals, 'blue'));
+            container.appendChild(createAddonSection('【帳篷租借區】(計次收費、不打折)', tents, 'purple'));
+            container.appendChild(createAddonSection('【烤肉預定區】(計次收費、不打折)', bbqs, 'orange'));
         }
 
         function createAddonSection(title, items, color) {
@@ -1020,42 +1003,7 @@
             return wrapper;
         }
 
-        window.updateAddonQty = (name, delta, maxStock, price, e) => {
-            if(e) { e.preventDefault(); e.stopPropagation(); }
-            const inDate = document.getElementById('checkinDate').value;
-            const outDate = document.getElementById('checkoutDate').value;
-            if (!inDate || !outDate) { alert('請先選擇入住與退房日期，才能查看剩餘裝備數量。'); return; }
-
-            let current = addonCart[name] || 0;
-            let newQty = current + delta;
-
-            if (newQty < 0) newQty = 0;
-            if (newQty > maxStock) {
-                alert(`庫存不足，該時段剩餘數量: ${maxStock}`);
-                newQty = maxStock;
-            }
-
-            if (newQty === 0) {
-                delete addonCart[name];
-            } else {
-                addonCart[name] = newQty;
-            }
-
-            const span = document.getElementById(`qty-${name}`);
-            if (span) span.innerText = newQty;
-            if (window.reCalculate) window.reCalculate();
-        }
-
-        function getSafeImageUrl(url) {
-            if (!url) return '';
-            const match = url.match(/id=([a-zA-Z0-9_-]+)/);
-            if (match && match[1]) {
-                return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1000`;
-            }
-            return url;
-        }
-
-    let galleryData = {
+   let galleryData = {
           "木屋外觀": [
               { "t": "", "u": "https://drive.google.com/thumbnail?id=1BwC53jb9SYJvlXu9Pnef8Ob4NH8ePKpB&sz=w1000" },
             { "t": "", "u": "https://drive.google.com/thumbnail?id=1N_Towiehb0T6B2qR1jyl7oJhy3CQlmkG&sz=w1000" },
@@ -1299,6 +1247,7 @@
           ]
         };
 
+
         function renderGalleryFolders() {
             const container = document.getElementById('gallery-container');
             let html = '<div class="grid grid-cols-2 md:grid-cols-3 gap-3 p-2">';
@@ -1365,7 +1314,6 @@
                     for (let zoneName in data[date].zones) {
                         let qty = data[date].zones[zoneName];
                         let normalizedName = normalizeZoneName(zoneName);
-                        // ★ 雙重防呆：同時存入「被吃掉空白的名字」與「原始名字」
                         normalizedData[date].zones[normalizedName] = qty;
                         normalizedData[date].zones[zoneName] = qty; 
                     }
@@ -1521,13 +1469,13 @@
                 const addonEntries = Object.entries(addonCart);
                 
                 let days = 0;
-                let totalPrice = 0;
+                let totalPrice = 0; // 僅營位費
                 let blocked = false;
                 let blockMsg = "";
                 
                 const isNightBeforeChecked = document.querySelector('input[name="夜衝選項"]:checked')?.value === '是';
                 let nightBeforeDate = null;
-                let nightBeforePriceTotal = 0;
+                let nightBeforePriceTotal = 0; // 夜衝費
                 let nightBeforeDetails = "";
                 
                 if (inDate.value && outDate.value) {
@@ -1618,7 +1566,8 @@
                     
                     if(nightBeforePriceTotal > 0){
                         let nbDateStr = getLocalISODate(nightBeforeDate);
-                        nightBeforeDetails = `<div class="text-blue-600 mt-1">含夜衝 (${nbDateStr}): +$${nightBeforePriceTotal.toLocaleString()}</div>`;
+                        // 夜衝費直接於明細中以原價累加，不受折扣碼影響
+                        nightBeforeDetails = `<div class="text-blue-600 mt-1">含夜衝 (${nbDateStr})[不打折]：+$${nightBeforePriceTotal.toLocaleString()}</div>`;
                         if (bookedData[nbDateStr] && bookedData[nbDateStr].zones) {
                              cartEntries.forEach(([zoneName, qty]) => {
                                  if(bookedData[nbDateStr].zones[zoneName]) {
@@ -1686,84 +1635,80 @@
                     }
                 }
                 
-                let basePrice = totalPrice + nightBeforePriceTotal;
+                // 計算加購項目費用
                 let addonTotal = 0; 
                 addonEntries.forEach(([name, qty]) => {
                     let item = rentals.find(r => r.name === name) || tents.find(t => t.name === name) || bbqs.find(b => b.name === name);
                     if (item) { addonTotal += item.price * qty; }
                 });
 
-                let overallSubtotal = basePrice + addonTotal;
+                // ★【核心修改點】折扣碼與晚鳥優惠「僅適用於營位費(totalPrice)」，夜衝費與加購費排除在外！
+                const discountVal = getDiscountAmount();
+                const enteredCode = discountInput.value.trim().toUpperCase();
+                let basePriceAfterCode = totalPrice;
+                let displayDiscount = "";
+                let actualDiscountAmt = 0;
 
-                if (overallSubtotal > 0 || cartEntries.length > 0 || addonEntries.length > 0) {
-                    const discountVal = getDiscountAmount();
-                    const enteredCode = discountInput.value.trim().toUpperCase();
-                    let basePriceAfterCode = basePrice;
-                    let displayDiscount = "";
-                    let actualDiscountAmt = 0;
-
-                    if (discountVal > 0 && basePrice > 0) {
-                        if (discountVal < 1) {
-                            const codeDiscount = Math.round(basePrice * (1 - discountVal));
-                            actualDiscountAmt += codeDiscount;
-                            displayDiscount += `<div class="text-green-600">折扣優惠：打 ${discountVal * 10} 折 (-$${codeDiscount})</div>`;
-                        } else {
-                            const codeDiscount = Math.min(basePrice, discountVal);
-                            actualDiscountAmt += codeDiscount;
-                            displayDiscount += `<div class="text-green-600">折扣優惠：-$${codeDiscount}</div>`;
-                        }
-                        basePriceAfterCode = basePrice - actualDiscountAmt;
-                    } else if (discountVal > 0) {
-                        displayDiscount += `<div class="text-xs text-orange-500 mt-1 font-bold">※ 折扣碼僅適用於營位與夜衝費</div>`;
+                if (discountVal > 0 && totalPrice > 0) {
+                    if (discountVal < 1) {
+                        const codeDiscount = Math.round(totalPrice * (1 - discountVal));
+                        actualDiscountAmt += codeDiscount;
+                        displayDiscount += `<div class="text-green-600">折扣優惠(僅限營位)：打 ${discountVal * 10} 折 (-$${codeDiscount})</div>`;
+                    } else {
+                        const codeDiscount = Math.min(totalPrice, discountVal);
+                        actualDiscountAmt += codeDiscount;
+                        displayDiscount += `<div class="text-green-600">折扣優惠(僅限營位)：-$${codeDiscount}</div>`;
                     }
-
-                    if (basePriceAfterCode > 0 && enteredCode !== 'VIP卡' && enteredCode !== '【VIP卡】') {
-                        const today = new Date(); today.setHours(0, 0, 0, 0);
-                        const checkinD = new Date(inDate.value); checkinD.setHours(0, 0, 0, 0);
-                        const diffDays = Math.ceil((checkinD.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
-                        let lateBirdDiscount = 0; let lateBirdName = "";
-
-                        if (diffDays >= 0 && diffDays <= 7) { lateBirdDiscount = 0.9; lateBirdName = "【晚鳥優惠】"; } 
-                        else if (diffDays >= 8 && diffDays <= 14) { lateBirdDiscount = 0.95; lateBirdName = "【小晚鳥優惠】"; }
-
-                        if (lateBirdDiscount > 0) {
-                            let applied = 0;
-                            if (lateBirdDiscount < 1) {
-                                applied = Math.round(basePriceAfterCode * (1 - lateBirdDiscount));
-                                displayDiscount += `<div class="text-green-600 font-bold">${lateBirdName} (打${lateBirdDiscount * 10}折)：-$${applied}</div>`;
-                            } else {
-                                applied = Math.min(basePriceAfterCode, lateBirdDiscount);
-                                displayDiscount += `<div class="text-green-600 font-bold">${lateBirdName}：-$${applied}</div>`;
-                            }
-                            actualDiscountAmt += applied;
-                        }
-                    }
-
-                    const finalTotal = basePrice - actualDiscountAmt + addonTotal;
-
-                    let dInput = document.getElementById('actualDiscountAmount');
-                    if (!dInput) {
-                        dInput = document.createElement('input');
-                        dInput.type = 'hidden'; dInput.id = 'actualDiscountAmount';
-                        document.getElementById('bookingForm').appendChild(dInput);
-                    }
-                    dInput.value = actualDiscountAmt;
-
-                    resultDiv.classList.remove('hidden');
-
-                    let html = '';
-                    if (zoneStr) html += `<div>營位：${zoneStr}</div>`;
-                    if (addonStr) html += `<div>加購：${addonStr}</div>`;
-                    html += `<div>小計：$${overallSubtotal.toLocaleString()}</div>`;
-                    html += nightBeforeDetails;
-                    html += displayDiscount;
-
-                    formulaSpan.innerHTML = html;
-                    totalDisplay.textContent = `$${finalTotal.toLocaleString()}`;
-                    if (zonePriceInput) zonePriceInput.value = finalTotal;
-                } else {
-                    resultDiv.classList.add('hidden');
+                    basePriceAfterCode = totalPrice - actualDiscountAmt;
+                } else if (discountVal > 0) {
+                    displayDiscount += `<div class="text-xs text-orange-500 mt-1 font-bold">※ 折扣碼僅適用於純營位費</div>`;
                 }
+
+                // 晚鳥優惠計算法
+                if (basePriceAfterCode > 0 && enteredCode !== 'VIP卡' && enteredCode !== '【VIP卡】' && inDate.value) {
+                    const today = new Date(); today.setHours(0, 0, 0, 0);
+                    const checkinD = new Date(inDate.value); checkinD.setHours(0, 0, 0, 0);
+                    const diffDays = Math.ceil((checkinD.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+                    let lateBirdDiscount = 0; let lateBirdName = "";
+
+                    if (diffDays >= 0 && diffDays <= 7) { lateBirdDiscount = 0.9; lateBirdName = "【晚鳥優惠】"; } 
+                    else if (diffDays >= 8 && diffDays <= 14) { lateBirdDiscount = 0.95; lateBirdName = "【小晚鳥優惠】"; }
+
+                    if (lateBirdDiscount > 0) {
+                        let applied = 0;
+                        if (lateBirdDiscount < 1) {
+                            applied = Math.round(basePriceAfterCode * (1 - lateBirdDiscount));
+                            displayDiscount += `<div class="text-green-600 font-bold">${lateBirdName} (僅限營位打${lateBirdDiscount * 10}折)：-$${applied}</div>`;
+                        } else {
+                            applied = Math.min(basePriceAfterCode, lateBirdDiscount);
+                            displayDiscount += `<div class="text-green-600 font-bold">${lateBirdName}：-$${applied}</div>`;
+                        }
+                        actualDiscountAmt += applied;
+                    }
+                }
+
+                // 最終結帳總金額 = (營位費 - 營位折扣) + 夜衝原價 + 加購原價
+                const finalTotal = (totalPrice - actualDiscountAmt) + nightBeforePriceTotal + addonTotal;
+
+                let dInput = document.getElementById('actualDiscountAmount');
+                if (!dInput) {
+                    dInput = document.createElement('input');
+                    dInput.type = 'hidden'; dInput.id = 'actualDiscountAmount';
+                    document.getElementById('bookingForm').appendChild(dInput);
+                }
+                dInput.value = actualDiscountAmt;
+
+                resultDiv.classList.remove('hidden');
+
+                let html = '';
+                if (zoneStr) html += `<div>營位基本費：$${totalPrice.toLocaleString()}</div>`;
+                if (addonStr) html += `<div>加購不折價項目：$${addonTotal.toLocaleString()}</div>`;
+                html += nightBeforeDetails;
+                html += displayDiscount;
+
+                formulaSpan.innerHTML = html;
+                totalDisplay.textContent = `$${finalTotal.toLocaleString()}`;
+                if (zonePriceInput) zonePriceInput.value = finalTotal;
             }
 
             inDate.addEventListener('change', () => {
@@ -1999,119 +1944,6 @@
             tbody.innerHTML = html;
         }
 
-        function renderAddons() {
-            const container = document.getElementById('addons-container');
-            if (!container) return;
-
-            container.innerHTML = `
-                <div>
-                    <h4 class="text-lg font-bold text-stone-800 border-l-4 border-green-600 pl-3 mb-4">加購項目（選填）</h4>
-                    <div class="mb-6">
-                        <div class="flex items-center gap-2 mb-3"><i class="fas fa-toolbox text-blue-600"></i><span class="font-bold text-stone-700">裝備租借</span></div>
-                        <div id="rentals-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
-                    </div>
-                    <div class="mb-6">
-                        <div class="flex items-center gap-2 mb-3"><i class="fas fa-campground text-purple-600"></i><span class="font-bold text-stone-700">帳篷租借 / 代搭服務</span></div>
-                        <div id="tents-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
-                    </div>
-                    <div>
-                        <div class="flex items-center gap-2 mb-3"><i class="fas fa-fire text-orange-600"></i><span class="font-bold text-stone-700">烤肉套餐</span></div>
-                        <div id="bbq-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
-                    </div>
-                </div>
-            `;
-            renderAddonCategory('rentals-grid', rentals, 'rental');
-            renderAddonCategory('tents-grid', tents, 'tent');
-            renderAddonCategory('bbq-grid', bbqs, 'bbq');
-        }
-
-       function renderAddonCategory(gridId, items, type) {
-            const grid = document.getElementById(gridId);
-            if (!grid) return;
-            const inDate = document.getElementById('checkinDate').value;
-            const outDate = document.getElementById('checkoutDate').value;
-            const hasDate = inDate && outDate;
-
-            grid.innerHTML = '';
-            
-            // ★ 加回遺失的庫存比對邏輯
-            let bookedMap = {};
-            if (hasDate && bookedData) {
-                const start = new Date(inDate);
-                const end = new Date(outDate);
-                for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
-                    let dateStr = getLocalISODate(d);
-                    if (bookedData[dateStr] && bookedData[dateStr].zones) {
-                        for (let [zName, qty] of Object.entries(bookedData[dateStr].zones)) {
-                            bookedMap[zName] = Math.max(bookedMap[zName] || 0, qty);
-                        }
-                    }
-                }
-            }
-
-            items.forEach(item => {
-                const currentQty = addonCart[item.name] || 0;
-                
-                // 對照原始名稱與去空白名稱，抓出最大的已被預訂數量
-                const strippedName = item.name.replace(/\s+/g, '');
-                const bookedCount = Math.max(bookedMap[item.name] || 0, bookedMap[strippedName] || 0);
-                
-                // 算出真實剩餘庫存
-                const remaining = Math.max(0, (item.stock || 99) - bookedCount);
-                const isFull = remaining <= 0;
-
-                const div = document.createElement('div');
-                div.className = `flex items-center justify-between bg-white border border-gray-200 rounded-2xl p-3 hover:border-green-300 transition ${currentQty > 0 ? 'ring-2 ring-green-500' : ''}`;
-                
-                let stockText = hasDate 
-                    ? (isFull ? `<div class="text-xs text-red-600 font-bold">已租完</div>` : `<div class="text-xs text-green-600">剩餘: ${remaining}</div>`)
-                    : `<div class="text-xs text-gray-500">點選日期顯示庫存</div>`;
-
-                if (isFull) {
-                    div.classList.add('opacity-50', 'pointer-events-none', 'grayscale');
-                }
-
-                const imgHtml = item.image ? `<div class="w-12 h-12 mr-2 flex-shrink-0 cursor-pointer" onclick="showImage('${item.image}')"><img src="${item.image}" class="w-full h-full object-cover rounded-md"></div>` : '';
-
-                div.innerHTML = `
-                    <div class="flex items-center flex-1 min-w-0 pr-2">
-                        ${imgHtml}
-                        <div class="min-w-0 flex-1">
-                            <div class="font-bold text-sm text-stone-800 truncate">${item.name}</div>
-                            ${stockText}
-                            <div class="text-orange-600 font-bold text-sm mt-0.5">$${item.price}</div>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-2 flex-shrink-0">
-                        <button type="button" class="w-8 h-8 flex items-center justify-center bg-stone-100 hover:bg-stone-200 active:bg-stone-300 rounded-full text-lg font-bold text-stone-600 border border-stone-200" onclick="updateAddonQty('${item.name}', -1, ${remaining}, ${item.price}, event)">−</button>
-                        <span class="w-6 text-center font-bold text-base" id="qty-${item.name}">${currentQty}</span>
-                        <button type="button" class="w-8 h-8 flex items-center justify-center bg-stone-800 hover:bg-stone-700 active:bg-stone-900 text-white rounded-full text-lg font-bold" onclick="updateAddonQty('${item.name}', 1, ${remaining}, ${item.price}, event)">+</button>
-                    </div>
-                `;
-                grid.appendChild(div);
-            });
-        }
-
-        window.updateAddonQty = (name, delta, maxStock, price, e) => {
-            if (e) { e.preventDefault(); e.stopPropagation(); }
-            const inDate = document.getElementById('checkinDate').value;
-            const outDate = document.getElementById('checkoutDate').value;
-            if (!inDate || !outDate) { alert('請先選擇入住與退房日期，才能加購項目'); return; }
-
-            let current = addonCart[name] || 0;
-            let newQty = current + delta;
-            
-            if (newQty < 0) newQty = 0;
-            if (newQty > maxStock) { alert(`庫存不足，剩餘數量：${maxStock}`); newQty = maxStock; }
-
-            if (newQty === 0) delete addonCart[name];
-            else addonCart[name] = newQty;
-
-            const span = document.getElementById(`qty-${name}`);
-            if (span) span.innerText = newQty;
-            if (window.reCalculate) window.reCalculate();
-        };
-
         window.toggleSidebar = () => {
             const sb = document.getElementById('sidebar'); const ov = document.getElementById('overlay');
             if(sb.classList.contains('-translate-x-full')) { sb.classList.remove('-translate-x-full'); ov.classList.remove('hidden'); } 
@@ -2123,9 +1955,18 @@
             document.querySelectorAll('[id^="modal-"]').forEach(el => el.classList.add('hidden')); document.getElementById(id).classList.remove('hidden');
         };
         
-        window.showSuccessModal = () => {
+        window.showSuccessModal = (finalTotalValue) => {
             document.getElementById('sidebar').classList.add('-translate-x-full'); document.getElementById('overlay').classList.remove('hidden');
-            document.querySelectorAll('[id^="modal-"]').forEach(el => el.classList.add('hidden')); document.getElementById('modal-success').classList.remove('hidden');
+            document.querySelectorAll('[id^="modal-"]').forEach(el => el.classList.add('hidden'));
+            
+            // ★【核心修改點】動態計算 30% 訂金並改寫顯示文字
+            const depositCalculated = Math.round(finalTotalValue * 0.3);
+            const depositMsgElement = document.getElementById('dynamicDepositText');
+            if (depositMsgElement) {
+                depositMsgElement.innerHTML = `本露營區不歡迎奧客及不守營區規則的貴客請三思，請於下訂後1日內匯款訂金共 <span class="text-yellow-300 font-extrabold text-2xl bg-black/40 px-2 rounded">$${depositCalculated}</span> 元，並於7 日內匯款完成<br>並完成匯款回報!如果沒回報會被系統取消唷!`;
+            }
+
+            document.getElementById('modal-success').classList.remove('hidden');
         };
 
         window.closeAll = () => {
@@ -2194,7 +2035,9 @@
 
                 fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
                     .then(() => {
-                        showSuccessModal(); e.target.reset(); cart = {}; addonCart = {};
+                        // 將計算好的總金額傳遞給成功視窗函式
+                        showSuccessModal(finalTotal); 
+                        e.target.reset(); cart = {}; addonCart = {};
                         document.querySelectorAll('.zone-card').forEach(c => c.classList.remove('selected'));
                         input.value = ''; document.getElementById('priceCalcResult').classList.add('hidden');
                         document.getElementById('stayDays').classList.add('hidden'); document.getElementById('discountMessage').classList.add('hidden');
@@ -2204,7 +2047,7 @@
                         if(typeof liff !== 'undefined' && liff.isLoggedIn()) liff.getProfile().then(p => { document.getElementById('inputName').value = p.displayName; });
                         fetchInventory();
                     })
-                    .catch(err => { console.warn('CORS 阻擋，樂觀顯示成功', err); showSuccessModal(); })
+                    .catch(err => { console.warn('CORS 阻擋，樂觀顯示成功', err); showSuccessModal(finalTotal); })
                     .finally(() => { btn.disabled = false; btn.innerText = originalText; });
             });
         }
@@ -2242,7 +2085,7 @@
                 e.preventDefault();
                 const btn = document.getElementById('tentDryingBtn'); const originalText = btn.innerText; btn.disabled = true; btn.innerText = '訂單處理中...';
                 fetch(scriptURL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
-                    .then(() => { showSuccessModal(); e.target.reset(); updateTentDryingQty(0); })
+                    .then(() => { showSuccessModal(0); e.target.reset(); updateTentDryingQty(0); })
                     .catch(() => alert('發生錯誤'))
                     .finally(() => { btn.disabled = false; btn.innerText = originalText; });
             });
